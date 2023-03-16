@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import { fileURLToPath } from "url";
 import path from "path";
 import authRoute from "./Routes/auth.js";
+import cookieParser from "cookie-parser";
 
 const app = express();
 const PORT = 4000;
@@ -13,6 +14,7 @@ const __dirname = path.dirname(__filename);
 dotenv.config();
 mongoose.connect(process.env.MONGOOSE_CONNECT);
 
+app.use(cookieParser());
 app.use(
   cors({
     credentials: true,

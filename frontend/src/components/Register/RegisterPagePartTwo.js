@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { addUser } from "../../app/features/userSlice";
 
 const RegisterPagePartTwo = () => {
   const [email, setEmail] = useState(null);
   const [username, setUsername] = useState(null);
   const [password, setPassword] = useState(null);
   const [storeName, setStoreName] = useState(null);
+  const [error, setError] = useState(null);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [className, setClassName] = useState(
     "mt-4 bg-gray-300 text-white rounded-2xl p-3 hover:scale-110 transition-all"
   );
+  const input = useSelector((state) => state.registrationInput.value);
+  const user = useSelector((state) => state.user.value);
   useEffect(() => {
     if ((email && username && password) || (email && storeName && password)) {
       setClassName((prev) => prev.replace("bg-gray-300", "bg-orange"));
@@ -26,14 +32,29 @@ const RegisterPagePartTwo = () => {
 
   function handleRegister(e) {
     e.preventDefault();
-    axios.post("/api/auth/register-user", {
-      dynamicName: username ? username : storeName,
-      email,
-      password,
-    });
-  }
+    axios
+      .post("/api/auth/register-user", {
+        dynamicName: username ? username : storeName,
+        email,
+        password,
+        input,
+      })
+      .then((response) => {
+        axios.post("/api/auth/login-user", {
+          email,
+          password,
+        });
+        dispatch(addUser(response.data));
+      })
+      .then(() => {
+        navigate("/");
+      })
 
-  const input = useSelector((state) => state.registrationInput.value);
+      .catch((err) => {
+        setError(err.response.data);
+      });
+  }
+  console.log(user);
   return (
     <div className="h-screen flex justify-center items-center">
       <motion.div
@@ -48,6 +69,9 @@ const RegisterPagePartTwo = () => {
             ? "Please fill out this form below"
             : "Please fill out form below in order to start selling"}
         </p>
+        {error && (
+          <h1 className="text-red-500 mt-2 font-bold text-center">{error}</h1>
+        )}
         <form onSubmit={handleRegister} className="fl">
           <input
             type="text"

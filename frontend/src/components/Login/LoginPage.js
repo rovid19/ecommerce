@@ -3,18 +3,38 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser } from "../../app/features/userSlice";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
-  const [username, setUsername] = useState(null);
+  const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
+  const [error, setError] = useState(null);
+  const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function handleLogin(e) {
     e.preventDefault();
-    axios.post("/api/auth/login-user", {
-      name: username,
-      password,
-    });
+
+    axios
+      .post("/api/auth/login-user", {
+        email,
+        password,
+      })
+      .then(({ data }) => {
+        dispatch(addUser(data));
+        navigate("/");
+      })
+      .catch((err) => {
+        if (err.response.status === 400) {
+          setError("Incorrect email or password");
+        }
+      });
   }
+
+  console.log(user);
   return (
     <div className="h-screen flex justify-center items-center">
       <motion.div
@@ -31,15 +51,20 @@ const LoginPage = () => {
           </span>
         </p>
         <form className="fl" onSubmit={handleLogin}>
+          {error && (
+            <h1 className="text-red-500 mt-2 font-bold text-center">{error}</h1>
+          )}
           <input
             type="text"
-            placeholder="Email, Username or Store Name"
+            placeholder="Email"
             className="border-2 border-gray-300 border-opacity-25 rounded-xl mt-4 p-2"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <input
             type="password"
             placeholder="password"
             className="border-2 border-gray-300 border-opacity-25 rounded-xl mt-1 p-2"
+            onChange={(e) => setPassword(e.target.value)}
           />
           <button className="mt-4 bg-gray-300 text-white rounded-2xl p-3">
             continue
