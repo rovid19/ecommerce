@@ -1,14 +1,13 @@
 import jwt from "jsonwebtoken";
 import User from "../Models/user.js";
 import bcrypt from "bcrypt";
-import circularJSON from "circular-json";
+import Store from "../Models/store.js";
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "rockjefakatludirock";
 
 export const registerUser = async (req, res) => {
   const { dynamicName, email, password, input } = req.body;
-  console.log(input);
   const existingUser = await User.findOne({ email });
   const existingUsername = await User.findOne({ username: dynamicName });
   if (input === "Customer") {
@@ -36,15 +35,26 @@ export const registerUser = async (req, res) => {
       if (existingUsername) {
         res.status(400).json("Store name already in use");
       } else {
-        const newUser = await User.create({
-          email,
-          username: dynamicName,
+        const newStore = await Store.create({
           storeName: dynamicName,
-          password: bcrypt.hashSync(password, bcryptSalt),
-          role: input,
+          storeDescription: "",
+          storeProfile: "",
+          storeCover: "",
+          storeAddress: "",
         });
+        if (newStore) {
+          console.log(newStore._id);
+          const newUser = await User.create({
+            email,
+            username: dynamicName,
+            storeName: dynamicName,
+            password: bcrypt.hashSync(password, bcryptSalt),
+            role: input,
+            store: newStore._id,
+          });
 
-        res.json(newUser);
+          res.json(newUser);
+        }
       }
     }
   }
@@ -75,18 +85,6 @@ export const loginUser = async (req, res) => {
     }
   } else {
     res.status(400).json("Email or password is wrong");
-  }
-};
-
-export const getUser = async (req, res) => {
-  const { token } = req.cookies;
-
-  if (token) {
-    jwt.verify(token, jwtSecret, {}, async (err, user) => {
-      if (err) throw err;
-      const userData = await User.findById(user.id);
-      res.json(userData);
-    });
   }
 };
 

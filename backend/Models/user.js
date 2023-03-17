@@ -5,6 +5,7 @@ const userSchema = new mongoose.Schema({
   password: String,
   username: String,
   storeName: String,
+  store: { type: mongoose.Schema.Types.ObjectId, ref: "store" },
   role: String,
 });
 

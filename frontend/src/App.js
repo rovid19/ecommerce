@@ -12,18 +12,23 @@ import Store from "./components/User/Store/Store.js";
 import StoreEdit from "../src/components/User/Dashboard/StoreEdit/StoreEdit.js";
 import StoreAddProducts from "./components/User/Dashboard/StoreAddProducts/StoreAddProducts.js";
 import StoreFinance from "./components/User/Dashboard/StoreFinance/StoreFinance.js";
+import { addStore } from "./app/features/storeSlice.js";
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;
 
 const App = () => {
+  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const user = useSelector((state) => state.user.value);
+  const store = useSelector((state) => state.store.value);
   const dispatch = useDispatch();
   useEffect(() => {
-    axios.get("/api/auth/get-logged-user").then(({ data }) => {
+    console.log("da");
+    axios.get("/api/user/get-logged-user").then(({ data }) => {
       dispatch(addUser(data));
+      console.log("pokrenut");
     });
-  }, []);
+  }, [getUserTrigger]);
   console.log(user);
   return (
     <div>

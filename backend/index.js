@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import { fileURLToPath } from "url";
 import path from "path";
 import authRoute from "./Routes/auth.js";
+import userRoute from "./Routes/user.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -25,3 +26,4 @@ app.use(express.json());
 app.listen(PORT);
 
 app.use("/api/auth", authRoute);
+app.use("/api/user", userRoute);

@@ -6,12 +6,14 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../app/features/userSlice";
 import { useNavigate } from "react-router-dom";
+import { switchValue } from "../../app/features/getUserTrigger";
 
 const LoginPage = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(null);
   const user = useSelector((state) => state.user.value);
+  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -25,6 +27,7 @@ const LoginPage = () => {
       })
       .then(({ data }) => {
         dispatch(addUser(data));
+        dispatch(switchValue(!getUserTrigger));
         navigate("/");
       })
       .catch((err) => {

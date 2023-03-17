@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { addUser } from "../../app/features/userSlice";
+import { switchValue } from "../../app/features/getUserTrigger";
 
 const RegisterPagePartTwo = () => {
   const [email, setEmail] = useState(null);
@@ -16,6 +17,7 @@ const RegisterPagePartTwo = () => {
   const [className, setClassName] = useState(
     "mt-4 bg-gray-300 text-white rounded-2xl p-3 hover:scale-110 transition-all"
   );
+  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const input = useSelector((state) => state.registrationInput.value);
   const user = useSelector((state) => state.user.value);
   useEffect(() => {
@@ -48,6 +50,7 @@ const RegisterPagePartTwo = () => {
       })
       .then(() => {
         navigate("/");
+        dispatch(switchValue(!getUserTrigger));
       })
 
       .catch((err) => {

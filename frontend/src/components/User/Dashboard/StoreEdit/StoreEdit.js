@@ -9,7 +9,7 @@ const StoreEdit = () => {
   };
 
   return (
-    <div className="absolute left-[15%] w-full h-full top-0">
+    <div className="absolute left-[15%] store w-full h-full top-0">
       {" "}
       <div className="h-[35%] relative bg-cover" style={styles}>
         <div className="h-full w-full bg-black bg-opacity-20">
