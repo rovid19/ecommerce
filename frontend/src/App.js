@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar/Navbar.js";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./components/Login/LoginPage";
@@ -21,13 +21,14 @@ const App = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const user = useSelector((state) => state.user.value);
   const store = useSelector((state) => state.store.value);
+
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("da");
-    axios.get("/api/user/get-logged-user").then(({ data }) => {
-      dispatch(addUser(data));
-      console.log("pokrenut");
-    });
+    axios
+      .get("/api/user/get-logged-user", { withCredentials: true })
+      .then(({ data }) => {
+        dispatch(addUser(data));
+      });
   }, [getUserTrigger]);
   console.log(user);
   return (
@@ -39,8 +40,15 @@ const App = () => {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/register/form" element={<RegisterPagePartTwo />} />
-        <Route path="/dashboard/:storename" element={<StoreDashboard />}>
-          <Route path="/dashboard/:storename/edit" element={<StoreEdit />} />
+        <Route
+          path="/dashboard/:storename"
+          element={
+            <>
+              <StoreDashboard />
+              <StoreEdit />
+            </>
+          }
+        >
           <Route
             path="/dashboard/:storename/products"
             element={<StoreAddProducts />}

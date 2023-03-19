@@ -10,7 +10,6 @@ export const getUser = async (req, res) => {
     jwt.verify(token, jwtSecret, {}, async (err, user) => {
       if (err) throw err;
       const userData = await User.findById(user.id);
-      console.log("jedan");
 
       if (userData.role === "Customer") {
       } else {
@@ -18,7 +17,6 @@ export const getUser = async (req, res) => {
           "store",
           "storeName storeDescription storeProfile storeCover storeProducts storeAddress"
         );
-        console.log("dva");
 
         res.json(newStore);
       }

@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+body {
+  font-family: "Oswald", sans-serif;
+}
 .fl {
   display: flex;
   flex-direction: column;

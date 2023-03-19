@@ -13,7 +13,7 @@ const StoreDashboardNav = () => {
         {" "}
         <ul className="p-6">
           <li className="text-gray-300">Store Name</li>{" "}
-          <Link to={`/dashboard/${user.storeName}/edit`}>
+          <Link to={`/dashboard/${user.storeName}`}>
             <li className="text-base flex cursor-pointer mt-6 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

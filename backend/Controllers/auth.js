@@ -43,7 +43,6 @@ export const registerUser = async (req, res) => {
           storeAddress: "",
         });
         if (newStore) {
-          console.log(newStore._id);
           const newUser = await User.create({
             email,
             username: dynamicName,

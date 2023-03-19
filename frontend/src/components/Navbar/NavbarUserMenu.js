@@ -8,7 +8,7 @@ const NavbarUserMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
-  console.log(user.role);
+
   function handleLogout() {
     axios.post("/api/auth/logout-user").then(() => {
       dispatch(addUser(null));

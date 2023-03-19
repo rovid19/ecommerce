@@ -46,13 +46,13 @@ const RegisterPagePartTwo = () => {
           email,
           password,
         });
-        dispatch(addUser(response.data));
-      })
-      .then(() => {
-        navigate("/");
-        dispatch(switchValue(!getUserTrigger));
-      })
 
+        navigate("/");
+        setTimeout(() => {
+          dispatch(addUser(response.data));
+          dispatch(switchValue(!getUserTrigger));
+        }, 1000);
+      })
       .catch((err) => {
         setError(err.response.data);
       });
