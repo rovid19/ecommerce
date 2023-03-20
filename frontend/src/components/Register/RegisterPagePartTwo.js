@@ -57,7 +57,7 @@ const RegisterPagePartTwo = () => {
         setError(err.response.data);
       });
   }
-  console.log(user);
+
   return (
     <div className="h-screen flex justify-center items-center">
       <motion.div
