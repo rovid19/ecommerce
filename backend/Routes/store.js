@@ -1,5 +1,5 @@
 import express from "express";
-import { editStore, uploadStoreImage } from "../Controllers/store";
+import { editStore, uploadStoreImage } from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -16,7 +16,8 @@ router.put("/edit-store", editStore);
 
 router.post(
   "/upload-profileImage-store",
-  photosMiddleware.array("photo", 100, uploadStoreImage)
+  photosMiddleware.array("photo", 100),
+  uploadStoreImage
 );
 
 export default router;

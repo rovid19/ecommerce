@@ -26,8 +26,11 @@ const LoginPage = () => {
         password,
       })
       .then(({ data }) => {
-        dispatch(addUser(data));
-        dispatch(switchValue(!getUserTrigger));
+        setTimeout(() => {
+          dispatch(addUser(data));
+          dispatch(switchValue(!getUserTrigger));
+        }, 1000);
+
         navigate("/");
       })
       .catch((err) => {
@@ -37,7 +40,6 @@ const LoginPage = () => {
       });
   }
 
-  console.log(user);
   return (
     <div className="h-screen flex justify-center items-center">
       <motion.div

@@ -12,7 +12,6 @@ import Store from "./components/User/Store/Store.js";
 import StoreEdit from "../src/components/User/Dashboard/StoreEdit/StoreEdit.js";
 import StoreAddProducts from "./components/User/Dashboard/StoreAddProducts/StoreAddProducts.js";
 import StoreFinance from "./components/User/Dashboard/StoreFinance/StoreFinance.js";
-import { addStore } from "./app/features/storeSlice.js";
 
 axios.defaults.baseURL = "http://localhost:4000";
 axios.defaults.withCredentials = true;

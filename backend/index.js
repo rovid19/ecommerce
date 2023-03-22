@@ -6,6 +6,7 @@ import { fileURLToPath } from "url";
 import path from "path";
 import authRoute from "./Routes/auth.js";
 import userRoute from "./Routes/user.js";
+import storeRoute from "./Routes/store.js";
 import cookieParser from "cookie-parser";
 
 const app = express();
@@ -27,4 +28,5 @@ app.listen(PORT);
 
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
+app.use("/api/store", storeRoute);
 app.use("/uploads", express.static(__dirname + "/uploads"));

@@ -21,7 +21,7 @@ const Store = () => {
                 {user.store && user.store.storeName}
               </h1>
               <h3 className="text-gray-400 text-sm lg:text-base">
-                Lug Zabocki 71f, Zabok
+                {user.store && user.store.storeAddress}
               </h3>
               <p className="text-sm lg:text-base">
                 {user.store && user.store.storeDescription}
@@ -30,7 +30,7 @@ const Store = () => {
           </div>
           <img
             src={user.store && user.store.storeProfile}
-            className="h-28 absolute bottom-4 left-2 lg:h-36 lg:left-4"
+            className="h-28 absolute bottom-4 left-2 lg:h-36 lg:left-4 rounded-full shadow-xl"
           ></img>
         </div>
         <div className="h-[65%] grid grid-cols-3 2xl:grid-cols-6">

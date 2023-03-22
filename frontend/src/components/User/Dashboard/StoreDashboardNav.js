@@ -1,13 +1,16 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const StoreDashboardNav = () => {
   const user = useSelector((state) => state.user.value);
+  const navigate = useNavigate();
   return (
     <div className="w-[15%] h-full shadow-xl">
       <div className="h-[15%]  flex justify-center items-center">
-        <h1 className="font-bold">Rock's market</h1>
+        <h1 className="font-bold cursor-pointer" onClick={() => navigate("/")}>
+          Rock's market
+        </h1>
       </div>
       <nav className="">
         {" "}
