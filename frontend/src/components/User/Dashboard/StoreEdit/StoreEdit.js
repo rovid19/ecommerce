@@ -17,6 +17,7 @@ const StoreEdit = () => {
   const [isVisible, setIsVisible] = useState(false);
   const user = useSelector((state) => state.user.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   const dispatch = useDispatch();
   const styles = {
@@ -47,6 +48,7 @@ const StoreEdit = () => {
   }
 
   function handleSaveStore() {
+    setIsLoading(true);
     axios
       .put("/api/store/edit-store", {
         name: name ? name : user.store.storeName,
@@ -58,20 +60,33 @@ const StoreEdit = () => {
       .then(() => {
         dispatch(switchValue(!getUserTrigger));
         setIsVisible(!isVisible);
+        setIsLoading(false);
       });
   }
 
   return (
-    <div className="absolute left-[15%] store w-full h-full top-0">
+    <div
+      className={
+        storeSubPage === "editStore"
+          ? "absolute left-[15%] store w-full h-full top-0"
+          : "hidden"
+      }
+    >
       {isVisible && <StoreSavedModal setIsVisible={setIsVisible} />}
       {isVisible ? (
         ""
       ) : (
         <button
-          onClick={handleSaveStore}
-          className="absolute z-10 right-4 top-4 w-[100px] h-[50px] bg-orange p-2 text-white rounded-xl  hover:scale-105 shadow-xl transition-all"
+          onClick={() => {
+            setCurrentPhoto("save");
+            handleSaveStore();
+          }}
+          className="absolute z-10 right-4 top-4 w-[100px] h-[50px] bg-orange p-2 text-white rounded-xl  hover:scale-105 shadow-xl transition-all flex items-center justify-center"
         >
-          Save
+          {!isLoading && "Save"}
+          {isLoading && currentPhoto === "save" && (
+            <img src={Loader}></img>
+          )}{" "}
         </button>
       )}
       <div className="h-[35%] relative bg-cover " style={styles}>
@@ -102,7 +117,8 @@ const StoreEdit = () => {
           </svg>
         </label>
         <div className="h-full w-full bg-black bg-opacity-50">
-          <div className="text-white absolute bottom-[20px] left-[130px] lg:left-[180px] lg:bottom-[40px] bg-black p-4 rounded-xl">
+          <div className="text-white absolute bottom-[20px] left-[130px] lg:left-[180px] lg:bottom-[20px] bg-black p-4 rounded-xl">
+            <h1 className="text-gray-300">Enter your store details here:</h1>
             <h1 className="text-xl lg:text-3xl">
               <input
                 placeholder="Store name"

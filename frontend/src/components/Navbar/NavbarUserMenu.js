@@ -3,11 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addUser } from "../../app/features/userSlice";
 import { useNavigate, Link } from "react-router-dom";
+import { getStoreSubPage } from "../../app/features/storeSubPage";
 
 const NavbarUserMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   function handleLogout() {
     axios.post("/api/auth/logout-user").then(() => {
@@ -65,7 +67,10 @@ const NavbarUserMenu = () => {
               />
             </svg>
           </Link>
-          <Link to={`/dashboard/${user.storeName}`}>
+          <Link
+            to={`/dashboard/${user.storeName}`}
+            onClick={() => dispatch(getStoreSubPage("editStore"))}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

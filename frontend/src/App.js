@@ -18,6 +18,7 @@ axios.defaults.withCredentials = true;
 
 const App = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const user = useSelector((state) => state.user.value);
   const store = useSelector((state) => state.store.value);
 
@@ -48,14 +49,18 @@ const App = () => {
             </>
           }
         >
-          <Route
-            path="/dashboard/:storename/products"
-            element={<StoreAddProducts />}
-          />
-          <Route
-            path="/dashboard/:storename/finance"
-            element={<StoreFinance />}
-          />
+          {storeSubPage === "products" && (
+            <Route
+              path="/dashboard/:storename/products"
+              element={<StoreAddProducts />}
+            />
+          )}
+          {storeSubPage === "finance" && (
+            <Route
+              path="/dashboard/:storename/finance"
+              element={<StoreFinance />}
+            />
+          )}
         </Route>
       </Routes>
     </div>

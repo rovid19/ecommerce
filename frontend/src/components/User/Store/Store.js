@@ -15,8 +15,8 @@ const Store = () => {
     <div className="w-[100%] bg-gray-50 skrin flex justify-center">
       <div className=" w-[100%] lg:w-[85%]">
         <div className="h-[35%] relative bg-cover" style={styles}>
-          <div className="h-full w-full bg-black bg-opacity-20">
-            <div className="text-white absolute bottom-[20px] left-[130px] lg:left-[180px] lg:bottom-[40px] bg-black p-4 rounded-xl">
+          <div className="h-full w-full bg-black bg-opacity-40">
+            <div className="text-white absolute bottom-[20px] left-[130px] lg:left-[170px] lg:bottom-[40px] bg-black p-4 rounded-xl">
               <h1 className="text-xl lg:text-3xl">
                 {user.store && user.store.storeName}
               </h1>
@@ -30,7 +30,7 @@ const Store = () => {
           </div>
           <img
             src={user.store && user.store.storeProfile}
-            className="h-28 absolute bottom-4 left-2 lg:h-36 lg:left-4 rounded-full shadow-xl"
+            className="h-28 absolute bottom-4 left-2 lg:h-36 lg:left-4 rounded-xl shadow-xl"
           ></img>
         </div>
         <div className="h-[65%] grid grid-cols-3 2xl:grid-cols-6">

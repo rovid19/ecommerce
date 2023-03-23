@@ -1,9 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
+import { getStoreSubPage } from "../../../app/features/storeSubPage";
 
 const StoreDashboardNav = () => {
   const user = useSelector((state) => state.user.value);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   return (
     <div className="w-[15%] h-full shadow-xl">
@@ -16,7 +18,10 @@ const StoreDashboardNav = () => {
         {" "}
         <ul className="p-6">
           <li className="text-gray-300">Store Name</li>{" "}
-          <Link to={`/dashboard/${user.storeName}`}>
+          <Link
+            to={`/dashboard/${user.storeName}`}
+            onClick={() => dispatch(getStoreSubPage("editStore"))}
+          >
             <li className="text-base flex cursor-pointer mt-6 ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +35,10 @@ const StoreDashboardNav = () => {
               Edit Store
             </li>
           </Link>
-          <Link to={`/dashboard/${user.storeName}/products`}>
+          <Link
+            to={`/dashboard/${user.storeName}/products`}
+            onClick={() => dispatch(getStoreSubPage("products"))}
+          >
             <li className="text-base mt-6 flex cursor-pointer ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -47,7 +55,10 @@ const StoreDashboardNav = () => {
               Add products
             </li>
           </Link>
-          <Link to={`/dashboard/${user.storeName}/finance`}>
+          <Link
+            to={`/dashboard/${user.storeName}/finance`}
+            onClick={() => dispatch(getStoreSubPage("finance"))}
+          >
             <li className="text-base mt-6 flex cursor-pointer ">
               {" "}
               <svg
