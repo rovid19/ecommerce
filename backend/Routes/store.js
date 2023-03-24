@@ -1,5 +1,10 @@
 import express from "express";
-import { editStore, uploadStoreImage } from "../Controllers/store.js";
+import {
+  editStore,
+  uploadImage,
+  addProduct,
+  getStoreProducts,
+} from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -14,10 +19,10 @@ const router = express.Router();
 
 router.put("/edit-store", editStore);
 
-router.post(
-  "/upload-profileImage-store",
-  photosMiddleware.array("photo", 100),
-  uploadStoreImage
-);
+router.post("/upload-image", photosMiddleware.array("photo", 100), uploadImage);
+
+router.post("/add-product", addProduct);
+
+router.get("/get-store-products", getStoreProducts);
 
 export default router;

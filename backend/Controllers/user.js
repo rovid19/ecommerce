@@ -10,7 +10,6 @@ export const getUser = async (req, res) => {
     jwt.verify(token, jwtSecret, {}, async (err, user) => {
       if (err) throw err;
       const userData = await User.findById(user.id);
-      console.log(userData);
 
       if (userData.role === "Customer") {
       } else {

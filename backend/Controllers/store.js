@@ -3,6 +3,7 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import fs from "fs";
 import User from "../Models/user.js";
 import Store from "../Models/store.js";
+import Product from "../Models/product.js";
 
 const bucket = "gymtok-photo-video-upload";
 const jwtSecret = "rockjefakatludirock";
@@ -56,9 +57,51 @@ export const editStore = async (req, res) => {
   });
 };
 
-export const uploadStoreImage = async (req, res) => {
+export const uploadImage = async (req, res) => {
+  console.log("da");
   const { path, originalname, mimetype } = req.files[0];
 
   const url = await uploadToS3(path, originalname, mimetype);
   res.json(url);
+};
+
+export const addProduct = async (req, res) => {
+  const { token } = req.cookies;
+  const { productPrice, productTitle, productPicture, productDescription } =
+    req.body;
+
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const user = await User.findById(userData.id);
+    const { store } = user;
+    const userStore = await Store.findById(store);
+    const newProduct = await Product.create({
+      productName: productTitle,
+      productDescription,
+      productNewPrice: productPrice,
+      productPicture,
+    });
+
+    const { storeProducts } = userStore;
+    storeProducts.push(newProduct._id);
+    await userStore.save();
+    res.json(userStore.storeProducts);
+  });
+};
+
+export const getStoreProducts = async (req, res) => {
+  const { token } = req.cookies;
+
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const user = await User.findById(userData.id);
+    const { store } = user;
+
+    const userStore = await Store.findById(store).populate(
+      "storeProducts",
+      "productName productPicture productDescription productRating productNewPrice productOldPrice"
+    );
+
+    res.json(userStore);
+  });
 };

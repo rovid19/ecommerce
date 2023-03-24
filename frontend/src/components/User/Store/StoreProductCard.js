@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Img from "../../../assets/testslika.png";
+import axios from "axios";
 
 const StoreProductCard = () => {
+  const [storeProducts, setStoreProducts] = useState(null);
   const styles = {
     backgroundImage: `url(${Img})`,
   };
+  useEffect(() => {
+    axios.get("/api/store/get-store-products").then(({ data }) => {
+      setStoreProducts(data);
+    });
+  }, []);
+
+  console.log(storeProducts);
   return (
     <div className="h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative">
       <div className="h-[60%] rounded-t-xl w-full bg-black overflow-hidden">

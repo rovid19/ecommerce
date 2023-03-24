@@ -5,7 +5,7 @@ const initialState = {
 };
 
 const storeSubPageSlice = createSlice({
-  title: "storeSubPage",
+  name: "storeSubPage",
   initialState,
   reducers: {
     getStoreSubPage: (state, action) => {

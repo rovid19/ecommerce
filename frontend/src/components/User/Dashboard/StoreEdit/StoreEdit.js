@@ -34,7 +34,7 @@ const StoreEdit = () => {
     console.log(file[0]);
 
     axios
-      .post("/api/store/upload-profileImage-store", formData, {
+      .post("/api/store/upload-image", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(({ data }) => {
@@ -182,7 +182,7 @@ const StoreEdit = () => {
           </label>
         </div>
       </div>
-      <div className="h-[65%] grid grid-cols-3 2xl:grid-cols-6">
+      <div className="h-[65%] grid grid-cols-3 2xl:grid-cols-6 p-2">
         <StoreProductCard />
       </div>
     </div>

@@ -29,4 +29,5 @@ app.listen(PORT);
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/store", storeRoute);
+
 app.use("/uploads", express.static(__dirname + "/uploads"));

@@ -6,7 +6,7 @@ const storeSchema = new mongoose.Schema({
   storeProfile: String,
   storeCover: String,
   storeAddress: String,
-  storeProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+  storeProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
 });
 
 const storeModel = mongoose.model("store", storeSchema);

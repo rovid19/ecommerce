@@ -25,7 +25,7 @@ const App = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     axios
-      .get("/api/user/get-logged-user", { withCredentials: true })
+      .get("/api/user/get-logged-user?timestamp=" + new Date().getTime(), {})
       .then(({ data }) => {
         dispatch(addUser(data));
       });
@@ -49,18 +49,15 @@ const App = () => {
             </>
           }
         >
-          {storeSubPage === "products" && (
-            <Route
-              path="/dashboard/:storename/products"
-              element={<StoreAddProducts />}
-            />
-          )}
-          {storeSubPage === "finance" && (
-            <Route
-              path="/dashboard/:storename/finance"
-              element={<StoreFinance />}
-            />
-          )}
+          <Route
+            path="/dashboard/:storename/products"
+            element={<StoreAddProducts />}
+          />
+
+          <Route
+            path="/dashboard/:storename/finance"
+            element={<StoreFinance />}
+          />
         </Route>
       </Routes>
     </div>

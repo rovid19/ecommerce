@@ -3,10 +3,10 @@ import React from "react";
 const StoreSavedModal = ({ setIsVisible }) => {
   return (
     <div
-      className="w-full h-full bg-transparent flex items-center justify-center z-20"
+      className="w-full h-full  flex items-center justify-center bg-black bg-opacity-40 z-20 absolute top-0 left-0"
       onClick={() => setIsVisible(false)}
     >
-      <div className="w-[30%] h-[30%] fl2 bg-white rounded-xl ">
+      <div className="w-[30%] h-[20%] fl2 bg-orange rounded-xl text-white">
         <h1 className="text-2xl">Changes saved succesfully!</h1>{" "}
         <p className="text-gray-300">press anywhere to continue</p>
       </div>
