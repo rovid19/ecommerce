@@ -3,8 +3,9 @@ import axios from "axios";
 import StoreProductCard from "../../Store/StoreProductCard";
 import { useDispatch, useSelector } from "react-redux";
 import { switchValue } from "../../../../app/features/getUserTrigger";
-import Loader from "../../../../assets/svg-loaders/tail-spin.svg";
+import Loader from "../../../../assets/svg-loaders/three-dots.svg";
 import StoreSavedModal from "./StoreSavedModal";
+import StoreDeleteProductModal from "./StoreDeleteProductModal.js";
 
 const StoreEdit = () => {
   const [name, setName] = useState(null);
@@ -15,9 +16,15 @@ const StoreEdit = () => {
   const [currentPhoto, setCurrentPhoto] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+
   const user = useSelector((state) => state.user.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
+  const storeProducts = useSelector((state) => state.storeProducts.value);
+  const isStoreDeleteVisible = useSelector(
+    (state) => state.isStoreDeleteVisible.value
+  );
+  const isUserFetching = useSelector((state) => state.isUserFetching.value);
 
   const dispatch = useDispatch();
   const styles = {
@@ -63,7 +70,7 @@ const StoreEdit = () => {
         setIsLoading(false);
       });
   }
-
+  console.log(isUserFetching);
   return (
     <div
       className={
@@ -72,6 +79,7 @@ const StoreEdit = () => {
           : "hidden"
       }
     >
+      {isStoreDeleteVisible && <StoreDeleteProductModal />}
       {isVisible && <StoreSavedModal setIsVisible={setIsVisible} />}
       {isVisible ? (
         ""
@@ -81,7 +89,7 @@ const StoreEdit = () => {
             setCurrentPhoto("save");
             handleSaveStore();
           }}
-          className="absolute z-10 right-4 top-4 w-[100px] h-[50px] bg-orange p-2 text-white rounded-xl  hover:scale-105 shadow-xl transition-all flex items-center justify-center"
+          className="absolute z-10 right-4 top-4 w-[100px] h-[50px] bg-orange  text-white rounded-xl hover:scale-95 shadow-xl transition-all flex items-center justify-center"
         >
           {!isLoading && "Save"}
           {isLoading && currentPhoto === "save" && (
@@ -182,8 +190,11 @@ const StoreEdit = () => {
           </label>
         </div>
       </div>
-      <div className="h-[65%] grid grid-cols-3 2xl:grid-cols-6 p-2">
-        <StoreProductCard />
+      <div className="h-[65%] w-full grid grid-cols-3 2xl:grid-cols-6 p-2 overflow-scroll ">
+        {storeProducts &&
+          storeProducts.map((item) => {
+            return <StoreProductCard storeProducts={item} />;
+          })}
       </div>
     </div>
   );

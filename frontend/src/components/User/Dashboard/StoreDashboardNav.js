@@ -10,7 +10,13 @@ const StoreDashboardNav = () => {
   return (
     <div className="w-[15%] h-full shadow-xl">
       <div className="h-[15%]  flex justify-center items-center">
-        <h1 className="font-bold cursor-pointer" onClick={() => navigate("/")}>
+        <h1
+          className="font-bold cursor-pointer"
+          onClick={() => {
+            dispatch(getStoreSubPage("home"));
+            navigate("/");
+          }}
+        >
           Rock's market
         </h1>
       </div>

@@ -1,28 +1,87 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Img from "../../../assets/testslika.png";
+import { useState } from "react";
 import axios from "axios";
+import { switchValue } from "../../../app/features/getUserTrigger";
+import { setStoreDeleteVisible } from "../../../app/features/Store/isStoreDeleteVisible";
+import selectedProduct, {
+  addSelectedProduct,
+} from "../../../app/features/Store/selectedProduct";
 
-const StoreProductCard = () => {
-  const [storeProducts, setStoreProducts] = useState(null);
+const StoreProductCard = ({ storeProducts }) => {
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
+  const isStoreDeleteVisible = useSelector(
+    (state) => state.isStoreDeleteVisible.value
+  );
+  const selectedProduct = useSelector((state) => state.selectedProduct.value);
+  const dispatch = useDispatch();
   const styles = {
     backgroundImage: `url(${Img})`,
   };
-  useEffect(() => {
-    axios.get("/api/store/get-store-products").then(({ data }) => {
-      setStoreProducts(data);
-    });
-  }, []);
+  /* useEffect(() => {
+    if (deleteItem) {
+      axios.post("/api/store/delete-store-product", { deleteItem }).then(() => {
+        dispatch(switchValue(!getUserTrigger));
+      });
+      dispatch(setStoreDeleteVisible(!isStoreDeleteVisible));
+    }
+  }, [deleteItem]);*/
 
-  console.log(storeProducts);
+  console.log(selectedProduct, isStoreDeleteVisible);
   return (
-    <div className="h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative">
-      <div className="h-[60%] rounded-t-xl w-full bg-black overflow-hidden">
-        <img src={Img} className="h-[100%] w-[100%] object-cover"></img>
+    <div
+      className={
+        storeSubPage === "editStore" || storeSubPage === "products"
+          ? "h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer relative"
+          : "h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative"
+      }
+    >
+      <div className="h-[60%] rounded-t-xl w-full  overflow-hidden">
+        {storeSubPage === "editStore" || storeSubPage === "products" ? (
+          <div
+            className="absolute top-0 left-0 bg-orange p-2 group rounded-md"
+            onClick={() => {
+              dispatch(addSelectedProduct(storeProducts._id));
+              dispatch(setStoreDeleteVisible(!isStoreDeleteVisible));
+            }}
+          >
+            {" "}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6 text-white group-hover:scale-90 "
+            >
+              <path
+                fill-rule="evenodd"
+                d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                clip-rule="evenodd"
+              />
+            </svg>
+          </div>
+        ) : (
+          ""
+        )}
+        <img
+          src={storeProducts && storeProducts.productPicture}
+          className="h-[100%] w-[100%] object-cover"
+        ></img>
       </div>
       <div className="h-[40%] w-full pt-2 pl-2 ">
-        <h1 className="font-bold text-xl">1950$</h1>
-        <p className="text-sm">Jordan 4 retro color</p>
-        <div className=" w-full h-[45px] absolute bottom-0 left-0 rounded-b-xl flex items-center pt-2 lg:pt-0 md:bottom-1 lg:bottom-0 ">
+        <h1 className="font-bold text-xl">
+          {storeProducts && storeProducts.productNewPrice}$
+        </h1>
+        <p className="text-sm">
+          {storeProducts && storeProducts.productDescription}
+        </p>
+        <div
+          className={
+            storeSubPage === "editStore" || storeSubPage === "products"
+              ? "hidden"
+              : " w-full h-[45px] absolute bottom-0 left-0 rounded-b-xl flex items-center pt-2 lg:pt-0 md:bottom-1 lg:bottom-0 "
+          }
+        >
           <div className="h-[60%] w-[40%] md:w-[30%] lg:w-[25%] bg-yellow-300 rounded-2xl ml-2 flex items-center p-2 md:p-4  lg:p-2 text-sm text-white">
             <svg
               xmlns="http://www.w3.org/2000/svg"

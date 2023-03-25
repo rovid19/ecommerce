@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Img from "../../../assets/user.png";
 import Img1 from "../../../assets/test.jpg";
 import StoreProductCard from "../Store/StoreProductCard.js";
@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 
 const Store = () => {
   const user = useSelector((state) => state.user.value);
+  const storeProducts = useSelector((state) => state.storeProducts.value);
   const styles = {
     backgroundImage: user.store && `url(${user.store.storeCover})`,
   };
@@ -34,10 +35,10 @@ const Store = () => {
           ></img>
         </div>
         <div className="h-[65%] grid grid-cols-3 2xl:grid-cols-6">
-          {/*user.store.length > 1 &&
-            Object.keys(user.store.storeProducts).map((item) => {
-              return <StoreProductCard />;
-            })*/}
+          {storeProducts &&
+            storeProducts.map((item) => {
+              return <StoreProductCard storeProducts={item} />;
+            })}
         </div>
       </div>
     </div>

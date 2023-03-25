@@ -7,6 +7,7 @@ const productSchema = new mongoose.Schema({
   productRating: Number,
   productNewPrice: Number,
   productOldPrice: Number,
+  productSold: Number,
   productReview: [{ type: mongoose.Schema.Types.ObjectId, ref: "review" }],
 });
 

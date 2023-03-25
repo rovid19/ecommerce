@@ -4,6 +4,7 @@ import {
   uploadImage,
   addProduct,
   getStoreProducts,
+  deleteProduct,
 } from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
@@ -24,5 +25,7 @@ router.post("/upload-image", photosMiddleware.array("photo", 100), uploadImage);
 router.post("/add-product", addProduct);
 
 router.get("/get-store-products", getStoreProducts);
+
+router.post("/delete-store-product", deleteProduct);
 
 export default router;

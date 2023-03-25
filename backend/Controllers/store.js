@@ -105,3 +105,11 @@ export const getStoreProducts = async (req, res) => {
     res.json(userStore);
   });
 };
+
+export const deleteProduct = async (req, res) => {
+  const { selectedProduct } = req.body;
+
+  const deleteProduct = await Product.deleteOne({ _id: selectedProduct });
+
+  res.json(deleteProduct);
+};

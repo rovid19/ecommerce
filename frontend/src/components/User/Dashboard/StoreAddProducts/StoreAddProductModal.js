@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { switchValue } from "../../../../app/features/getUserTrigger";
+import Loader from "../../../../assets/svg-loaders/three-dots.svg";
+import { setUserFetching } from "../../../../app/features/User/isUserFetching";
 
 const StoreAddProductModal = ({ setIsVisible }) => {
   const [productPicture, setProductPicture] = useState(undefined);
   const [productTitle, setProductTitle] = useState(null);
   const [productDescription, setProductDescription] = useState(null);
   const [productPrice, setProductPrice] = useState(null);
-  const [storeProducts, setStoreProducts] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const isUserFetching = useSelector((state) => state.isUserFetching.value);
+  const dispatch = useDispatch();
+
   function handleAddProduct(e) {
+    setIsFetching(true);
     e.preventDefault();
     axios
       .post("/api/store/add-product", {
@@ -16,12 +26,17 @@ const StoreAddProductModal = ({ setIsVisible }) => {
         productDescription,
         productPrice,
       })
-      .then(({ data }) => {
-        setStoreProducts(data);
+      .then(() => {
+        dispatch(switchValue(!getUserTrigger));
+      })
+      .then(() => {
+        setIsFetching(false);
+        setIsVisible(false);
       });
   }
 
   function handleUploadProductPicture(e) {
+    dispatch(setUserFetching(true));
     const file = e.target.files;
     const formData = new FormData();
     formData.append("photo", file[0]);
@@ -32,11 +47,17 @@ const StoreAddProductModal = ({ setIsVisible }) => {
       })
       .then(({ data }) => {
         setProductPicture(data);
+        dispatch(setUserFetching(false));
       });
   }
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-20 absolute top-0 left-0">
+      {isFetching && (
+        <div className="w-full h-full absolute top-0 bg-black bg-opacity-50 left-0 flex items-center justify-center z-40">
+          <img src={Loader}></img>
+        </div>
+      )}
       <div className="w-[35%] h-[70%] bg-white p-2 rounded-lg relative ">
         <button onClick={() => setIsVisible(false)}>
           <svg
@@ -57,24 +78,32 @@ const StoreAddProductModal = ({ setIsVisible }) => {
             <label
               className={
                 productPicture
-                  ? "h-full  flex items-center justify-center  bg-opacity-30 z-20 cursor-pointer group overflow-hidden"
-                  : "h-full flex items-center justify-center border-2 border-gray-300 border-opacity-20 cursor-pointer group "
+                  ? "h-full  flex items-center justify-center  bg-opacity-30 z-20 cursor-pointer group overflow-hidden relative"
+                  : "h-full flex items-center justify-center border-2 border-gray-300 border-opacity-20 cursor-pointer group  relative"
               }
             >
-              <input
-                onChange={handleUploadProductPicture}
-                type="file"
-                className="hidden"
-              />
-              {productPicture ? (
-                <img
-                  src={productPicture}
-                  className="w-full h-full object-cover"
-                ></img>
+              {isUserFetching ? (
+                <div className="h-full w-full absolute top-0 left-0 bg-black bg-opacity-0 flex items-center justify-center">
+                  <img src={Loader} />
+                </div>
               ) : (
-                <h1 className="text-3xl text-gray-300 group-hover:text-gray-500">
-                  Insert Product Picture Here
-                </h1>
+                <>
+                  <input
+                    onChange={handleUploadProductPicture}
+                    type="file"
+                    className="hidden"
+                  />
+                  {productPicture ? (
+                    <img
+                      src={productPicture}
+                      className="w-full h-full object-cover"
+                    ></img>
+                  ) : (
+                    <h1 className="text-3xl text-gray-300 group-hover:text-gray-500">
+                      Insert Product Picture Here
+                    </h1>
+                  )}
+                </>
               )}
             </label>
           </div>

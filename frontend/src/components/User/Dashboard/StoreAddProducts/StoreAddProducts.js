@@ -5,9 +5,11 @@ import StoreProductCard from "../../Store/StoreProductCard.js";
 
 const StoreAddProducts = () => {
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
+  const storeProducts = useSelector((state) => state.storeProducts.value);
+
   const [isVisible, setIsVisible] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
-  console.log(storeSubPage);
+
   return (
     <div
       className={
@@ -33,8 +35,11 @@ const StoreAddProducts = () => {
           Add Products{" "}
         </button>
       </div>
-      <div className="h-[65%] w-full grid grid-cols-6 p-2">
-        <StoreProductCard />
+      <div className="h-[65%] w-full grid grid-cols-6 p-2 overflow-scroll">
+        {storeProducts &&
+          storeProducts.map((item) => {
+            return <StoreProductCard storeProducts={item} />;
+          })}
       </div>
     </div>
   );
