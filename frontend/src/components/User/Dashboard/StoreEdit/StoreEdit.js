@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import axios from "axios";
 import StoreProductCard from "../../Store/StoreProductCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,6 +6,10 @@ import { switchValue } from "../../../../app/features/getUserTrigger";
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
 import StoreSavedModal from "./StoreSavedModal";
 import StoreDeleteProductModal from "./StoreDeleteProductModal.js";
+import { addStoreProducts } from "../../../../app/features/Store/storeProducts";
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { useNavigate } from "react-router-dom";
+import { getStoreSubPage } from "../../../../app/features/storeSubPage";
 
 const StoreEdit = () => {
   const [name, setName] = useState(null);
@@ -17,6 +21,7 @@ const StoreEdit = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
+  const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
@@ -70,7 +75,19 @@ const StoreEdit = () => {
         setIsLoading(false);
       });
   }
-  console.log(isUserFetching);
+
+  const dragItem = useRef(null);
+  const dragOverItem = useRef(null);
+
+  function handleProductSort() {
+    let _storeProducts = [...storeProducts];
+    const draggedItemContent = _storeProducts.splice(dragItem.current, 1)[0];
+    _storeProducts.splice(dragOverItem.current, 0, draggedItemContent);
+
+    dragItem.current = null;
+    dragOverItem.current = null;
+    dispatch(addStoreProducts(_storeProducts));
+  }
   return (
     <div
       className={
@@ -190,10 +207,22 @@ const StoreEdit = () => {
           </label>
         </div>
       </div>
-      <div className="h-[65%] w-full grid grid-cols-3 2xl:grid-cols-6 p-2 overflow-scroll ">
+
+      <div className="h-[65%] w-full grid grid-cols-3 2xl:grid-cols-6 p-2 overflow-scroll relative scrollbar-hide ">
+        <div className="h-full w-full bg-black bg-opacity-50 absolute top-0 left-0 z-20 cursor-pointer group flex items-center justify-center">
+          <button
+            onClick={() => {
+              navigate(`/dashboard/${user.storeName}/products`);
+              dispatch(getStoreSubPage("products"));
+            }}
+            className="text-white hidden group-hover:block transition-all text-4xl bg-orange p-10 rounded-xl hover:scale-95"
+          >
+            Click here to add or edit products
+          </button>
+        </div>
         {storeProducts &&
-          storeProducts.map((item) => {
-            return <StoreProductCard storeProducts={item} />;
+          storeProducts.map((item, index) => {
+            return <StoreProductCard storeProducts={item} key={index} />;
           })}
       </div>
     </div>

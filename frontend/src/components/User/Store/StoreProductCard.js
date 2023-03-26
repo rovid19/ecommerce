@@ -14,21 +14,13 @@ const StoreProductCard = ({ storeProducts }) => {
   const isStoreDeleteVisible = useSelector(
     (state) => state.isStoreDeleteVisible.value
   );
+  const editMode = useSelector((state) => state.editMode.value);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const dispatch = useDispatch();
   const styles = {
     backgroundImage: `url(${Img})`,
   };
-  /* useEffect(() => {
-    if (deleteItem) {
-      axios.post("/api/store/delete-store-product", { deleteItem }).then(() => {
-        dispatch(switchValue(!getUserTrigger));
-      });
-      dispatch(setStoreDeleteVisible(!isStoreDeleteVisible));
-    }
-  }, [deleteItem]);*/
 
-  console.log(selectedProduct, isStoreDeleteVisible);
   return (
     <div
       className={
@@ -38,7 +30,7 @@ const StoreProductCard = ({ storeProducts }) => {
       }
     >
       <div className="h-[60%] rounded-t-xl w-full  overflow-hidden">
-        {storeSubPage === "editStore" || storeSubPage === "products" ? (
+        {editMode ? (
           <div
             className="absolute top-0 left-0 bg-orange p-2 group rounded-md"
             onClick={() => {

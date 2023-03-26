@@ -25,3 +25,30 @@ body {
   justify-content: center;
   align-items: center;
 }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: gray;
+  display: flex;
+  align-items: center;
+  border-radius: 10%;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 25px;
+  width: 15px;
+  background-color: white;
+  margin-left: 4px;
+  border-radius: 10%;
+}
+
+.switch input[type="checkbox"]:checked + .slider:before {
+  transform: translateX(15px);
+}
