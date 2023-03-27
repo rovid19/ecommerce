@@ -54,6 +54,7 @@ const App = () => {
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/register/form" element={<RegisterPagePartTwo />} />
         <Route
+          exact
           path="/dashboard/:storename"
           element={
             <>

@@ -5,30 +5,9 @@ import axios from "axios";
 import { switchValue } from "../../../../app/features/getUserTrigger";
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
 
-const StoreDeleteProductModal = () => {
-  const [isFetching, setIsFetching] = useState(false);
-  const isStoreDeleteVisible = useSelector(
-    (state) => state.isStoreDeleteVisible.value
-  );
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
-  const selectedProduct = useSelector((state) => state.selectedProduct.value);
-  const dispatch = useDispatch();
-
-  function deleteItem() {
-    setIsFetching(true);
-    axios
-      .post("/api/store/delete-store-product", { selectedProduct })
-      .then(() => {
-        dispatch(switchValue(!getUserTrigger));
-      })
-      .then(() => {
-        dispatch(setStoreDeleteVisible(!isStoreDeleteVisible));
-        setIsFetching(false);
-      });
-  }
-
+const StoreUnsavedChanges = () => {
   return (
-    <div className="w-full h-full  flex items-center justify-center bg-black bg-opacity-40 z-50 absolute top-0 left-0">
+    <div className="w-full h-full  flex items-center justify-center bg-black bg-opacity-40 z-20 absolute top-0 left-0">
       {isFetching && (
         <div className="absolute top-0 left-0 h-full w-full flex items-center justify-center bg-black bg-opacity-50 z-50">
           <img src={Loader}></img>
@@ -40,13 +19,13 @@ const StoreDeleteProductModal = () => {
         </h1>{" "}
         <div className="flex gap-8 w-full  justify-center mt-8">
           <button
-            className="w-[20%] bg-white border-2 border-orange-500 border-opacity-20 text-black rounded-lg p-2 hover:scale-95 transition-all hover:bg-orange-500 hover:text-white"
+            className="w-[20%] bg-white border-2 border-orange border-opacity-20 text-black rounded-lg p-2 hover:scale-95 transition-all hover:bg-orange hover:text-white"
             onClick={deleteItem}
           >
             Yes{" "}
           </button>
           <button
-            className="w-[20%] bg-orange-400 text-white rounded-lg p-2  hover:scale-95 transition-all"
+            className="w-[20%] bg-orange text-white rounded-lg p-2  hover:scale-95 transition-all"
             onClick={() =>
               dispatch(setStoreDeleteVisible(!isStoreDeleteVisible))
             }
@@ -59,4 +38,4 @@ const StoreDeleteProductModal = () => {
   );
 };
 
-export default StoreDeleteProductModal;
+export default StoreUnsavedChanges;

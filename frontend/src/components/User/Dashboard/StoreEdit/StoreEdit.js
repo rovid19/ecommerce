@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import StoreProductCard from "../../Store/StoreProductCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,6 +10,7 @@ import { addStoreProducts } from "../../../../app/features/Store/storeProducts";
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 import { useNavigate } from "react-router-dom";
 import { getStoreSubPage } from "../../../../app/features/storeSubPage";
+import { setEditMode } from "../../../../app/features/Store/storeEditMode";
 
 const StoreEdit = () => {
   const [name, setName] = useState(null);
@@ -23,6 +24,7 @@ const StoreEdit = () => {
 
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
+  const editMode = useSelector((state) => state.editMode.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const storeProducts = useSelector((state) => state.storeProducts.value);
@@ -106,7 +108,11 @@ const StoreEdit = () => {
             setCurrentPhoto("save");
             handleSaveStore();
           }}
-          className="absolute z-10 right-4 top-4 w-[100px] h-[50px] bg-orange  text-white rounded-xl hover:scale-95 shadow-xl transition-all flex items-center justify-center"
+          className={
+            editMode
+              ? "absolute z-10 right-5 top-5 w-[100px] h-[50px] bg-orange-600 opacity-100  text-white rounded-xl hover:scale-95 shadow-xl transition-all flex items-center justify-center"
+              : "hidden opacity-0"
+          }
         >
           {!isLoading && "Save"}
           {isLoading && currentPhoto === "save" && (
@@ -114,7 +120,29 @@ const StoreEdit = () => {
           )}{" "}
         </button>
       )}
-      <div className="h-[35%] relative bg-cover " style={styles}>
+      <div
+        className={
+          editMode
+            ? "h-[35%] relative bg-cover border-8 border-orange-500 transition-all"
+            : "h-[35%] relative bg-cover transition-all"
+        }
+        style={styles}
+      >
+        <div className=" h-[50px] w-[250px]  flex items-center justify-center absolute top-0 left-2 z-40 text-white">
+          <label className="switch transition-all  ">
+            <input
+              type="checkbox"
+              className="hidden"
+              onChange={() => {
+                dispatch(setEditMode(!editMode));
+              }}
+            />
+            <span className={editMode ? "sliderOrange" : "slider"}></span>
+          </label>
+          <h1 className={editMode ? "mr-2 text-white " : "mr-2 "}>
+            {editMode ? "Disable" : "Enable "} Edit Mode
+          </h1>
+        </div>
         {isLoading && currentPhoto === "cover" && (
           <div className="h-full w-full flex justify-center items-center absolute top-0 left-0">
             {" "}
@@ -132,7 +160,11 @@ const StoreEdit = () => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="w-8 h-8 absolute top-4 left-4 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-10 border-2 border-gray-300 transition-all"
+            class={
+              editMode
+                ? "w-8 h-8 absolute bottom-4 right-4 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-10 border-2 border-gray-300 transition-all"
+                : "hidden"
+            }
           >
             <path
               fill-rule="evenodd"
@@ -143,13 +175,18 @@ const StoreEdit = () => {
         </label>
         <div className="h-full w-full bg-black bg-opacity-50">
           <div className="text-white absolute bottom-[20px] left-[130px] lg:left-[180px] lg:bottom-[20px] bg-black p-4 rounded-xl">
-            <h1 className="text-gray-300">Enter your store details here:</h1>
+            <h1 className="text-gray-300">
+              {editMode
+                ? "Enter your store details here:"
+                : "Enable Edit Mode to edit your store details "}
+            </h1>
             <h1 className="text-xl lg:text-3xl">
               <input
                 placeholder="Store name"
                 className="bg-transparent text-white"
                 defaultValue={user.store && user.store.storeName}
                 onChange={(e) => setName(e.target.value)}
+                disabled={editMode ? false : true}
               />
             </h1>
             <h3 className="text-gray-400 text-sm lg:text-base">
@@ -158,6 +195,7 @@ const StoreEdit = () => {
                 className="bg-transparent text-white"
                 defaultValue={user.store && user.store.storeAddress}
                 onChange={(e) => setAddress(e.target.value)}
+                disabled={editMode ? false : true}
               />
             </h3>
             <p className="text-sm lg:text-base">
@@ -166,6 +204,7 @@ const StoreEdit = () => {
                 className="bg-transparent text-white"
                 defaultValue={user.store && user.store.storeDescription}
                 onChange={(e) => setDescription(e.target.value)}
+                disabled={editMode ? false : true}
               />
             </p>{" "}
           </div>
@@ -196,7 +235,11 @@ const StoreEdit = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="w-6 h-6 absolute bottom-1 left-1 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white hover:bg-orange hover:border-orange z-10 border-2 rounded-md border-gray-300 transition-all"
+              class={
+                editMode
+                  ? "w-6 h-6 absolute bottom-1 left-1 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white hover:bg-orange-500 hover:border-orange-500 z-10 border-2 rounded-md border-gray-300 transition-all"
+                  : "hidden"
+              }
             >
               <path
                 fill-rule="evenodd"
@@ -209,13 +252,23 @@ const StoreEdit = () => {
       </div>
 
       <div className="h-[65%] w-full grid grid-cols-3 2xl:grid-cols-6 p-2 overflow-scroll relative scrollbar-hide ">
-        <div className="h-full w-full bg-black bg-opacity-50 absolute top-0 left-0 z-20 cursor-pointer group flex items-center justify-center">
+        <div
+          className={
+            editMode
+              ? "h-full w-full absolute top-0 left-0 z-20 cursor-pointer group flex items-center justify-center bg-black bg-opacity-50 transition-all"
+              : "h-full w-full absolute top-0 left-0 z-20 cursor-pointer group flex items-center justify-center bg-black bg-opacity-20"
+          }
+        >
           <button
             onClick={() => {
               navigate(`/dashboard/${user.storeName}/products`);
               dispatch(getStoreSubPage("products"));
             }}
-            className="text-white hidden group-hover:block transition-all text-4xl bg-orange p-10 rounded-xl hover:scale-95"
+            className={
+              editMode
+                ? "text-white hidden transition-all text-4xl bg-orange-500 p-10 rounded-xl hover:scale-95"
+                : "text-white hidden group-hover:block transition-all text-4xl bg-orange-500 p-10 rounded-xl hover:scale-95"
+            }
           >
             Click here to add or edit products
           </button>

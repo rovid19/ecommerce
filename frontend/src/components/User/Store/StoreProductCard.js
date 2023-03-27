@@ -24,15 +24,15 @@ const StoreProductCard = ({ storeProducts }) => {
   return (
     <div
       className={
-        storeSubPage === "editStore" || storeSubPage === "products"
-          ? "h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer relative"
-          : "h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative"
+        editMode
+          ? "h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative  "
+          : "h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative "
       }
     >
-      <div className="h-[60%] rounded-t-xl w-full  overflow-hidden">
-        {editMode ? (
+      <div className="h-[60%] rounded-t-xl w-full  overflow-hidden ">
+        {editMode && storeSubPage === "products" ? (
           <div
-            className="absolute top-0 left-0 bg-orange p-2 group rounded-md"
+            className="absolute top-0 left-0 bg-orange-500 p-2 group rounded-md"
             onClick={() => {
               dispatch(addSelectedProduct(storeProducts._id));
               dispatch(setStoreDeleteVisible(!isStoreDeleteVisible));
@@ -92,7 +92,7 @@ const StoreProductCard = ({ storeProducts }) => {
           <div className=" h-[60%] w-[10px] border-r-2 border-gray-300"></div>
           <h2 className="ml-2 text-[12px] md:text-sm"> 120 sold</h2>
           <div className="hidden lg:block h-[60%] w-[10px] border-r-2 border-gray-300"></div>
-          <button className="hidden ml-2 bg-orange p-2 h-[60%] lg:flex items-center text-white rounded-xl text-sm  hover:border-2 hover:border-orange hover:text-black">
+          <button className="hidden ml-2 bg-orange-500 p-2 h-[60%] lg:flex items-center text-white rounded-xl text-sm  hover:border-2 hover:border-orange-500 hover:text-black">
             Add To Cart
           </button>
         </div>

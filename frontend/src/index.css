@@ -29,26 +29,102 @@ body {
 .slider {
   position: absolute;
   cursor: pointer;
-  top: 0;
+  top: 13px;
   bottom: 0;
-  left: 0;
+  left: 10px;
   right: 0;
+  width: 55px;
+  height: 25px;
   background-color: gray;
   display: flex;
   align-items: center;
-  border-radius: 10%;
+  border-radius: 20%;
+  opacity: 70%;
+}
+
+.sliderOrange {
+  position: absolute;
+  cursor: pointer;
+  top: 13px;
+  bottom: 0;
+  left: 10px;
+  right: 0;
+  width: 55px;
+  height: 25px;
+  background-color: red;
+  display: flex;
+  align-items: center;
+  border-radius: 20%;
+  opacity: 70%;
+}
+
+.sliderOrange:before {
+  position: absolute;
+  content: "";
+  height: 15px;
+  width: 15px;
+  background-color: white;
+  margin-left: 4px;
+  border-radius: 30%;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 25px;
+  height: 15px;
   width: 15px;
   background-color: white;
   margin-left: 4px;
-  border-radius: 10%;
+  border-radius: 30%;
 }
 
 .switch input[type="checkbox"]:checked + .slider:before {
-  transform: translateX(15px);
+  transform: translateX(30px);
+}
+
+.switch input[type="checkbox"]:checked + .sliderOrange:before {
+  transform: translateX(30px);
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-1px);
+  }
+  50% {
+    transform: translateX(1px);
+  }
+  75% {
+    transform: translateX(-1px);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.shake {
+  animation-duration: 0.5s;
+  animation-iteration-count: infinite;
+  animation-name: shake;
+
+  animation-play-state: running;
+}
+
+.Navlink {
+  @apply text-gray-500;
+  @apply border-opacity-25;
+  height: 50px;
+  display: flex;
+
+  align-items: center;
+  @apply rounded-lg;
+  @apply p-2;
+  @apply mt-1;
+}
+
+.active {
+  @apply bg-orange-500;
+  color: white;
 }

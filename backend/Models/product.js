@@ -8,6 +8,7 @@ const productSchema = new mongoose.Schema({
   productNewPrice: Number,
   productOldPrice: Number,
   productSold: Number,
+  productCurrency: String,
   productReview: [{ type: mongoose.Schema.Types.ObjectId, ref: "review" }],
 });
 
