@@ -4,7 +4,7 @@ import Img from "../../../assets/testslika.png";
 import { useState } from "react";
 import axios from "axios";
 import { switchValue } from "../../../app/features/getUserTrigger";
-import { setStoreDeleteVisible } from "../../../app/features/Store/isStoreDeleteVisible";
+import { setStoreDeleteVisible } from "../../../app/features/Store/deleteProductModal";
 import selectedProduct, {
   addSelectedProduct,
 } from "../../../app/features/Store/selectedProduct";
@@ -12,8 +12,8 @@ import { setEditProductModal } from "../../../app/features/Store/Dashboard/editP
 
 const StoreProductCard = ({ storeProducts }) => {
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const isStoreDeleteVisible = useSelector(
-    (state) => state.isStoreDeleteVisible.value
+  const deleteProductModal = useSelector(
+    (state) => state.deleteProductModal.value
   );
   const editMode = useSelector((state) => state.editMode.value);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
@@ -43,7 +43,7 @@ const StoreProductCard = ({ storeProducts }) => {
             onClick={(e) => {
               e.stopPropagation();
               dispatch(addSelectedProduct(storeProducts._id));
-              dispatch(setStoreDeleteVisible(!isStoreDeleteVisible));
+              dispatch(setStoreDeleteVisible(!deleteProductModal));
             }}
           >
             {" "}
@@ -70,7 +70,7 @@ const StoreProductCard = ({ storeProducts }) => {
       </div>
       <div className="h-[40%] w-full pt-2 pl-2 ">
         <h1 className="font-bold text-xl">
-          {storeProducts && storeProducts.productNewPrice}$
+          {storeProducts && storeProducts.productNewPrice}€
         </h1>
         <h1 className="font-bold">
           {storeProducts && storeProducts.productName}

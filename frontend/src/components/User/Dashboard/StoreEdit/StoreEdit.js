@@ -12,7 +12,7 @@ import { setEditMode } from "../../../../app/features/Store/storeEditMode";
 import StoreEditInfo from "./StoreEditInfo.js";
 
 const StoreEdit = () => {
-  // local states
+  // states
   const [name, setName] = useState(null);
   const [coverPhoto, setCoverPhoto] = useState(null);
   const [profilePhoto, setProfilePhoto] = useState(null);
@@ -29,13 +29,10 @@ const StoreEdit = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const storeProducts = useSelector((state) => state.storeProducts.value);
-  const isStoreDeleteVisible = useSelector(
-    (state) => state.isStoreDeleteVisible.value
-  );
 
   const dispatch = useDispatch();
 
-  // applying changes made on your store
+  // applying changes made on your store // functions
   function handleSaveStore() {
     setIsLoading(true);
     axios
@@ -69,11 +66,10 @@ const StoreEdit = () => {
     <div
       className={
         storeSubPage === "editStore"
-          ? "absolute left-[15%] store w-full h-full top-0"
+          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0"
           : "hidden"
       }
     >
-      {isStoreDeleteVisible && <StoreDeleteProductModal />}
       {isVisible && <StoreSavedModal setIsVisible={setIsVisible} />}
       {isVisible ? (
         ""
@@ -86,7 +82,7 @@ const StoreEdit = () => {
           }}
           className={
             editMode
-              ? "absolute z-10 right-5 top-5 w-[100px] h-[50px] bg-orange-600 opacity-100  text-white rounded-xl hover:scale-95 shadow-xl transition-all flex items-center justify-center"
+              ? "absolute z-30 right-5 top-5 w-[100px] h-[50px] bg-orange-600 opacity-100  text-white rounded-xl hover:scale-95 shadow-xl transition-all flex items-center justify-center"
               : "hidden opacity-0"
           }
         >

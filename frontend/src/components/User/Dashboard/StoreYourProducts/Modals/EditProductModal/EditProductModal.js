@@ -1,27 +1,26 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { switchValue } from "../../../../../../app/features/getUserTrigger";
-import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
-import { setUserFetching } from "../../../../../../app/features/User/isUserFetching";
 import { setEditProductModal } from "../../../../../../app/features/Store/Dashboard/editProductModal";
+import EditProductInputs from "./EditProductInputs";
+import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
 
-const StoreEditProductModal = () => {
+const EditProductModal = () => {
+  //states
   const [productPicture, setProductPicture] = useState(undefined);
   const [productTitle, setProductTitle] = useState(null);
   const [productDescription, setProductDescription] = useState(null);
   const [productPrice, setProductPrice] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
-  const [productCurrency, setProductCurrency] = useState("EUR");
   const [currentProduct, setCurrentProduct] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
 
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
-  const isUserFetching = useSelector((state) => state.isUserFetching.value);
+  //redux
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
-
   const dispatch = useDispatch();
 
   useEffect(() => {
+    setIsFetching(true);
     axios
       .post("/api/store/get-current-product", { selectedProduct })
       .then(({ data }) => {
@@ -30,47 +29,12 @@ const StoreEditProductModal = () => {
         setProductTitle(data.productName);
         setProductDescription(data.productDescription);
         setProductPrice(data.productNewPrice);
-      });
-  }, []);
-
-  function handleEditProduct(e) {
-    setIsFetching(true);
-    e.preventDefault();
-    axios
-      .put("/api/store/edit-product", {
-        selectedProduct,
-        productPicture,
-        productTitle,
-        productDescription,
-        productPrice,
-        productCurrency,
-      })
-      .then(() => {
-        dispatch(switchValue(!getUserTrigger));
       })
       .then(() => {
         setIsFetching(false);
-        dispatch(setEditProductModal(false));
       });
-  }
+  }, []);
 
-  function handleUploadProductPicture(e) {
-    dispatch(setUserFetching(true));
-    const file = e.target.files;
-    const formData = new FormData();
-    formData.append("photo", file[0]);
-
-    axios
-      .post("/api/store/upload-image", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then(({ data }) => {
-        setProductPicture(data);
-        dispatch(setUserFetching(false));
-      });
-  }
-
-  console.log(productDescription);
   return (
     <div className="w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50 absolute top-0 left-0">
       {isFetching && (
@@ -95,82 +59,22 @@ const StoreEditProductModal = () => {
             </svg>
           </button>
         </div>
-
-        <form onSubmit={handleEditProduct} className="h-[95%]">
-          <div className="h-[60%] rounded-lg w-full overflow-hidden">
-            <label
-              className={
-                productPicture
-                  ? "h-full  flex items-center justify-center  bg-opacity-30 z-20 cursor-pointer group overflow-hidden relative"
-                  : "h-full flex items-center justify-center border-b-2 border-t-2 border-gray-300 border-opacity-10 cursor-pointer group  relative"
-              }
-            >
-              {isUserFetching ? (
-                <div className="h-full w-full absolute top-0 left-0 bg-black bg-opacity-0 flex items-center justify-center">
-                  <img src={Loader} />
-                </div>
-              ) : (
-                <>
-                  <input
-                    onChange={handleUploadProductPicture}
-                    type="file"
-                    className="hidden"
-                  />
-                  {productPicture ? (
-                    <img
-                      src={productPicture}
-                      className="w-full h-full object-cover"
-                    ></img>
-                  ) : (
-                    <img
-                      src={currentProduct && currentProduct.productPicture}
-                      className="w-full h-full object-cover"
-                    />
-                  )}
-                </>
-              )}
-            </label>
-          </div>
-          <div className="h-[40%] w-full pt-2 pl-2  ">
-            <input
-              type="text"
-              className="text-3xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
-              placeholder="Name of your product"
-              onChange={(e) => setProductTitle(e.target.value)}
-              defaultValue={currentProduct && currentProduct.productName}
-            />
-            <input
-              type="text"
-              className="text-xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
-              placeholder="Description of your product"
-              onChange={(e) => setProductDescription(e.target.value)}
-              defaultValue={currentProduct && currentProduct.productDescription}
-            />{" "}
-            <div className="relative bg-black">
-              <input
-                type="text"
-                className="text-xl  w-full border-b-2 border-gray-300 border-opacity-10 p-2"
-                placeholder="Price of your product"
-                onChange={(e) => setProductPrice(e.target.value)}
-                defaultValue={currentProduct && currentProduct.productNewPrice}
-              />
-
-              <select
-                className="absolute right-0 top-2 text-gray-300 hover:text-black transition-all cursor-pointer"
-                onChange={(e) => setProductCurrency(e.target.value)}
-              >
-                <option>EUR</option>
-                <option>USD</option>
-              </select>
-            </div>
-            <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-6">
-              Save
-            </button>
-          </div>
-        </form>
+        <EditProductInputs
+          setProductPicture={setProductPicture}
+          setProductTitle={setProductTitle}
+          setProductDescription={setProductDescription}
+          setProductPrice={setProductPrice}
+          setIsFetching={setIsFetching}
+          productPrice={productPrice}
+          productPicture={productPicture}
+          productTitle={productTitle}
+          productDescription={productDescription}
+          setIsVisible={setIsVisible}
+          currentProduct={currentProduct}
+        />
       </div>
     </div>
   );
 };
 
-export default StoreEditProductModal;
+export default EditProductModal;

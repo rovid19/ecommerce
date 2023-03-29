@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setStoreDeleteVisible } from "../../../../../app/features/Store/isStoreDeleteVisible";
+import { setStoreDeleteVisible } from "../../../../../app/features/Store/deleteProductModal";
 import axios from "axios";
 import { switchValue } from "../../../../../app/features/getUserTrigger";
 import Loader from "../../../../../assets/svg-loaders/three-dots.svg";
 
 const StoreDeleteProductModal = () => {
   const [isFetching, setIsFetching] = useState(false);
-  const isStoreDeleteVisible = useSelector(
-    (state) => state.isStoreDeleteVisible.value
+  const deleteProductModal = useSelector(
+    (state) => state.deleteProductModal.value
   );
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
@@ -22,7 +22,7 @@ const StoreDeleteProductModal = () => {
         dispatch(switchValue(!getUserTrigger));
       })
       .then(() => {
-        dispatch(setStoreDeleteVisible(!isStoreDeleteVisible));
+        dispatch(setStoreDeleteVisible(!deleteProductModal));
         setIsFetching(false);
       });
   }
@@ -47,9 +47,7 @@ const StoreDeleteProductModal = () => {
           </button>
           <button
             className="w-[20%] bg-orange-400 text-white rounded-lg p-2  hover:scale-95 transition-all"
-            onClick={() =>
-              dispatch(setStoreDeleteVisible(!isStoreDeleteVisible))
-            }
+            onClick={() => dispatch(setStoreDeleteVisible(!deleteProductModal))}
           >
             No{" "}
           </button>

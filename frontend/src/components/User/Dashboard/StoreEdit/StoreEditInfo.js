@@ -17,16 +17,18 @@ const StoreEditInfo = ({
   setIsLoading,
   profilePhoto,
 }) => {
+  // redux
   const user = useSelector((state) => state.user.value);
+  const editMode = useSelector((state) => state.editMode.value);
+  const dispatch = useDispatch();
+
   // object used for setting store cover photo
   const styles = {
     backgroundImage: coverPhoto
       ? `url(${coverPhoto})`
       : `url(${user.store.storeCover})`,
   };
-  const editMode = useSelector((state) => state.editMode.value);
 
-  const dispatch = useDispatch();
   return (
     <div
       className={
@@ -36,6 +38,8 @@ const StoreEditInfo = ({
       }
       style={styles}
     >
+      <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-50 z-20"></div>
+      <div className="w-full h-[30%] lg:h-[50%] z-50  "></div>
       <div className=" h-[50px] w-[250px]  flex items-center justify-center absolute top-0 left-2 z-40 text-white">
         <label className="switch transition-all  ">
           <input
@@ -56,19 +60,21 @@ const StoreEditInfo = ({
           {" "}
           <img src={Loader}></img>
         </div>
-      )}
-      <StoreEditInfoInputs
-        setName={setName}
-        setCoverPhoto={setCoverPhoto}
-        setProfilePhoto={setProfilePhoto}
-        setAddress={setAddress}
-        setDescription={setDescription}
-        setCurrentPhoto={setCurrentPhoto}
-        isLoading={isLoading}
-        currentPhoto={currentPhoto}
-        setIsLoading={setIsLoading}
-        profilePhoto={profilePhoto}
-      />
+      )}{" "}
+      <div className="w-full h-[70%] lg:h-[50%] p-4 flex ">
+        <StoreEditInfoInputs
+          setName={setName}
+          setCoverPhoto={setCoverPhoto}
+          setProfilePhoto={setProfilePhoto}
+          setAddress={setAddress}
+          setDescription={setDescription}
+          setCurrentPhoto={setCurrentPhoto}
+          isLoading={isLoading}
+          currentPhoto={currentPhoto}
+          setIsLoading={setIsLoading}
+          profilePhoto={profilePhoto}
+        />
+      </div>
     </div>
   );
 };

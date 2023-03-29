@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
@@ -17,9 +17,12 @@ const AddProductInputs = ({
   setIsFetching,
   setIsVisible,
 }) => {
+  //redux
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const isUserFetching = useSelector((state) => state.isUserFetching.value);
   const dispatch = useDispatch();
+
+  //functions
   function handleUploadProductPicture(e) {
     dispatch(setUserFetching(true));
     const file = e.target.files;

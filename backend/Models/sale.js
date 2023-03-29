@@ -7,3 +7,4 @@ const saleSchema = new mongoose.Schema({
 const saleModel = mongoose.model("sale", saleSchema);
 
 export default saleModel;
+W;

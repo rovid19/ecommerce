@@ -5,7 +5,7 @@ import storeReducer from "./features/storeSlice.js";
 import userTriggerReducer from "./features/getUserTrigger.js";
 import storeSubPageReducer from "./features/storeSubPage.js";
 import storeProductsReducer from "./features/Store/storeProducts.js";
-import isStoreDeleteVisibleReducer from "./features/Store/isStoreDeleteVisible.js";
+import deleteProductModalReducer from "./features/Store/deleteProductModal.js";
 import selectedProductReducer from "./features/Store/selectedProduct.js";
 import isUserFetchingReducer from "./features/User/isUserFetching.js";
 import editModeReducer from "./features/Store/storeEditMode.js";
@@ -19,7 +19,7 @@ export const store = configureStore({
     getUserTrigger: userTriggerReducer,
     storeSubPage: storeSubPageReducer,
     storeProducts: storeProductsReducer,
-    isStoreDeleteVisible: isStoreDeleteVisibleReducer,
+    deleteProductModal: deleteProductModalReducer,
     selectedProduct: selectedProductReducer,
     isUserFetching: isUserFetchingReducer,
     editMode: editModeReducer,

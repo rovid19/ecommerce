@@ -4,8 +4,8 @@ const initialState = {
   value: false,
 };
 
-export const isStoreDeleteVisibleSlice = createSlice({
-  name: "isStoreDeleteVisible",
+export const deleteProductModalSlice = createSlice({
+  name: "deleteProductModal",
   initialState,
   reducers: {
     setStoreDeleteVisible: (state, action) => {
@@ -14,6 +14,6 @@ export const isStoreDeleteVisibleSlice = createSlice({
   },
 });
 
-export const { setStoreDeleteVisible } = isStoreDeleteVisibleSlice.actions;
+export const { setStoreDeleteVisible } = deleteProductModalSlice.actions;
 
-export default isStoreDeleteVisibleSlice.reducer;
+export default deleteProductModalSlice.reducer;

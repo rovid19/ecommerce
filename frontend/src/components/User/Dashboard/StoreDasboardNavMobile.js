@@ -33,7 +33,7 @@ const StoreDashboardNav = () => {
   console.log(storeEdit);
 
   return (
-    <div className=" w-full h-full shadow-xl relative">
+    <div className="absolute bottom-0 left-0 h-[15%] flex items-center">
       {editMode && (
         <div className="w-full h-full bg-black bg-opacity-50 absolute top-0 left-0 z-20"></div>
       )}

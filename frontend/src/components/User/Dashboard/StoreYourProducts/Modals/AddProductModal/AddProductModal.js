@@ -1,20 +1,14 @@
 import React, { useState } from "react";
-import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
-import { switchValue } from "../../../../../../app/features/getUserTrigger";
 import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
-import { setUserFetching } from "../../../../../../app/features/User/isUserFetching";
 import AddProductInputs from "./AddProductInputs";
 
 const StoreAddProductModal = ({ setIsVisible }) => {
+  //states
   const [productPicture, setProductPicture] = useState(undefined);
   const [productTitle, setProductTitle] = useState(null);
   const [productDescription, setProductDescription] = useState(null);
   const [productPrice, setProductPrice] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
-
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
-  const dispatch = useDispatch();
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50 absolute top-0 left-0">

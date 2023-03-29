@@ -16,12 +16,11 @@ const StoreEditInfoInputs = ({
   setIsLoading,
   profilePhoto,
 }) => {
+  // redux
   const editMode = useSelector((state) => state.editMode.value);
   const user = useSelector((state) => state.user.value);
 
-  const dispatch = useDispatch();
-
-  // uploading an image
+  // functions
   function handlePhotoUpload(e) {
     setIsLoading(true);
     const file = e.target.files;
@@ -58,7 +57,7 @@ const StoreEditInfoInputs = ({
           fill="currentColor"
           class={
             editMode
-              ? "w-8 h-8 absolute bottom-4 right-4 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-10 border-2 border-gray-300 transition-all"
+              ? "w-8 h-8 z-20 absolute bottom-4 right-4 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-10 border-2 border-gray-300 transition-all"
               : "hidden"
           }
         >
@@ -69,47 +68,10 @@ const StoreEditInfoInputs = ({
           />
         </svg>
       </label>
-      <div className="h-full w-full bg-black bg-opacity-50">
-        <div className="text-white absolute bottom-[20px] left-[130px] lg:left-[180px] lg:bottom-[20px] bg-black p-4 rounded-xl">
-          <h1 className="text-gray-300">
-            {editMode
-              ? "Enter your store details here:"
-              : "Enable Edit Mode to edit your store details "}
-          </h1>
-          <h1 className="text-xl lg:text-3xl">
-            <input
-              placeholder="Store name"
-              className="bg-transparent text-white"
-              defaultValue={user.store && user.store.storeName}
-              onChange={(e) => setName(e.target.value)}
-              disabled={editMode ? false : true}
-            />
-          </h1>
-          <h3 className="text-gray-400 text-sm lg:text-base">
-            <input
-              placeholder="Store address"
-              className="bg-transparent text-white"
-              defaultValue={user.store && user.store.storeAddress}
-              onChange={(e) => setAddress(e.target.value)}
-              disabled={editMode ? false : true}
-            />
-          </h3>
-          <p className="text-sm lg:text-base">
-            <input
-              placeholder="Store description"
-              className="bg-transparent text-white"
-              defaultValue={user.store && user.store.storeDescription}
-              onChange={(e) => setDescription(e.target.value)}
-              disabled={editMode ? false : true}
-            />
-          </p>{" "}
-        </div>
-      </div>
-      <div className="h-28 w-[9%] absolute bottom-4 left-2 lg:h-36 lg:left-4">
+      <div className="h-full w-[25%] md:w-[15%] lg:w-[8%] z-20 relative">
         {isLoading && currentPhoto === "profile" && (
           <div className="h-full w-full absolute top-0 left-0 flex items-center justify-center ">
-            {" "}
-            <img className="" src={Loader}></img>{" "}
+            <img className="" src={Loader}></img>
           </div>
         )}
         <img
@@ -133,7 +95,7 @@ const StoreEditInfoInputs = ({
             fill="currentColor"
             class={
               editMode
-                ? "w-6 h-6 absolute bottom-1 left-1 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white hover:bg-orange-500 hover:border-orange-500 z-10 border-2 rounded-md border-gray-300 transition-all"
+                ? "w-6 h-6 absolute bottom-0 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white hover:bg-orange-500 hover:border-orange-500 z-10 border-2 rounded-md border-gray-300 transition-all"
                 : "hidden"
             }
           >
@@ -144,7 +106,41 @@ const StoreEditInfoInputs = ({
             />
           </svg>
         </label>
-      </div>{" "}
+      </div>
+      <div className="text-white h-full w-[60%] 2xl:w-[25%] ml-2 md:w-[35%] lg:w-[35%] bg-black p-4  rounded-xl z-20">
+        <h1 className="text-gray-300 text-base xl:text-base">
+          {editMode
+            ? "Enter your store details here:"
+            : "Enable Edit Mode to edit your store details "}
+        </h1>
+        <h1 className="text-xl lg:text-2xl 2xl:text-3xl ">
+          <input
+            placeholder="Store name"
+            className="bg-transparent text-white"
+            defaultValue={user.store && user.store.storeName}
+            onChange={(e) => setName(e.target.value)}
+            disabled={editMode ? false : true}
+          />
+        </h1>
+        <h3 className="text-gray-400 text-base ">
+          <input
+            placeholder="Store address"
+            className="bg-transparent text-white"
+            defaultValue={user.store && user.store.storeAddress}
+            onChange={(e) => setAddress(e.target.value)}
+            disabled={editMode ? false : true}
+          />
+        </h3>
+        <p className="text-base lg:text-sm 2xl:text-base">
+          <input
+            placeholder="Store description"
+            className="bg-transparent text-white"
+            defaultValue={user.store && user.store.storeDescription}
+            onChange={(e) => setDescription(e.target.value)}
+            disabled={editMode ? false : true}
+          />
+        </p>
+      </div>
     </>
   );
 };

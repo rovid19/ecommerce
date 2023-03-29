@@ -7,14 +7,16 @@ import { setEditMode } from "../../../../app/features/Store/storeEditMode";
 import StoreEditProductModal from "./Modals/EditProductModal/EditProductModal";
 
 const StoreAddProducts = () => {
+  //states
   const [isVisible, setIsVisible] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
 
+  // redux
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const storeProducts = useSelector((state) => state.storeProducts.value);
   const editProductModal = useSelector((state) => state.editProductModal.value);
-  const isStoreDeleteVisible = useSelector(
-    (state) => state.isStoreDeleteVisible.value
+  const deleteProductModal = useSelector(
+    (state) => state.deleteProductModal.value
   );
   const user = useSelector((state) => state.user.value);
   const styles = {
@@ -32,7 +34,7 @@ const StoreAddProducts = () => {
       }
     >
       {editProductModal && <StoreEditProductModal />}
-      {isStoreDeleteVisible && <StoreDeleteProductModal />}
+      {deleteProductModal && <StoreDeleteProductModal />}
       {isVisible && (
         <StoreAddProductModal
           setIsVisible={setIsVisible}
