@@ -46,7 +46,7 @@ const Navbar = () => {
                 </label>
                 <input className="w-[80%] h-full" />
 
-                <button className="w-[20%] 2xl:w-[10%] flex items-center gap-2 ml-4  rounded-2xl h-[90%] mr-1 justify-center text-white bg-orange">
+                <button className="w-[20%] 2xl:w-[10%] flex items-center gap-2 ml-4  rounded-2xl h-[90%] mr-1 justify-center text-white bg-orange-500">
                   {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -83,7 +83,7 @@ const Navbar = () => {
                 <div className=" h-[33px] flex items-center">
                   {" "}
                   <Link to="/login" className="h-full">
-                    <button className="hidden lg:block h-full ] text-gray-400 border-2 border-orange rounded-md w-[80px] hover:bg-orange hover:text-white">
+                    <button className="hidden lg:block h-full ] text-gray-400 border-2 border-orange-500 rounded-md w-[80px] hover:bg-orange-500 hover:text-white">
                       Login
                     </button>{" "}
                   </Link>

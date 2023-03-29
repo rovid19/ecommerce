@@ -9,6 +9,7 @@ import isStoreDeleteVisibleReducer from "./features/Store/isStoreDeleteVisible.j
 import selectedProductReducer from "./features/Store/selectedProduct.js";
 import isUserFetchingReducer from "./features/User/isUserFetching.js";
 import editModeReducer from "./features/Store/storeEditMode.js";
+import editProductModalReducer from "./features/Store/Dashboard/editProductModal.js";
 
 export const store = configureStore({
   reducer: {
@@ -22,5 +23,6 @@ export const store = configureStore({
     selectedProduct: selectedProductReducer,
     isUserFetching: isUserFetchingReducer,
     editMode: editModeReducer,
+    editProductModal: editProductModalReducer,
   },
 });

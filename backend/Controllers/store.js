@@ -113,3 +113,32 @@ export const deleteProduct = async (req, res) => {
 
   res.json(deleteProduct);
 };
+
+export const getCurrentProduct = async (req, res) => {
+  const { selectedProduct } = req.body;
+
+  const newProduct = await Product.findById(selectedProduct);
+
+  res.json(newProduct);
+};
+
+export const editProduct = async (req, res) => {
+  const {
+    productPrice,
+    productTitle,
+    productPicture,
+    productDescription,
+    selectedProduct,
+  } = req.body;
+
+  const editedProduct = await Product.findById(selectedProduct);
+
+  editedProduct.productName = productTitle;
+  editedProduct.productDescription = productDescription;
+  editedProduct.productNewPrice = productPrice;
+  editedProduct.productPicture = productPicture;
+
+  await editedProduct.save();
+
+  res.json(editedProduct);
+};

@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setStoreDeleteVisible } from "../../../../app/features/Store/isStoreDeleteVisible";
+import { setStoreDeleteVisible } from "../../../../../app/features/Store/isStoreDeleteVisible";
 import axios from "axios";
-import { switchValue } from "../../../../app/features/getUserTrigger";
-import Loader from "../../../../assets/svg-loaders/three-dots.svg";
+import { switchValue } from "../../../../../app/features/getUserTrigger";
+import Loader from "../../../../../assets/svg-loaders/three-dots.svg";
 
 const StoreDeleteProductModal = () => {
   const [isFetching, setIsFetching] = useState(false);

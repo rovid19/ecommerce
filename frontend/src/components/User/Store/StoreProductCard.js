@@ -8,6 +8,7 @@ import { setStoreDeleteVisible } from "../../../app/features/Store/isStoreDelete
 import selectedProduct, {
   addSelectedProduct,
 } from "../../../app/features/Store/selectedProduct";
+import { setEditProductModal } from "../../../app/features/Store/Dashboard/editProductModal";
 
 const StoreProductCard = ({ storeProducts }) => {
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
@@ -28,12 +29,19 @@ const StoreProductCard = ({ storeProducts }) => {
           ? "h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative  "
           : "h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative "
       }
+      onClick={() => {
+        dispatch(addSelectedProduct(storeProducts._id));
+        if (storeSubPage === "products") {
+          dispatch(setEditProductModal(true));
+        }
+      }}
     >
       <div className="h-[60%] rounded-t-xl w-full  overflow-hidden ">
         {editMode && storeSubPage === "products" ? (
           <div
             className="absolute top-0 left-0 bg-orange-500 p-2 group rounded-md"
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               dispatch(addSelectedProduct(storeProducts._id));
               dispatch(setStoreDeleteVisible(!isStoreDeleteVisible));
             }}
@@ -63,6 +71,9 @@ const StoreProductCard = ({ storeProducts }) => {
       <div className="h-[40%] w-full pt-2 pl-2 ">
         <h1 className="font-bold text-xl">
           {storeProducts && storeProducts.productNewPrice}$
+        </h1>
+        <h1 className="font-bold">
+          {storeProducts && storeProducts.productName}
         </h1>
         <p className="text-sm">
           {storeProducts && storeProducts.productDescription}

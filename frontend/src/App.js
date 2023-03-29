@@ -10,7 +10,7 @@ import { addUser } from "./app/features/userSlice.js";
 import StoreDashboard from "./components/User/Dashboard/StoreDashboard.js";
 import Store from "./components/User/Store/Store.js";
 import StoreEdit from "../src/components/User/Dashboard/StoreEdit/StoreEdit.js";
-import StoreAddProducts from "./components/User/Dashboard/StoreAddProducts/StoreAddProducts.js";
+import StoreYourProducts from "../src/components/User/Dashboard/StoreYourProducts/YourProducts.js";
 import StoreFinance from "./components/User/Dashboard/StoreFinance/StoreFinance.js";
 import { addStoreProducts } from "./app/features/Store/storeProducts.js";
 import { setUserFetching } from "./app/features/User/isUserFetching.js";
@@ -43,7 +43,7 @@ const App = () => {
       })
       .then(() => dispatch(setUserFetching(false)));
   }, [getUserTrigger]);
-  console.log(user, storeProducts);
+
   return (
     <div>
       <Routes>
@@ -65,7 +65,7 @@ const App = () => {
         >
           <Route
             path="/dashboard/:storename/products"
-            element={<StoreAddProducts />}
+            element={<StoreYourProducts />}
           />
 
           <Route

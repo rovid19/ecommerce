@@ -1,6 +1,12 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, NavLink } from "react-router-dom";
+import {
+  Link,
+  useNavigate,
+  NavLink,
+  useLocation,
+  useMatch,
+} from "react-router-dom";
 import { setEditMode } from "../../../app/features/Store/storeEditMode";
 import { getStoreSubPage } from "../../../app/features/storeSubPage";
 
@@ -9,7 +15,23 @@ const StoreDashboardNav = () => {
   const editMode = useSelector((state) => state.editMode.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { pathname } = useLocation();
+  const location = useLocation();
+
+  const storeEdit = useMatch({
+    path: `/dashboard/${user.storeName}`,
+    exact: true,
+  });
+  const productEdit = useMatch({
+    path: `/dashboard/${user.storeName}/products`,
+    exact: true,
+  });
+  const storeFinance = useMatch({
+    path: `/dashboard/${user.storeName}/finance`,
+    exact: true,
+  });
+
+  console.log(storeEdit);
+
   return (
     <div className="w-[15%] h-full shadow-xl relative">
       {editMode && (
@@ -31,15 +53,19 @@ const StoreDashboardNav = () => {
         {" "}
         <ul className="p-4 ">
           <li className="text-gray-300 p-2">{user && user.storeName}</li>{" "}
-          <NavLink
+          <Link
             exact
             to={`/dashboard/${user.storeName}`}
             onClick={() => {
               dispatch(getStoreSubPage("editStore"));
               dispatch(setEditMode(false));
             }}
-            className="Navlink hover:bg-orange-500 hover:text-white "
-            isActive={() => [`/dashboard/${user.storeName}`].includes(pathname)}
+            className={
+              storeEdit
+                ? "Navlink hover:bg-orange-500 hover:text-white active"
+                : "Navlink hover:bg-orange-500 hover:text-white "
+            }
+            use
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -51,12 +77,16 @@ const StoreDashboardNav = () => {
               <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
             </svg>
             Edit Store
-          </NavLink>
-          <NavLink
+          </Link>
+          <Link
             exact
             to={`/dashboard/${user.storeName}/products`}
             onClick={() => dispatch(getStoreSubPage("products"))}
-            className="Navlink hover:bg-orange-500 hover:text-white "
+            className={
+              productEdit
+                ? "Navlink hover:bg-orange-500 hover:text-white active"
+                : "Navlink hover:bg-orange-500 hover:text-white "
+            }
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -70,16 +100,20 @@ const StoreDashboardNav = () => {
                 clipRule="evenodd"
               />
             </svg>
-            Add products
-          </NavLink>
-          <NavLink
+            Your products
+          </Link>
+          <Link
             exact
             to={`/dashboard/${user.storeName}/finance`}
             onClick={() => {
               dispatch(getStoreSubPage("finance"));
               dispatch(setEditMode(false));
             }}
-            className="Navlink hover:bg-orange-500 hover:text-white "
+            className={
+              storeFinance
+                ? "Navlink hover:bg-orange-500 hover:text-white active"
+                : "Navlink hover:bg-orange-500 hover:text-white "
+            }
           >
             {" "}
             <svg
@@ -95,7 +129,7 @@ const StoreDashboardNav = () => {
               />
             </svg>
             Store Finance
-          </NavLink>
+          </Link>
         </ul>{" "}
       </nav>
     </div>

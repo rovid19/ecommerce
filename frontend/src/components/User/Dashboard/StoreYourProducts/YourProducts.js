@@ -1,30 +1,28 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import StoreAddProductModal from "./StoreAddProductModal";
+import StoreAddProductModal from "./Modals/AddProductModal/AddProductModal";
 import StoreProductCard from "../../Store/StoreProductCard.js";
-import StoreDeleteProductModal from "../StoreEdit/StoreDeleteProductModal";
+import StoreDeleteProductModal from "../StoreEdit/Modals/StoreDeleteProductModal";
 import { setEditMode } from "../../../../app/features/Store/storeEditMode";
+import StoreEditProductModal from "./Modals/EditProductModal/EditProductModal";
 
 const StoreAddProducts = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isFetching, setIsFetching] = useState(false);
+
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
+  const storeProducts = useSelector((state) => state.storeProducts.value);
+  const editProductModal = useSelector((state) => state.editProductModal.value);
+  const isStoreDeleteVisible = useSelector(
+    (state) => state.isStoreDeleteVisible.value
+  );
   const user = useSelector((state) => state.user.value);
   const styles = {
     backgroundImage: `url(${user.store.storeCover})`,
   };
-
-  const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const storeProducts = useSelector((state) => state.storeProducts.value);
-
-  const isStoreDeleteVisible = useSelector(
-    (state) => state.isStoreDeleteVisible.value
-  );
   const editMode = useSelector((state) => state.editMode.value);
   const dispatch = useDispatch();
 
-  const [isVisible, setIsVisible] = useState(false);
-  const [isEditProductVisible, setIsEditProductVisible] = useState(false);
-  const [isFetching, setIsFetching] = useState(false);
-
-  console.log(isStoreDeleteVisible);
   return (
     <div
       className={
@@ -33,6 +31,7 @@ const StoreAddProducts = () => {
           : "hidden"
       }
     >
+      {editProductModal && <StoreEditProductModal />}
       {isStoreDeleteVisible && <StoreDeleteProductModal />}
       {isVisible && (
         <StoreAddProductModal

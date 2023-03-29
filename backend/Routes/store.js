@@ -5,6 +5,8 @@ import {
   addProduct,
   getStoreProducts,
   deleteProduct,
+  getCurrentProduct,
+  editProduct,
 } from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
@@ -27,5 +29,9 @@ router.post("/add-product", addProduct);
 router.get("/get-store-products", getStoreProducts);
 
 router.post("/delete-store-product", deleteProduct);
+
+router.post("/get-current-product", getCurrentProduct);
+
+router.put("/edit-product", editProduct);
 
 export default router;
