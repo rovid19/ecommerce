@@ -57,7 +57,7 @@ const StoreEditInfoInputs = ({
           fill="currentColor"
           class={
             editMode
-              ? "w-8 h-8 z-20 absolute bottom-4 right-4 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-10 border-2 border-gray-300 transition-all"
+              ? "w-8 h-8 absolute bottom-4 right-4 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-20 border-2 border-gray-300 transition-all"
               : "hidden"
           }
         >

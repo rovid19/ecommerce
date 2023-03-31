@@ -130,3 +130,20 @@ body {
   @apply bg-orange-500;
   color: white;
 }
+
+.activeDva {
+  @apply bg-orange-500;
+  color: white;
+}
+
+.NavlinkMobile {
+  @apply text-gray-500;
+  @apply border-opacity-25;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  @apply rounded-sm;
+  @apply p-2;
+  display: flex;
+  justify-content: center;
+}

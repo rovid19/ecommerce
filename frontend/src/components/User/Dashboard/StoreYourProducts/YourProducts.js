@@ -29,7 +29,7 @@ const StoreAddProducts = () => {
     <div
       className={
         storeSubPage === "products"
-          ? "absolute left-[15%] store w-full h-full top-0"
+          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0"
           : "hidden"
       }
     >

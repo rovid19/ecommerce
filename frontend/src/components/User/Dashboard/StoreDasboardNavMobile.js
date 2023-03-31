@@ -1,12 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Link,
-  useNavigate,
-  NavLink,
-  useLocation,
-  useMatch,
-} from "react-router-dom";
+import { Link, useNavigate, useLocation, useMatch } from "react-router-dom";
 import { setEditMode } from "../../../app/features/Store/storeEditMode";
 import { getStoreSubPage } from "../../../app/features/storeSubPage";
 
@@ -30,16 +24,14 @@ const StoreDashboardNav = () => {
     exact: true,
   });
 
-  console.log(storeEdit);
-
   return (
-    <div className="absolute bottom-0 left-0 h-[15%] flex items-center">
+    <div className="absolute bottom-0 left-0 h-[10%] w-full flex items-center z-40 bg-white">
       {editMode && (
         <div className="w-full h-full bg-black bg-opacity-50 absolute top-0 left-0 z-20"></div>
       )}
-      <div className="h-[15%]  flex justify-center items-center">
+      <div className="h-full w-[20%] text-[12px]   flex justify-center items-center p-2">
         <h1
-          className="font-bold cursor-pointer"
+          className="cursor-pointer"
           onClick={() => {
             dispatch(getStoreSubPage("home"));
             dispatch(setEditMode(false));
@@ -49,10 +41,9 @@ const StoreDashboardNav = () => {
           Rock's market
         </h1>
       </div>
-      <nav className="">
+      <nav className="h-full w-[80%]  ">
         {" "}
-        <ul className="p-4 ">
-          <li className="text-gray-300 p-2">{user && user.storeName}</li>{" "}
+        <ul className=" flex h-full w-full items-center ">
           <Link
             exact
             to={`/dashboard/${user.storeName}`}
@@ -62,16 +53,15 @@ const StoreDashboardNav = () => {
             }}
             className={
               storeEdit
-                ? "Navlink hover:bg-orange-500 hover:text-white active"
-                : "Navlink hover:bg-orange-500 hover:text-white "
+                ? "NavlinkMobile hover:bg-orange-500 w-[33%] md:text-xl hover:text-white text-sm activeDva"
+                : "NavlinkMobile hover:bg-orange-500 w-[33%] md:text-xl hover:text-white  text-sm"
             }
-            use
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 mr-2"
+              className="w-10 h-10 mr-2"
             >
               <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
               <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
@@ -84,15 +74,15 @@ const StoreDashboardNav = () => {
             onClick={() => dispatch(getStoreSubPage("products"))}
             className={
               productEdit
-                ? "Navlink hover:bg-orange-500 hover:text-white active"
-                : "Navlink hover:bg-orange-500 hover:text-white "
+                ? "NavlinkMobile hover:bg-orange-500  w-[33%] md:text-xl hover:text-white text-sm activeDva"
+                : "NavlinkMobile hover:bg-orange-500  w-[33%] md:text-xl hover:text-white text-sm"
             }
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 mr-2"
+              className="w-10 h-10 mr-2"
             >
               <path
                 fillRule="evenodd"
@@ -111,8 +101,8 @@ const StoreDashboardNav = () => {
             }}
             className={
               storeFinance
-                ? "Navlink hover:bg-orange-500 hover:text-white active"
-                : "Navlink hover:bg-orange-500 hover:text-white "
+                ? "NavlinkMobile hover:bg-orange-500  w-[33%] md:text-xl hover:text-white text-sm activeDva"
+                : "NavlinkMobile hover:bg-orange-500  w-[33%] md:text-xl hover:text-white text-sm "
             }
           >
             {" "}
@@ -120,7 +110,7 @@ const StoreDashboardNav = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="w-6 h-6 mr-2"
+              class="w-10 h-10 mr-2"
             >
               <path
                 fill-rule="evenodd"

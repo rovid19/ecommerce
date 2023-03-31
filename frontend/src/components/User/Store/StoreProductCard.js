@@ -26,8 +26,8 @@ const StoreProductCard = ({ storeProducts }) => {
     <div
       className={
         editMode
-          ? "h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative  "
-          : "h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative "
+          ? "h-[40%] lg:h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative  "
+          : "h-[40%] lg:h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative "
       }
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
