@@ -25,6 +25,14 @@ const StoreAddProducts = () => {
   const editMode = useSelector((state) => state.editMode.value);
   const dispatch = useDispatch();
 
+  // functions
+  function checkEditMode() {
+    const checkbox = document.querySelector('.toggle input[type="checkbox"]');
+    if (checkbox.checked === false) {
+      checkbox.checked = true;
+    }
+  }
+
   return (
     <div
       className={
@@ -52,7 +60,7 @@ const StoreAddProducts = () => {
             {" "}
           </div>
         )}
-        <div className=" h-[50px] w-[250px]    flex items-center justify-center absolute top-0 left-2 z-40 text-white">
+        <div className=" h-[50px] w-[250px] toggle    flex items-center justify-center absolute top-0 left-2 z-40 text-white">
           <label className="switch transition-all  ">
             <input
               type="checkbox"
@@ -76,8 +84,8 @@ const StoreAddProducts = () => {
       <div
         className={
           editMode
-            ? "h-[55%] lg:h-[65%] w-full grid grid-cols-3 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide border-8 border-orange-500 transition-all relative"
-            : "h-[55%] lg:h-[65%] w-full grid grid-cols-3 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide transition-all relative"
+            ? "h-[55%] lg:h-[65%] w-full grid grid-cols-3 grid-rows-2 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide border-8 border-orange-500 transition-all relative"
+            : "h-[55%] lg:h-[65%] w-full grid grid-cols-3 grid-rows-2 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide transition-all relative"
         }
       >
         <div
@@ -86,7 +94,10 @@ const StoreAddProducts = () => {
               ? "hidden"
               : "h-full w-full absolute top-0 bg-black bg-opacity-20 z-20 transition-all cursor-pointer"
           }
-          onClick={() => dispatch(setEditMode(!editMode))}
+          onClick={() => {
+            dispatch(setEditMode(!editMode));
+            checkEditMode();
+          }}
         ></div>
         {storeProducts &&
           storeProducts.map((item) => {

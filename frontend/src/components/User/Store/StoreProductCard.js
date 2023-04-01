@@ -26,8 +26,8 @@ const StoreProductCard = ({ storeProducts }) => {
     <div
       className={
         editMode
-          ? "h-[40%] lg:h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative  "
-          : "h-[40%] lg:h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative "
+          ? "h-[95%] lg:h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative  "
+          : "h-[95%] lg:h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative "
       }
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
@@ -68,11 +68,11 @@ const StoreProductCard = ({ storeProducts }) => {
           className="h-[100%] w-[100%] object-cover"
         ></img>
       </div>
-      <div className="h-[40%] w-full pt-2 pl-2 ">
-        <h1 className="font-bold text-xl">
+      <div className="h-[40%] w-full pl-2 pt-1 lg:pt-2 ">
+        <h1 className="font-bold text-base lg:text-xl">
           {storeProducts && storeProducts.productNewPrice}€
         </h1>
-        <h1 className="font-bold">
+        <h1 className="font-bold lg:text-base text-sm">
           {storeProducts && storeProducts.productName}
         </h1>
         <p className="text-sm">

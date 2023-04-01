@@ -15,7 +15,8 @@ import StoreFinance from "./components/User/Dashboard/StoreFinance/StoreFinance.
 import { addStoreProducts } from "./app/features/Store/storeProducts.js";
 import { setUserFetching } from "./app/features/User/isUserFetching.js";
 
-axios.defaults.baseURL = "http://localhost:4000";
+//axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
 axios.defaults.withCredentials = true;
 
 const App = () => {

@@ -88,32 +88,6 @@ body {
   transform: translateX(30px);
 }
 
-@keyframes shake {
-  0% {
-    transform: translateX(0);
-  }
-  25% {
-    transform: translateX(-1px);
-  }
-  50% {
-    transform: translateX(1px);
-  }
-  75% {
-    transform: translateX(-1px);
-  }
-  100% {
-    transform: translateX(0);
-  }
-}
-
-.shake {
-  animation-duration: 0.5s;
-  animation-iteration-count: infinite;
-  animation-name: shake;
-
-  animation-play-state: running;
-}
-
 .Navlink {
   @apply text-gray-500;
   @apply border-opacity-25;

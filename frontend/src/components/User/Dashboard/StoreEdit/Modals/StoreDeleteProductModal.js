@@ -34,8 +34,8 @@ const StoreDeleteProductModal = () => {
           <img src={Loader}></img>
         </div>
       )}
-      <div className="w-[30%] h-[20%] fl2 bg-white rounded-xl text-black relative">
-        <h1 className="text-2xl">
+      <div className="w-[80%] h-[20%] lg:w-[30%] lg:h-[20%] fl2 bg-white rounded-xl text-black relative">
+        <h1 className="text-base lg:text-2xl">
           Are you sure you want to delete this product?
         </h1>{" "}
         <div className="flex gap-8 w-full  justify-center mt-8">

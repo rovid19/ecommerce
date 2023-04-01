@@ -20,7 +20,10 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: "http://localhost:3000",
+    origin: [
+      "http://localhost:3000",
+      "https://ecommerce-frontend-i3h3.onrender.com",
+    ],
   })
 );
 app.use(express.json());
