@@ -66,7 +66,7 @@ const StoreAddProducts = () => {
           </h1>
         </div>{" "}
         <button
-          className="h-[20%] w-[40%] bg-orange-500 text-white text-2xl rounded-xl z-10 transition-all  hover:scale-95"
+          className="h-[25%] w-[50%] lg:h-[20%] lg:w-[40%] bg-orange-500 text-white text-2xl rounded-xl z-10 transition-all  hover:scale-95"
           onClick={() => setIsVisible(true)}
         >
           {" "}
@@ -76,8 +76,8 @@ const StoreAddProducts = () => {
       <div
         className={
           editMode
-            ? "h-[65%] w-full grid grid-cols-6 p-2 overflow-scroll scrollbar-hide border-8 border-orange-500 transition-all relative"
-            : "h-[65%] w-full grid grid-cols-6 p-2 overflow-scroll scrollbar-hide transition-all relative"
+            ? "h-[55%] lg:h-[65%] w-full grid grid-cols-3 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide border-8 border-orange-500 transition-all relative"
+            : "h-[55%] lg:h-[65%] w-full grid grid-cols-3 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide transition-all relative"
         }
       >
         <div

@@ -106,7 +106,7 @@ const StoreEdit = () => {
         profilePhoto={profilePhoto}
       />
 
-      <div className="h-[65%] w-full grid grid-cols-3 2xl:grid-cols-6 p-2 overflow-scroll relative scrollbar-hide ">
+      <div className="h-[65%] w-full grid grid-cols-3 md:grid-cols-5 2xl:grid-cols-6 p-2 overflow-scroll relative scrollbar-hide ">
         <div
           className={
             editMode

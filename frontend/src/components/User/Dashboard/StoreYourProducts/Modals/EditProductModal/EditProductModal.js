@@ -42,7 +42,7 @@ const EditProductModal = () => {
           <img src={Loader}></img>
         </div>
       )}
-      <div className="w-[35%] h-[70%] bg-white p-4 rounded-lg relative  ">
+      <div className="w-[85%] h-[70%]  lg:w-[35%] lg:h-[70%] bg-white p-4 rounded-lg relative  ">
         <div className="h-[5%] ">
           <button onClick={() => dispatch(setEditProductModal(false))}>
             <svg
