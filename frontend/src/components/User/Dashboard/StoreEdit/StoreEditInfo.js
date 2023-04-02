@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import StoreEditInfoInputs from "./StoreEditInfoInputs";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
 import { setEditMode } from "../../../../app/features/Store/storeEditMode";
+import { setHtmlElement } from "../../../../app/features/Store/htmlElement";
 
 const StoreEditInfo = ({
   setName,
@@ -22,6 +23,10 @@ const StoreEditInfo = ({
   const editMode = useSelector((state) => state.editMode.value);
   const dispatch = useDispatch();
 
+  dispatch(
+    setHtmlElement(document.querySelector('.toggle input[type="checkbox"]'))
+  );
+
   // object used for setting store cover photo
   const styles = {
     backgroundImage: coverPhoto
@@ -36,11 +41,11 @@ const StoreEditInfo = ({
           ? "h-[35%] relative bg-cover border-8 border-orange-500 transition-all"
           : "h-[35%] relative bg-cover transition-all"
       }
-      style={styles}
+      style={user ? styles : ""}
     >
       <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-50 z-20"></div>
       <div className="w-full h-[30%] lg:h-[50%] z-50  "></div>
-      <div className=" h-[50px] w-[250px]  flex items-center justify-center absolute top-0 left-2 z-40 text-white">
+      <div className=" h-[50px] w-[250px] toggle flex items-center justify-center absolute top-0 left-2 z-40 text-white">
         <label className="switch transition-all  ">
           <input
             type="checkbox"

@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import StoreProductCard from "../../Store/StoreProductCard";
 import { useDispatch, useSelector } from "react-redux";
@@ -50,6 +50,15 @@ const StoreEdit = () => {
       });
   }
 
+  // if user isn't logged in, redirect him to homepage
+
+  useEffect(() => {
+    console.log("da");
+    if (!user) {
+      navigate("/");
+    }
+  }, []);
+
   /*const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
@@ -70,6 +79,11 @@ const StoreEdit = () => {
           : "hidden"
       }
     >
+      {isLoading && (
+        <div className="h-full w-full absolute top-0 left-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
+          <img src={Loader} />
+        </div>
+      )}
       {isVisible && <StoreSavedModal setIsVisible={setIsVisible} />}
       {isVisible ? (
         ""
@@ -87,9 +101,6 @@ const StoreEdit = () => {
           }
         >
           {!isLoading && "Save"}
-          {isLoading && currentPhoto === "save" && (
-            <img src={Loader}></img>
-          )}{" "}
         </button>
       )}
       <StoreEditInfo
