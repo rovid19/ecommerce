@@ -1,15 +1,19 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StoreAddProductModal from "./Modals/AddProductModal/AddProductModal";
 import StoreProductCard from "../../Store/StoreProductCard.js";
 import StoreDeleteProductModal from "../StoreEdit/Modals/StoreDeleteProductModal";
 import { setEditMode } from "../../../../app/features/Store/storeEditMode";
 import StoreEditProductModal from "./Modals/EditProductModal/EditProductModal";
+import { addStoreProducts } from "../../../../app/features/Store/storeProducts";
 
 const StoreAddProducts = () => {
   //states
   const [isVisible, setIsVisible] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+  const [isDragging, setIsDragging] = useState(false);
+  const dragItem = useRef(null);
+  const dragOverItem = useRef(null);
 
   // redux
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
@@ -33,6 +37,25 @@ const StoreAddProducts = () => {
     }
   }
 
+  function handleSort() {
+    /*let newArray = [...storeProducts];
+    const slicedItem = storeProducts.splice(dragItem.current, 1)[0];
+    newArray.splice(dragOverItem.current, 0, slicedItem);
+
+    dragItem.current = null;
+    dragOverItem.current = null;
+
+    dispatch(addStoreProducts(newArray));*/
+    let _storeProducts = [...storeProducts];
+    const draggedItemContent = _storeProducts.splice(dragItem.current, 1)[0];
+    _storeProducts.splice(dragOverItem.current, 0, draggedItemContent);
+
+    dragItem.current = null;
+    dragOverItem.current = null;
+    dispatch(addStoreProducts(_storeProducts));
+    setIsDragging(false);
+  }
+  console.log(storeProducts);
   return (
     <div
       className={
@@ -100,8 +123,27 @@ const StoreAddProducts = () => {
           }}
         ></div>
         {storeProducts &&
-          storeProducts.map((item) => {
-            return <StoreProductCard storeProducts={item} />;
+          storeProducts.map((item, index) => {
+            return (
+              <>
+                <div
+                  className="relative"
+                  onDragStart={() => {
+                    dragItem.current = index;
+                    setIsDragging(true);
+                  }}
+                  onDragEnter={() => (dragOverItem.current = index)}
+                  onDragEnd={handleSort}
+                >
+                  <StoreProductCard storeProducts={item} />
+                  {dragOverItem.current === index ? (
+                    <div className="drag-indicator"></div>
+                  ) : (
+                    ""
+                  )}
+                </div>
+              </>
+            );
           })}
       </div>
     </div>

@@ -121,3 +121,13 @@ body {
   display: flex;
   justify-content: center;
 }
+
+.drag-indicator {
+  height: 95%;
+  @apply rounded-lg;
+  width: 10px;
+  @apply bg-orange-500;
+  position: absolute;
+  top: 0;
+  right: -5px;
+}
