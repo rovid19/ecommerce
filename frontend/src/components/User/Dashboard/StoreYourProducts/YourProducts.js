@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import StoreAddProductModal from "./Modals/AddProductModal/AddProductModal";
 import StoreProductCard from "../../Store/StoreProductCard.js";
@@ -6,12 +6,12 @@ import StoreDeleteProductModal from "../StoreEdit/Modals/StoreDeleteProductModal
 import { setEditMode } from "../../../../app/features/Store/storeEditMode";
 import StoreEditProductModal from "./Modals/EditProductModal/EditProductModal";
 import { addStoreProducts } from "../../../../app/features/Store/storeProducts";
-
+import axios from "axios";
 const StoreAddProducts = () => {
   //states
   const [isVisible, setIsVisible] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
-  const [isDragging, setIsDragging] = useState(false);
+  const [items, setItems] = useState(null);
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
@@ -29,12 +29,27 @@ const StoreAddProducts = () => {
   const editMode = useSelector((state) => state.editMode.value);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    if (!items) {
+      setItems(storeProducts);
+    }
+  }, []);
+
   // functions
   function checkEditMode() {
     const checkbox = document.querySelector('.toggle input[type="checkbox"]');
     if (checkbox.checked === false) {
       checkbox.checked = true;
     }
+  }
+  function dragSetClassname(index) {
+    let _storeProducts = [...storeProducts];
+    let finalArray = [];
+    _storeProducts.forEach((item) => {
+      finalArray.push({ ...item, productDragged: false });
+    });
+    finalArray[index].productDragged = true;
+    dispatch(addStoreProducts(finalArray));
   }
 
   function handleSort() {
@@ -52,10 +67,19 @@ const StoreAddProducts = () => {
 
     dragItem.current = null;
     dragOverItem.current = null;
-    dispatch(addStoreProducts(_storeProducts));
-    setIsDragging(false);
+    let finalArray = [];
+    _storeProducts.forEach((item) => {
+      finalArray.push({ ...item, productDragged: false });
+    });
+    dispatch(addStoreProducts(finalArray));
   }
-  console.log(storeProducts);
+
+  function handleSortSave() {
+    axios.post("/api/store/save-sorted-products", {
+      storeProducts,
+    });
+  }
+
   return (
     <div
       className={
@@ -88,7 +112,10 @@ const StoreAddProducts = () => {
             <input
               type="checkbox"
               className="hidden"
-              onChange={() => dispatch(setEditMode(!editMode))}
+              onChange={() => {
+                dispatch(setEditMode(!editMode));
+                handleSortSave();
+              }}
             />
             <span className={editMode ? "sliderOrange" : "slider"}></span>
           </label>
@@ -130,16 +157,16 @@ const StoreAddProducts = () => {
                   className="relative"
                   onDragStart={() => {
                     dragItem.current = index;
-                    setIsDragging(true);
                   }}
-                  onDragEnter={() => (dragOverItem.current = index)}
+                  onDragEnter={(e) => {
+                    dragOverItem.current = index;
+                    dragSetClassname(index);
+                  }}
                   onDragEnd={handleSort}
                 >
                   <StoreProductCard storeProducts={item} />
-                  {dragOverItem.current === index ? (
-                    <div className="drag-indicator"></div>
-                  ) : (
-                    ""
+                  {item.productDragged && (
+                    <div className="drag-indicator "></div>
                   )}
                 </div>
               </>

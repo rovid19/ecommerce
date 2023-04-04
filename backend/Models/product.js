@@ -10,6 +10,7 @@ const productSchema = new mongoose.Schema({
   productSold: Number,
   productCurrency: String,
   productReview: [{ type: mongoose.Schema.Types.ObjectId, ref: "review" }],
+  productIsBeingDragged: { type: Boolean, default: false },
 });
 
 const productModel = mongoose.model("product", productSchema);

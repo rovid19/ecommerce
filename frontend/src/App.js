@@ -44,7 +44,7 @@ const App = () => {
       })
       .then(() => dispatch(setUserFetching(false)));
   }, [getUserTrigger]);
-
+  console.log(user);
   return (
     <div>
       <Routes>

@@ -126,7 +126,7 @@ body {
   height: 95%;
   @apply rounded-lg;
   width: 10px;
-  @apply bg-orange-500;
+  @apply bg-gray-300;
   position: absolute;
   top: 0;
   right: -5px;
