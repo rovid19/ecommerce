@@ -7,6 +7,7 @@ import {
   deleteProduct,
   getCurrentProduct,
   editProduct,
+  newProductArray,
 } from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
@@ -33,5 +34,7 @@ router.post("/delete-store-product", deleteProduct);
 router.post("/get-current-product", getCurrentProduct);
 
 router.put("/edit-product", editProduct);
+
+router.post("/save-sorted-products", newProductArray);
 
 export default router;

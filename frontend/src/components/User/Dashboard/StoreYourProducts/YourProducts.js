@@ -8,7 +8,7 @@ import StoreEditProductModal from "./Modals/EditProductModal/EditProductModal";
 import { addStoreProducts } from "../../../../app/features/Store/storeProducts";
 import axios from "axios";
 const StoreAddProducts = () => {
-  //states
+  // states & ref
   const [isVisible, setIsVisible] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [items, setItems] = useState(null);
@@ -23,17 +23,13 @@ const StoreAddProducts = () => {
     (state) => state.deleteProductModal.value
   );
   const user = useSelector((state) => state.user.value);
-  const styles = {
-    backgroundImage: `url(${user.store.storeCover})`,
-  };
   const editMode = useSelector((state) => state.editMode.value);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (!items) {
-      setItems(storeProducts);
-    }
-  }, []);
+  //other
+  const styles = {
+    backgroundImage: `url(${user.store.storeCover})`,
+  };
 
   // functions
   function checkEditMode() {

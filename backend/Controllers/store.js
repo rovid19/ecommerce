@@ -143,3 +143,27 @@ export const editProduct = async (req, res) => {
 
   res.json(editedProduct);
 };
+
+export const newProductArray = async (req, res) => {
+  const { token } = req.cookies;
+  const { storeProducts } = req.body;
+  let storeProductArray = [];
+  storeProducts.forEach((item) => {
+    const id = item._id;
+    storeProductArray.push(id);
+  });
+
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const user = await User.findById(userData.id);
+    const { store } = user;
+
+    const newStore = await Store.findById(store._id);
+
+    newStore.set({
+      storeProducts: storeProductArray,
+    });
+
+    await newStore.save();
+  });
+};
