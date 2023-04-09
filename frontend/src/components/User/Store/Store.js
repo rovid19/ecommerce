@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import Img from "../../../assets/user.png";
-import Img1 from "../../../assets/test.jpg";
 import StoreProductCard from "../Store/StoreProductCard.js";
-import Img2 from "../../../assets/blank.jpg";
 import { useSelector } from "react-redux";
+import StoreProductModal from "./StoreProductModal/StoreProductModal";
 
 const Store = () => {
   const user = useSelector((state) => state.user.value);
   const storeProducts = useSelector((state) => state.storeProducts.value);
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
+  const viewProductModal = useSelector((state) => state.viewProductModal.value);
   const styles = {
     backgroundImage: user.store && `url(${user.store.storeCover})`,
   };
 
+  console.log(storeSubPage);
   return (
-    <div className="w-[100%] bg-gray-50 skrin flex justify-center">
+    <div className="w-[100%]  bg-gray-50 skrin flex justify-center relative">
+      {viewProductModal && <StoreProductModal />}
       <div className=" w-[100%] lg:w-[85%]">
         <div className="h-[35%] relative bg-cover" style={styles}>
           <div className="h-full w-full bg-black bg-opacity-40">

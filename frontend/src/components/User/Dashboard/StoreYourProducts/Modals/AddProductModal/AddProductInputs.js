@@ -26,8 +26,11 @@ const AddProductInputs = ({
   function handleUploadProductPicture(e) {
     dispatch(setUserFetching(true));
     const file = e.target.files;
+    console.log(file);
     const formData = new FormData();
     formData.append("photo", file[0]);
+
+    console.log(formData);
 
     axios
       .post("/api/store/upload-image", formData, {

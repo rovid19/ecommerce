@@ -51,7 +51,10 @@ const NavbarUserMenu = () => {
         </svg>
       ) : (
         <>
-          <Link to={`/store/${user.storeName}`}>
+          <Link
+            to={`/store/${user.storeName}`}
+            onClick={() => dispatch(getStoreSubPage("store"))}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

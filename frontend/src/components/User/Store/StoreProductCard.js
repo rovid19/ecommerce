@@ -9,6 +9,7 @@ import selectedProduct, {
   addSelectedProduct,
 } from "../../../app/features/Store/selectedProduct";
 import { setEditProductModal } from "../../../app/features/Store/Dashboard/editProductModal";
+import { setViewProductModal } from "../../../app/features/Store/viewProductModal";
 
 const StoreProductCard = ({ storeProducts }) => {
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
@@ -32,7 +33,11 @@ const StoreProductCard = ({ storeProducts }) => {
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
         if (storeSubPage === "products") {
+          console.log("yes");
           dispatch(setEditProductModal(true));
+        } else if (storeSubPage === "store") {
+          console.log("da");
+          dispatch(setViewProductModal(true));
         }
       }}
     >
