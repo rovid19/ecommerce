@@ -7,7 +7,7 @@ import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
 
 const EditProductModal = () => {
   //states
-  const [productPicture, setProductPicture] = useState(undefined);
+  const [productPicture, setProductPicture] = useState([]);
   const [productTitle, setProductTitle] = useState(null);
   const [productDescription, setProductDescription] = useState(null);
   const [productPrice, setProductPrice] = useState(null);

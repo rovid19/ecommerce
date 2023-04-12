@@ -5,7 +5,7 @@ import { switchValue } from "../../../../../../app/features/getUserTrigger";
 import { setUserFetching } from "../../../../../../app/features/User/isUserFetching";
 import { setEditProductModal } from "../../../../../../app/features/Store/Dashboard/editProductModal";
 import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
-
+import { useEffect, useState } from "react";
 const EditProductInputs = ({
   setProductPicture,
   setProductTitle,
@@ -18,6 +18,8 @@ const EditProductInputs = ({
   setIsFetching,
   currentProduct,
 }) => {
+  //states
+  const [index, setIndex] = useState();
   //redux
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const isUserFetching = useSelector((state) => state.isUserFetching.value);
@@ -45,20 +47,39 @@ const EditProductInputs = ({
       });
   }
   function handleUploadProductPicture(e) {
-    dispatch(setUserFetching(true));
-    const file = e.target.files;
-    const formData = new FormData();
-    formData.append("photo", file[0]);
+    if (productPicture.length < 6) {
+      dispatch(setUserFetching(true));
+      const file = e.target.files;
+      console.log(file);
+      const formData = new FormData();
+      formData.append("photo", file[0]);
 
-    axios
-      .post("/api/store/upload-image", formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then(({ data }) => {
-        setProductPicture(data);
-        dispatch(setUserFetching(false));
-      });
+      console.log(formData);
+
+      axios
+        .post("/api/store/upload-image", formData, {
+          headers: { "Content-Type": "multipart/form-data" },
+        })
+        .then(({ data }) => {
+          let newArray = productPicture;
+          newArray.push(data);
+          setProductPicture(newArray);
+          dispatch(setUserFetching(false));
+        });
+    } else {
+      alert("you can only upload 6 pictures");
+    }
   }
+
+  useEffect(() => {
+    if (index !== null && index !== undefined) {
+      const newArray = productPicture;
+      newArray.splice(index, 1);
+      setProductPicture(newArray);
+      setIndex(null);
+      console.log(newArray);
+    }
+  }, [index]);
 
   return (
     <form onSubmit={handleEditProduct} className="h-[95%]">
@@ -81,16 +102,78 @@ const EditProductInputs = ({
                 type="file"
                 className="hidden"
               />
-              {productPicture ? (
-                <img
-                  src={productPicture}
-                  className="w-full h-full object-cover"
-                ></img>
+              {productPicture.length > 0 ? (
+                <>
+                  {productPicture.map((item, index) => {
+                    if (index === 0) {
+                      return (
+                        <div className="relative h-full w-full ">
+                          {productPicture.length < 6 && (
+                            <div className="absolute h-full w-full flex items-center justify-center bg-black bg-opacity-20 text-white ">
+                              {" "}
+                              <h1> Add more </h1>
+                            </div>
+                          )}
+
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="w-10 h-10 text-white hover:scale-90 absolute bg-orange-500 top-0 p-1 right-0 "
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setIndex(index);
+                            }}
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                          <img
+                            src={item}
+                            className="w-full h-full object-cover"
+                          ></img>
+                        </div>
+                      );
+                    }
+                  })}
+                  <div className="absolute w-full h-[30%] flex bottom-0 z-50">
+                    {productPicture.map((item, index) => {
+                      if (index > 0) {
+                        return (
+                          <div className="relative w-[20%] h-full">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              viewBox="0 0 24 24"
+                              fill="currentColor"
+                              class="w-7 h-7 text-white hover:scale-90 absolute bg-orange-500 bottom-0 p-1 left-0"
+                              onClick={(e) => {
+                                setIndex(index);
+                              }}
+                            >
+                              <path
+                                fill-rule="evenodd"
+                                d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                clip-rule="evenodd"
+                              />
+                            </svg>
+                            <img
+                              src={item}
+                              className="w-full h-full object-cover rounded-md"
+                            ></img>{" "}
+                          </div>
+                        );
+                      }
+                    })}
+                  </div>
+                  ;
+                </>
               ) : (
-                <img
-                  src={currentProduct && currentProduct.productPicture}
-                  className="w-full h-full object-cover"
-                />
+                <h1 className="text-3xl text-gray-300 group-hover:text-gray-500">
+                  Insert Product Picture Here
+                </h1>
               )}
             </>
           )}

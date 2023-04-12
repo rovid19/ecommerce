@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
 
 const StoreProductModal = () => {
-  const [productPicture, setProductPicture] = useState(undefined);
+  const [productPicture, setProductPicture] = useState([]);
   const [productTitle, setProductTitle] = useState(null);
   const [productDescription, setProductDescription] = useState(null);
   const [productPrice, setProductPrice] = useState(null);
@@ -79,12 +79,77 @@ const StoreProductModal = () => {
             </svg>
           </div>
         )}
-        <div className="h-[50%] w-[75%] ">
-          <img
-            src={productPicture}
-            className="h-full w-[60%] object-cover cursor-pointer"
-            onClick={() => setViewImage(true)}
-          ></img>
+        <div className="h-[50%] w-[75%] flex relative ">
+          {productPicture.map((item, index) => {
+            switch (index) {
+              case 0:
+                return (
+                  <div className="h-full w-[50%] object-cover z-50 flex items-center relative">
+                    <img src={item} className="h-full"></img>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="w-12 h-12 absolute right-2 text-white cursor-pointer hover:scale-95"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="w-12 h-12 absolute left-2 text-white cursor-pointer hover:scale-95"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
+                );
+              case 1:
+                return (
+                  <img
+                    src={item}
+                    className="h-full w-[50%] object-cover absolute z-40 left-[10%]"
+                  ></img>
+                );
+              case 2:
+                return (
+                  <img
+                    src={item}
+                    className="h-full w-[50%] object-cover absolute z-30 left-[20%] "
+                  ></img>
+                );
+              case 3:
+                return (
+                  <img
+                    src={item}
+                    className="h-full w-[50%] object-cover absolute z-20 left-[30%] "
+                  ></img>
+                );
+              case 4:
+                return (
+                  <img
+                    src={item}
+                    className="h-full w-[50%] object-cover absolute z-10 left-[40%] "
+                  ></img>
+                );
+              case 5:
+                return (
+                  <img
+                    src={item}
+                    className="h-full w-[50%] object-cover absolute z-0 left-[50%] "
+                  ></img>
+                );
+            }
+          })}
+          <div className="h-full w-[50%] absolute left-[50%] bg-black bg-opacity-50 z-50"></div>
         </div>
         <div className="h-[50%] w-[75%]  p-4 relative">
           <h1 className="text-6xl">{productTitle}</h1>

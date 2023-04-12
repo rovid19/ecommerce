@@ -4,7 +4,7 @@ import AddProductInputs from "./AddProductInputs";
 
 const StoreAddProductModal = ({ setIsVisible }) => {
   //states
-  const [productPicture, setProductPicture] = useState(undefined);
+  const [productPicture, setProductPicture] = useState([]);
   const [productTitle, setProductTitle] = useState(null);
   const [productDescription, setProductDescription] = useState(null);
   const [productPrice, setProductPrice] = useState(null);

@@ -69,7 +69,7 @@ const StoreProductCard = ({ storeProducts }) => {
           ""
         )}
         <img
-          src={storeProducts && storeProducts.productPicture}
+          src={storeProducts && storeProducts.productPicture[0]}
           className="h-[100%] w-[100%] object-cover"
         ></img>
       </div>

@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const productSchema = new mongoose.Schema({
   productName: String,
-  productPicture: String,
+  productPicture: [String],
   productDescription: String,
   productRating: Number,
   productNewPrice: Number,
@@ -10,7 +10,6 @@ const productSchema = new mongoose.Schema({
   productSold: Number,
   productCurrency: String,
   productReview: [{ type: mongoose.Schema.Types.ObjectId, ref: "review" }],
-  productIsBeingDragged: { type: Boolean, default: false },
 });
 
 const productModel = mongoose.model("product", productSchema);
