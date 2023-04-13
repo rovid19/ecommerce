@@ -8,6 +8,7 @@ import authRoute from "./Routes/auth.js";
 import userRoute from "./Routes/user.js";
 import storeRoute from "./Routes/store.js";
 import cookieParser from "cookie-parser";
+import customerRoute from "./Routes/customer.js";
 
 const app = express();
 const PORT = 4000;
@@ -32,5 +33,6 @@ app.listen(PORT);
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
 app.use("/api/store", storeRoute);
+app.use("/api/customer", customerRoute);
 
 app.use("/uploads", express.static(__dirname + "/uploads"));

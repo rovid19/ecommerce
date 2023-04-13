@@ -9,7 +9,6 @@ const NavbarUserMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
-  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   function handleLogout() {
     axios.post("/api/auth/logout-user").then(() => {
@@ -19,6 +18,7 @@ const NavbarUserMenu = () => {
   }
   return (
     <>
+      {/* LOGOUT BUTTON */}
       <svg
         onClick={handleLogout}
         xmlns="http://www.w3.org/2000/svg"
@@ -34,6 +34,7 @@ const NavbarUserMenu = () => {
           d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75"
         />
       </svg>
+      {/* IF USER IS CUSTOMER OR SELLER */}
       {user && user.role === "Customer" ? (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -51,6 +52,7 @@ const NavbarUserMenu = () => {
         </svg>
       ) : (
         <>
+          {/* USER STORE BUTTON */}
           <Link
             to={`/store/${user.storeName}`}
             onClick={() => dispatch(getStoreSubPage("store"))}
@@ -74,6 +76,7 @@ const NavbarUserMenu = () => {
             to={`/dashboard/${user.storeName}`}
             onClick={() => dispatch(getStoreSubPage("editStore"))}
           >
+            {/* USER DASHBOARD BUTTON */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"

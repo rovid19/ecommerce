@@ -107,11 +107,14 @@ const EditProductInputs = ({
                   {productPicture.map((item, index) => {
                     if (index === 0) {
                       return (
-                        <div className="relative h-full w-full ">
+                        <div className="relative h-full w-full group ">
                           {productPicture.length < 6 && (
-                            <div className="absolute h-full w-full flex items-center justify-center bg-black bg-opacity-20 text-white ">
+                            <div className="absolute h-full w-full flex items-center justify-center bg-black bg-opacity-20 text-white group">
                               {" "}
-                              <h1> Add more </h1>
+                              <h1 className="group-hover:text-2xl transition-all">
+                                {" "}
+                                Add more{" "}
+                              </h1>
                             </div>
                           )}
 
@@ -119,7 +122,7 @@ const EditProductInputs = ({
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            class="w-10 h-10 text-white hover:scale-90 absolute bg-orange-500 top-0 p-1 right-0 "
+                            class="w-10 h-10 text-white hover:scale-90 absolute bg-orange-500 top-0 p-1 right-0 invisible group-hover:visible "
                             onClick={(e) => {
                               e.stopPropagation();
                               setIndex(index);
@@ -139,7 +142,7 @@ const EditProductInputs = ({
                       );
                     }
                   })}
-                  <div className="absolute w-full h-[30%] flex bottom-0 z-50">
+                  <div className="absolute w-full h-[30%] flex bottom-0 z-50 group">
                     {productPicture.map((item, index) => {
                       if (index > 0) {
                         return (
@@ -148,7 +151,7 @@ const EditProductInputs = ({
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 24 24"
                               fill="currentColor"
-                              class="w-7 h-7 text-white hover:scale-90 absolute bg-orange-500 bottom-0 p-1 left-0"
+                              class="w-7 h-7 text-white hover:scale-90 absolute bg-orange-500 bottom-0 p-1 left-0 invisible group-hover:visible"
                               onClick={(e) => {
                                 setIndex(index);
                               }}

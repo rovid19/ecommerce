@@ -7,10 +7,11 @@ import NavbarUserMenu from "./NavbarUserMenu";
 const Navbar = () => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
-
+  console.log(user);
   return (
     <>
       <header className="flex h-[70px] justify-center ">
+        {/* FIRST PART OF HEADER */}
         <div className="w-[100%] h-full flex lg:w-[85%]">
           <div className="w-[100%] lg:w-[75%] flex  items-center md:mr-6 lg:mr-0 ">
             <div className="w-[20%] flex">
@@ -35,6 +36,7 @@ const Navbar = () => {
                 />
               </svg>
             </div>
+            {/* SEARCH BAR */}
             <div className="h-[60%] w-[90%]  lg:w-[70%] flex items-center rounded-3xl border-2 border-gray-300 border-opacity-25  ">
               <div className="w-full h-full flex justify-between items-center">
                 <label className="w-[30%] lg:w-[15%] xl:w-[10%] h-[70%] flex justify-center border-r-2 border-gray-300 border-opacity-30 ">
@@ -65,11 +67,18 @@ const Navbar = () => {
               </div>
             </div>
           </div>
+          {/* SECOND PART OF HEADER */}
           <div className="hidden w-[25%] lg:flex items-center">
             <div className=" w-full justify-end flex ">
               {user && Object.keys(user).length > 0 ? (
                 <>
-                  <div className="flex items-center text-gray-500 gap-2  w-[100px] border-r-2 border-gray-300 border-opacity-30   ">
+                  <div
+                    className={
+                      user.role === "Customer"
+                        ? "flex items-center text-gray-500 gap-2 w-[70px]  border-r-2 border-gray-300 border-opacity-30"
+                        : "flex items-center text-gray-500 gap-2 w-[100px] border-r-2 border-gray-300 border-opacity-30"
+                    }
+                  >
                     <NavbarUserMenu />
                   </div>
                   <div>

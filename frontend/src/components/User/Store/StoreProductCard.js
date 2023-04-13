@@ -1,22 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Img from "../../../assets/testslika.png";
-import { useState } from "react";
-import axios from "axios";
-import { switchValue } from "../../../app/features/getUserTrigger";
 import { setStoreDeleteVisible } from "../../../app/features/Store/deleteProductModal";
-import selectedProduct, {
-  addSelectedProduct,
-} from "../../../app/features/Store/selectedProduct";
+import { addSelectedProduct } from "../../../app/features/Store/selectedProduct";
 import { setEditProductModal } from "../../../app/features/Store/Dashboard/editProductModal";
 import { setViewProductModal } from "../../../app/features/Store/viewProductModal";
+import { useNavigate } from "react-router-dom";
 
 const StoreProductCard = ({ storeProducts }) => {
+  const navigate = useNavigate();
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
   );
   const editMode = useSelector((state) => state.editMode.value);
+  const user = useSelector((state) => state.user.value);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const dispatch = useDispatch();
   const styles = {
@@ -37,7 +35,7 @@ const StoreProductCard = ({ storeProducts }) => {
           dispatch(setEditProductModal(true));
         } else if (storeSubPage === "store") {
           console.log("da");
-          dispatch(setViewProductModal(true));
+          navigate(`/store/${user.storeName}/${selectedProduct}`);
         }
       }}
     >

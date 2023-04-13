@@ -14,6 +14,7 @@ import StoreYourProducts from "../src/components/User/Dashboard/StoreYourProduct
 import StoreFinance from "./components/User/Dashboard/StoreFinance/StoreFinance.js";
 import { addStoreProducts } from "./app/features/Store/storeProducts.js";
 import { setUserFetching } from "./app/features/User/isUserFetching.js";
+import StoreProductModal from "./components/User/Store/StoreProductModal/StoreProductModal.js";
 
 axios.defaults.baseURL = "http://localhost:4000";
 //axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
@@ -49,8 +50,12 @@ const App = () => {
     <div>
       <Routes>
         <Route path="/" element={<Navbar />}>
-          <Route path="/store/:id" element={<Store />} />
-        </Route>{" "}
+          <Route path="/store/:storeName" element={<Store />} />
+          <Route
+            path="/store/:storeName/:productId"
+            element={<StoreProductModal />}
+          />
+        </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/register/form" element={<RegisterPagePartTwo />} />

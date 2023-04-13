@@ -100,7 +100,7 @@ export const getStoreProducts = async (req, res) => {
 
     const userStore = await Store.findById(store).populate(
       "storeProducts",
-      "productName productPicture productDescription productRating productNewPrice productOldPrice productIsBeingDragged"
+      "productName productPicture productDescription productRating productNewPrice productOldPrice"
     );
 
     res.json(userStore);

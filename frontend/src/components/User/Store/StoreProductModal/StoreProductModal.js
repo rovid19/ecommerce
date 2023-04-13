@@ -5,6 +5,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
+import { useNavigate } from "react-router-dom";
 
 const StoreProductModal = () => {
   const [productPicture, setProductPicture] = useState([]);
@@ -15,6 +16,9 @@ const StoreProductModal = () => {
   const [viewImage, setViewImage] = useState(false);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const user = useSelector((state) => state.user.value);
 
   useEffect(() => {
     setIsFetching(true);
@@ -31,11 +35,37 @@ const StoreProductModal = () => {
       });
   }, []);
 
-  console.log(productPicture);
+  //functions
+
+  function handleChangePictureNext(index) {
+    return function () {
+      let newArray = [...productPicture];
+      const arrayEnd = newArray.length;
+      const splicedItem = newArray.splice(index, 1);
+      newArray.splice(arrayEnd, 0, splicedItem);
+      setProductPicture(newArray);
+    };
+  }
+
+  function handleChangePicturePrevious(index) {
+    return function () {
+      let newArray = [...productPicture];
+      const arrayEnd = newArray.length - 1;
+      const splicedItem = newArray.splice(arrayEnd, 1);
+      newArray.splice(0, 0, splicedItem);
+      setProductPicture(newArray);
+    };
+  }
+
+  function addProductToCart() {
+    axios.post("/api/customer/add-product-to-cart", { selectedProduct });
+  }
+
   return (
     <div className="absolute top-0 z-20 left-0 h-full w-full bg-black bg-opacity-50 flex items-center justify-center ">
+      {/* CLOSE PRODUCT MODAL BUTTON*/}
       <button
-        onClick={() => dispatch(setViewProductModal(false))}
+        onClick={() => navigate(`/store/${user.storeName}`)}
         className=" text-black absolute top-2 left-2"
       >
         <svg
@@ -51,18 +81,20 @@ const StoreProductModal = () => {
           />
         </svg>
       </button>
+      {/* MAIN DIV */}
       <div className="w-[85%] h-full bg-white relative">
         {isFetching && (
-          <div className="w-full h-full absolute top-0 left-0 z-30 bg-white flex items-center justify-center">
+          <div className="w-full h-full absolute top-0 left-0 z-50 bg-white flex items-center justify-center">
             {" "}
             <img src={Loader}></img>{" "}
           </div>
         )}
+        {/* IMAGE ZOOMED IN */}
         {viewImage && (
-          <div className="absolute top-0 left-0 h-full w-full z-30">
+          <div className="absolute top-0 left-0 h-full w-full z-50">
             <img
-              src={productPicture}
-              className="h-full w-full object-fill "
+              src={productPicture[0]}
+              className="h-full w-full object-cover "
             ></img>
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -79,65 +111,128 @@ const StoreProductModal = () => {
             </svg>
           </div>
         )}
-        <div className="h-[50%] w-[75%] flex relative ">
+        {/* PRODUCT PICTURES */}
+        <div
+          className={viewImage ? "hidden " : "h-[50%] w-[75%] flex relative "}
+        >
           {productPicture.map((item, index) => {
             switch (index) {
               case 0:
                 return (
-                  <div className="h-full w-[50%] object-cover z-50 flex items-center relative">
-                    <img src={item} className="h-full"></img>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="w-12 h-12 absolute right-2 text-white cursor-pointer hover:scale-95"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="currentColor"
-                      class="w-12 h-12 absolute left-2 text-white cursor-pointer hover:scale-95"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
-                        clip-rule="evenodd"
-                      />
-                    </svg>
+                  <div className="h-full w-[50%] object-cover z-50 flex items-center relative ">
+                    <button className="absolute top-4 left-4 z-30">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        strokeWidth={1.5}
+                        stroke="currentColor"
+                        className="w-6 h-6 text-white hover:scale-95 transition-all"
+                        onClick={() => setViewImage(true)}
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15"
+                        />
+                      </svg>
+                    </button>
+                    <img
+                      src={item}
+                      className="h-full w-full object-cover"
+                    ></img>
+                    <button onClick={handleChangePictureNext(index)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="w-14 h-14 absolute right-2 text-white cursor-pointer hover:scale-95"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                    <button onClick={handleChangePicturePrevious(index)}>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="w-14 h-14 absolute left-2 text-white cursor-pointer hover:scale-95"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
                   </div>
                 );
               case 1:
                 return (
                   <img
                     src={item}
-                    className="h-full w-[50%] object-cover absolute z-40 left-[10%]"
+                    className={
+                      productPicture.length === 2
+                        ? "h-full w-[50%] object-cover absolute z-40 left-[50%]"
+                        : productPicture.length === 3
+                        ? "h-full w-[50%] object-cover absolute z-40 left-[25%]"
+                        : productPicture.length === 4
+                        ? "h-full w-[50%] object-cover absolute z-40 left-[16.6%]"
+                        : productPicture.length === 5
+                        ? "h-full w-[50%] object-cover absolute z-40 left-[12.5%]"
+                        : productPicture.length === 6
+                        ? "h-full w-[50%] object-cover absolute z-40 left-[10%]"
+                        : ""
+                    }
                   ></img>
                 );
               case 2:
                 return (
                   <img
                     src={item}
-                    className="h-full w-[50%] object-cover absolute z-30 left-[20%] "
+                    className={
+                      productPicture.length === 3
+                        ? "h-full w-[50%] object-cover absolute z-30 left-[50%]"
+                        : productPicture.length === 4
+                        ? "h-full w-[50%] object-cover absolute z-30 left-[33.2%]"
+                        : productPicture.length === 5
+                        ? "h-full w-[50%] object-cover absolute z-30 left-[25%]"
+                        : productPicture.length === 6
+                        ? "h-full w-[50%] object-cover absolute z-30 left-[20%]"
+                        : ""
+                    }
                   ></img>
                 );
               case 3:
                 return (
                   <img
                     src={item}
-                    className="h-full w-[50%] object-cover absolute z-20 left-[30%] "
+                    className={
+                      productPicture.length === 4
+                        ? "h-full w-[50%] object-cover absolute z-20 left-[50%]"
+                        : productPicture.length === 5
+                        ? "h-full w-[50%] object-cover absolute z-20 left-[37.5%]"
+                        : productPicture.length === 6
+                        ? "h-full w-[50%] object-cover absolute z-20 left-[30%]"
+                        : ""
+                    }
                   ></img>
                 );
               case 4:
                 return (
                   <img
                     src={item}
-                    className="h-full w-[50%] object-cover absolute z-10 left-[40%] "
+                    className={
+                      productPicture.length === 5
+                        ? "h-full w-[50%] object-cover absolute z-10 left-[50%]"
+                        : productPicture.length === 6
+                        ? "h-full w-[50%] object-cover absolute z-10 left-[40%]"
+                        : ""
+                    }
                   ></img>
                 );
               case 5:
@@ -149,18 +244,32 @@ const StoreProductModal = () => {
                 );
             }
           })}
-          <div className="h-full w-[50%] absolute left-[50%] bg-black bg-opacity-50 z-50"></div>
+          {/* BLACK OVERLAY OVER PICTURES */}
+          <div className="h-full w-[50%] absolute left-[50%] bg-black bg-opacity-50 z-40"></div>
         </div>
+        {/* DETAILS ABOUT PRODUCT */}
         <div className="h-[50%] w-[75%]  p-4 relative">
+          {/* PRODUCT TITLE*/}
           <h1 className="text-6xl">{productTitle}</h1>
+          {/* PRODUCT DESCRIPTION */}
           <p className="mt-4"> {productDescription}</p>
+          {/* ADD TO CART BUTTON*/}
+          <button
+            onClick={addProductToCart}
+            className="bottom-4 border-2 border-orange-500 text-orange-500 p-4 rounded-lg right-[30%] w-[15%] text-xl hover:bg-orange-500 hover:text-white transition-all absolute"
+          >
+            Add to cart
+          </button>
+          {/* BUY NOW BUTTON*/}
           <button className="bottom-4 bg-orange-500 p-4 rounded-lg text-white right-4 w-[25%] text-xl hover:w-[28%] transition-all absolute">
             Buy now
           </button>
+          {/* PRODUCT RATING*/}
           <div className="bottom-4 left-4 absolute">
             <h2 className="text-xl">4.5</h2>
           </div>
         </div>
+        {/* REVIEWS */}
         <div className="absolute right-0 top-0 h-full w-[25%] border-l-2 border-gray-300 border-opacity-25 ">
           <div className="h-[5%] text-3xl ml-4 mt-4">Reviews</div>
           <div className="h-[20%] bg-red-500 p-4 relative">
