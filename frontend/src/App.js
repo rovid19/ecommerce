@@ -15,6 +15,7 @@ import StoreFinance from "./components/User/Dashboard/StoreFinance/StoreFinance.
 import { addStoreProducts } from "./app/features/Store/storeProducts.js";
 import { setUserFetching } from "./app/features/User/isUserFetching.js";
 import StoreProductModal from "./components/User/Store/StoreProductModal/StoreProductModal.js";
+import AddToCart from "./components/User/Customer/AddToCart.js";
 
 axios.defaults.baseURL = "http://localhost:4000";
 //axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
@@ -22,12 +23,14 @@ axios.defaults.withCredentials = true;
 
 const App = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const cartVisible = useSelector((state) => state.cartVisible.value);
   const user = useSelector((state) => state.user.value);
   const storeProducts = useSelector((state) => state.storeProducts.value);
   const isUserFetching = useSelector((state) => state.isUserFetching.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
+    console.log("pokrenut");
     dispatch(setUserFetching(true));
     axios
       .get("/api/user/get-logged-user?timestamp=" + new Date().getTime(), {})
@@ -48,6 +51,7 @@ const App = () => {
   console.log(user);
   return (
     <div>
+      {cartVisible && <AddToCart />}
       <Routes>
         <Route path="/" element={<Navbar />}>
           <Route path="/store/:storeName" element={<Store />} />

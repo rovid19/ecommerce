@@ -6,6 +6,8 @@ import axios from "axios";
 import { useEffect } from "react";
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
 import { useNavigate } from "react-router-dom";
+import { setCartVisible } from "../../../../app/features/User/cartVisible";
+import { switchValue } from "../../../../app/features/getUserTrigger";
 
 const StoreProductModal = () => {
   const [productPicture, setProductPicture] = useState([]);
@@ -15,6 +17,7 @@ const StoreProductModal = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [viewImage, setViewImage] = useState(false);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
+  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -58,7 +61,17 @@ const StoreProductModal = () => {
   }
 
   function addProductToCart() {
-    axios.post("/api/customer/add-product-to-cart", { selectedProduct });
+    if (user.addToCart.includes(selectedProduct)) {
+      alert("product already in cart");
+    } else {
+      dispatch(setCartVisible(true));
+
+      axios
+        .post("/api/customer/add-product-to-cart", { selectedProduct })
+        .then(() => {
+          dispatch(switchValue(!getUserTrigger));
+        });
+    }
   }
 
   return (

@@ -10,6 +10,7 @@ const productSchema = new mongoose.Schema({
   productSold: Number,
   productCurrency: String,
   productReview: [{ type: mongoose.Schema.Types.ObjectId, ref: "review" }],
+  quantity: { type: Number, default: 0 },
 });
 
 const productModel = mongoose.model("product", productSchema);

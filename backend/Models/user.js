@@ -7,7 +7,7 @@ const userSchema = new mongoose.Schema({
   storeName: String,
   store: { type: mongoose.Schema.Types.ObjectId, ref: "store" },
   role: String,
-  addToCart: [{ type: mongoose.Schema.Types.ObjectId, ref: "products" }],
+  addToCart: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
 });
 
 const userModel = mongoose.model("user", userSchema);

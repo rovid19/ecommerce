@@ -12,7 +12,7 @@ import editModeReducer from "./features/Store/storeEditMode.js";
 import editProductModalReducer from "./features/Store/Dashboard/editProductModal.js";
 import htmlElementReducer from "./features/Store/htmlElement.js";
 import viewProductModalReducer from "./features/Store/viewProductModal.js";
-
+import cartVisibleReducer from "./features/User/cartVisible.js";
 export const store = configureStore({
   reducer: {
     user: userReducer,
@@ -28,5 +28,6 @@ export const store = configureStore({
     editProductModal: editProductModalReducer,
     htmlElement: htmlElementReducer,
     viewProductModal: viewProductModalReducer,
+    cartVisible: cartVisibleReducer,
   },
 });
