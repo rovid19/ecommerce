@@ -13,6 +13,7 @@ import editProductModalReducer from "./features/Store/Dashboard/editProductModal
 import htmlElementReducer from "./features/Store/htmlElement.js";
 import viewProductModalReducer from "./features/Store/viewProductModal.js";
 import cartVisibleReducer from "./features/User/cartVisible.js";
+import ProfileSavedModalReducer from "./features/User/profileSavedModal.js";
 export const store = configureStore({
   reducer: {
     user: userReducer,
@@ -29,5 +30,6 @@ export const store = configureStore({
     htmlElement: htmlElementReducer,
     viewProductModal: viewProductModalReducer,
     cartVisible: cartVisibleReducer,
+    profileSavedModal: ProfileSavedModalReducer,
   },
 });

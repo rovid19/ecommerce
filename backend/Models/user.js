@@ -8,6 +8,7 @@ const userSchema = new mongoose.Schema({
   store: { type: mongoose.Schema.Types.ObjectId, ref: "store" },
   role: String,
   addToCart: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
+  profilePicture: String,
 });
 
 const userModel = mongoose.model("user", userSchema);

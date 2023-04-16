@@ -1,16 +1,18 @@
 import React from "react";
 import Img from "../../assets/user.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import NavbarUserMenu from "./NavbarUserMenu";
+import { getStoreSubPage } from "../../app/features/storeSubPage";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
   console.log(user);
   return (
     <>
-      <header className="flex h-[70px] justify-center ">
+      <header className="flex h-full justify-center ">
         {/* FIRST PART OF HEADER */}
         <div className="w-[100%] h-full flex lg:w-[85%]">
           <div className="w-[100%] lg:w-[75%] flex  items-center md:mr-6 lg:mr-0 ">
@@ -85,6 +87,10 @@ const Navbar = () => {
                     <img
                       src={Img}
                       className="h-6 w-6 ml-4 cursor-pointer "
+                      onClick={() => {
+                        navigate(`/${user._id}/profile`);
+                        dispatch(getStoreSubPage("profile"));
+                      }}
                     ></img>
                   </div>
                 </>

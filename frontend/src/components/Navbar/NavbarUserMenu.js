@@ -4,9 +4,7 @@ import axios from "axios";
 import { addUser } from "../../app/features/userSlice";
 import { useNavigate, Link } from "react-router-dom";
 import { getStoreSubPage } from "../../app/features/storeSubPage";
-import cartVisible, {
-  setCartVisible,
-} from "../../app/features/User/cartVisible";
+import { setCartVisible } from "../../app/features/User/cartVisible";
 
 const NavbarUserMenu = () => {
   const dispatch = useDispatch();

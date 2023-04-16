@@ -173,3 +173,9 @@ body {
     width: 0%;
   }
 }
+
+.fl3 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}

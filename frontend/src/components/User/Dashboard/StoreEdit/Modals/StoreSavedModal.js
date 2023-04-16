@@ -1,9 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setEditMode } from "../../../../../app/features/Store/storeEditMode";
+import { setUserProfileSavedModal } from "../../../../../app/features/User/profileSavedModal";
 
 const StoreSavedModal = ({ setIsVisible }) => {
   const htmlElement = useSelector((state) => state.htmlElement.value);
+  const profileSavedModal = useSelector(
+    (state) => state.profileSavedModal.value
+  );
 
   function handleDisableEditModeToggle() {
     htmlElement.checked = false;
@@ -15,6 +19,7 @@ const StoreSavedModal = ({ setIsVisible }) => {
       onClick={() => {
         setIsVisible(false);
         dispatch(setEditMode(false));
+        dispatch(setUserProfileSavedModal(false));
         handleDisableEditModeToggle();
       }}
     >
