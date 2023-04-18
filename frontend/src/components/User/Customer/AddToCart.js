@@ -147,12 +147,14 @@ const AddToCart = () => {
                           if (quantity[index] === 1) {
                             setSelectedProduct(item._id);
                           } else {
+                            // onclick povecanja kolicine proizvoda
                             let newArray = [...quantity];
-                            let productPrice = item.productNewPrice;
                             let newNumber = newArray[index] - 1;
                             newArray.splice(index, 1);
                             newArray.splice(index, 0, newNumber);
                             setQuantity(newArray);
+                            // zbrajanje totala
+                            let productPrice = item.productNewPrice;
                             setTotal((prev) => prev - productPrice);
                           }
                         }}

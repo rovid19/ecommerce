@@ -3,6 +3,7 @@ import User from "../Models/user.js";
 import Store from "../Models/store.js";
 import Product from "../Models/product.js";
 import bcrypt from "bcrypt";
+import Sale from "../Models/sale.js";
 
 const jwtSecret = "rockjefakatludirock";
 const bcryptSalt = bcrypt.genSaltSync(10);
@@ -89,6 +90,83 @@ export const profileChanges = async (req, res) => {
     }
 
     await user.save();
+
+    res.json(user);
+  });
+};
+
+export const getShippingDetails = async (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const user = await User.findById(userData.id);
+
+    const { shippingDetails } = user;
+
+    res.json(shippingDetails);
+  });
+};
+
+export const updateShippingDetails = async (req, res) => {
+  const { token } = req.cookies;
+  const { address, addressDva, country, region, postalCode, phoneNumber } =
+    req.body;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const user = await User.findById(userData.id);
+
+    user.set({
+      shippingDetails: {
+        address,
+        addressDva,
+        country,
+        region,
+        phoneNumber,
+        postalCode,
+      },
+    });
+    await user.save();
+    res.json(user);
+  });
+};
+
+export const buyProduct = async (req, res) => {
+  const { token } = req.cookies;
+  const { selectedProduct } = req.body;
+  const productT = selectedProduct.toString();
+
+  const newSale = await Sale.create({
+    productBought: productT,
+  });
+
+  await newSale.save();
+  const product = newSale._id.toString();
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const user = await User.findById(userData.id);
+
+    user.orderHistory.push(product);
+
+    await user.save();
+    res.json(user);
+  });
+};
+
+export const getOrderHistory = async (req, res) => {
+  const { token } = req.cookies;
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const user = await User.findById(userData.id).populate({
+      path: "orderHistory",
+      select: "productBought productShipped productQuantity",
+
+      populate: {
+        path: "productBought",
+        select:
+          "productName productPicture productDescription productNewPrice ",
+        options: { strictPopulate: false },
+      },
+    });
 
     res.json(user);
   });

@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Img from "../../../../../assets/user.png";
 import Loader from "../../../../../assets/svg-loaders/three-dots.svg";
 import axios from "axios";
@@ -7,6 +7,7 @@ import StoreSavedModal from "../../../Dashboard/StoreEdit/Modals/StoreSavedModal
 import { useDispatch, useSelector } from "react-redux";
 import { switchValue } from "../../../../../app/features/getUserTrigger";
 import { setUserProfileSavedModal } from "../../../../../app/features/User/profileSavedModal.js";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -17,6 +18,9 @@ const Profile = () => {
 
   const user = useSelector((state) => state.user.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const params = useParams();
+  const navigate = useNavigate();
+  const { id } = params;
   const profileSavedModal = useSelector(
     (state) => state.profileSavedModal.value
   );
@@ -53,6 +57,14 @@ const Profile = () => {
         dispatch(setUserProfileSavedModal(true));
       });
   }
+
+  useEffect(() => {
+    if (user._id === id) {
+    } else {
+      navigate("/");
+    }
+  }, []);
+
   return (
     <div className="h-full w-full flex items-center justify-center">
       {profileSavedModal && <StoreSavedModal />}
@@ -90,19 +102,19 @@ const Profile = () => {
           <input
             type="text"
             placeholder="New Email"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md"
+            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
             onChange={(e) => setNewEmail(e.target.value)}
           />
           <input
             type="text"
             placeholder="New Username"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md"
+            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
             onChange={(e) => setNewUsername(e.target.value)}
           />
           <input
             type="text"
             placeholder="New Password"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md"
+            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
             onChange={(e) => setNewPassword(e.target.value)}
           />
         </div>

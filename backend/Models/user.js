@@ -9,6 +9,17 @@ const userSchema = new mongoose.Schema({
   role: String,
   addToCart: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
   profilePicture: String,
+  orderHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
+  shippingDetails: [
+    {
+      address: String,
+      addressDva: String,
+      country: String,
+      postalCode: String,
+      region: String,
+      phoneNumber: Number,
+    },
+  ],
 });
 
 const userModel = mongoose.model("user", userSchema);

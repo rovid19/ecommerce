@@ -12,7 +12,7 @@ const Navbar = () => {
   console.log(user);
   return (
     <>
-      <header className="flex h-full justify-center ">
+      <header className="flex h-full justify-center z-50 ">
         {/* FIRST PART OF HEADER */}
         <div className="w-[100%] h-full flex lg:w-[85%]">
           <div className="w-[100%] lg:w-[75%] flex  items-center md:mr-6 lg:mr-0 ">
