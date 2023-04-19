@@ -11,6 +11,7 @@ const AddToCart = () => {
   const [quantity, setQuantity] = useState(null);
   const [trigger, setTrigger] = useState(false);
   const [total, setTotal] = useState(0);
+  const [boughtItems, setBoughtItems] = useState([]);
   const dispatch = useDispatch();
   const cartVisible = useSelector((state) => state.cartVisible.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
@@ -39,6 +40,12 @@ const AddToCart = () => {
     }
   }, [selectedProduct]);
 
+  useEffect(() => {
+    if (boughtItems) {
+      handleBuyNow();
+    }
+  }, [boughtItems]);
+
   function totalCounter() {
     let total = 0;
     if (cartItems) {
@@ -49,7 +56,25 @@ const AddToCart = () => {
 
     setTotal(total);
   }
-  console.log(cartItems, quantity);
+
+  function arraySort() {
+    const newArray = cartItems.map((item) => {
+      return item._id;
+    });
+    setBoughtItems(newArray);
+  }
+
+  function handleBuyNow() {
+    axios
+      .post("/api/customer/buy-product", {
+        boughtItems,
+        quantity,
+      })
+      .then(() => {
+        dispatch(switchValue(!getUserTrigger));
+      });
+  }
+  console.log(cartItems);
   return (
     <div
       className={
@@ -175,7 +200,10 @@ const AddToCart = () => {
       <div className="p-2 h-[4.5%] flex relative items-center ">
         {" "}
         <h1 className="text-xl">Total: {total}$</h1>
-        <button className="absolute right-0 bg-orange-500 text-white h-[80%] rounded-md w-[20%] hover:scale-95 ">
+        <button
+          onClick={() => arraySort()}
+          className="absolute right-0 bg-orange-500 text-white h-[80%] rounded-md w-[20%] hover:scale-95 "
+        >
           Checkout
         </button>
       </div>

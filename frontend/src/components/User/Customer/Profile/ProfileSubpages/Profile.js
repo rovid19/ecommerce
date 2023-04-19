@@ -66,7 +66,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="h-full w-full flex items-center justify-center">
+    <div className="h-full w-full flex items-center bg-white justify-center ">
       {profileSavedModal && <StoreSavedModal />}
       <form className="w-[50%] h-full fl2" onSubmit={handleProfileChanges}>
         <div className="h-[30%] w-full flex justify-center items-center p-2">
@@ -91,7 +91,7 @@ const Profile = () => {
                       ? user.profilePicture
                       : Img
                   }
-                  className="h-full w-full object-cover rounded-full cursor-pointer mt-2"
+                  className="h-full w-full object-cover rounded-full cursor-pointer mt-2 shadow-xl"
                 />
               </>
             )}
@@ -119,7 +119,7 @@ const Profile = () => {
           />
         </div>
         <div className="w-full h-[20%] flex justify-center ">
-          <button className="bg-orange-500 h-[35%] w-[50%] text-white rounded-md hover:w-[65%] transition-all ">
+          <button className="bg-orange-500 h-[35%] w-[50%] text-white rounded-md hover:w-[65%] transition-all  ">
             Save
           </button>
         </div>

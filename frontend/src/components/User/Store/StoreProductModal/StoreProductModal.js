@@ -74,16 +74,6 @@ const StoreProductModal = () => {
     }
   }
 
-  function handleBuyNow() {
-    axios
-      .post("/api/customer/buy-product", {
-        selectedProduct,
-      })
-      .then(() => {
-        dispatch(switchValue(!getUserTrigger));
-      });
-  }
-
   return (
     <div className="absolute top-0 z-20 left-0 h-full w-full bg-black bg-opacity-50 flex items-center justify-center ">
       {/* CLOSE PRODUCT MODAL BUTTON*/}
@@ -284,10 +274,7 @@ const StoreProductModal = () => {
             Add to cart
           </button>
           {/* BUY NOW BUTTON*/}
-          <button
-            onClick={handleBuyNow}
-            className="bottom-4 bg-orange-500 p-4 rounded-lg text-white right-4 w-[25%] text-xl hover:w-[28%] transition-all absolute"
-          >
+          <button className="bottom-4 bg-orange-500 p-4 rounded-lg text-white right-4 w-[25%] text-xl hover:w-[28%] transition-all absolute">
             Buy now
           </button>
           {/* PRODUCT RATING*/}

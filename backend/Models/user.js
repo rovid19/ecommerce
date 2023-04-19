@@ -9,7 +9,7 @@ const userSchema = new mongoose.Schema({
   role: String,
   addToCart: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
   profilePicture: String,
-  orderHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
+  orderHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "sale" }],
   shippingDetails: [
     {
       address: String,

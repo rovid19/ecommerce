@@ -132,23 +132,34 @@ export const updateShippingDetails = async (req, res) => {
 
 export const buyProduct = async (req, res) => {
   const { token } = req.cookies;
-  const { selectedProduct } = req.body;
-  const productT = selectedProduct.toString();
+  const { boughtItems, quantity } = req.body;
+
+  const newDate = new Date();
+  const day = String(newDate.getDate()).padStart(2, "0");
+  const month = String(newDate.getMonth() + 1).padStart(2, "0");
+  const year = newDate.getFullYear();
+
+  const date = day + " " + month + " " + year;
 
   const newSale = await Sale.create({
-    productBought: productT,
+    productBought: boughtItems,
+    productQuantity: quantity,
+    orderPlacedDate: date,
   });
 
-  await newSale.save();
   const product = newSale._id.toString();
+
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err;
     const user = await User.findById(userData.id);
 
     user.orderHistory.push(product);
+    user.set({
+      addToCart: [],
+    });
 
     await user.save();
-    res.json(user);
+    res.json(newSale);
   });
 };
 
@@ -158,16 +169,15 @@ export const getOrderHistory = async (req, res) => {
     if (err) throw err;
     const user = await User.findById(userData.id).populate({
       path: "orderHistory",
-      select: "productBought productShipped productQuantity",
+      select: "productBought productShipped productQuantity orderPlacedDate",
 
       populate: {
         path: "productBought",
         select:
           "productName productPicture productDescription productNewPrice ",
-        options: { strictPopulate: false },
       },
     });
 
-    res.json(user);
+    res.json(user.orderHistory);
   });
 };

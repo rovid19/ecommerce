@@ -1,9 +1,10 @@
 import mongoose from "mongoose";
 
 const saleSchema = new mongoose.Schema({
-  productBought: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
+  productBought: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
   productShipped: { type: Boolean, default: false },
-  productQuantity: { type: Number, default: 1 },
+  productQuantity: [{ type: Number, default: 1 }],
+  orderPlacedDate: String,
 });
 
 const saleModel = mongoose.model("sale", saleSchema);
