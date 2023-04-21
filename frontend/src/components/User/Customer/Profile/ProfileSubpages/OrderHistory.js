@@ -12,6 +12,9 @@ const OrderHistory = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [index, setIndex] = useState(null);
   const [indexDva, setIndexDva] = useState(null);
+  const [idd, setIdd] = useState(null);
+  const [productId, setProductId] = useState(null);
+  const [getOrderHistoryTrigger, setGetOrderHistoryTrigger] = useState(false);
   const user = useSelector((state) => state.user.value);
   const params = useParams();
   const navigate = useNavigate();
@@ -29,7 +32,7 @@ const OrderHistory = () => {
       setOrderHistory(data);
       setIsFetching(false);
     });
-  }, []);
+  }, [getOrderHistoryTrigger]);
 
   return (
     <div className="h-full w-full bg-white flex items-center justify-center relative">
@@ -39,6 +42,10 @@ const OrderHistory = () => {
           index={index}
           indexDva={indexDva}
           orderHistory={orderHistory}
+          idd={idd}
+          productId={productId}
+          setGetOrderHistoryTrigger={setGetOrderHistoryTrigger}
+          getOrderHistoryTrigger={getOrderHistoryTrigger}
         />
       )}
       {isFetching ? (
@@ -60,6 +67,8 @@ const OrderHistory = () => {
                         setIsVisible(true);
                         setIndex(indexMap);
                         setIndexDva(index);
+                        setIdd(orderHistory[indexMap]._id);
+                        setProductId(item._id);
                       }}
                     >
                       <div className="w-[50%]  h-full flex p-2">
@@ -144,6 +153,8 @@ const OrderHistory = () => {
                         setIsVisible(true);
                         setIndex(indexMap);
                         setIndexDva(index);
+                        setIdd(orderHistory[indexMap]._id);
+                        setProductId(item._id);
                       }}
                     >
                       {}

@@ -181,3 +181,43 @@ export const getOrderHistory = async (req, res) => {
     res.json(user.orderHistory);
   });
 };
+
+export const postNote = async (req, res) => {
+  const { idd, note } = req.body;
+
+  const fsale = await Sale.findById(idd);
+
+  fsale.set({
+    noteToSeller: note,
+  });
+
+  await fsale.save();
+
+  res.json(fsale);
+};
+
+export const cancelOrder = async (req, res) => {
+  const { productId, idd } = req.body;
+
+  const fsale = await Sale.findById(idd);
+
+  const { productBought } = fsale;
+
+  const newArray = productBought.filter((product) => product === productId);
+
+  console.log(newArray);
+
+  fsale.set({
+    productBought: newArray,
+  });
+
+  await fsale.save();
+
+  console.log(fsale);
+
+  if (productBought.length === 0) {
+    await Sale.findByIdAndDelete(idd);
+  }
+
+  res.json(fsale);
+};

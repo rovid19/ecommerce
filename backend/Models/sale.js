@@ -5,6 +5,7 @@ const saleSchema = new mongoose.Schema({
   productShipped: { type: Boolean, default: false },
   productQuantity: [{ type: Number, default: 1 }],
   orderPlacedDate: String,
+  noteToSeller: String,
 });
 
 const saleModel = mongoose.model("sale", saleSchema);

@@ -8,6 +8,8 @@ import {
   getShippingDetails,
   buyProduct,
   getOrderHistory,
+  postNote,
+  cancelOrder,
 } from "../Controllers/customer.js";
 
 const router = express.Router();
@@ -20,4 +22,6 @@ router.post("/update-shipping-details", updateShippingDetails);
 router.get("/get-shipping-details", getShippingDetails);
 router.post("/buy-product", buyProduct);
 router.get("/get-order-history", getOrderHistory);
+router.post("/note-to-seller", postNote);
+router.post("/cancel-order", cancelOrder);
 export default router;
