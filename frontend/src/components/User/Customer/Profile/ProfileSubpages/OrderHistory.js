@@ -55,7 +55,7 @@ const OrderHistory = () => {
         </div>
       ) : (
         <div className="h-[90%] w-[80%] shadow-lg overflow-scroll scrollbar-hide">
-          {orderHistory ? (
+          {orderHistory && orderHistory.length > 0 ? (
             orderHistory.map((item, index) => {
               let indexMap = index;
               return item.productBought.map((item, index) => {

@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const saleSchema = new mongoose.Schema({
   productBought: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
   productShipped: { type: Boolean, default: false },
+  total: Number,
   productQuantity: [{ type: Number, default: 1 }],
   orderPlacedDate: String,
   noteToSeller: String,

@@ -15,6 +15,7 @@ const AddToCart = () => {
   const dispatch = useDispatch();
   const cartVisible = useSelector((state) => state.cartVisible.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const storeId = useSelector((state) => state.storeId.value);
 
   useEffect(() => {
     axios.get("/api/customer/get-products-from-cart", {}).then(({ data }) => {
@@ -69,6 +70,7 @@ const AddToCart = () => {
       .post("/api/customer/buy-product", {
         boughtItems,
         quantity,
+        storeId,
       })
       .then(() => {
         dispatch(switchValue(!getUserTrigger));

@@ -22,6 +22,7 @@ const StoreProductModal = () => {
   const navigate = useNavigate();
 
   const user = useSelector((state) => state.user.value);
+  const storeId = useSelector((state) => state.storeId.value);
 
   useEffect(() => {
     setIsFetching(true);
@@ -78,7 +79,7 @@ const StoreProductModal = () => {
     <div className="absolute top-0 z-20 left-0 h-full w-full bg-black bg-opacity-50 flex items-center justify-center ">
       {/* CLOSE PRODUCT MODAL BUTTON*/}
       <button
-        onClick={() => navigate(`/store/${user.storeName}`)}
+        onClick={() => navigate(`/store/${user.storeName}/${storeId}`)}
         className=" text-black absolute top-2 left-2"
       >
         <svg

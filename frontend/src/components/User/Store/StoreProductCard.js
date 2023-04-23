@@ -6,6 +6,7 @@ import { addSelectedProduct } from "../../../app/features/Store/selectedProduct"
 import { setEditProductModal } from "../../../app/features/Store/Dashboard/editProductModal";
 import { setViewProductModal } from "../../../app/features/Store/viewProductModal";
 import { useNavigate } from "react-router-dom";
+import { setStoreId } from "../../../app/features/Store/storeId";
 
 const StoreProductCard = ({ storeProducts }) => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const StoreProductCard = ({ storeProducts }) => {
           dispatch(setEditProductModal(true));
         } else if (storeSubPage === "store") {
           console.log("da");
-          navigate(`/store/${user.storeName}/${selectedProduct}`);
+          navigate(`/store/${user.storeName}/product/${selectedProduct}`);
         }
       }}
     >

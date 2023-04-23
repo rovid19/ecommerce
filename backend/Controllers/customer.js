@@ -132,7 +132,7 @@ export const updateShippingDetails = async (req, res) => {
 
 export const buyProduct = async (req, res) => {
   const { token } = req.cookies;
-  const { boughtItems, quantity } = req.body;
+  const { boughtItems, quantity, storeId } = req.body;
 
   const newDate = new Date();
   const day = String(newDate.getDate()).padStart(2, "0");
@@ -147,6 +147,12 @@ export const buyProduct = async (req, res) => {
     orderPlacedDate: date,
   });
 
+  const store = await Store.findById(storeId);
+
+  store.storeSales.push(newSale._id);
+
+  await store.save();
+
   const product = newSale._id.toString();
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -159,17 +165,29 @@ export const buyProduct = async (req, res) => {
     });
 
     await user.save();
-    res.json(newSale);
+    res.json(store);
   });
 };
 
 export const getOrderHistory = async (req, res) => {
   const { token } = req.cookies;
+
+  const sale = await Sale.find();
+
+  const saleFilter = sale.filter((item) => item.productBought.length > 0);
+  const saleId = saleFilter.map((item) => item._id);
+
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err;
-    const user = await User.findById(userData.id).populate({
+    const user = await User.findById(userData.id);
+    user.set({
+      orderHistory: saleId,
+    });
+    await user.save();
+    const userDva = await User.findById(userData.id).populate({
       path: "orderHistory",
-      select: "productBought productShipped productQuantity orderPlacedDate",
+      select:
+        "productBought productShipped productQuantity orderPlacedDate noteToSeller",
 
       populate: {
         path: "productBought",
@@ -178,7 +196,7 @@ export const getOrderHistory = async (req, res) => {
       },
     });
 
-    res.json(user.orderHistory);
+    res.json(userDva.orderHistory);
   });
 };
 

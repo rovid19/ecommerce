@@ -71,7 +71,7 @@ const NavbarUserMenu = () => {
           </svg>
           {/* USER STORE BUTTON */}
           <Link
-            to={`/store/${user.storeName}`}
+            to={`/store/${user.storeName}/${user.store._id}`}
             onClick={() => dispatch(getStoreSubPage("store"))}
           >
             <svg

@@ -167,3 +167,35 @@ export const newProductArray = async (req, res) => {
     await newStore.save();
   });
 };
+
+export const fetchStoreData = async (req, res) => {
+  const { storeid } = req.body;
+
+  const store = await Store.findById(storeid).populate(
+    "storeProducts",
+    "productName productPicture productDescription productRating productNewPrice productOldPrice"
+  );
+
+  res.json(store);
+};
+
+export const getOrders = async (req, res) => {
+  const { token } = req.cookies;
+
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const user = await User.findById(userData.id);
+
+    const store = await Store.findById(user.store._id).populate({
+      path: "storeSales",
+      select:
+        "productBought productShipped total productQuantity orderPlacedDate noteToSeller",
+      populate: {
+        path: "productBought",
+        select:
+          "productName productPicture productDescription productNewPrice ",
+      },
+    });
+    res.json(store.storeSales);
+  });
+};
