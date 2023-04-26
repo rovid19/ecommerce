@@ -4,6 +4,7 @@ import fs from "fs";
 import User from "../Models/user.js";
 import Store from "../Models/store.js";
 import Product from "../Models/product.js";
+import Sale from "../Models/sale.js";
 
 const bucket = "gymtok-photo-video-upload";
 const jwtSecret = "rockjefakatludirock";
@@ -181,6 +182,9 @@ export const fetchStoreData = async (req, res) => {
 
 export const getOrders = async (req, res) => {
   const { token } = req.cookies;
+  const { formattedDate } = req.body;
+
+  console.log(formattedDate);
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err;
@@ -189,13 +193,75 @@ export const getOrders = async (req, res) => {
     const store = await Store.findById(user.store._id).populate({
       path: "storeSales",
       select:
-        "productBought productShipped total productQuantity orderPlacedDate noteToSeller",
+        "productBought productShipped total productQuantity orderPlacedDate noteToSeller buyerUsername arrivalDate",
       populate: {
         path: "productBought",
         select:
           "productName productPicture productDescription productNewPrice ",
       },
     });
-    res.json(store.storeSales);
+    const salesByDate = store.storeSales.filter(
+      (item) => item.orderPlacedDate === formattedDate
+    );
+
+    res.json(salesByDate);
   });
+};
+
+export const confirmOrder = async (req, res) => {
+  const { idd, shippingDate } = req.body;
+
+  const sale = await Sale.findById(idd);
+
+  sale.set({
+    productShipped: true,
+    arrivalDate: shippingDate,
+  });
+
+  await sale.save();
+
+  res.json(sale);
+};
+
+export const cancelOrder = async (req, res) => {
+  const { idd } = req.body;
+
+  const sale = await Sale.findById(idd);
+
+  sale.set({
+    productShipped: false,
+    arrivalDate: null,
+  });
+
+  await sale.save();
+
+  res.json(sale);
+};
+
+export const getDailySales = async (req, res) => {
+  const { storeId, formattedDate } = req.body;
+  console.log(storeId, formattedDate);
+  const store = await Store.findById(storeId).populate(
+    "storeSales",
+    "orderPlacedDate total"
+  );
+
+  const todaySales = store.storeSales.filter(
+    (item) => item.orderPlacedDate === formattedDate
+  );
+
+  const totalCounter = todaySales.map((item) => {
+    if (item.total > 0) {
+      return item.total;
+    } else {
+    }
+  });
+  let sum = 0;
+  const newArray = totalCounter.filter((item) => item > 0);
+  console.log(newArray);
+
+  newArray.forEach((item) => (sum += item));
+  console.log(sum);
+
+  res.json(sum);
 };

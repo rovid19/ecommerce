@@ -132,19 +132,16 @@ export const updateShippingDetails = async (req, res) => {
 
 export const buyProduct = async (req, res) => {
   const { token } = req.cookies;
-  const { boughtItems, quantity, storeId } = req.body;
-
-  const newDate = new Date();
-  const day = String(newDate.getDate()).padStart(2, "0");
-  const month = String(newDate.getMonth() + 1).padStart(2, "0");
-  const year = newDate.getFullYear();
-
-  const date = day + " " + month + " " + year;
+  const { boughtItems, quantity, storeId, username, formattedDate, total } =
+    req.body;
 
   const newSale = await Sale.create({
     productBought: boughtItems,
     productQuantity: quantity,
-    orderPlacedDate: date,
+    orderPlacedDate: formattedDate,
+    seller: storeId,
+    buyerUsername: username,
+    total: total,
   });
 
   const store = await Store.findById(storeId);
@@ -165,7 +162,7 @@ export const buyProduct = async (req, res) => {
     });
 
     await user.save();
-    res.json(store);
+    res.json(newSale);
   });
 };
 
@@ -187,7 +184,7 @@ export const getOrderHistory = async (req, res) => {
     const userDva = await User.findById(userData.id).populate({
       path: "orderHistory",
       select:
-        "productBought productShipped productQuantity orderPlacedDate noteToSeller",
+        "productBought productShipped productQuantity orderPlacedDate noteToSeller seller arrivalDate",
 
       populate: {
         path: "productBought",
@@ -238,4 +235,12 @@ export const cancelOrder = async (req, res) => {
   }
 
   res.json(fsale);
+};
+
+export const getStore = async (req, res) => {
+  const { storeId } = req.body;
+
+  const store = await Store.findById(storeId);
+
+  res.json(store);
 };

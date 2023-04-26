@@ -10,6 +10,9 @@ import {
   newProductArray,
   fetchStoreData,
   getOrders,
+  confirmOrder,
+  cancelOrder,
+  getDailySales,
 } from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
@@ -41,6 +44,12 @@ router.post("/save-sorted-products", newProductArray);
 
 router.post("/fetch-store-data", fetchStoreData);
 
-router.get("/get-orders", getOrders);
+router.post("/get-orders", getOrders);
+
+router.post("/confirm-order", confirmOrder);
+
+router.post("/cancel-order", cancelOrder);
+
+router.post("/get-daily-sales", getDailySales);
 
 export default router;

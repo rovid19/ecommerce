@@ -10,6 +10,7 @@ import {
   getOrderHistory,
   postNote,
   cancelOrder,
+  getStore,
 } from "../Controllers/customer.js";
 
 const router = express.Router();
@@ -24,4 +25,5 @@ router.post("/buy-product", buyProduct);
 router.get("/get-order-history", getOrderHistory);
 router.post("/note-to-seller", postNote);
 router.post("/cancel-order", cancelOrder);
+router.post("/get-store", getStore);
 export default router;

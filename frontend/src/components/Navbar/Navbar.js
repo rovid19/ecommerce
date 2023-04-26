@@ -9,7 +9,7 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
-  console.log(user);
+
   return (
     <>
       <header className="flex h-full justify-center z-50 ">

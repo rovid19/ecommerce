@@ -6,20 +6,31 @@ import { useState, useEffect } from "react";
 import { switchValue } from "../../../app/features/getUserTrigger";
 
 const AddToCart = () => {
+  const [date, setDate] = useState(new Date());
   const [cartItems, setCartItems] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(null);
   const [trigger, setTrigger] = useState(false);
   const [total, setTotal] = useState(0);
+  const [username, setUsername] = useState(null);
   const [boughtItems, setBoughtItems] = useState([]);
   const dispatch = useDispatch();
   const cartVisible = useSelector((state) => state.cartVisible.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const user = useSelector((state) => state.user.value);
   const storeId = useSelector((state) => state.storeId.value);
+
+  // date
+  const formattedDate = date.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  });
 
   useEffect(() => {
     axios.get("/api/customer/get-products-from-cart", {}).then(({ data }) => {
       setCartItems(data);
+      setUsername(user.username);
     });
   }, [getUserTrigger]);
 
@@ -70,13 +81,16 @@ const AddToCart = () => {
       .post("/api/customer/buy-product", {
         boughtItems,
         quantity,
+        formattedDate,
         storeId,
+        username,
+        total,
       })
       .then(() => {
         dispatch(switchValue(!getUserTrigger));
       });
   }
-  console.log(cartItems);
+  console.log(user._id);
   return (
     <div
       className={
