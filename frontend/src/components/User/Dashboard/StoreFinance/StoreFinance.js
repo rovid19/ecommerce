@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import StoreFinanceSales from "./StoreFinanceSales";
+import StoreFinanceLast5Sales from "./StoreFinanceLast5Sales";
 const StoreFinance = () => {
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const user = useSelector((state) => state.user.value);
@@ -19,12 +20,8 @@ const StoreFinance = () => {
           <StoreFinanceSales />
         </div>
 
-        <div className="p-4  border-b-2  border-gray-300 border-opacity-20  ">
-          <div className="h-[20%]">
-            <h2 className="text-xl lg:text-2xl uppercase text-gray-300">
-              Last 10 sales:
-            </h2>
-          </div>
+        <div className=" border-b-2  border-gray-300 border-opacity-20  ">
+          <StoreFinanceLast5Sales />
           <div className="h-[80%]"></div>
         </div>
       </div>

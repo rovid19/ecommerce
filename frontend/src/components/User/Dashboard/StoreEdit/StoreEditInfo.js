@@ -21,6 +21,7 @@ const StoreEditInfo = ({
   // redux
   const user = useSelector((state) => state.user.value);
   const editMode = useSelector((state) => state.editMode.value);
+  const htmlElement = useSelector((state) => state.htmlElement.value);
   const dispatch = useDispatch();
 
   dispatch(
@@ -33,6 +34,8 @@ const StoreEditInfo = ({
       ? `url(${coverPhoto})`
       : `url(${user.store.storeCover})`,
   };
+
+  console.log(htmlElement);
 
   return (
     <div

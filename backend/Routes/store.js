@@ -13,6 +13,8 @@ import {
   confirmOrder,
   cancelOrder,
   getDailySales,
+  getTotalSales,
+  getLast5,
 } from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
@@ -52,4 +54,7 @@ router.post("/cancel-order", cancelOrder);
 
 router.post("/get-daily-sales", getDailySales);
 
+router.post("/get-total-sales", getTotalSales);
+
+router.post("/get-last-5-sales", getLast5);
 export default router;

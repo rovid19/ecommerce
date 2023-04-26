@@ -27,6 +27,11 @@ const StoreFinanceSales = () => {
     year: "numeric",
   });
 
+  function handleTotalSales() {
+    axios
+      .post("/api/store/get-total-sales", { storeId: user.store._id })
+      .then(({ data }) => setDailySales(data));
+  }
   useEffect(() => {
     axios
       .post("/api/store/get-daily-sales", {
@@ -64,7 +69,10 @@ const StoreFinanceSales = () => {
             : formattedDate + " " + "Sales"}
         </button>
         <button
-          onClick={() => setSubPage("total")}
+          onClick={() => {
+            setSubPage("total");
+            handleTotalSales();
+          }}
           className={
             subPage === "total"
               ? "bg-gray-400 text-white"

@@ -258,10 +258,40 @@ export const getDailySales = async (req, res) => {
   });
   let sum = 0;
   const newArray = totalCounter.filter((item) => item > 0);
-  console.log(newArray);
 
   newArray.forEach((item) => (sum += item));
-  console.log(sum);
 
   res.json(sum);
+};
+
+export const getTotalSales = async (req, res) => {
+  const { storeId } = req.body;
+
+  const store = await Store.findById(storeId).populate("storeSales", "total");
+
+  const newArray = store.storeSales.filter((item) => item.total >= 0);
+
+  let sum = 0;
+
+  newArray.forEach((item) => (sum += item.total));
+
+  res.json(sum);
+};
+
+export const getLast5 = async (req, res) => {
+  const { storeId } = req.body;
+
+  const store = await Store.findById(storeId).populate({
+    path: "storeSales",
+    select:
+      "productBought productShipped total productQuantity orderPlacedDate noteToSeller buyerUsername arrivalDate",
+    populate: {
+      path: "productBought",
+      select: "productName productPicture productDescription productNewPrice ",
+    },
+  });
+  const arrayLength = store.storeSales.length - 5;
+  const sortedSales = store.storeSales.splice(arrayLength, 5);
+
+  res.json(sortedSales);
 };
