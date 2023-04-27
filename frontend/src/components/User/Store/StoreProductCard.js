@@ -7,14 +7,18 @@ import { setEditProductModal } from "../../../app/features/Store/Dashboard/editP
 import { setViewProductModal } from "../../../app/features/Store/viewProductModal";
 import { useNavigate } from "react-router-dom";
 import { setStoreId } from "../../../app/features/Store/storeId";
+import { setCartItems } from "../../../app/features/User/cartItems";
+import { setProductIndex } from "../../../app/features/User/productIndex";
 
-const StoreProductCard = ({ storeProducts }) => {
+const StoreProductCard = ({ storeProducts, index, storeData }) => {
   const navigate = useNavigate();
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
   );
   const editMode = useSelector((state) => state.editMode.value);
+
+  const productIndex = useSelector((state) => state.productIndex.value);
   const user = useSelector((state) => state.user.value);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const dispatch = useDispatch();
@@ -22,6 +26,7 @@ const StoreProductCard = ({ storeProducts }) => {
     backgroundImage: `url(${Img})`,
   };
 
+  console.log(storeSubPage);
   return (
     <div
       className={
@@ -35,8 +40,11 @@ const StoreProductCard = ({ storeProducts }) => {
           console.log("yes");
           dispatch(setEditProductModal(true));
         } else if (storeSubPage === "store") {
-          console.log("da");
-          navigate(`/store/${user.storeName}/product/${selectedProduct}`);
+          console.log("123");
+          navigate(
+            `/store/${storeData.storeName}/product/${storeProducts._id}`
+          );
+          dispatch(setProductIndex(index));
         }
       }}
     >
@@ -107,7 +115,10 @@ const StoreProductCard = ({ storeProducts }) => {
           <div className=" h-[60%] w-[10px] border-r-2 border-gray-300"></div>
           <h2 className="ml-2 text-[12px] md:text-sm"> 120 sold</h2>
           <div className="hidden lg:block h-[60%] w-[10px] border-r-2 border-gray-300"></div>
-          <button className="hidden ml-2 bg-orange-500 p-2 h-[60%] lg:flex items-center text-white rounded-xl text-sm  hover:border-2 hover:border-orange-500 hover:text-black">
+          <button
+            onClick={() => dispatch(setCartItems(storeProducts))}
+            className="hidden ml-2 bg-orange-500 p-2 h-[60%] lg:flex items-center text-white rounded-xl text-sm  hover:border-2 hover:border-orange-500 hover:text-black"
+          >
             Add To Cart
           </button>
         </div>

@@ -4,14 +4,16 @@ import { setCartVisible } from "../../../app/features/User/cartVisible";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { switchValue } from "../../../app/features/getUserTrigger";
+import { removeCartItem } from "../../../app/features/User/cartItems";
 
 const AddToCart = () => {
   const [date, setDate] = useState(new Date());
-  const [cartItems, setCartItems] = useState(null);
+  // const [cartItems, setCartItems] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState(null);
   const [trigger, setTrigger] = useState(false);
   const [total, setTotal] = useState(0);
+  const [index, setIndex] = useState(null);
   const [username, setUsername] = useState(null);
   const [boughtItems, setBoughtItems] = useState([]);
   const dispatch = useDispatch();
@@ -19,6 +21,7 @@ const AddToCart = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const user = useSelector((state) => state.user.value);
   const storeId = useSelector((state) => state.storeId.value);
+  const cartItems = useSelector((state) => state.cartItems.value);
 
   // date
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -27,21 +30,19 @@ const AddToCart = () => {
     year: "numeric",
   });
 
-  useEffect(() => {
+  /* useEffect(() => {
     axios.get("/api/customer/get-products-from-cart", {}).then(({ data }) => {
-      setCartItems(data);
+      //setCartItems(data);
       setUsername(user.username);
     });
-  }, [getUserTrigger]);
+  }, [getUserTrigger]); */
 
   useEffect(() => {
-    if (cartItems) {
-      setQuantity(Array(cartItems.length).fill(1));
-      totalCounter();
-    }
-  }, [cartItems]);
+    setQuantity(Array(cartItems.length).fill(1));
+    totalCounter();
+  }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (selectedProduct) {
       axios
         .post("/api/customer/remove-product-from-cart", { selectedProduct })
@@ -50,13 +51,13 @@ const AddToCart = () => {
           setTrigger(!trigger);
         });
     }
-  }, [selectedProduct]);
+  }, [selectedProduct]);*/
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (boughtItems) {
       handleBuyNow();
     }
-  }, [boughtItems]);
+  }, [boughtItems]);*/
 
   function totalCounter() {
     let total = 0;
@@ -69,12 +70,12 @@ const AddToCart = () => {
     setTotal(total);
   }
 
-  function arraySort() {
+  /*function arraySort() {
     const newArray = cartItems.map((item) => {
       return item._id;
     });
     setBoughtItems(newArray);
-  }
+  }*/
 
   function handleBuyNow() {
     axios
@@ -90,7 +91,11 @@ const AddToCart = () => {
         dispatch(switchValue(!getUserTrigger));
       });
   }
-  console.log(user._id);
+
+  useEffect(() => {
+    dispatch(removeCartItem(index));
+  }, [index]);
+  console.log(cartItems);
   return (
     <div
       className={
@@ -126,7 +131,9 @@ const AddToCart = () => {
               <div className="h-[15%] bg-gray-300 bg-opacity-50 flex items-center pt-2 pb-2 pl-2 mt-1 relative">
                 <button
                   className="absolute left-1 top-1 text-white"
-                  onClick={() => setSelectedProduct(item._id)}
+                  onClick={() => {
+                    setIndex(index);
+                  }}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -217,7 +224,7 @@ const AddToCart = () => {
         {" "}
         <h1 className="text-xl">Total: {total}$</h1>
         <button
-          onClick={() => arraySort()}
+          onClick={handleBuyNow}
           className="absolute right-0 bg-orange-500 text-white h-[80%] rounded-md w-[20%] hover:scale-95 "
         >
           Checkout

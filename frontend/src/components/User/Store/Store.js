@@ -6,6 +6,9 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../../assets/svg-loaders/three-dots.svg";
 import { setStoreId } from "../../../app/features/Store/storeId.js";
+import { addStoreProducts } from "../../../app/features/Store/storeProducts.js";
+import { getStoreSubPage } from "../../../app/features/storeSubPage.js";
+import { setSavedStore } from "../../../app/features/Store/savedStore.js";
 
 const Store = () => {
   const [isFetching, setIsFetching] = useState(false);
@@ -15,6 +18,7 @@ const Store = () => {
   const user = useSelector((state) => state.user.value);
   const storeProducts = useSelector((state) => state.storeProducts.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
+  const cartItems = useSelector((state) => state.cartItems.value);
   const viewProductModal = useSelector((state) => state.viewProductModal.value);
   const styles = {
     backgroundImage: storeData && `url(${storeData.storeCover})`,
@@ -28,8 +32,13 @@ const Store = () => {
       setStoreItems(data.storeProducts);
       setIsFetching(false);
       dispatch(setStoreId(storeid));
+      dispatch(addStoreProducts(data.storeProducts));
+      dispatch(getStoreSubPage("store"));
+      dispatch(setSavedStore(data));
     });
   }, [storeid]);
+
+  console.log(storeSubPage);
   return (
     <div className="w-[100%]  bg-gray-50 skrin flex justify-center relative">
       {isFetching && (
@@ -59,9 +68,15 @@ const Store = () => {
           ></img>
         </div>
         <div className="h-[65%] grid grid-cols-3 2xl:grid-cols-6">
-          {storeItems &&
-            storeItems.map((item) => {
-              return <StoreProductCard storeProducts={item} />;
+          {storeProducts &&
+            storeProducts.map((item, index) => {
+              return (
+                <StoreProductCard
+                  storeProducts={item}
+                  index={index}
+                  storeData={storeData}
+                />
+              );
             })}
         </div>
       </div>

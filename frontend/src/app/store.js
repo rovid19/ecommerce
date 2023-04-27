@@ -16,6 +16,8 @@ import cartVisibleReducer from "./features/User/cartVisible.js";
 import ProfileSavedModalReducer from "./features/User/profileSavedModal.js";
 import cartItemsReducer from "./features/User/cartItems.js";
 import storeIdReducer from "./features/Store/storeId.js";
+import productIndexReducer from "./features/User/productIndex.js";
+import savedStoreReducer from "./features/Store/savedStore.js";
 
 export const store = configureStore({
   reducer: {
@@ -36,5 +38,7 @@ export const store = configureStore({
     profileSavedModal: ProfileSavedModalReducer,
     cartItems: cartItemsReducer,
     storeId: storeIdReducer,
+    productIndex: productIndexReducer,
+    savedStore: savedStoreReducer,
   },
 });
