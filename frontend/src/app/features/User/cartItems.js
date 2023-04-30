@@ -9,10 +9,21 @@ export const cartItemsSlice = createSlice({
   initialState,
   reducers: {
     setCartItems: (state, action) => {
-      state.value.push(action.payload);
+      console.log("fired");
+      return {
+        ...state,
+        value: [...state.value, action.payload],
+      };
     },
     removeCartItem: (state, action) => {
-      state.value.splice(action.payload, 1);
+      let newArray = [...state.value];
+
+      newArray.splice(action.payload, 1);
+
+      return {
+        ...state,
+        value: [...newArray],
+      };
     },
   },
 });

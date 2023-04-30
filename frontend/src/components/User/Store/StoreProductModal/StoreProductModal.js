@@ -6,7 +6,9 @@ import axios from "axios";
 import { useEffect } from "react";
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
 import { useNavigate, useParams } from "react-router-dom";
-import { setCartVisible } from "../../../../app/features/User/cartVisible";
+import cartVisible, {
+  setCartVisible,
+} from "../../../../app/features/User/cartVisible";
 import { switchValue } from "../../../../app/features/getUserTrigger";
 import { setCartItems } from "../../../../app/features/User/cartItems";
 
@@ -89,17 +91,14 @@ const StoreProductModal = () => {
     const isItemInCart = cartItems.find(
       (cartItem) => cartItem._id === storeProducts[productIndex]._id
     );
-    console.log(isItemInCart);
 
     if (isItemInCart) {
       alert("item already in cart");
     } else {
-      dispatch(setCartVisible(true));
       dispatch(setCartItems(storeProducts[productIndex]));
+      dispatch(setCartVisible(true));
     }
   }
-
-  console.log(storeProducts[productIndex]);
 
   return (
     <div className="absolute top-0 z-20 left-0 h-full w-full bg-black bg-opacity-50 flex items-center justify-center ">

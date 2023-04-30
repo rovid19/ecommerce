@@ -26,7 +26,6 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
     backgroundImage: `url(${Img})`,
   };
 
-  console.log(storeSubPage);
   return (
     <div
       className={
@@ -40,7 +39,6 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
           console.log("yes");
           dispatch(setEditProductModal(true));
         } else if (storeSubPage === "store") {
-          console.log("123");
           navigate(
             `/store/${storeData.storeName}/product/${storeProducts._id}`
           );
@@ -115,10 +113,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
           <div className=" h-[60%] w-[10px] border-r-2 border-gray-300"></div>
           <h2 className="ml-2 text-[12px] md:text-sm"> 120 sold</h2>
           <div className="hidden lg:block h-[60%] w-[10px] border-r-2 border-gray-300"></div>
-          <button
-            onClick={() => dispatch(setCartItems(storeProducts))}
-            className="hidden ml-2 bg-orange-500 p-2 h-[60%] lg:flex items-center text-white rounded-xl text-sm  hover:border-2 hover:border-orange-500 hover:text-black"
-          >
+          <button className="hidden ml-2 bg-orange-500 p-2 h-[60%] lg:flex items-center text-white rounded-xl text-sm  hover:border-2 hover:border-orange-500 hover:text-black">
             Add To Cart
           </button>
         </div>

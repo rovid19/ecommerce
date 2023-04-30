@@ -29,13 +29,10 @@ const App = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
   const cartItems = useSelector((state) => state.cartItems.value);
-  const user = useSelector((state) => state.user.value);
-  const storeProducts = useSelector((state) => state.storeProducts.value);
-  const isUserFetching = useSelector((state) => state.isUserFetching.value);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
-    console.log("pokrenut");
     dispatch(setUserFetching(true));
     axios
       .get("/api/user/get-logged-user?timestamp=" + new Date().getTime(), {})

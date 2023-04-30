@@ -38,7 +38,6 @@ const Store = () => {
     });
   }, [storeid]);
 
-  console.log(storeSubPage);
   return (
     <div className="w-[100%]  bg-gray-50 skrin flex justify-center relative">
       {isFetching && (
