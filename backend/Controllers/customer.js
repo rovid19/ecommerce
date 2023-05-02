@@ -157,17 +157,14 @@ export const buyProduct = async (req, res) => {
     const user = await User.findById(userData.id);
 
     user.orderHistory.push(product);
-    user.set({
-      addToCart: [],
-    });
 
     await user.save();
-    res.json(newSale);
   });
+  res.json(newSale);
 };
 
 export const getOrderHistory = async (req, res) => {
-  const { token } = req.cookies;
+  /*const { token } = req.cookies;
 
   const sale = await Sale.find();
 
@@ -181,6 +178,25 @@ export const getOrderHistory = async (req, res) => {
       orderHistory: saleId,
     });
     await user.save();
+    const userDva = await User.findById(userData.id).populate({
+      path: "orderHistory",
+      select:
+        "productBought productShipped productQuantity orderPlacedDate noteToSeller seller arrivalDate",
+
+      populate: {
+        path: "productBought",
+        select:
+          "productName productPicture productDescription productNewPrice ",
+      },
+    });
+
+    res.json(userDva.orderHistory);
+  });*/
+  const { token } = req.cookies;
+
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+
     const userDva = await User.findById(userData.id).populate({
       path: "orderHistory",
       select:

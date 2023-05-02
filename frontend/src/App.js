@@ -12,7 +12,9 @@ import Store from "./components/User/Store/Store.js";
 import StoreEdit from "../src/components/User/Dashboard/StoreEdit/StoreEdit.js";
 import StoreYourProducts from "../src/components/User/Dashboard/StoreYourProducts/YourProducts.js";
 import StoreFinance from "./components/User/Dashboard/StoreFinance/StoreFinance.js";
-import { addStoreProducts } from "./app/features/Store/storeProducts.js";
+import storeProducts, {
+  addStoreProducts,
+} from "./app/features/Store/storeProducts.js";
 import { setUserFetching } from "./app/features/User/isUserFetching.js";
 import StoreProductModal from "./components/User/Store/StoreProductModal/StoreProductModal.js";
 import AddToCart from "./components/User/Customer/AddToCart.js";
@@ -29,6 +31,7 @@ const App = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
   const cartItems = useSelector((state) => state.cartItems.value);
+  const storeProducts = useSelector((state) => state.storeProducts.value);
 
   const dispatch = useDispatch();
 
@@ -38,9 +41,14 @@ const App = () => {
       .get("/api/user/get-logged-user?timestamp=" + new Date().getTime(), {})
       .then(({ data }) => {
         dispatch(addUser(data));
+        dispatch(setUserFetching(false));
       });
+
+    axios.get("/api/store/get-store-products").then(({ data }) => {
+      dispatch(addStoreProducts(data.storeProducts));
+    });
   }, [getUserTrigger]);
-  console.log(cartItems);
+  console.log(storeProducts);
   return (
     <div>
       {cartVisible && <AddToCart />}

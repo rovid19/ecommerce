@@ -9,7 +9,7 @@ const StoreAddProductModal = ({ setIsVisible }) => {
   const [productDescription, setProductDescription] = useState(null);
   const [productPrice, setProductPrice] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
-
+  console.log(isFetching);
   return (
     <div className="w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50 absolute top-0 left-0">
       {isFetching && (

@@ -43,7 +43,6 @@ const AddToCart = () => {
     } else {
       //setQuantity(Array(cartItems.length).fill(1));
       setQuantity((prev) => [...prev, 1]);
-      totalCounter();
     }
   }, [cartItems]);
 
@@ -59,12 +58,13 @@ const AddToCart = () => {
   }, [selectedProduct]);*/
 
   useEffect(() => {
-    if (boughtItems) {
+    if (boughtItems.length > 0) {
+      console.log("glup sam");
       handleBuyNow();
     }
   }, [boughtItems]);
 
-  function totalCounter() {
+  useEffect(() => {
     let total = 0;
     if (cartItems) {
       cartItems.forEach((item) => {
@@ -73,7 +73,7 @@ const AddToCart = () => {
     }
 
     setTotal(total);
-  }
+  }, [cartItems]);
 
   function handleBoughtProducts() {
     const newArray = cartItems.map((item) => {

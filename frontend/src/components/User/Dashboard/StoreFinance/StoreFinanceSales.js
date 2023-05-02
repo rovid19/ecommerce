@@ -4,9 +4,11 @@ import Calendar from "react-calendar";
 import axios from "axios";
 import "react-calendar/dist/Calendar.css";
 import { useSelector } from "react-redux";
+import Loader from "../../../../assets/svg-loaders/three-dots.svg";
 
 const StoreFinanceSales = () => {
-  const [subPage, setSubPage] = useState("sales");
+  const [subPage, setSubPage] = useState("total");
+  const [isFetching, setIsFetching] = useState(false);
   const [value, onChange] = useState(new Date());
   const [today, setToday] = useState(new Date());
   const [calendar, setCalendar] = useState(false);
@@ -33,12 +35,16 @@ const StoreFinanceSales = () => {
       .then(({ data }) => setDailySales(data));
   }
   useEffect(() => {
+    setIsFetching(true);
     axios
       .post("/api/store/get-daily-sales", {
         formattedDate,
         storeId: user && user.store._id,
       })
-      .then(({ data }) => setDailySales(data));
+      .then(({ data }) => {
+        setDailySales(data);
+        setIsFetching(false);
+      });
   }, [value]);
 
   useEffect(() => {
@@ -47,6 +53,12 @@ const StoreFinanceSales = () => {
 
   return (
     <div className="w-full h-full fl2 relative">
+      {isFetching && (
+        <div className="h-full w-full flex items-center justify-center bg-white absolute top-0 left-0">
+          {" "}
+          <img src={Loader}></img>{" "}
+        </div>
+      )}
       {calendar && (
         <div className="absolute top-0 left-0 flex items-center justify-center bg-white bg-opacity-50 h-full w-full">
           <Calendar value={value} onChange={onChange} />{" "}
@@ -64,8 +76,10 @@ const StoreFinanceSales = () => {
               : "border-b-2  border-gray-300 border-opacity-20"
           }
         >
-          {formattedDate === todayDate
-            ? "Today Sales"
+          {subPage === "total"
+            ? "Sales by specific date"
+            : formattedDate === todayDate
+            ? "Today"
             : formattedDate + " " + "Sales"}
         </button>
         <button

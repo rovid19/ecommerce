@@ -78,7 +78,7 @@ const AddProductInputs = ({
       console.log(newArray);
     }
   }, [index]);
-
+  console.log(isUserFetching);
   return (
     <form onSubmit={handleAddProduct} className="h-[95%]">
       <div className="h-[60%] rounded-lg w-full overflow-hidden">
