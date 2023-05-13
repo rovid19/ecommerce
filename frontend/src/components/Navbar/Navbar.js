@@ -1,15 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import Img from "../../assets/user.png";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, Outlet, useNavigate } from "react-router-dom";
 import NavbarUserMenu from "./NavbarUserMenu";
 import { getStoreSubPage } from "../../app/features/storeSubPage";
+import axios from "axios";
+import { setSearchResults } from "../../app/features/User/searchResults";
 
 const Navbar = () => {
+  const [searchValue, setSearchValue] = useState(null);
+  const [option, setOption] = useState("Stores");
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.value);
 
+  function handleSearch() {
+    axios
+      .post("/api/customer/search", { searchValue, option })
+      .then(({ data }) => {
+        navigate(`/search/${option}/${searchValue}`);
+        dispatch(setSearchResults(data));
+      });
+  }
+  console.log(option);
   return (
     <>
       <header className="flex h-full justify-center z-50 ">
@@ -42,15 +56,23 @@ const Navbar = () => {
             <div className="h-[60%] w-[90%]  lg:w-[70%] flex items-center rounded-3xl border-2 border-gray-300 border-opacity-25  ">
               <div className="w-full h-full flex justify-between items-center">
                 <label className="w-[30%] lg:w-[15%] xl:w-[10%] h-[70%] flex justify-center border-r-2 border-gray-300 border-opacity-30 ">
-                  <select className="bg-transparent text-gray-400 ">
-                    <option>Mirok</option>
-                    <option>Mirok2</option>
-                    <option>Mirok4</option>
+                  <select
+                    className="bg-transparent text-gray-400 "
+                    onChange={(e) => setOption(e.target.value)}
+                  >
+                    <option>Stores</option>
+                    <option>Products</option>
                   </select>
                 </label>
-                <input className="w-[80%] h-full" />
+                <input
+                  className="w-[80%] h-full"
+                  onChange={(e) => setSearchValue(e.target.value)}
+                />
 
-                <button className="w-[20%] 2xl:w-[10%] flex items-center gap-2 ml-4  rounded-2xl h-[90%] mr-1 justify-center text-white bg-orange-500">
+                <button
+                  className="w-[20%] 2xl:w-[10%] flex items-center gap-2 ml-4  rounded-2xl h-[90%] mr-1 justify-center text-white bg-orange-500"
+                  onClick={handleSearch}
+                >
                   {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

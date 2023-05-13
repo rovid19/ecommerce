@@ -26,6 +26,8 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
     backgroundImage: `url(${Img})`,
   };
 
+  console.log(storeProducts);
+
   return (
     <div
       className={

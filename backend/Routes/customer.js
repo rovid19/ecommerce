@@ -11,6 +11,8 @@ import {
   postNote,
   cancelOrder,
   getStore,
+  searchResults,
+  getProductStore,
 } from "../Controllers/customer.js";
 
 const router = express.Router();
@@ -26,4 +28,6 @@ router.get("/get-order-history", getOrderHistory);
 router.post("/note-to-seller", postNote);
 router.post("/cancel-order", cancelOrder);
 router.post("/get-store", getStore);
+router.post("/search", searchResults);
+router.post("/get-products-store", getProductStore);
 export default router;

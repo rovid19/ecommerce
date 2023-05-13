@@ -18,6 +18,7 @@ import cartItemsReducer from "./features/User/cartItems.js";
 import storeIdReducer from "./features/Store/storeId.js";
 import productIndexReducer from "./features/User/productIndex.js";
 import savedStoreReducer from "./features/Store/savedStore.js";
+import searchResultsReducer from "./features/User/searchResults.js";
 
 export const store = configureStore({
   reducer: {
@@ -40,5 +41,6 @@ export const store = configureStore({
     storeId: storeIdReducer,
     productIndex: productIndexReducer,
     savedStore: savedStoreReducer,
+    searchResults: searchResultsReducer,
   },
 });

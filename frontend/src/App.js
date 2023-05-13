@@ -21,7 +21,7 @@ import AddToCart from "./components/User/Customer/AddToCart.js";
 import Layout from "./components/Layout.js";
 import UserMenu from "./components/User/Customer/Profile/UserMenu.js";
 import StoreOrders from "./components/User/Dashboard/StoreOrders/StoreOrders.js";
-import cartItems from "./app/features/User/cartItems.js";
+import SearchResults from "./components/User/Customer/SearchResults/SearchResults.js";
 
 axios.defaults.baseURL = "http://localhost:4000";
 //axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
@@ -62,6 +62,11 @@ const App = () => {
           <Route path="/:id/profile" element={<UserMenu />}></Route>
           <Route path="/:id/orderhistory" element={<UserMenu />}></Route>
           <Route path="/:id/shippingdetails" element={<UserMenu />}></Route>
+          <Route
+            path="/search/:searchOption/:searchResults"
+            element={<SearchResults />}
+          />
+          <Route path="/search/:searchOption/" element={<SearchResults />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

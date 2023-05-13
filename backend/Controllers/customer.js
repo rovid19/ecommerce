@@ -260,3 +260,40 @@ export const getStore = async (req, res) => {
 
   res.json(store);
 };
+
+export const searchResults = async (req, res) => {
+  const { searchValue, option } = req.body;
+
+  if (option === "Stores") {
+    const regex = new RegExp(`${searchValue}`, "gi");
+    const specificStore = await Store.find({ storeName: regex }).lean().exec();
+    console.log(specificStore);
+    const jsonsend = [...specificStore];
+
+    const newArray = jsonsend.map((item) => {
+      return { ...item, search: option };
+    });
+
+    res.json(newArray);
+  } else {
+    const regex = new RegExp(`${searchValue}`, "gi");
+    const specificProduct = await Product.find({ productName: regex })
+      .lean()
+      .exec();
+    const jsonsend = [...specificProduct];
+
+    const newArray = jsonsend.map((item) => {
+      return { ...item, search: option };
+    });
+
+    res.json(newArray);
+  }
+};
+
+export const getProductStore = async (req, res) => {
+  const { id } = req.body;
+
+  const findStore = await Store.findOne({ storeProducts: id });
+
+  res.json(findStore);
+};

@@ -33,21 +33,21 @@ const StoreProductModal = () => {
   const savedStore = useSelector((state) => state.savedStore.value);
 
   useEffect(() => {
-    if (storeProducts.length === 0) {
-      console.log("pokrenulo se je");
-      setIsFetching(true);
-      axios
-        .post("/api/store/get-current-product", { productId })
-        .then(({ data }) => {
-          setProductPicture(data.productPicture);
-          setProductTitle(data.productName);
-          setProductDescription(data.productDescription);
-          setProductPrice(data.productNewPrice);
-        })
-        .then(() => {
-          setIsFetching(false);
-        });
-    }
+    // if (storeProducts.length === 0) {
+
+    setIsFetching(true);
+    axios
+      .post("/api/store/get-current-product", { productId })
+      .then(({ data }) => {
+        setProductPicture(data.productPicture);
+        setProductTitle(data.productName);
+        setProductDescription(data.productDescription);
+        setProductPrice(data.productNewPrice);
+      })
+      .then(() => {
+        setIsFetching(false);
+      });
+    //}
   }, []);
 
   //functions
@@ -99,6 +99,8 @@ const StoreProductModal = () => {
       dispatch(setCartVisible(true));
     }
   }
+
+  console.log(productId);
 
   return (
     <div className="absolute top-0 z-20 left-0 h-full w-full bg-black bg-opacity-50 flex items-center justify-center ">
