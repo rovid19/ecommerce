@@ -13,6 +13,8 @@ import {
   getStore,
   searchResults,
   getProductStore,
+  submitReview,
+  getReview,
 } from "../Controllers/customer.js";
 
 const router = express.Router();
@@ -30,4 +32,6 @@ router.post("/cancel-order", cancelOrder);
 router.post("/get-store", getStore);
 router.post("/search", searchResults);
 router.post("/get-products-store", getProductStore);
+router.post("/submit-review", submitReview);
+router.post("/reviews", getReview);
 export default router;

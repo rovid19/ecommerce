@@ -19,6 +19,7 @@ import storeIdReducer from "./features/Store/storeId.js";
 import productIndexReducer from "./features/User/productIndex.js";
 import savedStoreReducer from "./features/Store/savedStore.js";
 import searchResultsReducer from "./features/User/searchResults.js";
+import searchReducer from "./features/User/search.js";
 
 export const store = configureStore({
   reducer: {
@@ -42,5 +43,6 @@ export const store = configureStore({
     productIndex: productIndexReducer,
     savedStore: savedStoreReducer,
     searchResults: searchResultsReducer,
+    search: searchReducer,
   },
 });

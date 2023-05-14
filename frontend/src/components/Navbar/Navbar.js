@@ -6,6 +6,7 @@ import NavbarUserMenu from "./NavbarUserMenu";
 import { getStoreSubPage } from "../../app/features/storeSubPage";
 import axios from "axios";
 import { setSearchResults } from "../../app/features/User/searchResults";
+import { setSearch, setSearchOption } from "../../app/features/User/search";
 
 const Navbar = () => {
   const [searchValue, setSearchValue] = useState(null);
@@ -21,6 +22,8 @@ const Navbar = () => {
       .then(({ data }) => {
         navigate(`/search/${option}/${searchValue}`);
         dispatch(setSearchResults(data));
+        dispatch(setSearch(searchValue));
+        dispatch(setSearchOption(option));
       });
   }
   console.log(option);
@@ -71,7 +74,10 @@ const Navbar = () => {
 
                 <button
                   className="w-[20%] 2xl:w-[10%] flex items-center gap-2 ml-4  rounded-2xl h-[90%] mr-1 justify-center text-white bg-orange-500"
-                  onClick={handleSearch}
+                  onClick={() => {
+                    dispatch(getStoreSubPage("Search"));
+                    handleSearch();
+                  }}
                 >
                   {" "}
                   <svg

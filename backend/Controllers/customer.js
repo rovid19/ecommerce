@@ -4,6 +4,7 @@ import Store from "../Models/store.js";
 import Product from "../Models/product.js";
 import bcrypt from "bcrypt";
 import Sale from "../Models/sale.js";
+import Review from "../Models/review.js";
 
 const jwtSecret = "rockjefakatludirock";
 const bcryptSalt = bcrypt.genSaltSync(10);
@@ -296,4 +297,32 @@ export const getProductStore = async (req, res) => {
   const findStore = await Store.findOne({ storeProducts: id });
 
   res.json(findStore);
+};
+
+export const getReview = async (req, res) => {
+  const { productId } = req.body;
+
+  const getReviews = await Product.findById(productId).populate(
+    "productReview",
+    " commentBy comment rating pictures commentOn"
+  );
+
+  res.json(getReviews.productReview);
+};
+
+export const submitReview = async (req, res) => {
+  const { id, pictures, comment, productId } = req.body;
+
+  const newReview = await Review.create({
+    commentBy: id,
+    commentOn: productId,
+    comment,
+    pictures,
+  });
+
+  const findProduct = await Product.findById(productId);
+
+  findProduct.productReview.push(newReview._id);
+
+  res.json(newReview);
 };

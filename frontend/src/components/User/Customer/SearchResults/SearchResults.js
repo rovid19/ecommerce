@@ -5,6 +5,7 @@ import StoreProductCard from "../../Store/StoreProductCard";
 import axios from "axios";
 const SearchResults = () => {
   const searchResults = useSelector((state) => state.searchResults.value);
+
   const [getStore, setGetStore] = useState(null);
   const [selectedStore, setSelectedStore] = useState(null);
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ const SearchResults = () => {
       navigate(`/store/${selectedStore.storeName}/product/${getStore}`);
     }
   }, [selectedStore]);
-  console.log(searchResults);
+
   return (
     <main className="w-full h-full flex justify-center">
       <section className="w-[85%] h-full flex gap-2">

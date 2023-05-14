@@ -11,11 +11,14 @@ import cartVisible, {
 } from "../../../../app/features/User/cartVisible";
 import { switchValue } from "../../../../app/features/getUserTrigger";
 import { setCartItems } from "../../../../app/features/User/cartItems";
+import Reviews from "../Reviews/Reviews";
+import { addSelectedProduct } from "../../../../app/features/Store/selectedProduct";
 
 const StoreProductModal = () => {
   const [productPicture, setProductPicture] = useState([]);
   const [productTitle, setProductTitle] = useState(null);
   const [productDescription, setProductDescription] = useState(null);
+
   const [productPrice, setProductPrice] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
   const [viewImage, setViewImage] = useState(false);
@@ -25,6 +28,8 @@ const StoreProductModal = () => {
   const navigate = useNavigate();
   const { productId } = useParams();
 
+  const search = useSelector((state) => state.search.value);
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const user = useSelector((state) => state.user.value);
   const storeId = useSelector((state) => state.storeId.value);
   const storeProducts = useSelector((state) => state.storeProducts.value);
@@ -34,7 +39,7 @@ const StoreProductModal = () => {
 
   useEffect(() => {
     // if (storeProducts.length === 0) {
-
+    dispatch(addSelectedProduct(productId));
     setIsFetching(true);
     axios
       .post("/api/store/get-current-product", { productId })
@@ -100,13 +105,19 @@ const StoreProductModal = () => {
     }
   }
 
-  console.log(productId);
+  console.log(search, "di", storeSubPage);
 
   return (
     <div className="absolute top-0 z-20 left-0 h-full w-full bg-black bg-opacity-50 flex items-center justify-center ">
       {/* CLOSE PRODUCT MODAL BUTTON*/}
       <button
-        onClick={() => navigate(`/store/${savedStore.storeName}/${storeId}`)}
+        onClick={() => {
+          if (storeSubPage === "Search") {
+            navigate(`/search/${search.searchOption}/${search.search}`);
+          } else {
+            navigate(`/store/${savedStore.storeName}/${storeId}`);
+          }
+        }}
         className=" text-black absolute top-2 left-2"
       >
         <svg
@@ -454,28 +465,22 @@ const StoreProductModal = () => {
           {/* ADD TO CART BUTTON*/}
           <button
             onClick={addProductToCart}
-            className="bottom-4 border-2 border-orange-500 text-orange-500 p-4 rounded-lg right-[30%] w-[15%] text-xl hover:bg-orange-500 hover:text-white transition-all absolute"
+            className="bottom-4 border-2 border-orange-500 text-orange-500 p-4 rounded-lg left-[30%] w-[15%] text-xl hover:bg-orange-500 hover:text-white transition-all absolute"
           >
             Add to cart
           </button>
           {/* BUY NOW BUTTON*/}
-          <button className="bottom-4 bg-orange-500 p-4 rounded-lg text-white right-4 w-[25%] text-xl hover:w-[28%] transition-all absolute">
+          <button className="bottom-4 bg-orange-500 p-4 rounded-lg text-white left-4 w-[25%] text-xl hover:w-[28%] transition-all absolute">
             Buy now
           </button>
           {/* PRODUCT RATING*/}
-          <div className="bottom-4 left-4 absolute">
+          <div className="bottom-4 right-4 absolute">
             <h2 className="text-xl">4.5</h2>
           </div>
         </div>
         {/* REVIEWS */}
-        <div className="absolute right-0 top-0 h-full w-[25%] border-l-2 border-gray-300 border-opacity-25 ">
-          <div className="h-[5%] text-3xl ml-4 mt-4">Reviews</div>
-          <div className="h-[20%] bg-red-500 p-4 relative">
-            <h1 className="text-xl">Jozef</h1>
-            <p>jebene ide te</p>
-            <h1 className="bottom-4 left-4 absolute">4.3</h1>
-          </div>
-        </div>
+
+        <Reviews />
       </div>
     </div>
   );
