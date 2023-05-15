@@ -1,13 +1,18 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setOpenReviewPic } from "../../../../app/features/User/openReviewPic";
+import { setReviewPic } from "../../../../app/features/User/reviewPic";
 
 const Reviews = () => {
   const [reviews, setReviews] = useState(null);
-  const [pictures, setPictures] = useState([]);
   const [comment, setComment] = useState(null);
   const [trigger, setTrigger] = useState(false);
+  const [deleteReview, setDeleteReview] = useState(null);
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.user.value);
+  const reviewPic = useSelector((state) => state.reviewPic.value);
+
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   function pictureUpload(e) {
     const file = e.target.files;
@@ -18,9 +23,7 @@ const Reviews = () => {
         headers: { "Content-Type": "multipart/form-data" },
       })
       .then(({ data }) => {
-        let array = [...pictures];
-        array.push(data);
-        setPictures(array);
+        dispatch(setReviewPic(data));
       });
   }
 
@@ -29,7 +32,7 @@ const Reviews = () => {
     axios
       .post("/api/customer/submit-review", {
         id: user._id,
-        pictures,
+        reviewPic,
         comment,
         productId: selectedProduct,
       })
@@ -40,17 +43,102 @@ const Reviews = () => {
       .post("/api/customer/reviews", { productId: selectedProduct })
       .then(({ data }) => setReviews(data));
   }, [trigger]);
+  console.log(reviews);
+
+  useEffect(() => {
+    if (deleteReview) {
+      axios
+        .post("/api/customer/delete-review", { deleteReview })
+        .then(() => setTrigger(!trigger));
+    }
+  }, [deleteReview]);
   return (
     <section className="absolute right-0 top-0 h-full w-[25%] border-l-2 border-gray-300 border-opacity-25 ">
-      <div className="h-[80%]">Reviews</div>
+      <div className="h-[80%]">
+        {" "}
+        {reviews &&
+          reviews.map((review, i) => {
+            return (
+              <article
+                className={
+                  i === 0 && review.pictures.length > 0
+                    ? "h-[30%] w-full bg-gray-50 p-2 relative"
+                    : review.pictures.length > 0
+                    ? "h-[30%] w-full bg-gray-50 mt-1 p-2 relative"
+                    : "h-[20%] w-full bg-gray-50 mt-1 p-2 relative"
+                }
+              >
+                {user.username === review.commentBy[0].username && (
+                  <button
+                    className="absolute top-2 right-2"
+                    onClick={() => setDeleteReview(review._id)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="w-8 h-8 text-white bg-gray-300 p-1 rounded-md hover:bg-orange-500 transition-all"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                )}
+                <div className="h-[15%] w-full">
+                  <h1 className="font-bold text-xl">
+                    {review.commentBy[0].username}
+                  </h1>
+                </div>
+                <div className="h-[85%] w-full overflow-hidden">
+                  <p>{review.comment}</p>
+                  <div className="flex h-full overflow-hidden">
+                    {review.pictures.map((pic) => {
+                      return (
+                        <img
+                          className="h-full w-[20%] object-cover rounded-md"
+                          src={pic}
+                        ></img>
+                      );
+                    })}
+                  </div>
+                </div>
+              </article>
+            );
+          })}
+      </div>
       <div className="h-[20%]">
         <form className="h-full w-full  " onSubmit={handleSubmit}>
           <fieldset className="h-full w-full relative ">
             <label className="h-full w-full  ">
               <input
-                className="h-full w-full p-2 bg-gray-50"
+                className={
+                  reviewPic && reviewPic.length > 0
+                    ? "h-[70%] w-[80%] p-2 bg-gray-50"
+                    : "h-[70%] w-full p-2 bg-gray-50"
+                }
                 onChange={(e) => setComment(e.target.value)}
               />
+              {reviewPic && reviewPic.length > 0 ? (
+                <div className="absolute right-0 top-0 h-[70%] w-[20%] bg-gray-50  ">
+                  <div
+                    className="absolute h-full w-full top-0 bg-black bg-opacity-20 hover:bg-transparent transition-all cursor-pointer"
+                    onClick={() => dispatch(setOpenReviewPic(true))}
+                  ></div>
+                  <img
+                    src={reviewPic && reviewPic[0]}
+                    className="h-[50%] w-full object-cover"
+                  ></img>
+                  <img
+                    src={reviewPic && reviewPic[1]}
+                    className="h-[50%] w-full object-cover"
+                  ></img>
+                </div>
+              ) : (
+                ""
+              )}
               <button className="w-[80%] h-[30%] absolute bottom-0 left-0 bg-orange-500 text-white hover:bg-gray-300 hover:text-black ">
                 Post
               </button>

@@ -15,6 +15,7 @@ import {
   getProductStore,
   submitReview,
   getReview,
+  deleteReview,
 } from "../Controllers/customer.js";
 
 const router = express.Router();
@@ -34,4 +35,6 @@ router.post("/search", searchResults);
 router.post("/get-products-store", getProductStore);
 router.post("/submit-review", submitReview);
 router.post("/reviews", getReview);
+router.post("/delete-review", deleteReview);
+
 export default router;

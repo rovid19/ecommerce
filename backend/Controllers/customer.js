@@ -302,27 +302,39 @@ export const getProductStore = async (req, res) => {
 export const getReview = async (req, res) => {
   const { productId } = req.body;
 
-  const getReviews = await Product.findById(productId).populate(
-    "productReview",
-    " commentBy comment rating pictures commentOn"
-  );
+  const getReviews = await Product.findById(productId).populate({
+    path: "productReview",
+    select: " commentBy comment rating pictures commentOn",
+    populate: {
+      path: "commentBy",
+      select: "username profilePicture",
+    },
+  });
 
   res.json(getReviews.productReview);
 };
 
 export const submitReview = async (req, res) => {
-  const { id, pictures, comment, productId } = req.body;
+  const { id, reviewPic, comment, productId } = req.body;
 
   const newReview = await Review.create({
     commentBy: id,
     commentOn: productId,
     comment,
-    pictures,
+    pictures: reviewPic,
   });
 
   const findProduct = await Product.findById(productId);
 
   findProduct.productReview.push(newReview._id);
 
+  await findProduct.save();
   res.json(newReview);
+};
+
+export const deleteReview = async (req, res) => {
+  const { deleteReview } = req.body;
+
+  const findReview = await Review.findByIdAndDelete(deleteReview);
+  res.json("ok");
 };

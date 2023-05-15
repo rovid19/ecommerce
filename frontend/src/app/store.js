@@ -20,6 +20,8 @@ import productIndexReducer from "./features/User/productIndex.js";
 import savedStoreReducer from "./features/Store/savedStore.js";
 import searchResultsReducer from "./features/User/searchResults.js";
 import searchReducer from "./features/User/search.js";
+import openReviewPicReducer from "./features/User/openReviewPic.js";
+import reviewPicReducer from "./features/User/reviewPic.js";
 
 export const store = configureStore({
   reducer: {
@@ -44,5 +46,7 @@ export const store = configureStore({
     savedStore: savedStoreReducer,
     searchResults: searchResultsReducer,
     search: searchReducer,
+    openReviewPic: openReviewPicReducer,
+    reviewPic: reviewPicReducer,
   },
 });

@@ -13,22 +13,30 @@ import { switchValue } from "../../../../app/features/getUserTrigger";
 import { setCartItems } from "../../../../app/features/User/cartItems";
 import Reviews from "../Reviews/Reviews";
 import { addSelectedProduct } from "../../../../app/features/Store/selectedProduct";
+import { setOpenReviewPic } from "../../../../app/features/User/openReviewPic";
+import {
+  removePic,
+  removeSecificPic,
+  setReviewPic,
+} from "../../../../app/features/User/reviewPic";
 
 const StoreProductModal = () => {
   const [productPicture, setProductPicture] = useState([]);
   const [productTitle, setProductTitle] = useState(null);
+  const [deleteProduct, setDeleteProduct] = useState(null);
   const [productDescription, setProductDescription] = useState(null);
-
   const [productPrice, setProductPrice] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
   const [viewImage, setViewImage] = useState(false);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const openReviewPic = useSelector((state) => state.openReviewPic.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { productId } = useParams();
 
   const search = useSelector((state) => state.search.value);
+  const reviewPic = useSelector((state) => state.reviewPic.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const user = useSelector((state) => state.user.value);
   const storeId = useSelector((state) => state.storeId.value);
@@ -104,11 +112,66 @@ const StoreProductModal = () => {
       dispatch(setCartVisible(true));
     }
   }
-
-  console.log(search, "di", storeSubPage);
+  useEffect(() => {
+    if (deleteProduct !== null) {
+      dispatch(removeSecificPic(deleteProduct));
+      setDeleteProduct(null);
+    }
+  }, [deleteProduct]);
+  console.log(deleteProduct);
 
   return (
     <div className="absolute top-0 z-20 left-0 h-full w-full bg-black bg-opacity-50 flex items-center justify-center ">
+      {openReviewPic && (
+        <section className="absolute top-0 zz left-0 h-full w-full bg-black bg-opacity-25 flex items-center justify-center">
+          <article className="h-[30%] w-[70%] bg-white relative grid grid-cols-5 overflow-hidden">
+            {reviewPic.map((pic, i) => {
+              return (
+                <div className="h-full w-full relative">
+                  <img
+                    src={pic}
+                    className="h-full w-full object-cover overflow-hidden"
+                  ></img>
+                  <button
+                    className="absolute top-2 left-2"
+                    onClick={() => setDeleteProduct(i)}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="w-8 h-8 text-white bg-orange-500 p-1 rounded-md hover:bg-black transition-all"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              );
+            })}
+            <button
+              className="absolute right-0 top-0"
+              onClick={() => dispatch(setOpenReviewPic(false))}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-6 h-6  hover:scale-110"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </article>
+        </section>
+      )}
       {/* CLOSE PRODUCT MODAL BUTTON*/}
       <button
         onClick={() => {
@@ -117,6 +180,7 @@ const StoreProductModal = () => {
           } else {
             navigate(`/store/${savedStore.storeName}/${storeId}`);
           }
+          dispatch(removePic([]));
         }}
         className=" text-black absolute top-2 left-2"
       >
