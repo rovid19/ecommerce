@@ -22,7 +22,9 @@ import searchResultsReducer from "./features/User/searchResults.js";
 import searchReducer from "./features/User/search.js";
 import openReviewPicReducer from "./features/User/openReviewPic.js";
 import reviewPicReducer from "./features/User/reviewPic.js";
-
+import userStoreProductsReducer from "./features/Store/userStoreProducts.js";
+import viewReviewPicReducer from "./features/User/viewReviewPic.js";
+import viewImageReducer from "./features/User/viewImage.js";
 export const store = configureStore({
   reducer: {
     user: userReducer,
@@ -48,5 +50,8 @@ export const store = configureStore({
     search: searchReducer,
     openReviewPic: openReviewPicReducer,
     reviewPic: reviewPicReducer,
+    userStoreProducts: userStoreProductsReducer,
+    viewReviewPic: viewReviewPicReducer,
+    viewImage: viewImageReducer,
   },
 });

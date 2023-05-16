@@ -28,7 +28,9 @@ const StoreEdit = () => {
   const editMode = useSelector((state) => state.editMode.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const storeProducts = useSelector((state) => state.storeProducts.value);
+  const userStoreProducts = useSelector(
+    (state) => state.userStoreProducts.value
+  );
 
   const dispatch = useDispatch();
 
@@ -140,8 +142,8 @@ const StoreEdit = () => {
             Click here to add or edit products
           </button>
         </div>
-        {storeProducts &&
-          storeProducts.map((item, index) => {
+        {userStoreProducts &&
+          userStoreProducts.map((item, index) => {
             return <StoreProductCard storeProducts={item} key={index} />;
           })}
       </div>

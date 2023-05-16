@@ -7,6 +7,7 @@ import { setEditMode } from "../../../../app/features/Store/storeEditMode";
 import StoreEditProductModal from "./Modals/EditProductModal/EditProductModal";
 import { addStoreProducts } from "../../../../app/features/Store/storeProducts";
 import axios from "axios";
+import { setStoreProducts } from "../../../../app/features/Store/userStoreProducts";
 const StoreAddProducts = () => {
   // states & ref
   const [isVisible, setIsVisible] = useState(false);
@@ -17,7 +18,9 @@ const StoreAddProducts = () => {
 
   // redux
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const storeProducts = useSelector((state) => state.storeProducts.value);
+  const userStoreProducts = useSelector(
+    (state) => state.userStoreProducts.value
+  );
   const editProductModal = useSelector((state) => state.editProductModal.value);
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
@@ -39,13 +42,13 @@ const StoreAddProducts = () => {
     }
   }
   function dragSetClassname(index) {
-    let _storeProducts = [...storeProducts];
+    let _storeProducts = [...userStoreProducts];
     let finalArray = [];
     _storeProducts.forEach((item) => {
       finalArray.push({ ...item, productDragged: false });
     });
     finalArray[index].productDragged = true;
-    dispatch(addStoreProducts(finalArray));
+    dispatch(setStoreProducts(finalArray));
   }
 
   function handleSort() {
@@ -57,7 +60,7 @@ const StoreAddProducts = () => {
     dragOverItem.current = null;
 
     dispatch(addStoreProducts(newArray));*/
-    let _storeProducts = [...storeProducts];
+    let _storeProducts = [...userStoreProducts];
     const draggedItemContent = _storeProducts.splice(dragItem.current, 1)[0];
     _storeProducts.splice(dragOverItem.current, 0, draggedItemContent);
 
@@ -67,15 +70,15 @@ const StoreAddProducts = () => {
     _storeProducts.forEach((item) => {
       finalArray.push({ ...item, productDragged: false });
     });
-    dispatch(addStoreProducts(finalArray));
+    dispatch(setStoreProducts(finalArray));
   }
 
   function handleSortSave() {
     axios.post("/api/store/save-sorted-products", {
-      storeProducts,
+      userStoreProducts,
     });
   }
-
+  console.log(userStoreProducts);
   return (
     <div
       className={
@@ -145,8 +148,8 @@ const StoreAddProducts = () => {
             checkEditMode();
           }}
         ></div>
-        {storeProducts &&
-          storeProducts.map((item, index) => {
+        {userStoreProducts &&
+          userStoreProducts.map((item, index) => {
             return (
               <>
                 <div
