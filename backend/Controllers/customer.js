@@ -338,3 +338,9 @@ export const deleteReview = async (req, res) => {
   const findReview = await Review.findByIdAndDelete(deleteReview);
   res.json("ok");
 };
+
+export const getHomePage = async (req, res) => {
+  const allStores = await Store.find();
+
+  res.json(allStores);
+};

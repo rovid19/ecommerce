@@ -66,7 +66,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <div className="h-full w-full flex items-center bg-white justify-center ">
+    <div className="skrin w-full flex items-center bg-white justify-center ">
       {profileSavedModal && <StoreSavedModal />}
       <form className="w-[50%] h-full fl2" onSubmit={handleProfileChanges}>
         <div className="h-[30%] w-full flex justify-center items-center p-2">

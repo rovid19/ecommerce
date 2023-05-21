@@ -39,7 +39,7 @@ const Store = () => {
   }, [storeid]);
 
   return (
-    <div className="w-[100%]  bg-gray-50 skrin flex justify-center relative">
+    <div className="w-[100%]  bg-gray-50 skrin flex justify-center relative ">
       {isFetching && (
         <div className="flex items-center justify-center absolute top-0 left-0 w-full h-full z-50 bg-white">
           <img src={Loader} className="h-24 w-[400px] object-cover"></img>

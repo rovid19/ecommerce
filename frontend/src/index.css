@@ -14,7 +14,7 @@ body {
 }
 
 .skrin {
-  height: calc(100vh - 70px);
+  height: calc(100vh - 64px);
 }
 
 @media screen and (min-width: 1024px) {
@@ -190,4 +190,7 @@ body {
 
 .rating {
   display: none;
+}
+
+.swanna label {
 }

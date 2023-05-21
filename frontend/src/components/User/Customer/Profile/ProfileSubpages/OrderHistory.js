@@ -36,7 +36,7 @@ const OrderHistory = () => {
   }, [getOrderHistoryTrigger]);
 
   return (
-    <div className="h-full w-full bg-white flex items-center justify-center relative">
+    <div className="skrin w-full bg-white flex items-center justify-center relative">
       {isVisible && (
         <OrderHistoryModal
           setIsVisible={setIsVisible}

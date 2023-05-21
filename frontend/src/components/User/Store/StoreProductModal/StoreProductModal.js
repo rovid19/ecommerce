@@ -81,9 +81,9 @@ const StoreProductModal = () => {
   }, [deleteProduct]);
 
   return (
-    <div className="absolute top-0 z-20 left-0 h-full w-full bg-black bg-opacity-50 flex items-center justify-center ">
+    <div className=" w-full bg-black bg-opacity-50 flex items-center justify-center skrin ">
       {openReviewPic && (
-        <section className="absolute top-0 zz left-0 h-full w-full bg-black bg-opacity-25 flex items-center justify-center">
+        <section className=" w-full bg-black bg-opacity-25 flex items-center justify-center">
           <article className="h-[30%] w-[70%] bg-white relative grid grid-cols-5 overflow-hidden rounded-md shadow-2xl">
             {reviewPic.map((pic, i) => {
               return (
@@ -142,7 +142,7 @@ const StoreProductModal = () => {
           }
           dispatch(removePic([]));
         }}
-        className=" text-black absolute top-2 left-2"
+        className=" text-black absolute top-20 left-4"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
