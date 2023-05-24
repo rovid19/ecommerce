@@ -188,9 +188,10 @@ body {
 
 /* RATING CSS */
 
-.rating {
-  display: none;
+.star {
+  cursor: pointer;
 }
 
-.swanna label {
+input[type="radio"] {
+  display: none;
 }
