@@ -315,13 +315,24 @@ export const getReview = async (req, res) => {
 };
 
 export const submitReview = async (req, res) => {
-  const { id, reviewPic, comment, productId } = req.body;
+  const { id, reviewPic, comment, productId, rating } = req.body;
+  const { token } = req.cookies;
+
+  jwt.verify(token, jwtSecret, {}, async (err, data) => {
+    if (err) throw err;
+    const userCommented = await User.findById(data.id);
+
+    userCommented.reviewsLeft.push(productId);
+
+    await userCommented.save();
+  });
 
   const newReview = await Review.create({
     commentBy: id,
     commentOn: productId,
     comment,
     pictures: reviewPic,
+    rating,
   });
 
   const findProduct = await Product.findById(productId);
@@ -333,7 +344,16 @@ export const submitReview = async (req, res) => {
 };
 
 export const deleteReview = async (req, res) => {
-  const { deleteReview } = req.body;
+  const { deleteReview, productId } = req.body;
+
+  jwt.verify(token, jwtSecret, {}, async (err, data) => {
+    if (err) throw err;
+    const userCommented = await User.findById(data.id);
+
+    userCommented.reviewsLeft.splice(productId, 1);
+
+    await userCommented.save();
+  });
 
   const findReview = await Review.findByIdAndDelete(deleteReview);
   res.json("ok");

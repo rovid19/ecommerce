@@ -7,6 +7,8 @@ import { useRef } from "react";
 import { setViewReviewPic } from "../../../../app/features/User/viewReviewPic";
 import { setviewImage } from "../../../../app/features/User/viewImage";
 import ReviewStarRating from "./ReviewStarRating";
+import { useParams } from "react-router-dom";
+import { FaStar } from "react-icons/fa";
 
 const Reviews = () => {
   // STATES
@@ -14,6 +16,9 @@ const Reviews = () => {
   const [comment, setComment] = useState(null);
   const [trigger, setTrigger] = useState(false);
   const [ratingActive, setRatingActive] = useState(false);
+  const [userCommented, setUserCommented] = useState(false);
+  const [rating, setRating] = useState(null);
+  const [postTrigger, setPostTrigger] = useState(false);
   const [deleteReview, setDeleteReview] = useState(null);
 
   // REDUX
@@ -23,6 +28,7 @@ const Reviews = () => {
   const reviewPic = useSelector((state) => state.reviewPic.value);
   const dispatch = useDispatch();
   const inputRef = useRef();
+  const { productId } = useParams();
 
   // FUNCTIONS
   function pictureUpload(e) {
@@ -46,9 +52,11 @@ const Reviews = () => {
         reviewPic,
         comment,
         productId: selectedProduct,
+        rating,
       })
       .then(() => {
         setTrigger(!trigger);
+        setPostTrigger(!trigger);
         inputRef.current.value = "";
       });
   }
@@ -63,14 +71,25 @@ const Reviews = () => {
   useEffect(() => {
     if (deleteReview) {
       axios
-        .post("/api/customer/delete-review", { deleteReview })
-        .then(() => setTrigger(!trigger));
+        .post("/api/customer/delete-review", { deleteReview, productId })
+        .then(() => {
+          setTrigger(!trigger);
+          setPostTrigger(!trigger);
+        });
     }
   }, [deleteReview]);
-  console.log(viewReviewPic);
+
+  useEffect(() => {
+    if (user.reviewsLeft.includes(productId)) {
+      setUserCommented(true);
+    } else {
+      setUserCommented(false);
+    }
+  }, [postTrigger]);
+  console.log(user.reviewsLeft.includes(productId));
   return (
     <section className="absolute right-0 top-0 h-full w-[25%] border-l-2 border-gray-300 border-opacity-25   ">
-      <div className="h-[80%]">
+      <div className="h-[80%] overflow-scroll scrollbar-hide">
         {" "}
         {reviews &&
           reviews.map((review, i) => {
@@ -103,12 +122,62 @@ const Reviews = () => {
                     </svg>
                   </button>
                 )}
-                <div className="h-[15%] w-full">
+                <div className="h-[15%] w-full flex items-center">
                   <h1 className="font-bold text-xl">
                     {review.commentBy[0].username}
                   </h1>
+                  <span className="ml-2 flex items-center gap-2">
+                    {review.rating}{" "}
+                    {(() => {
+                      switch (review.rating) {
+                        case 1:
+                          return <FaStar color="#ffc107" size={15} />;
+
+                        case 2:
+                          return (
+                            <>
+                              <FaStar color="#ffc107" size={15} />
+                              <FaStar color="#ffc107" size={15} />
+                            </>
+                          );
+
+                        case 3:
+                          return (
+                            <>
+                              <FaStar color="#ffc107" size={15} />
+                              <FaStar color="#ffc107" size={15} />
+                              <FaStar color="#ffc107" size={15} />
+                            </>
+                          );
+
+                        case 4:
+                          return (
+                            <>
+                              <FaStar color="#ffc107" size={15} />
+                              <FaStar color="#ffc107" size={15} />
+                              <FaStar color="#ffc107" size={15} />
+                              <FaStar color="#ffc107" size={15} />
+                            </>
+                          );
+
+                        case 5:
+                          return (
+                            <>
+                              <FaStar color="#ffc107" size={15} />
+                              <FaStar color="#ffc107" size={15} />
+                              <FaStar color="#ffc107" size={15} />
+                              <FaStar color="#ffc107" size={15} />
+                              <FaStar color="#ffc107" size={15} />
+                            </>
+                          );
+
+                        default:
+                          return null;
+                      }
+                    })()}
+                  </span>
                 </div>
-                <div className="h-[85%] w-full overflow-hidden">
+                <div className="h-[85%] w-full overflow-hidden  ">
                   <p>{review.comment}</p>
                   <div className="flex h-full overflow-hidden">
                     {review.pictures.map((pic) => {
@@ -130,7 +199,9 @@ const Reviews = () => {
           })}
       </div>
       <div className="h-[20%] ">
-        {ratingActive ? (
+        {userCommented ? (
+          ""
+        ) : ratingActive ? (
           <form className="h-full w-full  " onSubmit={handleSubmit}>
             <fieldset className="h-full w-full relative ">
               <label className="h-full w-full  ">
@@ -184,7 +255,12 @@ const Reviews = () => {
             </fieldset>
           </form>
         ) : (
-          <ReviewStarRating />
+          <ReviewStarRating
+            setRatingActive={setRatingActive}
+            ratingActive={ratingActive}
+            rating={rating}
+            setRating={setRating}
+          />
         )}
       </div>
     </section>

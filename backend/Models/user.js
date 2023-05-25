@@ -20,6 +20,7 @@ const userSchema = new mongoose.Schema({
       phoneNumber: Number,
     },
   ],
+  reviewsLeft: [],
 });
 
 const userModel = mongoose.model("user", userSchema);

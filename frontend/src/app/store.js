@@ -25,6 +25,7 @@ import reviewPicReducer from "./features/User/reviewPic.js";
 import userStoreProductsReducer from "./features/Store/userStoreProducts.js";
 import viewReviewPicReducer from "./features/User/viewReviewPic.js";
 import viewImageReducer from "./features/User/viewImage.js";
+import isReviewReducer from "./features/User/isReview.js";
 export const store = configureStore({
   reducer: {
     user: userReducer,
@@ -53,5 +54,6 @@ export const store = configureStore({
     userStoreProducts: userStoreProductsReducer,
     viewReviewPic: viewReviewPicReducer,
     viewImage: viewImageReducer,
+    isReview: isReviewReducer,
   },
 });
