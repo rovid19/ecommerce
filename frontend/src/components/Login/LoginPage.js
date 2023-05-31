@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../app/features/userSlice";
 import { useNavigate } from "react-router-dom";
 import { switchValue } from "../../app/features/getUserTrigger";
+import { addUserDva } from "../../app/features/User/userSlice";
 
 const LoginPage = () => {
   const [email, setEmail] = useState(null);
@@ -26,10 +27,11 @@ const LoginPage = () => {
         password,
       })
       .then(({ data }) => {
-        setTimeout(() => {
+        /*setTimeout(() => {
           dispatch(addUser(data));
           dispatch(switchValue(!getUserTrigger));
-        }, 1000);
+        }, 1000)*/
+        dispatch(addUserDva(data));
 
         navigate("/");
       })

@@ -24,6 +24,7 @@ import StoreOrders from "./components/User/Dashboard/StoreOrders/StoreOrders.js"
 import SearchResults from "./components/User/Customer/SearchResults/SearchResults.js";
 import { setStoreProducts } from "./app/features/Store/userStoreProducts.js";
 import Homepage from "./components/Homepage/Homepage.js";
+import { fetchUserData, userData } from "./app/features/User/userSlice.js";
 
 axios.defaults.baseURL = "http://localhost:4000";
 //axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
@@ -34,12 +35,13 @@ const App = () => {
   const cartVisible = useSelector((state) => state.cartVisible.value);
   const cartItems = useSelector((state) => state.cartItems.value);
   const user = useSelector((state) => state.user.value);
+  const userData = useSelector(userData);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(setUserFetching(true));
-    axios
+    /*axios
       .get("/api/user/get-logged-user?timestamp=" + new Date().getTime(), {})
       .then(({ data }) => {
         console.log(data);
@@ -49,9 +51,10 @@ const App = () => {
 
     axios.get("/api/store/get-store-products").then(({ data }) => {
       dispatch(setStoreProducts(data.storeProducts));
-    });
+    });*/
+    dispatch(fetchUserData());
   }, [getUserTrigger]);
-
+  console.log(userData);
   return (
     <div>
       {cartVisible && <AddToCart />}

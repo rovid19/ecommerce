@@ -325,6 +325,8 @@ export const submitReview = async (req, res) => {
     userCommented.reviewsLeft.push(productId);
 
     await userCommented.save();
+
+    console.log(userCommented.reviewsLeft);
   });
 
   const newReview = await Review.create({

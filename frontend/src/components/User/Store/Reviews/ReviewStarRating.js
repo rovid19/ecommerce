@@ -11,7 +11,7 @@ const ReviewStarRating = ({
   const dispatch = useDispatch();
 
   const [hover, setHover] = useState(null);
-  console.log(rating);
+
   return (
     <>
       <fieldset className="w-full h-full  fl2">

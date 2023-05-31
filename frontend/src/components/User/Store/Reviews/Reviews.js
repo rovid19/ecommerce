@@ -9,6 +9,9 @@ import { setviewImage } from "../../../../app/features/User/viewImage";
 import ReviewStarRating from "./ReviewStarRating";
 import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
+import getUserTrigger, {
+  switchValue,
+} from "../../../../app/features/getUserTrigger";
 
 const Reviews = () => {
   // STATES
@@ -24,6 +27,7 @@ const Reviews = () => {
   // REDUX
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const user = useSelector((state) => state.user.value);
+  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const viewReviewPic = useSelector((state) => state.viewReviewPic.value);
   const reviewPic = useSelector((state) => state.reviewPic.value);
   const dispatch = useDispatch();
@@ -44,7 +48,7 @@ const Reviews = () => {
       });
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
     axios
       .post("/api/customer/submit-review", {
@@ -55,8 +59,10 @@ const Reviews = () => {
         rating,
       })
       .then(() => {
+        dispatch(switchValue(!getUserTrigger));
+
         setTrigger(!trigger);
-        setPostTrigger(!trigger);
+
         inputRef.current.value = "";
       });
   }
@@ -65,7 +71,8 @@ const Reviews = () => {
   useEffect(() => {
     axios
       .post("/api/customer/reviews", { productId: selectedProduct })
-      .then(({ data }) => setReviews(data));
+      .then(({ data }) => setReviews(data))
+      .then(() => setPostTrigger(!trigger));
   }, [trigger]);
 
   useEffect(() => {
@@ -80,13 +87,16 @@ const Reviews = () => {
   }, [deleteReview]);
 
   useEffect(() => {
+    console.log("pokrenulo se je");
     if (user.reviewsLeft.includes(productId)) {
+      console.log("user je komentiral");
       setUserCommented(true);
     } else {
+      console.log("user nije komentiral");
       setUserCommented(false);
     }
   }, [postTrigger]);
-  console.log(user.reviewsLeft.includes(productId));
+
   return (
     <section className="absolute right-0 top-0 h-full w-[25%] border-l-2 border-gray-300 border-opacity-25   ">
       <div className="h-[80%] overflow-scroll scrollbar-hide">
