@@ -4,16 +4,16 @@ import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "../../app/features/userSlice";
+
 import { useNavigate } from "react-router-dom";
 import { switchValue } from "../../app/features/getUserTrigger";
-import { addUserDva } from "../../app/features/User/userSlice";
+import { addUserDva, fetchUserData } from "../../app/features/User/userSlice";
 
 const LoginPage = () => {
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(null);
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,7 +31,7 @@ const LoginPage = () => {
           dispatch(addUser(data));
           dispatch(switchValue(!getUserTrigger));
         }, 1000)*/
-        dispatch(addUserDva(data));
+        dispatch(fetchUserData());
 
         navigate("/");
       })

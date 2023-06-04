@@ -25,7 +25,7 @@ const StoreAddProducts = () => {
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
   );
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
   const dispatch = useDispatch();
 

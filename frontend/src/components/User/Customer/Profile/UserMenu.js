@@ -9,7 +9,7 @@ const UserMenu = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   return (
     <div className="skrin  w-full bg-gray-50 flex items-center justify-center  ">
       <div className="w-[85%] h-full bg-gray-50 flex overflow-hidden">

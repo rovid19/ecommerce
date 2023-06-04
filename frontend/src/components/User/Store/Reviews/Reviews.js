@@ -12,6 +12,7 @@ import { FaStar } from "react-icons/fa";
 import getUserTrigger, {
   switchValue,
 } from "../../../../app/features/getUserTrigger";
+import { fetchUserData } from "../../../../app/features/User/userSlice";
 
 const Reviews = () => {
   // STATES
@@ -26,7 +27,7 @@ const Reviews = () => {
 
   // REDUX
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const viewReviewPic = useSelector((state) => state.viewReviewPic.value);
   const reviewPic = useSelector((state) => state.reviewPic.value);
@@ -50,24 +51,26 @@ const Reviews = () => {
 
   async function handleSubmit(e) {
     e.preventDefault();
-    axios
-      .post("/api/customer/submit-review", {
-        id: user._id,
-        reviewPic,
-        comment,
-        productId: selectedProduct,
-        rating,
-      })
-      .then(() => {
-        dispatch(switchValue(!getUserTrigger));
+    await axios.post("/api/customer/submit-review", {
+      id: user._id,
+      reviewPic,
+      comment,
+      productId: selectedProduct,
+      rating,
+    });
 
-        setTrigger(!trigger);
+    await dispatch(fetchUserData()).unwrap();
 
-        inputRef.current.value = "";
-      });
+    setTrigger(!trigger);
+    inputRef.current.value = "";
   }
 
   // USEEFFECT
+  useEffect(() => {
+    if (!user.status) {
+      console.log("daddadada");
+    }
+  }, [user.status]);
   useEffect(() => {
     axios
       .post("/api/customer/reviews", { productId: selectedProduct })
@@ -77,12 +80,17 @@ const Reviews = () => {
 
   useEffect(() => {
     if (deleteReview) {
-      axios
-        .post("/api/customer/delete-review", { deleteReview, productId })
-        .then(() => {
-          setTrigger(!trigger);
-          setPostTrigger(!trigger);
+      async function fetch() {
+        await axios.post("/api/customer/delete-review", {
+          deleteReview,
+          productId,
         });
+
+        await dispatch(fetchUserData()).unwrap();
+        setTrigger(!trigger);
+        setPostTrigger(!trigger);
+      }
+      fetch();
     }
   }, [deleteReview]);
 
@@ -96,7 +104,7 @@ const Reviews = () => {
       setUserCommented(false);
     }
   }, [postTrigger]);
-
+  console.log(user);
   return (
     <section className="absolute right-0 top-0 h-full w-[25%] border-l-2 border-gray-300 border-opacity-25   ">
       <div className="h-[80%] overflow-scroll scrollbar-hide">

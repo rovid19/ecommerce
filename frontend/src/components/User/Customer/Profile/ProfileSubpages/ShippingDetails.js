@@ -14,7 +14,7 @@ const ShippingDetails = () => {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [postalCode, setPostalCode] = useState(null);
 
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const params = useParams();
   const navigate = useNavigate();
   const { id } = params;

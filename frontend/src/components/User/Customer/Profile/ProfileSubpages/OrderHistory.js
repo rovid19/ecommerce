@@ -16,7 +16,7 @@ const OrderHistory = () => {
 
   const [productId, setProductId] = useState(null);
   const [getOrderHistoryTrigger, setGetOrderHistoryTrigger] = useState(false);
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const params = useParams();
   const navigate = useNavigate();
   const { id } = params;

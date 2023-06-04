@@ -11,7 +11,7 @@ import { setEditMode } from "../../../app/features/Store/storeEditMode";
 import { getStoreSubPage } from "../../../app/features/storeSubPage";
 
 const StoreDashboardNav = () => {
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();

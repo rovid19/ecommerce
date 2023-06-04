@@ -325,8 +325,6 @@ export const submitReview = async (req, res) => {
     userCommented.reviewsLeft.push(productId);
 
     await userCommented.save();
-
-    console.log(userCommented.reviewsLeft);
   });
 
   const newReview = await Review.create({
@@ -347,14 +345,24 @@ export const submitReview = async (req, res) => {
 
 export const deleteReview = async (req, res) => {
   const { deleteReview, productId } = req.body;
+  const { token } = req.cookies;
 
   jwt.verify(token, jwtSecret, {}, async (err, data) => {
     if (err) throw err;
     const userCommented = await User.findById(data.id);
 
-    userCommented.reviewsLeft.splice(productId, 1);
+    const newArray = userCommented.reviewsLeft.filter(
+      (product) => product !== productId
+    );
+
+    console.log("new Array", newArray);
+
+    userCommented.set({
+      reviewsLeft: [...newArray],
+    });
 
     await userCommented.save();
+    console.log(userCommented.reviewsLeft);
   });
 
   const findReview = await Review.findByIdAndDelete(deleteReview);

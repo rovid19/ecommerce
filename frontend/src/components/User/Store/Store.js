@@ -15,7 +15,7 @@ const Store = () => {
   const [storeData, setStoreData] = useState(null);
   const [storeItems, setStoreItems] = useState(null);
   const { storeid } = useParams();
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const storeProducts = useSelector((state) => state.storeProducts.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const cartItems = useSelector((state) => state.cartItems.value);

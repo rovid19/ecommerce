@@ -16,7 +16,7 @@ const Profile = () => {
   const [newPassword, setNewPassword] = useState(null);
   const [newUsername, setNewUsername] = useState(null);
 
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const params = useParams();
   const navigate = useNavigate();

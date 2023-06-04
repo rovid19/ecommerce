@@ -14,7 +14,7 @@ const Navbar = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
 
   function handleSearch() {
     axios

@@ -4,7 +4,7 @@ import StoreFinanceSales from "./StoreFinanceSales";
 import StoreFinanceLast5Sales from "./StoreFinanceLast5Sales";
 const StoreFinance = () => {
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const { store } = user;
   console.log(store);
   return (

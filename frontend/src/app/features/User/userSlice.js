@@ -4,38 +4,42 @@ import axios from "axios";
 const initialState = {
   value: {
     user: {},
-    status: {},
+    status: false,
     error: {},
   },
 };
-export const fetchUserData = createAsyncThunk("user/fetchUserData", () => {
-  return axios.get(
-    "/api/user/get-logged-user?timestamp=" + new Date().getTime(),
-    {}
-  );
-});
+export const fetchUserData = createAsyncThunk(
+  "user/fetchUserData",
+  async () => {
+    const response = await axios.get(
+      "/api/user/get-logged-user?timestamp=" + new Date().getTime(),
+      {}
+    );
+    return response.data;
+  }
+);
 export const userDataSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
-    addUserDva: (state, action) => {
-      state.user = action.payload;
+    addUser: (state, action) => {
+      state.value.user = action.payload;
     },
   },
   extraReducers: {
     [fetchUserData.pending]: (state) => {
       console.log("ok");
+      state.value.status = true;
     },
     [fetchUserData.fulfilled]: (state, action) => {
       console.log("ok");
-      state.value = action.payload;
+      state.value.user = action.payload;
+      state.value.status = false;
     },
     [fetchUserData.rejected]: (state) => {},
   },
 });
 
-export const userData = (state) => state.userData.user;
-
-export const { addUserDva } = userDataSlice.actions;
+export const { addUser } = userDataSlice.actions;
 
 export default userDataSlice.reducer;

@@ -20,7 +20,7 @@ const AddToCart = () => {
   const dispatch = useDispatch();
   const cartVisible = useSelector((state) => state.cartVisible.value);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const storeId = useSelector((state) => state.storeId.value);
   const cartItems = useSelector((state) => state.cartItems.value);
 

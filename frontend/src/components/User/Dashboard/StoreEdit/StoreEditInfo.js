@@ -19,7 +19,7 @@ const StoreEditInfo = ({
   profilePhoto,
 }) => {
   // redux
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
   const htmlElement = useSelector((state) => state.htmlElement.value);
   const dispatch = useDispatch();

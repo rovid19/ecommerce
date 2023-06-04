@@ -1,7 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
-import { addUser } from "../../app/features/userSlice";
+import { addUser } from "../../app/features/User/userSlice.js";
+
 import { useNavigate, Link } from "react-router-dom";
 import { getStoreSubPage } from "../../app/features/storeSubPage";
 import { setCartVisible } from "../../app/features/User/cartVisible";
@@ -9,13 +10,12 @@ import { setCartVisible } from "../../app/features/User/cartVisible";
 const NavbarUserMenu = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
 
-  function handleLogout() {
-    axios.post("/api/auth/logout-user").then(() => {
-      dispatch(addUser(null));
-      navigate("/");
-    });
+  async function handleLogout() {
+    await axios.post("/api/auth/logout-user");
+    dispatch(addUser(null));
+    navigate("/");
   }
   return (
     <>

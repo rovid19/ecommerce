@@ -6,7 +6,7 @@ import RegisterPage from "./components/Register/RegisterPage";
 import RegisterPagePartTwo from "./components/Register/RegisterPagePartTwo.js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { addUser } from "./app/features/userSlice.js";
+
 import StoreDashboard from "./components/User/Dashboard/StoreDashboard.js";
 import Store from "./components/User/Store/Store.js";
 import StoreEdit from "../src/components/User/Dashboard/StoreEdit/StoreEdit.js";
@@ -34,8 +34,8 @@ const App = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
   const cartItems = useSelector((state) => state.cartItems.value);
-  const user = useSelector((state) => state.user.value);
-  const userData = useSelector(userData);
+
+  const userData = useSelector((state) => state.userData.value.user);
 
   const dispatch = useDispatch();
 

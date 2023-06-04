@@ -14,7 +14,7 @@ const StoreFinanceSales = () => {
   const [calendar, setCalendar] = useState(false);
   const [dailySales, setDailySales] = useState(null);
 
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
 
   // DEFAULT DATE
   const formattedDate = value.toLocaleDateString("en-US", {

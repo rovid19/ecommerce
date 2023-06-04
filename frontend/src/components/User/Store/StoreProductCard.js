@@ -19,14 +19,12 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
   const editMode = useSelector((state) => state.editMode.value);
 
   const productIndex = useSelector((state) => state.productIndex.value);
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const dispatch = useDispatch();
   const styles = {
     backgroundImage: `url(${Img})`,
   };
-
-  console.log(storeProducts);
 
   return (
     <div

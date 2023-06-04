@@ -18,7 +18,7 @@ const StoreEditInfoInputs = ({
 }) => {
   // redux
   const editMode = useSelector((state) => state.editMode.value);
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
 
   // functions
   function handlePhotoUpload(e) {

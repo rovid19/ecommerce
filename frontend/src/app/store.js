@@ -1,5 +1,4 @@
 import { configureStore } from "@reduxjs/toolkit";
-import userReducer from "./features/userSlice.js";
 import registrationInputReducer from "./features/registrationInput.js";
 import storeReducer from "./features/storeSlice.js";
 import userTriggerReducer from "./features/getUserTrigger.js";
@@ -29,7 +28,6 @@ import isReviewReducer from "./features/User/isReview.js";
 import userDataReducer from "./features/User/userSlice.js";
 export const store = configureStore({
   reducer: {
-    user: userReducer,
     registrationInput: registrationInputReducer,
     store: storeReducer,
     getUserTrigger: userTriggerReducer,

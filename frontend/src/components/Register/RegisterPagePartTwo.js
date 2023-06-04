@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { addUser } from "../../app/features/userSlice";
+
 import { switchValue } from "../../app/features/getUserTrigger";
 
 const RegisterPagePartTwo = () => {
@@ -19,7 +19,7 @@ const RegisterPagePartTwo = () => {
   );
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const input = useSelector((state) => state.registrationInput.value);
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   useEffect(() => {
     if ((email && username && password) || (email && storeName && password)) {
       setClassName((prev) => prev.replace("bg-gray-300", "bg-orange"));
@@ -49,7 +49,6 @@ const RegisterPagePartTwo = () => {
 
         navigate("/");
         setTimeout(() => {
-          dispatch(addUser(response.data));
           dispatch(switchValue(!getUserTrigger));
         }, 1000);
       })

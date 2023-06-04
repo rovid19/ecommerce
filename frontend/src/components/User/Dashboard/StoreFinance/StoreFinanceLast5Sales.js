@@ -7,7 +7,7 @@ const StoreFinanceLast5Sales = () => {
   const [last5, setLast5] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
 
-  const user = useSelector((state) => state.user.value);
+  const user = useSelector((state) => state.userData.value.user);
   useEffect(() => {
     setIsFetching(true);
     axios
