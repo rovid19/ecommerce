@@ -45,6 +45,7 @@ const StoreAddProductModal = ({ setIsVisible }) => {
           productTitle={productTitle}
           productDescription={productDescription}
           setIsVisible={setIsVisible}
+          isFetching={isFetching}
         />
       </div>
     </div>

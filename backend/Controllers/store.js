@@ -104,7 +104,7 @@ export const getStoreProducts = async (req, res) => {
       "productName productPicture productDescription productRating productNewPrice productOldPrice"
     );
 
-    res.json(userStore);
+    res.json(userStore.storeProducts);
   });
 };
 
@@ -117,9 +117,9 @@ export const deleteProduct = async (req, res) => {
 };
 
 export const getCurrentProduct = async (req, res) => {
-  const { productId } = req.body;
+  const { selectedProduct } = req.body;
 
-  const newProduct = await Product.findById(productId);
+  const newProduct = await Product.findById(selectedProduct);
 
   res.json(newProduct);
 };
@@ -147,9 +147,9 @@ export const editProduct = async (req, res) => {
 
 export const newProductArray = async (req, res) => {
   const { token } = req.cookies;
-  const { storeProducts } = req.body;
+  const { userStoreProducts } = req.body;
   let storeProductArray = [];
-  storeProducts.forEach((item) => {
+  userStoreProducts.forEach((item) => {
     const id = item._id;
     storeProductArray.push(id);
   });
@@ -294,4 +294,30 @@ export const getLast5 = async (req, res) => {
   const sortedSales = store.storeSales.splice(arrayLength, 5);
 
   res.json(sortedSales);
+};
+
+export const getAllStores = async (req, res) => {
+  const allStores = await Store.find();
+
+  res.json(allStores);
+};
+
+export const getTrendingStore = async (req, res) => {
+  const trendingStore = await Store.find();
+
+  let array = [];
+
+  //razvrstavanje da mi array ima vise od 0 itema da mi ne bude undefined
+  trendingStore.forEach((store) => {
+    if (store.storeSales.length > 0) {
+      array.push(store);
+    }
+  });
+
+  const lengt = array.map((item) => item.storeSales.length);
+  const mostSales = Math.max(...lengt);
+
+  const index = lengt.findIndex((item) => item === mostSales);
+
+  res.json(array[index]);
 };

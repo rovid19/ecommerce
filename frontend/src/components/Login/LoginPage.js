@@ -7,7 +7,11 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { useNavigate } from "react-router-dom";
 import { switchValue } from "../../app/features/getUserTrigger";
-import { addUserDva, fetchUserData } from "../../app/features/User/userSlice";
+import {
+  addUserDva,
+  fetchStoreProducts,
+  fetchUserData,
+} from "../../app/features/User/userSlice";
 
 const LoginPage = () => {
   const [email, setEmail] = useState(null);
@@ -32,6 +36,7 @@ const LoginPage = () => {
           dispatch(switchValue(!getUserTrigger));
         }, 1000)*/
         dispatch(fetchUserData());
+        dispatch(fetchStoreProducts());
 
         navigate("/");
       })

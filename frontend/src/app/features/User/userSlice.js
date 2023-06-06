@@ -4,10 +4,14 @@ import axios from "axios";
 const initialState = {
   value: {
     user: {},
+    products: {},
     status: false,
     error: {},
   },
 };
+
+//
+
 export const fetchUserData = createAsyncThunk(
   "user/fetchUserData",
   async () => {
@@ -18,12 +22,25 @@ export const fetchUserData = createAsyncThunk(
     return response.data;
   }
 );
+
+export const fetchStoreProducts = createAsyncThunk(
+  "user/fetchStoreProducts",
+  async () => {
+    const response = await axios.get("/api/store/get-store-products");
+    return response.data;
+  }
+);
+
+//
 export const userDataSlice = createSlice({
   name: "userData",
   initialState,
   reducers: {
     addUser: (state, action) => {
       state.value.user = action.payload;
+    },
+    setProducts: (state, action) => {
+      state.value.products = action.payload;
     },
   },
   extraReducers: {
@@ -37,9 +54,13 @@ export const userDataSlice = createSlice({
       state.value.status = false;
     },
     [fetchUserData.rejected]: (state) => {},
+
+    [fetchStoreProducts.fulfilled]: (state, action) => {
+      state.value.products = action.payload;
+    },
   },
 });
 
-export const { addUser } = userDataSlice.actions;
+export const { addUser, setProducts } = userDataSlice.actions;
 
 export default userDataSlice.reducer;

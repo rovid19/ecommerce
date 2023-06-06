@@ -20,9 +20,10 @@ const EditProductInputs = ({
 }) => {
   //states
   const [index, setIndex] = useState();
+  const [picFetch, setPicFetch] = useState(false);
   //redux
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
-  const isUserFetching = useSelector((state) => state.isUserFetching.value);
+
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const dispatch = useDispatch();
 
@@ -48,7 +49,7 @@ const EditProductInputs = ({
   }
   function handleUploadProductPicture(e) {
     if (productPicture.length < 6) {
-      dispatch(setUserFetching(true));
+      setPicFetch(true);
       const file = e.target.files;
       console.log(file);
       const formData = new FormData();
@@ -64,7 +65,7 @@ const EditProductInputs = ({
           let newArray = productPicture;
           newArray.push(data);
           setProductPicture(newArray);
-          dispatch(setUserFetching(false));
+          setPicFetch(false);
         });
     } else {
       alert("you can only upload 6 pictures");
@@ -91,7 +92,7 @@ const EditProductInputs = ({
               : "h-full flex items-center justify-center border-b-2 border-t-2 border-gray-300 border-opacity-10 cursor-pointer group  relative"
           }
         >
-          {isUserFetching ? (
+          {picFetch ? (
             <div className="h-full w-full absolute top-0 left-0 bg-black bg-opacity-0 flex items-center justify-center">
               <img src={Loader} />
             </div>

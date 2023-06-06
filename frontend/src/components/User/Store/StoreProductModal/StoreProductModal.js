@@ -48,7 +48,7 @@ const StoreProductModal = () => {
     dispatch(addSelectedProduct(productId));
     setIsFetching(true);
     axios
-      .post("/api/store/get-current-product", { productId })
+      .post("/api/store/get-current-product", { selectedProduct: productId })
       .then(({ data }) => {
         setProductPicture(data.productPicture);
         setProductTitle(data.productName);
@@ -81,9 +81,9 @@ const StoreProductModal = () => {
   }, [deleteProduct]);
 
   return (
-    <div className=" w-full bg-black bg-opacity-50 flex items-center justify-center skrin ">
+    <div className=" w-full bg-black bg-opacity-50 flex items-center justify-center skrin relative ">
       {openReviewPic && (
-        <section className=" w-full bg-black bg-opacity-25 flex items-center justify-center">
+        <section className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-25 flex items-center justify-center mido">
           <article className="h-[30%] w-[70%] bg-white relative grid grid-cols-5 overflow-hidden rounded-md shadow-2xl">
             {reviewPic.map((pic, i) => {
               return (

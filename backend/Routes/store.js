@@ -15,6 +15,7 @@ import {
   getDailySales,
   getTotalSales,
   getLast5,
+  getTrendingStore,
 } from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
@@ -57,4 +58,6 @@ router.post("/get-daily-sales", getDailySales);
 router.post("/get-total-sales", getTotalSales);
 
 router.post("/get-last-5-sales", getLast5);
+
+router.get("/get-trending-store", getTrendingStore);
 export default router;

@@ -135,6 +135,7 @@ body {
 }
 
 .animacija {
+  z-index: 110;
   box-sizing: border-box;
   height: 100vh;
   width: 0%;
@@ -146,6 +147,7 @@ body {
 }
 
 .closingAnimacija {
+  z-index: 110;
   box-sizing: border-box;
   width: 20%;
   position: absolute;
@@ -194,4 +196,8 @@ body {
 
 input[type="radio"] {
   display: none;
+}
+
+.mido {
+  z-index: 550;
 }

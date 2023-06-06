@@ -8,6 +8,7 @@ import StoreEditProductModal from "./Modals/EditProductModal/EditProductModal";
 import { addStoreProducts } from "../../../../app/features/Store/storeProducts";
 import axios from "axios";
 import { setStoreProducts } from "../../../../app/features/Store/userStoreProducts";
+import { setProducts } from "../../../../app/features/User/userSlice";
 const StoreAddProducts = () => {
   // states & ref
   const [isVisible, setIsVisible] = useState(false);
@@ -19,7 +20,7 @@ const StoreAddProducts = () => {
   // redux
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const userStoreProducts = useSelector(
-    (state) => state.userStoreProducts.value
+    (state) => state.userData.value.products
   );
   const editProductModal = useSelector((state) => state.editProductModal.value);
   const deleteProductModal = useSelector(
@@ -48,7 +49,7 @@ const StoreAddProducts = () => {
       finalArray.push({ ...item, productDragged: false });
     });
     finalArray[index].productDragged = true;
-    dispatch(setStoreProducts(finalArray));
+    dispatch(setProducts(finalArray));
   }
 
   function handleSort() {
@@ -70,7 +71,7 @@ const StoreAddProducts = () => {
     _storeProducts.forEach((item) => {
       finalArray.push({ ...item, productDragged: false });
     });
-    dispatch(setStoreProducts(finalArray));
+    dispatch(setProducts(finalArray));
   }
 
   function handleSortSave() {

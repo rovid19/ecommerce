@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { switchValue } from "../../../../../app/features/getUserTrigger";
 import { setUserProfileSavedModal } from "../../../../../app/features/User/profileSavedModal.js";
 import { useNavigate, useParams } from "react-router-dom";
+import { fetchUserData } from "../../../../../app/features/User/userSlice";
 
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -53,7 +54,7 @@ const Profile = () => {
         newUsername: newUsername ? newUsername : "",
       })
       .then(() => {
-        dispatch(switchValue(!getUserTrigger));
+        dispatch(fetchUserData());
         dispatch(setUserProfileSavedModal(true));
       });
   }

@@ -29,7 +29,7 @@ const StoreEdit = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const userStoreProducts = useSelector(
-    (state) => state.userStoreProducts.value
+    (state) => state.userData.value.products
   );
 
   const dispatch = useDispatch();
