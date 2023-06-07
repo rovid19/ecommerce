@@ -26,6 +26,8 @@ import viewReviewPicReducer from "./features/User/viewReviewPic.js";
 import viewImageReducer from "./features/User/viewImage.js";
 import isReviewReducer from "./features/User/isReview.js";
 import userDataReducer from "./features/User/userSlice.js";
+import trendingStoreReducer from "./features/User/trendingStore.js";
+
 export const store = configureStore({
   reducer: {
     registrationInput: registrationInputReducer,
@@ -55,5 +57,6 @@ export const store = configureStore({
     viewImage: viewImageReducer,
     isReview: isReviewReducer,
     userData: userDataReducer,
+    trendingStore: trendingStoreReducer,
   },
 });
