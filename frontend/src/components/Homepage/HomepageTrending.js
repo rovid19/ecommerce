@@ -23,7 +23,7 @@ const HomepageTrending = () => {
         src={trendingStore && trendingStore.storeCover}
         className="absolute top-0 left-0 h-full w-full object-cover"
       />
-      <div className="absolute top-0 left-0 h-full w-full bg-black z-10 bg-opacity-60 hover:bg-opacity-70 transition-all"></div>
+      <div className="absolute top-0 left-0 h-full w-full bg-black z-10 bg-opacity-40 hover:bg-opacity-70 transition-all"></div>
       <div className="bg-black h-[60%] w-[50%] z-20 rounded-md flex group-hover:w-[55%] group-hover:h-[65%] transition-all">
         <img
           src={trendingStore && trendingStore.storeProfile}
