@@ -68,8 +68,13 @@ export const uploadImage = async (req, res) => {
 
 export const addProduct = async (req, res) => {
   const { token } = req.cookies;
-  const { productPrice, productTitle, productPicture, productDescription } =
-    req.body;
+  const {
+    productPrice,
+    productTitle,
+    productPicture,
+    productDescription,
+    productStore,
+  } = req.body;
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err;
@@ -82,6 +87,7 @@ export const addProduct = async (req, res) => {
       productNewPrice: productPrice,
       productPicture,
       productIsBeingDragged: false,
+      store: productStore,
     });
 
     const { storeProducts } = userStore;
@@ -209,7 +215,17 @@ export const getOrders = async (req, res) => {
 };
 
 export const confirmOrder = async (req, res) => {
-  const { idd, shippingDate } = req.body;
+  const { idd, shippingDate, quantity, productId } = req.body;
+
+  const product = await Product.findById(productId);
+
+  const { productSold } = product;
+
+  product.set({
+    productSold: productSold + quantity,
+  });
+
+  await product.save();
 
   const sale = await Sale.findById(idd);
 
@@ -220,7 +236,7 @@ export const confirmOrder = async (req, res) => {
 
   await sale.save();
 
-  res.json(sale);
+  res.json(product);
 };
 
 export const cancelOrder = async (req, res) => {
@@ -323,4 +339,29 @@ export const getTrendingStore = async (req, res) => {
   const index = lengt.findIndex((item) => item === mostSales);
 
   res.json(array[index]);
+};
+
+export const getAllProducts = async (req, res) => {
+  const allProducts = await Product.find();
+  /*function shuffleArray(array) {
+    const newArray = [...array];
+    newArray.forEach((_, i) => {
+      const j = Math.floor(Math.random() * (i + 1));
+      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
+    });
+    return newArray;
+  }*/
+
+  res.json(allProducts);
+};
+
+export const getMostSoldProduct = async (req, res) => {
+  const allProducts = await Product.find();
+
+  const newArray = allProducts.map((product) => product.productSold);
+
+  const mostSold = Math.max(...newArray);
+  const index = newArray.findIndex((sold) => sold === mostSold);
+
+  res.json(allProducts[index]);
 };

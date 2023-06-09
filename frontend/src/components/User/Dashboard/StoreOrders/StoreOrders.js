@@ -49,6 +49,7 @@ const StoreOrders = () => {
     setCalendar(false);
   }, [value]);
 
+  console.log(orders);
   return (
     <div
       className={

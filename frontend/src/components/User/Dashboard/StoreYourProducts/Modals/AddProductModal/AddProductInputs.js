@@ -24,6 +24,7 @@ const AddProductInputs = ({
   //redux
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const isUserFetching = useSelector((state) => state.isUserFetching.value);
+  const user = useSelector((state) => state.userData.value.user);
   const dispatch = useDispatch();
 
   //functions
@@ -61,6 +62,7 @@ const AddProductInputs = ({
         productTitle,
         productDescription,
         productPrice,
+        productStore: user.store._id,
       })
       .then(() => {
         dispatch(switchValue(!getUserTrigger));
@@ -80,7 +82,7 @@ const AddProductInputs = ({
       console.log(newArray);
     }
   }, [index]);
-  console.log(isFetching);
+  console.log(user.store._id);
   return (
     <form onSubmit={handleAddProduct} className="h-[95%]">
       <div className="h-[60%] rounded-lg w-full overflow-hidden">

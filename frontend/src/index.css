@@ -16,6 +16,10 @@ body {
 .skrin {
   height: calc(100vh - 64px);
 }
+.skrin2 {
+  height: calc(200vh - 64px);
+  width: 100vw;
+}
 
 @media screen and (min-width: 1024px) {
   .store {

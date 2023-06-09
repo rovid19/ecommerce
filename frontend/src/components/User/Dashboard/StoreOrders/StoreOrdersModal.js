@@ -16,6 +16,7 @@ const StoreOrdersModal = ({
   setOrderData,
   trigger,
   setTrigger,
+  productId,
 }) => {
   const [shippingDate, setShippingDate] = useState(null);
 
@@ -28,7 +29,9 @@ const StoreOrdersModal = ({
       axios
         .post("/api/store/confirm-order", {
           idd,
+          productId,
           shippingDate,
+          quantity: orderData.productQuantity[indexDva],
         })
         .then(({ data }) => {
           setOrderData(data);
