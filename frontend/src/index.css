@@ -3,6 +3,11 @@
 @tailwind utilities;
 
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css);
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
 body {
   font-family: "Oswald", sans-serif;
@@ -17,8 +22,8 @@ body {
   height: calc(100vh - 64px);
 }
 .skrin2 {
-  height: calc(200vh - 64px);
-  width: 100vw;
+  min-height: calc(200vh -64px);
+  min-width: 100vh;
 }
 
 @media screen and (min-width: 1024px) {

@@ -93,7 +93,7 @@ export const addProduct = async (req, res) => {
     const { storeProducts } = userStore;
     storeProducts.push(newProduct._id);
     await userStore.save();
-    res.json(userStore.storeProducts);
+    res.json(newProduct);
   });
 };
 
@@ -342,7 +342,7 @@ export const getTrendingStore = async (req, res) => {
 };
 
 export const getAllProducts = async (req, res) => {
-  const allProducts = await Product.find();
+  const allProducts = await Product.find().populate("store", "storeName _id");
   /*function shuffleArray(array) {
     const newArray = [...array];
     newArray.forEach((_, i) => {
@@ -356,7 +356,7 @@ export const getAllProducts = async (req, res) => {
 };
 
 export const getMostSoldProduct = async (req, res) => {
-  const allProducts = await Product.find();
+  const allProducts = await Product.find().populate("store", "storeName _id");
 
   const newArray = allProducts.map((product) => product.productSold);
 

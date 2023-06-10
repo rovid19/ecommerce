@@ -65,8 +65,8 @@ const App = () => {
     <div>
       {cartVisible && <AddToCart />}
       <Routes>
+        <Route path="/" element={<Homepage />} />
         <Route path="/" element={<Layout />}>
-          <Route path="/" element={<Homepage />} />
           <Route path="/store/:storeName/:storeid" element={<Store />} />
           <Route
             path="/store/:storeName/product/:productId"

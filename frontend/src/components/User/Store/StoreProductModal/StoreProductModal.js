@@ -137,6 +137,8 @@ const StoreProductModal = () => {
         onClick={() => {
           if (storeSubPage === "Search") {
             navigate(`/search/${search.searchOption}/${search.search}`);
+          } else if (storeSubPage === "homepage") {
+            navigate("/");
           } else {
             navigate(`/store/${savedStore.storeName}/${storeId}`);
           }
