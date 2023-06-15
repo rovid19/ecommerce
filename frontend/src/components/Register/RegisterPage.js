@@ -26,7 +26,7 @@ const RegisterPage = () => {
               dispatch(addInput("Customer"));
               navigate("/register/form");
             }}
-            className="h-[50°%] w-[40%] border-2 border-gray-300 rounded-3xl p-4 hover:bg-orange hover:text-white hover:border-none"
+            className="h-[50°%] w-[40%] border-2 border-gray-300 rounded-3xl p-4 hover:bg-orange-500 hover:text-white hover:border-none"
           >
             Buy
           </button>
@@ -37,7 +37,7 @@ const RegisterPage = () => {
               dispatch(addInput("Store Owner"));
               navigate("/register/form");
             }}
-            className="h-[50°%] w-[40%] border-2 border-gray-300 rounded-3xl p-4 hover:bg-orange hover:text-white hover:border-none"
+            className="h-[50°%] w-[40%] border-2 border-gray-300 rounded-3xl p-4 hover:bg-orange-500 hover:text-white hover:border-none"
           >
             Sell{" "}
           </button>
