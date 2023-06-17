@@ -60,7 +60,7 @@ const App = () => {
     dispatch(fetchUserData());
     dispatch(fetchStoreProducts());
   }, [getUserTrigger]);
-  console.log(products);
+  console.log(userData);
   return (
     <div>
       {cartVisible && <AddToCart />}

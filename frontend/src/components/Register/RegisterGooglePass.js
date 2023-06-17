@@ -16,7 +16,8 @@ const LoginGooglePass = ({ email }) => {
   const [name, setName] = useState(null);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
-  const dispatch = useDispatch;
+
+  const dispatch = useDispatch();
   const input = useSelector((state) => state.registrationInput.value);
   async function handleRegister(e) {
     if (password === confirmedPass) {

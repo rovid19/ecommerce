@@ -80,6 +80,7 @@ const StoreProductModal = () => {
     }
   }, [deleteProduct]);
 
+  console.log(storeProducts);
   return (
     <div className=" w-full bg-black bg-opacity-50 flex items-center justify-center skrin relative ">
       {openReviewPic && (

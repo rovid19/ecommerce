@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 import { setStoreId } from "../../../app/features/Store/storeId";
 import { setCartItems } from "../../../app/features/User/cartItems";
 import { setProductIndex } from "../../../app/features/User/productIndex";
+import { setCartVisible } from "../../../app/features/User/cartVisible";
 
 const StoreProductCard = ({ storeProducts, index, storeData }) => {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
     (state) => state.deleteProductModal.value
   );
   const editMode = useSelector((state) => state.editMode.value);
+  const cartItems = useSelector((state) => state.cartItems.value);
 
   const productIndex = useSelector((state) => state.productIndex.value);
   const user = useSelector((state) => state.userData.value.user);
@@ -26,6 +28,21 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
     backgroundImage: `url(${Img})`,
   };
 
+  function addProductToCart() {
+    console.log("radi");
+    const isItemInCart = cartItems.find(
+      (cartItem) => cartItem._id === storeProducts._id
+    );
+
+    if (isItemInCart) {
+      alert("item already in cart");
+    } else {
+      console.log(storeProducts);
+      dispatch(setCartItems(storeProducts));
+      dispatch(setCartVisible(true));
+    }
+  }
+  console.log(cartItems);
   return (
     <div
       className={
@@ -46,7 +63,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
         }
       }}
     >
-      <div className="h-[60%] rounded-t-xl w-full  overflow-hidden ">
+      <div className="h-[50%] rounded-t-xl w-full  overflow-hidden ">
         {editMode && storeSubPage === "products" ? (
           <div
             className="absolute top-0 left-0 bg-orange-500 p-2 group rounded-md"
@@ -78,24 +95,24 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
           className="h-[100%] w-[100%] object-cover"
         ></img>
       </div>
-      <div className="h-[40%] w-full pl-2 pt-1 lg:pt-2 ">
-        <h1 className="font-bold text-base lg:text-xl">
-          {storeProducts && storeProducts.productNewPrice}€
-        </h1>
-        <h1 className="font-bold lg:text-base text-sm">
+      <div className="h-[40%] w-full pl-2 pt-1 lg:pt-2 relative ">
+        <h1 className="font-bold lg:text-xl text-sm uppercase">
           {storeProducts && storeProducts.productName}
         </h1>
-        <p className="text-sm">
+        <p className="text-sm text-gray-500">
           {storeProducts && storeProducts.productDescription}
-        </p>
-        <div
+        </p>{" "}
+        <h1 className="font-bold text-base lg:text-3xl absolute top-2 right-3">
+          {storeProducts && storeProducts.productNewPrice}€
+        </h1>
+        {/*<div
           className={
             storeSubPage === "editStore" || storeSubPage === "products"
               ? "hidden"
               : " w-full h-[45px] absolute bottom-0 left-0 rounded-b-xl flex items-center pt-2 lg:pt-0 md:bottom-1 lg:bottom-0 "
           }
         >
-          <div className="h-[60%] w-[40%] md:w-[30%] lg:w-[25%] bg-yellow-300 rounded-2xl ml-2 flex items-center p-2 md:p-4  lg:p-2 text-sm text-white">
+          <div className="h-[60%] w-[40%] md:w-[30%] lg:w-[25%] bg-yellow-300 rounded-2xl ml-2 flex items-center p-2 md:p-4  lg:p-2 text-sm text-white ">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -112,10 +129,41 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
           </div>
           <div className=" h-[60%] w-[10px] border-r-2 border-gray-300"></div>
           <h2 className="ml-2 text-[12px] md:text-sm"> 120 sold</h2>
-          <div className="hidden lg:block h-[60%] w-[10px] border-r-2 border-gray-300"></div>
+          <div className="hidden lg:block h-[60%] w-[10px] border-r-2 border-gray-300 "></div>
           <button className="hidden ml-2 bg-orange-500 p-2 h-[60%] lg:flex items-center text-white rounded-xl text-sm  hover:border-2 hover:border-orange-500 hover:text-black">
             Add To Cart
           </button>
+        </div>*/}
+        <div className="w-full  h-[15%] absolute bottom-0 left-0 rounded-b-md grid grid-cols-3 text-gray-500 ">
+          <div className="flex justify-center items-center border-r-2 border-gray-300 border-opacity-40">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-6 h-6 mr-1 text-yellow-500"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                clip-rule="evenodd"
+              />
+            </svg>
+            4.8
+          </div>
+          <div className="flex items-center justify-center">
+            <h1>120 sold</h1>
+          </div>
+          <div className="flex items-center justify-center border-l-2 border-gray-300 border-opacity-40">
+            <button
+              className="bg-white  rounded-md p-2 h-full w-full hover:bg-orange-500 hover:text-white transition-all"
+              onClick={(e) => {
+                e.stopPropagation();
+                addProductToCart();
+              }}
+            >
+              Add to cart
+            </button>
+          </div>
         </div>
       </div>
     </div>

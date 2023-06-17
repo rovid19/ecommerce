@@ -9,6 +9,8 @@ import { addStoreProducts } from "../../../../app/features/Store/storeProducts";
 import axios from "axios";
 import { setStoreProducts } from "../../../../app/features/Store/userStoreProducts";
 import { setProducts } from "../../../../app/features/User/userSlice";
+import AddCollectionModal from "./Modals/AddCollectionModal/AddCollectionModal.js";
+import { collectionVisible } from "../../../../app/features/Store/collections";
 const StoreAddProducts = () => {
   // states & ref
   const [isVisible, setIsVisible] = useState(false);
@@ -23,6 +25,7 @@ const StoreAddProducts = () => {
     (state) => state.userData.value.products
   );
   const editProductModal = useSelector((state) => state.editProductModal.value);
+  const collection = useSelector((state) => state.collection.value);
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
   );
@@ -88,6 +91,7 @@ const StoreAddProducts = () => {
           : "hidden"
       }
     >
+      {collection && <AddCollectionModal />}
       {editProductModal && <StoreEditProductModal />}
       {deleteProductModal && <StoreDeleteProductModal />}
       {isVisible && (
@@ -123,13 +127,21 @@ const StoreAddProducts = () => {
             {editMode ? "Disable" : "Enable"} Edit Mode
           </h1>
         </div>{" "}
-        <button
-          className="h-[25%] w-[50%] lg:h-[20%] lg:w-[40%] bg-orange-500 text-white text-2xl rounded-xl z-10 transition-all  hover:scale-95"
-          onClick={() => setIsVisible(true)}
-        >
-          {" "}
-          Add Products{" "}
-        </button>
+        <article className="w-[80%] h-[80%] fl2 z-40 gap-4">
+          <button
+            className="h-[25%] w-[50%] bg-orange-500 rounded-md text-white hover:scale-95 transition-all text-2xl "
+            onClick={() => setIsVisible(true)}
+          >
+            {" "}
+            Add Products{" "}
+          </button>
+          <button
+            className="h-[25%] w-[50%] bg-orange-500 rounded-md text-white hover:scale-95 transition-all text-2xl"
+            onClick={() => dispatch(collectionVisible(true))}
+          >
+            Edit collection
+          </button>
+        </article>
       </div>
       <div
         className={

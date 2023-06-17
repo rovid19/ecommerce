@@ -27,6 +27,7 @@ import viewImageReducer from "./features/User/viewImage.js";
 import isReviewReducer from "./features/User/isReview.js";
 import userDataReducer from "./features/User/userSlice.js";
 import trendingStoreReducer from "./features/User/trendingStore.js";
+import collectionReducer from "./features/Store/collections.js";
 
 export const store = configureStore({
   reducer: {
@@ -58,5 +59,6 @@ export const store = configureStore({
     isReview: isReviewReducer,
     userData: userDataReducer,
     trendingStore: trendingStoreReducer,
+    collection: collectionReducer,
   },
 });

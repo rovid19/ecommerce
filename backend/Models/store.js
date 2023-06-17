@@ -7,6 +7,7 @@ const storeSchema = new mongoose.Schema({
   storeCover: String,
   storeAddress: String,
   storeProducts: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
+  storeCollections: [{ type: String }],
   storeSales: [{ type: mongoose.Schema.Types.ObjectId, ref: "sale" }],
 });
 

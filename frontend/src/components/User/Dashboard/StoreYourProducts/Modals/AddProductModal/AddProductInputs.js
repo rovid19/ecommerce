@@ -23,6 +23,7 @@ const AddProductInputs = ({
   const [pictureFetch, setPictureFetch] = useState(null);
   //redux
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const collection = useSelector((state) => state.collection.value);
   const isUserFetching = useSelector((state) => state.isUserFetching.value);
   const user = useSelector((state) => state.userData.value.user);
   const dispatch = useDispatch();
@@ -183,7 +184,7 @@ const AddProductInputs = ({
       <div className="h-[40%] w-full pt-2 pl-2  ">
         <input
           type="text"
-          className="text-3xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
+          className="text-xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
           placeholder="Name of your product"
           onChange={(e) => setProductTitle(e.target.value)}
         />
@@ -192,16 +193,19 @@ const AddProductInputs = ({
           className="text-xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
           placeholder="Description of your product"
           onChange={(e) => setProductDescription(e.target.value)}
-        />{" "}
-        <div className="relative bg-black">
+        />
+        <div className="relative ">
           <input
             type="text"
             className="text-xl  w-full border-b-2 border-gray-300 border-opacity-10 p-2"
             placeholder="Price of your product"
             onChange={(e) => setProductPrice(e.target.value)}
           />
+          <label>
+            <select className="w-full"></select>
+          </label>
         </div>
-        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-6">
+        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-9">
           Save
         </button>
       </div>

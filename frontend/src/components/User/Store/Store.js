@@ -37,7 +37,7 @@ const Store = () => {
       dispatch(setSavedStore(data));
     });
   }, [storeid]);
-
+  console.log(storeProducts);
   return (
     <div className="w-[100%]  bg-gray-50 skrin flex justify-center relative ">
       {isFetching && (
@@ -47,9 +47,13 @@ const Store = () => {
       )}
       {viewProductModal && <StoreProductModal />}
       <div className=" w-[100%] lg:w-[85%]">
-        <div className="h-[35%] relative bg-cover" style={styles}>
-          <div className="h-full w-full bg-black bg-opacity-40">
-            <div className="text-white absolute bottom-[20px] left-[130px] lg:left-[170px] lg:bottom-[40px] bg-black p-4 rounded-xl">
+        <div className="h-[35%] relative bg-cover">
+          <img
+            src={storeData && storeData.storeCover}
+            className=" h-full w-full object-cover"
+          ></img>
+          <div className="h-full w-full bg-black bg-opacity-40 absolute top-0">
+            <div className="text-white absolute bottom-[20px] left-[130px] lg:left-[170px] lg:bottom-[40px] bg-black p-4 rounded-xl z-50">
               <h1 className="text-xl lg:text-3xl">
                 {storeData && storeData.storeName}
               </h1>

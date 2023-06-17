@@ -14,7 +14,8 @@ const LoginGooglePass = ({ email }) => {
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
-  const dispatch = useDispatch;
+
+  const dispatch = useDispatch();
   function handleLogin(e) {
     e.preventDefault();
 
@@ -24,11 +25,13 @@ const LoginGooglePass = ({ email }) => {
         password,
       })
       .then(() => {
+        console.log("why");
         dispatch(fetchUserData());
         dispatch(fetchStoreProducts());
-
+        debugger;
         navigate("/");
       })
+
       .catch((err) => {
         if (err.response.status === 400) {
           setError("Incorrect email or password");
@@ -59,7 +62,7 @@ const LoginGooglePass = ({ email }) => {
           onChange={(e) => setPassword(e.target.value)}
         />
 
-        <button className="mt-4 bg-gray-300 text-white rounded-2xl p-3">
+        <button className="mt-4 bg-gray-300 text-white rounded-2xl p-3 hover:bg-orange-500 transition-all">
           continue
         </button>
       </form>
