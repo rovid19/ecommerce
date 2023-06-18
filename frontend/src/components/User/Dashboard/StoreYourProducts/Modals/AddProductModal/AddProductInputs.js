@@ -21,6 +21,7 @@ const AddProductInputs = ({
   //states
   const [index, setIndex] = useState();
   const [pictureFetch, setPictureFetch] = useState(null);
+  const [collections, setCollections] = useState(null);
   //redux
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const collection = useSelector((state) => state.collection.value);
@@ -64,6 +65,7 @@ const AddProductInputs = ({
         productDescription,
         productPrice,
         productStore: user.store._id,
+        collection: collections,
       })
       .then(() => {
         dispatch(switchValue(!getUserTrigger));
@@ -83,10 +85,14 @@ const AddProductInputs = ({
       console.log(newArray);
     }
   }, [index]);
-  console.log(user.store._id);
+
+  useEffect(() => {
+    setCollections(user.store.storeCollections[0]);
+  }, []);
+  console.log(collections);
   return (
     <form onSubmit={handleAddProduct} className="h-[95%]">
-      <div className="h-[60%] rounded-lg w-full overflow-hidden">
+      <div className="h-[55%] rounded-lg w-full overflow-hidden">
         <label
           className={
             productPicture
@@ -201,11 +207,24 @@ const AddProductInputs = ({
             placeholder="Price of your product"
             onChange={(e) => setProductPrice(e.target.value)}
           />
-          <label>
-            <select className="w-full"></select>
+          <label className="w-full   ">
+            <h1 className="text-gray-400 pl-2 text-xl mt-1">Collection:</h1>
+            <select
+              className="w-full pl-1 text-gray-400 text-xl border-b-2 border-gray-300 border-opacity-10"
+              onChange={(e) => setCollections(e.target.value)}
+            >
+              {user &&
+                user.store.storeCollections.map((option) => {
+                  return (
+                    <option value={option} className=" text-gray-400">
+                      {option}
+                    </option>
+                  );
+                })}
+            </select>
           </label>
         </div>
-        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-9">
+        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-5">
           Save
         </button>
       </div>

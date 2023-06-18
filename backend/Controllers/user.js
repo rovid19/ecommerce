@@ -1,6 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../Models/user.js";
 import Store from "../Models/store.js";
+import Product from "../Models/product.js";
 
 const jwtSecret = "rockjefakatludirock";
 
@@ -34,7 +35,7 @@ export const getCollections = async (req, res) => {
       "store",
       "storeCollections"
     );
-    console.log(user);
+
     res.json(user.store.storeCollections);
   });
 };
@@ -52,19 +53,38 @@ export const addCollectionItem = async (req, res) => {
 };
 
 export const deleteCollection = async (req, res) => {
-  const { item, storeId } = req.body;
+  const { itemName, storeId } = req.body;
+
   const store = await Store.findById(storeId);
 
-  const newArray = store.storeCollections;
+  store.storeCollections.splice(itemName, 1);
 
-  newArray.splice(item, 1);
-  console.log(newArray);
+  await store.save();
 
-  /*store.set({
+  res.json("ok");
+};
+
+export const collectionChange = async (req, res) => {
+  const { newCollectionName, storeId, index, oldCollectionName } = req.body;
+
+  const store = await Store.findById(storeId);
+
+  const { storeCollections } = store;
+  const newArray = [...storeCollections];
+  newArray.splice(index, 0, newCollectionName);
+  const newIndex = index + 1;
+  newArray.splice(newIndex, 1);
+
+  store.set({
     storeCollections: [...newArray],
   });
 
-  await store.save();*/
+  await store.save();
+
+  await Product.updateMany(
+    { productCollection: oldCollectionName },
+    { $set: { productCollection: newCollectionName } }
+  );
 
   res.json("ok");
 };

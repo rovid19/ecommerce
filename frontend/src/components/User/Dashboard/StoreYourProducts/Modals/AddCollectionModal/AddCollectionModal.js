@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -9,42 +9,96 @@ import { fetchUserData } from "../../../../../../app/features/User/userSlice";
 const AddCollectionModal = () => {
   const [collection, setCollection] = useState(null);
   const [collectionInput, setCollectionInput] = useState(null);
+  const [oldCollectionName, setOldCollectionName] = useState(null);
   const [useEffectTrigger, setUseEffectTrigger] = useState(false);
-  const [item, setItem] = useState(null);
+  const [item, setItem] = useState(undefined);
+  const [edit, setEdit] = useState(false);
+  const [placeHolderIndex, setPlaceHolderIndex] = useState(null);
+  const [newCollectionName, setNewCollectionName] = useState(null);
+
+  //states
+  const inputRef = useRef(null);
+  const userData = useSelector((state) => state.userData.value.user);
+  const dispatch = useDispatch();
   useEffect(() => {
     axios
       .get("/api/user/get-collections")
       .then(({ data }) => setCollection(data));
   }, [useEffectTrigger]);
+  async function handleCollectionNameChange(e) {
+    e.preventDefault();
+    await axios.post("/api/user/collection-name-change", {
+      newCollectionName,
+      storeId: userData.store._id,
+      index: placeHolderIndex,
+      oldCollectionName,
+    });
+    setEdit(!edit);
+    setUseEffectTrigger(!useEffectTrigger);
+  }
   async function handleAddCollection(e) {
     e.preventDefault();
     await axios.post("/api/user/add-collection", {
       collectionInput,
       storeId: userData.store._id,
     });
-    dispatch(fetchUserData()).unwrap();
+    inputRef.current.value = "";
+    dispatch(fetchUserData());
     setUseEffectTrigger(!useEffectTrigger);
   }
 
   useEffect(() => {
-    if (item) {
+    if (item >= 0) {
       async function handleDeleteCollection() {
         await axios.post("/api/user/delete-collection", {
-          item,
+          itemName: item,
           storeId: userData.store._id,
         });
         setUseEffectTrigger(!useEffectTrigger);
+        setItem(undefined);
       }
       handleDeleteCollection();
     }
   }, [item]);
-  console.log(collection);
-  //states
-  const userData = useSelector((state) => state.userData.value.user);
-  const dispatch = useDispatch();
+  console.log(placeHolderIndex);
   return (
     <div className="w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50 absolute top-0 left-0">
       <div className="w-[85%] h-[70%]  lg:w-[35%] lg:h-[70%] bg-white p-4 rounded-lg relative ">
+        {edit && (
+          <div className="h-full w-full bg-black bg-opacity-20 z-30 flex justify-center absolute top-0 left-0 rounded-md items-center">
+            <form
+              className="w-full h-[50%] bg-white fl2 relative "
+              onSubmit={handleCollectionNameChange}
+            >
+              <button
+                onClick={() => setEdit(!edit)}
+                className="absolute top-4 left-4"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-6 h-6 bg-orange-500 rounded-sm text-white hover:scale-90 transition-all "
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>{" "}
+              <input
+                placeholder={collection[placeHolderIndex]}
+                className="w-[80%] h-[30%] text-3xl p-4 bg-gray-50 rounded-md"
+                onChange={(e) => setNewCollectionName(e.target.value)}
+              />
+              <button className="absolute bottom-4 w-[20%] bg-orange-500 text-white p-2 rounded-md hover:w-[25%] transition-all">
+                {" "}
+                Save{" "}
+              </button>
+            </form>
+          </div>
+        )}
         <div className="h-[5%]">
           <button onClick={() => dispatch(collectionVisible(false))}>
             <svg
@@ -65,13 +119,14 @@ const AddCollectionModal = () => {
           className="w-full h-[85%] relative"
           onSubmit={handleAddCollection}
         >
-          <div className="h-[20%] w-full relative mt-6 bg-yellow-500 grid grid-rows-2">
-            <h1 className="text-2xl ">Add a new collection</h1>
+          <div className="h-[20%] w-full relative mt-6 mb-4">
+            <h1 className="text-xl h-[30%] ">Add a new collection</h1>
             <input
-              className=" text-3xl p-2 h-full w-full border-2 border-gray-300 border-opacity-40"
+              className=" text-3xl p-2 h-[70%] w-full border-2 border-gray-300 border-opacity-40 rounded-md"
               onChange={(e) => setCollectionInput(e.target.value)}
+              ref={inputRef}
             />
-            <button className="absolute right-0 h-full text-5xl w-[15%] bg-gray-300 hover:bg-orange-500 text-white">
+            <button className="absolute right-0 h-[70%] text-5xl w-[15%] bg-gray-300 hover:bg-orange-500 text-white rounded-r-md">
               +
             </button>
           </div>
@@ -79,17 +134,39 @@ const AddCollectionModal = () => {
             {collection &&
               collection.map((item, index) => {
                 return (
-                  <article className="h-[10%] w-full bg-gray-50 mt-1 relative">
+                  <article className="h-[15%] w-full bg-gray-50 mt-1 relative p-4 flex items-center rounded-md">
                     {<h1 className="text-2xl">{item}</h1>}
                     <button
-                      className="absolute right-0 top-0 h-full grid place-items-center"
-                      onClick={() => setItem(index)}
+                      className="absolute right-10 top-0 h-full grid place-items-center"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setEdit(!edit);
+                        setPlaceHolderIndex(index);
+                        setOldCollectionName(item);
+                      }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="w-6 h-6"
+                        class="w-6 h-6 hover:text-orange-500 transition-all"
+                      >
+                        <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
+                        <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
+                      </svg>
+                    </button>
+                    <button
+                      className="absolute right-3 top-0 h-full grid place-items-center"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setItem(index);
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="w-6 h-6 hover:text-orange-500 transition-all"
                       >
                         <path
                           fill-rule="evenodd"
@@ -103,11 +180,7 @@ const AddCollectionModal = () => {
               })}
           </div>
         </form>
-        <div className="h-[10%] w-full absolute bottom-0 left-0 ">
-          <button className="h-[70%] w-[20%] bg-orange-500 text-white rounded-md hover:w-[30%] transition-all ml-6 ">
-            Save
-          </button>
-        </div>
+        <div className="h-[10%] w-full absolute bottom-0 left-0 "></div>
       </div>
     </div>
   );

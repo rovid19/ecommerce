@@ -74,6 +74,7 @@ export const addProduct = async (req, res) => {
     productPicture,
     productDescription,
     productStore,
+    collection,
   } = req.body;
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -88,6 +89,7 @@ export const addProduct = async (req, res) => {
       productPicture,
       productIsBeingDragged: false,
       store: productStore,
+      productCollection: collection,
     });
 
     const { storeProducts } = userStore;
@@ -107,7 +109,7 @@ export const getStoreProducts = async (req, res) => {
 
     const userStore = await Store.findById(store).populate(
       "storeProducts",
-      "productName productPicture productDescription productRating productNewPrice productOldPrice"
+      "productName productPicture productDescription productRating productNewPrice productOldPrice productCollection"
     );
 
     res.json(userStore.storeProducts);
@@ -180,7 +182,7 @@ export const fetchStoreData = async (req, res) => {
 
   const store = await Store.findById(storeid).populate(
     "storeProducts",
-    "productName productPicture productDescription productRating productNewPrice productOldPrice"
+    "productName productPicture productDescription productRating productNewPrice productOldPrice productCollection"
   );
 
   res.json(store);
