@@ -48,7 +48,6 @@ const ShippingDetails = () => {
     });
   }
 
-  console.log(address);
   return (
     <div className="h-full w-full bg-white flex items-center justify-center">
       <form className="w-[50%] h-full fl2" onSubmit={handleShippingInfoChange}>

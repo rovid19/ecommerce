@@ -9,6 +9,7 @@ import { setStoreId } from "../../../app/features/Store/storeId.js";
 import { addStoreProducts } from "../../../app/features/Store/storeProducts.js";
 import { getStoreSubPage } from "../../../app/features/storeSubPage.js";
 import { setSavedStore } from "../../../app/features/Store/savedStore.js";
+import { addCollectionItems } from "../../../app/features/Store/collections.js";
 
 const Store = () => {
   const [isFetching, setIsFetching] = useState(false);
@@ -20,6 +21,7 @@ const Store = () => {
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const cartItems = useSelector((state) => state.cartItems.value);
   const viewProductModal = useSelector((state) => state.viewProductModal.value);
+  const collection = useSelector((state) => state.collection.collectionItems);
   const styles = {
     backgroundImage: storeData && `url(${storeData.storeCover})`,
   };
@@ -35,25 +37,26 @@ const Store = () => {
       dispatch(addStoreProducts(data.storeProducts));
       dispatch(getStoreSubPage("store"));
       dispatch(setSavedStore(data));
+      dispatch(addCollectionItems(data.storeCollections));
     });
   }, [storeid]);
-  console.log(storeProducts);
+
   return (
-    <div className="w-[100%]  bg-gray-50 skrin flex justify-center relative ">
+    <main className="w-[100%]  bg-gray-50 skrin flex justify-center relative ">
       {isFetching && (
         <div className="flex items-center justify-center absolute top-0 left-0 w-full h-full z-50 bg-white">
           <img src={Loader} className="h-24 w-[400px] object-cover"></img>
         </div>
       )}
       {viewProductModal && <StoreProductModal />}
-      <div className=" w-[100%] lg:w-[85%]">
+      <section className=" w-[100%] lg:w-[85%]">
         <div className="h-[35%] relative bg-cover">
           <img
             src={storeData && storeData.storeCover}
             className=" h-full w-full object-cover"
           ></img>
           <div className="h-full w-full bg-black bg-opacity-40 absolute top-0">
-            <div className="text-white absolute bottom-[20px] left-[130px] lg:left-[170px] lg:bottom-[40px] bg-black p-4 rounded-xl z-50">
+            <div className="text-white absolute bottom-[25%] left-[20%] lg:left-[15%] xl:left-[12%] lg:bottom-[10%] bg-black p-4 rounded-xl z-50">
               <h1 className="text-xl lg:text-3xl">
                 {storeData && storeData.storeName}
               </h1>
@@ -67,10 +70,10 @@ const Store = () => {
           </div>
           <img
             src={storeData && storeData.storeProfile}
-            className="h-28 absolute bottom-4 left-2 lg:h-36 lg:left-4 rounded-xl shadow-xl"
+            className="h-28 w-[10%] absolute bottom-4 left-2 lg:h-36 lg:left-4 rounded-xl shadow-xl object-cover"
           ></img>
         </div>
-        <div className="h-[65%] grid grid-cols-3 2xl:grid-cols-6">
+        <section className="h-[65%] grid grid-cols-3 2xl:grid-cols-6">
           {storeProducts &&
             storeProducts.map((item, index) => {
               return (
@@ -81,9 +84,9 @@ const Store = () => {
                 />
               );
             })}
-        </div>
-      </div>
-    </div>
+        </section>
+      </section>
+    </main>
   );
 };
 

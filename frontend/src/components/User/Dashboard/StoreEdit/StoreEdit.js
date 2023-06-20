@@ -55,7 +55,6 @@ const StoreEdit = () => {
   // if user isn't logged in, redirect him to homepage
 
   useEffect(() => {
-    console.log("da");
     if (!user) {
       navigate("/");
     }

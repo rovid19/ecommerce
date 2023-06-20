@@ -20,12 +20,21 @@ const EditProductInputs = ({
 }) => {
   //states
   const [index, setIndex] = useState();
+  const [collectionValue, setCollectionValue] = useState(null);
   const [picFetch, setPicFetch] = useState(false);
+  const [collections, setCollections] = useState(null);
   //redux
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const user = useSelector((state) => state.userData.value.user);
 
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentProduct) {
+      setCollectionValue(currentProduct.productCollection);
+    }
+  }, [currentProduct]);
 
   //functions
   function handleEditProduct(e) {
@@ -38,6 +47,7 @@ const EditProductInputs = ({
         productTitle,
         productDescription,
         productPrice,
+        collection: collectionValue,
       })
       .then(() => {
         dispatch(switchValue(!getUserTrigger));
@@ -81,10 +91,11 @@ const EditProductInputs = ({
       console.log(newArray);
     }
   }, [index]);
+  console.log(currentProduct);
 
   return (
     <form onSubmit={handleEditProduct} className="h-[95%]">
-      <div className="h-[60%] rounded-lg w-full overflow-hidden">
+      <div className="h-[55%] rounded-lg w-full overflow-hidden">
         <label
           className={
             productPicture
@@ -186,7 +197,7 @@ const EditProductInputs = ({
       <div className="h-[40%] w-full pt-2 pl-2  ">
         <input
           type="text"
-          className="text-3xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
+          className="text-xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
           placeholder="Name of your product"
           onChange={(e) => setProductTitle(e.target.value)}
           defaultValue={currentProduct && currentProduct.productName}
@@ -198,7 +209,7 @@ const EditProductInputs = ({
           onChange={(e) => setProductDescription(e.target.value)}
           defaultValue={currentProduct && currentProduct.productDescription}
         />{" "}
-        <div className="relative bg-black">
+        <div className="relative ">
           <input
             type="text"
             className="text-xl  w-full border-b-2 border-gray-300 border-opacity-10 p-2"
@@ -206,8 +217,29 @@ const EditProductInputs = ({
             onChange={(e) => setProductPrice(e.target.value)}
             defaultValue={currentProduct && currentProduct.productNewPrice}
           />
+          <label className="w-full   ">
+            <h1 className="text-gray-400 pl-2 text-xl mt-1">Collection:</h1>
+            <select
+              className="w-full pl-1 text-gray-400 text-xl border-b-2 border-gray-300 border-opacity-10"
+              onChange={(e) => setCollectionValue(e.target.value)}
+              value={collectionValue}
+            >
+              {user &&
+                user.store.storeCollections.map((option, index) => {
+                  return (
+                    <option
+                      value={option}
+                      className=" text-gray-400"
+                      key={index}
+                    >
+                      {option}
+                    </option>
+                  );
+                })}
+            </select>
+          </label>
         </div>
-        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-6">
+        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-5">
           Save
         </button>
       </div>

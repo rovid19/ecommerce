@@ -35,8 +35,6 @@ const StoreEditInfo = ({
       : `url(${user.store.storeCover})`,
   };
 
-  console.log(htmlElement);
-
   return (
     <div
       className={

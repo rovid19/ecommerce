@@ -45,11 +45,9 @@ export const userDataSlice = createSlice({
   },
   extraReducers: {
     [fetchUserData.pending]: (state) => {
-      console.log("ok");
       state.value.status = true;
     },
     [fetchUserData.fulfilled]: (state, action) => {
-      console.log("ok");
       state.value.user = action.payload;
       state.value.status = false;
     },

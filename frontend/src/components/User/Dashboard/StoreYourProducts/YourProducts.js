@@ -82,7 +82,7 @@ const StoreAddProducts = () => {
       userStoreProducts,
     });
   }
-  console.log(userStoreProducts);
+
   return (
     <div
       className={

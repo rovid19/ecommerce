@@ -23,7 +23,26 @@ body {
 }
 .skrin2 {
   min-height: calc(200vh -64px);
-  min-width: 100vh;
+  min-width: 100vw;
+}
+
+.collectionItems2 {
+  min-height: 100vh;
+
+  display: flex;
+  flex-direction: column;
+}
+.collectionItems4 {
+  min-height: 200vh;
+
+  display: flex;
+  flex-direction: column;
+}
+.collectionItems6 {
+  min-height: 300vh;
+
+  display: flex;
+  flex-direction: column;
 }
 
 @media screen and (min-width: 1024px) {

@@ -15,7 +15,7 @@ const StoreOrders = () => {
   const [calendar, setCalendar] = useState(false);
   const [calendarDate, setCalendarDate] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
-  const [orders, setOrders] = useState(false);
+  const [orders, setOrders] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
   const [getOrdersTrigger, setGetOrdersTrigger] = useState(null);
   const [index, setIndex] = useState(null);
@@ -49,7 +49,6 @@ const StoreOrders = () => {
     setCalendar(false);
   }, [value]);
 
-  console.log(orders);
   return (
     <div
       className={

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: false,
+  collectionItems: [],
 };
 
 export const collectionSlice = createSlice({
@@ -11,9 +12,13 @@ export const collectionSlice = createSlice({
     collectionVisible: (state, action) => {
       state.value = action.payload;
     },
+    addCollectionItems: (state, action) => {
+      state.collectionItems = action.payload;
+    },
   },
 });
 
-export const { collectionVisible } = collectionSlice.actions;
+export const { collectionVisible, addCollectionItems } =
+  collectionSlice.actions;
 
 export default collectionSlice.reducer;

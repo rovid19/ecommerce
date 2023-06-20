@@ -227,7 +227,7 @@ export const postNote = async (req, res) => {
 
   res.json(fsale);
 };
-  
+
 export const cancelOrder = async (req, res) => {
   const { productId, idd } = req.body;
 

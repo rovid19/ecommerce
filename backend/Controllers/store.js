@@ -139,6 +139,7 @@ export const editProduct = async (req, res) => {
     productPicture,
     productDescription,
     selectedProduct,
+    collection,
   } = req.body;
 
   const editedProduct = await Product.findById(selectedProduct);
@@ -147,6 +148,7 @@ export const editProduct = async (req, res) => {
   editedProduct.productDescription = productDescription;
   editedProduct.productNewPrice = productPrice;
   editedProduct.productPicture = productPicture;
+  editedProduct.productCollection = collection;
 
   await editedProduct.save();
 

@@ -29,7 +29,6 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
   };
 
   function addProductToCart() {
-    console.log("radi");
     const isItemInCart = cartItems.find(
       (cartItem) => cartItem._id === storeProducts._id
     );
@@ -37,12 +36,11 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
     if (isItemInCart) {
       alert("item already in cart");
     } else {
-      console.log(storeProducts);
       dispatch(setCartItems(storeProducts));
       dispatch(setCartVisible(true));
     }
   }
-  console.log(cartItems);
+
   return (
     <div
       className={
@@ -53,7 +51,6 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
         if (storeSubPage === "products") {
-          console.log("yes");
           dispatch(setEditProductModal(true));
         } else if (storeSubPage === "store") {
           navigate(

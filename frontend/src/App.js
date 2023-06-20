@@ -39,6 +39,7 @@ const App = () => {
   const cartVisible = useSelector((state) => state.cartVisible.value);
   const cartItems = useSelector((state) => state.cartItems.value);
   const products = useSelector((state) => state.userData.value.products);
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   const userData = useSelector((state) => state.userData.value.user);
 
@@ -60,7 +61,7 @@ const App = () => {
     dispatch(fetchUserData());
     dispatch(fetchStoreProducts());
   }, [getUserTrigger]);
-  console.log(userData);
+  console.log(storeSubPage);
   return (
     <div>
       {cartVisible && <AddToCart />}

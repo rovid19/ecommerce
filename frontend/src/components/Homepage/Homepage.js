@@ -24,7 +24,7 @@ const Homepage = () => {
       setProducts(newData);
     });
   }, []);
-  console.log(stores);
+
   return (
     <>
       <div className="w-full h-16 z-50">

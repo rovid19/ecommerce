@@ -10,7 +10,7 @@ const HomepageProduct = () => {
       .get("/api/store/most-sold-product")
       .then(({ data }) => setProduct(data));
   }, []);
-  console.log(product);
+
   return (
     <article
       className="h-full w-full relative cursor-pointer flex justify-center items-center group"

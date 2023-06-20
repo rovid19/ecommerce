@@ -34,7 +34,7 @@ const EditProductModal = () => {
         setIsFetching(false);
       });
   }, []);
-  console.log(selectedProduct);
+
   return (
     <div className="w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50 absolute top-0 left-0">
       {isFetching && (

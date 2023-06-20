@@ -26,7 +26,7 @@ const Navbar = () => {
         dispatch(setSearchOption(option));
       });
   }
-  console.log(option);
+
   return (
     <>
       <header className="flex h-full justify-center z-50 ">
@@ -36,7 +36,10 @@ const Navbar = () => {
             <div className="w-[20%] flex">
               <h1
                 className="hidden lg:block cursor-pointer "
-                onClick={() => navigate("/")}
+                onClick={() => {
+                  navigate("/");
+                  dispatch(getStoreSubPage("homepage"));
+                }}
               >
                 Rock's Market
               </h1>

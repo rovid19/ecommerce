@@ -17,7 +17,7 @@ const StoreFinanceLast5Sales = () => {
         setIsFetching(false);
       });
   }, []);
-  console.log(last5);
+
   return (
     <div className="w-full h-full ">
       {isFetching && (

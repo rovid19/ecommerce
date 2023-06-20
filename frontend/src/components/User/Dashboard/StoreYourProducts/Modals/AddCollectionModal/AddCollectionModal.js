@@ -60,7 +60,7 @@ const AddCollectionModal = () => {
       handleDeleteCollection();
     }
   }, [item]);
-  console.log(placeHolderIndex);
+
   return (
     <div className="w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50 absolute top-0 left-0">
       <div className="w-[85%] h-[70%]  lg:w-[35%] lg:h-[70%] bg-white p-4 rounded-lg relative ">

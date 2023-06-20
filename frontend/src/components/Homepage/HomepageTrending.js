@@ -11,7 +11,7 @@ const HomepageTrending = () => {
   useEffect(() => {
     dispatch(fetchTrendingStore());
   }, []);
-  console.log(trendingStore);
+
   return (
     <article
       className="h-full w-full relative cursor-pointer flex justify-center items-center group"

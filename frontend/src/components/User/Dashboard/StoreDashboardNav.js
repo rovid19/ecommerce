@@ -35,8 +35,6 @@ const StoreDashboardNav = () => {
     exact: true,
   });
 
-  console.log(storeEdit);
-
   return (
     <div className=" w-full h-full shadow-xl relative">
       {editMode && (

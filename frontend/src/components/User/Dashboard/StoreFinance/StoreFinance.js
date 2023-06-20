@@ -6,7 +6,7 @@ const StoreFinance = () => {
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const user = useSelector((state) => state.userData.value.user);
   const { store } = user;
-  console.log(store);
+
   return (
     <div
       className={

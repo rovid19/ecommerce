@@ -112,8 +112,8 @@ const AddToCart = () => {
     <div
       className={
         cartVisible
-          ? "animacija  bg-white shadow-xl p-3 z-50"
-          : "closingAnimacija bg-white shadow-xl p-3 z-50"
+          ? "animacija  bg-white shadow-xl p-3 z-50 fixed top-0 right-0"
+          : "closingAnimacija bg-white shadow-xl p-3 z-50 fixed top-0 right-0"
       }
     >
       <div className="flex border-b-2 border-gray-300 border-opacity-20 pb-2 mt-2">
