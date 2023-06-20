@@ -45,8 +45,8 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
     <div
       className={
         editMode
-          ? "h-[95%] lg:h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative  "
-          : "h-[95%] lg:h-[280px] mt-1 ml-2 mr-2 mb-1 bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative "
+          ? "h-[95%] lg:h-[100%]   bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative  "
+          : "h-[95%] lg:h-[100%]   bg-white rounded-xl shadow-md cursor-pointer hover:scale-105 transition-all relative "
       }
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
@@ -89,10 +89,10 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
         )}
         <img
           src={storeProducts && storeProducts.productPicture[0]}
-          className="h-[100%] w-[100%] object-cover"
+          className="h-[50%] w-full object-cover absolute rounded-md"
         ></img>
       </div>
-      <div className="h-[40%] w-full pl-2 pt-1 lg:pt-2 relative ">
+      <div className="h-[40%]  w-full pl-2 pt-1 lg:pt-2 relative ">
         <h1 className="font-bold lg:text-xl text-sm uppercase">
           {storeProducts && storeProducts.productName}
         </h1>
@@ -131,7 +131,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
             Add To Cart
           </button>
         </div>*/}
-        <div className="w-full  h-[15%] absolute bottom-0 left-0 rounded-b-md grid grid-cols-3 text-gray-500 ">
+        <div className="w-full   h-[15%] absolute bottom-0 left-0 rounded-b-md grid grid-cols-3 text-gray-500 ">
           <div className="flex justify-center items-center border-r-2 border-gray-300 border-opacity-40">
             <svg
               xmlns="http://www.w3.org/2000/svg"

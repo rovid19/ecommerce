@@ -49,7 +49,7 @@ const Layout = () => {
         {" "}
         <Navbar />
       </div>
-      <div className="w-full flex-grow  ">
+      <div className="w-full flex-grow   ">
         <Outlet />
       </div>
     </main>

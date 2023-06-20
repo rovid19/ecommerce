@@ -15,6 +15,8 @@ const Store = () => {
   const [isFetching, setIsFetching] = useState(false);
   const [storeData, setStoreData] = useState(null);
   const [storeItems, setStoreItems] = useState(null);
+  const [trigger, setTrigger] = useState(false);
+  const [productCollections, setProductCollections] = useState([]);
   const { storeid } = useParams();
   const user = useSelector((state) => state.userData.value.user);
   const storeProducts = useSelector((state) => state.storeProducts.value);
@@ -38,19 +40,36 @@ const Store = () => {
       dispatch(getStoreSubPage("store"));
       dispatch(setSavedStore(data));
       dispatch(addCollectionItems(data.storeCollections));
+      setTrigger(!trigger);
     });
   }, [storeid]);
-
+  useEffect(() => {
+    if (trigger) {
+      handleStoreCollections();
+    }
+  }, [trigger]);
+  function handleStoreCollections() {
+    const newArray = [];
+    collection.forEach((collection, index) => {
+      const productArray = storeProducts.filter(
+        (product) => product.productCollection === collection
+      );
+      console.log(productArray);
+      newArray.push(productArray);
+    });
+    setProductCollections(newArray);
+  }
+  console.log(productCollections.length > 2);
   return (
-    <main className="w-[100%]  bg-gray-50 skrin flex justify-center relative ">
+    <main className="w-[100%]  bg-gray-50 skrin flex justify-center relative  ">
       {isFetching && (
         <div className="flex items-center justify-center absolute top-0 left-0 w-full h-full z-50 bg-white">
           <img src={Loader} className="h-24 w-[400px] object-cover"></img>
         </div>
       )}
       {viewProductModal && <StoreProductModal />}
-      <section className=" w-[100%] lg:w-[85%]">
-        <div className="h-[35%] relative bg-cover">
+      <section className="fl w-[100%] lg:w-[85%] h-[100%]">
+        <div className="h-[30%] relative bg-cover">
           <img
             src={storeData && storeData.storeCover}
             className=" h-full w-full object-cover"
@@ -73,18 +92,52 @@ const Store = () => {
             className="h-28 w-[10%] absolute bottom-4 left-2 lg:h-36 lg:left-4 rounded-xl shadow-xl object-cover"
           ></img>
         </div>
-        <section className="h-[65%] grid grid-cols-3 2xl:grid-cols-6">
-          {storeProducts &&
-            storeProducts.map((item, index) => {
-              return (
-                <StoreProductCard
-                  storeProducts={item}
-                  index={index}
-                  storeData={storeData}
-                />
-              );
+        <div className="h-[70%] grid grid-rows-2 ">
+          {productCollections &&
+            productCollections.map((collection, index) => {
+              console.log(collection);
+              if (index === 0 || index === 1) {
+                return (
+                  <article key={index} className="h-full ">
+                    <h1 className=" text-2xl h-[12%] bg-gray-100 rouned-md text-black pl-4 pt-1">
+                      {collection[0] && collection[0].productCollection}
+                    </h1>
+                    <div className="h-[85%] w-full grid grid-cols-6 gap-2">
+                      {collection &&
+                        collection.map((product, index) => {
+                          return (
+                            <article className="mt-2">
+                              <StoreProductCard
+                                storeProducts={product}
+                                index={index}
+                              />
+                            </article>
+                          );
+                        })}
+                    </div>
+                  </article>
+                );
+              }
             })}
-        </section>
+        </div>
+
+        {/*productCollections.length >= 2 && (
+          <section className="h-[65%] grid grid-cols-3 2xl:grid-cols-6">
+            {storeProducts &&
+              storeProducts.map((item, index) => {
+                return (
+                  <StoreProductCard
+                    storeProducts={item}
+                    index={index}
+                    storeData={storeData}
+                  />
+                );
+              })}
+          </section>
+        )}
+        {/*productCollections.length > 2 && (
+          <section className="bg-black h-[100%] w-full"> </section>
+        )*/}
       </section>
     </main>
   );
