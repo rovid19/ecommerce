@@ -9,9 +9,9 @@ const Layout = () => {
   const collectionItems = useSelector(
     (state) => state.collection.collectionItems
   );
-
+  /*
   useEffect(() => {
-    if (storeSubPage === "store") {
+   if (storeSubPage === "store") {
       switch (collectionItems.length) {
         case 1:
           setClassName("collectionItems2");
@@ -34,15 +34,15 @@ const Layout = () => {
           break;
       }
     }
-  }, [collectionItems]);
+  }, [collectionItems]);*/
 
   return (
-    <main className={className}>
-      <div className="w-full h-16 z-50">
+    <main className="h-screen w-screen flex relative">
+      <div className="w-[12%] h-full overflow-hidden ">
         {" "}
         <Navbar />
       </div>
-      <div className="w-full flex-grow   ">
+      <div className="w-[88%] h-full   ">
         <Outlet />
       </div>
     </main>

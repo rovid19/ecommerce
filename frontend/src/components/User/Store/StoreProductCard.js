@@ -17,7 +17,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
   const editMode = useSelector((state) => state.editMode.value);
   const cartItems = useSelector((state) => state.cartItems.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const viewProductModal = useSelector((state) => state.viewProductModal.value);
+
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
   );
@@ -43,8 +43,8 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
     <div
       className={
         editMode
-          ? "h-[95%] lg:h-[100%] bg-white rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden  "
-          : "h-[95%] lg:h-[100%] bg-white rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden "
+          ? "h-[95%] lg:h-[100%] bg-neutral-800 text-white rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden  "
+          : "h-[95%] lg:h-[100%] bg-neutral-800 text-white rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden "
       }
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
@@ -64,7 +64,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
             className="absolute top-0 left-0 bg-orange-500 p-2 group rounded-md"
             onClick={(e) => {
               e.stopPropagation();
-              dispatch(setViewProductModal(!viewProductModal));
+
               dispatch(addSelectedProduct(storeProducts._id));
               dispatch(setStoreDeleteVisible(!deleteProductModal));
             }}

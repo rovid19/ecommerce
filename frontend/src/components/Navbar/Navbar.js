@@ -29,116 +29,45 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="flex h-full justify-center z-50 bg-white  ">
+      <main className="flex h-full w-full justify-center z-50 bg-black items-center shadow-md  ">
         {/* FIRST PART OF HEADER */}
-        <div className="w-[100%] h-full flex lg:w-[85%]">
-          <div className="w-[100%] lg:w-[75%] flex  items-center md:mr-6 lg:mr-0 ">
-            <div className="w-[20%] flex">
-              <h1
-                className="hidden lg:block cursor-pointer "
-                onClick={() => {
-                  navigate("/");
-                  dispatch(getStoreSubPage("homepage"));
-                }}
-              >
-                Rock's Market
-              </h1>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth="1.5"
-                stroke="currentColor"
-                className="w-7 h-7 lg:hidden ml-2 md:ml-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"
-                />
-              </svg>
-            </div>
-            {/* SEARCH BAR */}
-            <div className="h-[60%] w-[90%]  lg:w-[70%] flex items-center rounded-3xl border-2 border-gray-300 border-opacity-25  ">
-              <div className="w-full h-full flex justify-between items-center">
-                <label className="w-[30%] lg:w-[15%] xl:w-[10%] h-[70%] flex justify-center border-r-2 border-gray-300 border-opacity-30 ">
-                  <select
-                    className="bg-transparent text-gray-400 "
-                    onChange={(e) => setOption(e.target.value)}
-                  >
-                    <option>Stores</option>
-                    <option>Products</option>
-                  </select>
-                </label>
-                <input
-                  className="w-[80%] h-full"
-                  onChange={(e) => setSearchValue(e.target.value)}
-                />
-
-                <button
-                  className="w-[20%] 2xl:w-[10%] flex items-center gap-2 ml-4  rounded-2xl h-[90%] mr-1 justify-center text-white bg-orange-500"
-                  onClick={() => {
-                    dispatch(getStoreSubPage("Search"));
-                    handleSearch();
-                  }}
-                >
-                  {" "}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    className="w-4 h-4"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  <h1 className="hidden lg:block">Search</h1>
-                </button>
-              </div>
-            </div>
+        <header className="h-full w-[100%] bg-black">
+          <div className="h-[15%] w-full grid place-items-center">
+            <h1 className="font-bold cursor-pointer">Rock's market</h1>
           </div>
-          {/* SECOND PART OF HEADER */}
-          <div className="hidden w-[25%] lg:flex items-center">
-            <div className=" w-full justify-end flex ">
-              {user && Object.keys(user).length > 0 ? (
-                <>
-                  <div
-                    className={
-                      user.role === "Customer"
-                        ? "flex items-center text-gray-500 gap-2 w-[70px]  border-r-2 border-gray-300 border-opacity-30"
-                        : "flex items-center text-gray-500 gap-2 w-[100px] border-r-2 border-gray-300 border-opacity-30"
-                    }
-                  >
-                    <NavbarUserMenu />
-                  </div>
-                  <div>
-                    <img
-                      src={Img}
-                      className="h-6 w-6 ml-4 cursor-pointer "
-                      onClick={() => {
-                        navigate(`/${user._id}/profile`);
-                        dispatch(getStoreSubPage("profile"));
-                      }}
-                    ></img>
-                  </div>
-                </>
-              ) : (
-                <div className=" h-[33px] flex items-center">
-                  {" "}
-                  <Link to="/login" className="h-full">
-                    <button className="hidden lg:block h-full ] text-gray-400 border-2 border-orange-500 rounded-md w-[80px] hover:bg-orange-500 hover:text-white">
-                      Login
-                    </button>{" "}
-                  </Link>
-                </div>
-              )}
-            </div>
+          <div className="h-[80%] w-full">
+            <nav className="w-full h-full">
+              <ul className="w-full h-full p-1">
+                <li className="text-gray-500">General:</li>
+                <li className="text-center text-xl rounded-md p-2 text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 ">
+                  Home
+                </li>
+                <li className="text-center text-xl rounded-md p-2 text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 mt-1">
+                  Search
+                </li>
+                <li className="text-center text-xl rounded-md p-2 text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 mt-1">
+                  Inbox
+                </li>
+                <li className="text-center text-xl rounded-md p-2 text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 mt-1">
+                  Dashboard
+                </li>
+                <li className="text-center text-xl rounded-md p-2 text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 mt-1">
+                  My Orders
+                </li>
+                <li className="text-center text-xl rounded-md p-2 text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 mt-1">
+                  Shipping details
+                </li>
+                <li className="text-center text-xl rounded-md p-2 text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 mt-1">
+                  Profile Settings
+                </li>
+                <li className="text-center text-xl rounded-md p-2 text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 mt-1">
+                  My Store
+                </li>
+              </ul>
+            </nav>
           </div>
-        </div>
-      </header>
+        </header>
+      </main>
       <Outlet />
     </>
   );
