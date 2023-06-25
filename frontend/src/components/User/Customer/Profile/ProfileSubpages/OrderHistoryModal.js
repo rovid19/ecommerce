@@ -47,8 +47,6 @@ const OrderHistoryModal = ({
       .then(({ data }) => setStore(data));
   }, []);
 
-  console.log(orderHistory[index].productShipped);
-
   return (
     <div className="h-full w-full absolute top-0 left-0 bg-black bg-opacity-20 0 z-50 flex items-center justify-center">
       <button
@@ -61,12 +59,12 @@ const OrderHistoryModal = ({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          class="w-12 h-12 hover:text-orange-500"
+          className="w-12 h-12 hover:text-orange-500"
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           />
         </svg>
       </button>

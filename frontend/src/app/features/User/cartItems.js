@@ -9,7 +9,6 @@ export const cartItemsSlice = createSlice({
   initialState,
   reducers: {
     setCartItems: (state, action) => {
-      console.log("fired");
       return {
         ...state,
         value: [...state.value, action.payload],

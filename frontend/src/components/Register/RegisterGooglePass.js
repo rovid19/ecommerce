@@ -51,7 +51,7 @@ const LoginGooglePass = ({ email }) => {
       alert("your passwords do not match");
     }
   }
-  console.log(navigate);
+
   return (
     <motion.div
       initial={{ x: 100, opacity: 0 }}

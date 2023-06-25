@@ -12,6 +12,7 @@ const AddCollectionModal = () => {
   const [oldCollectionName, setOldCollectionName] = useState(null);
   const [useEffectTrigger, setUseEffectTrigger] = useState(false);
   const [item, setItem] = useState(undefined);
+  const [imeKolekcije, setImeKolekcije] = useState(undefined);
   const [edit, setEdit] = useState(false);
   const [placeHolderIndex, setPlaceHolderIndex] = useState(null);
   const [newCollectionName, setNewCollectionName] = useState(null);
@@ -53,6 +54,7 @@ const AddCollectionModal = () => {
         await axios.post("/api/user/delete-collection", {
           itemName: item,
           storeId: userData.store._id,
+          imeKolekcije,
         });
         setUseEffectTrigger(!useEffectTrigger);
         setItem(undefined);
@@ -78,12 +80,12 @@ const AddCollectionModal = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  class="w-6 h-6 bg-orange-500 rounded-sm text-white hover:scale-90 transition-all "
+                  className="w-6 h-6 bg-orange-500 rounded-sm text-white hover:scale-90 transition-all "
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   />
                 </svg>
               </button>{" "}
@@ -105,12 +107,12 @@ const AddCollectionModal = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="w-6 h-6 bg-orange-500 rounded-sm text-white hover:scale-90 transition-all "
+              className="w-6 h-6 bg-orange-500 rounded-sm text-white hover:scale-90 transition-all "
             >
               <path
-                fill-rule="evenodd"
+                fillRule="evenodd"
                 d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                clip-rule="evenodd"
+                clipRule="evenodd"
               />
             </svg>
           </button>
@@ -134,7 +136,10 @@ const AddCollectionModal = () => {
             {collection &&
               collection.map((item, index) => {
                 return (
-                  <article className="h-[15%] w-full bg-gray-50 mt-1 relative p-4 flex items-center rounded-md">
+                  <article
+                    className="h-[15%] w-full bg-gray-50 mt-1 relative p-4 flex items-center rounded-md"
+                    key={index}
+                  >
                     {<h1 className="text-2xl">{item}</h1>}
                     <button
                       className="absolute right-10 top-0 h-full grid place-items-center"
@@ -160,18 +165,19 @@ const AddCollectionModal = () => {
                       onClick={(e) => {
                         e.preventDefault();
                         setItem(index);
+                        setImeKolekcije(item);
                       }}
                     >
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="w-6 h-6 hover:text-orange-500 transition-all"
+                        className="w-6 h-6 hover:text-orange-500 transition-all"
                       >
                         <path
-                          fill-rule="evenodd"
+                          fillRule="evenodd"
                           d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                          clip-rule="evenodd"
+                          clipRule="evenodd"
                         />
                       </svg>
                     </button>

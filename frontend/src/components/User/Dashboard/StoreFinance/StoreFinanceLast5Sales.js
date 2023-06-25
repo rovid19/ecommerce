@@ -42,17 +42,19 @@ const StoreFinanceLast5Sales = () => {
                     ? "w-full h-[20%] grid grid-cols-3 bg-gray-50 p-1  rounded-md"
                     : "w-full h-[20%]  mt-2 grid grid-cols-3 bg-gray-50 p-1 rounded-md"
                 }
+                key={index}
               >
                 <div className="border-r-2 border-gray-300 border-opacity-20 text-gray-500">
                   <div className="h-[10%] w-full p-1 flex items-center justify-center">
                     <h1>Products</h1>
                   </div>
                   <div className="h-[90%] w-full p-1 flex items-center justify-center text-2xl text-black gap-2 overflow-scroll scrollbar-hide">
-                    {item.productBought.map((picture) => {
+                    {item.productBought.map((picture, index) => {
                       return (
                         <img
                           src={picture.productPicture[0]}
                           className="w-[30%] h-[70%] rounded-md "
+                          key={index}
                         ></img>
                       );
                     })}

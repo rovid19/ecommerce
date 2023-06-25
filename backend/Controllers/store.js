@@ -59,7 +59,6 @@ export const editStore = async (req, res) => {
 };
 
 export const uploadImage = async (req, res) => {
-  console.log("da");
   const { path, originalname, mimetype } = req.files[0];
 
   const url = await uploadToS3(path, originalname, mimetype);
@@ -194,8 +193,6 @@ export const getOrders = async (req, res) => {
   const { token } = req.cookies;
   const { formattedDate } = req.body;
 
-  console.log(formattedDate);
-
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err;
     const user = await User.findById(userData.id);
@@ -260,7 +257,7 @@ export const cancelOrder = async (req, res) => {
 
 export const getDailySales = async (req, res) => {
   const { storeId, formattedDate } = req.body;
-  console.log(storeId, formattedDate);
+
   const store = await Store.findById(storeId).populate(
     "storeSales",
     "orderPlacedDate total"

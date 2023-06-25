@@ -37,8 +37,7 @@ axios.defaults.withCredentials = true;
 const App = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
-  const cartItems = useSelector((state) => state.cartItems.value);
-  const products = useSelector((state) => state.userData.value.products);
+  const viewProductModal = useSelector((state) => state.viewProductModal.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   const userData = useSelector((state) => state.userData.value.user);
@@ -50,7 +49,7 @@ const App = () => {
     /*axios
       .get("/api/user/get-logged-user?timestamp=" + new Date().getTime(), {})
       .then(({ data }) => {
-        console.log(data);
+     
         dispatch(addUser(data));
         dispatch(setUserFetching(false));
       });
@@ -61,7 +60,7 @@ const App = () => {
     dispatch(fetchUserData());
     dispatch(fetchStoreProducts());
   }, [getUserTrigger]);
-  console.log(storeSubPage);
+  console.log(viewProductModal);
   return (
     <div>
       {cartVisible && <AddToCart />}

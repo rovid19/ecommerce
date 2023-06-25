@@ -61,11 +61,9 @@ const EditProductInputs = ({
     if (productPicture.length < 6) {
       setPicFetch(true);
       const file = e.target.files;
-      console.log(file);
+
       const formData = new FormData();
       formData.append("photo", file[0]);
-
-      console.log(formData);
 
       axios
         .post("/api/store/upload-image", formData, {
@@ -88,10 +86,8 @@ const EditProductInputs = ({
       newArray.splice(index, 1);
       setProductPicture(newArray);
       setIndex(null);
-      console.log(newArray);
     }
   }, [index]);
-  console.log(currentProduct);
 
   return (
     <form onSubmit={handleEditProduct} className="h-[95%]">
@@ -119,7 +115,10 @@ const EditProductInputs = ({
                   {productPicture.map((item, index) => {
                     if (index === 0) {
                       return (
-                        <div className="relative h-full w-full group ">
+                        <div
+                          className="relative h-full w-full group "
+                          key={index}
+                        >
                           {productPicture.length < 6 && (
                             <div className="absolute h-full w-full flex items-center justify-center bg-black bg-opacity-20 text-white group">
                               {" "}
@@ -134,16 +133,16 @@ const EditProductInputs = ({
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            class="w-10 h-10 text-white hover:scale-90 absolute bg-orange-500 top-0 p-1 right-0 invisible group-hover:visible "
+                            className="w-10 h-10 text-white hover:scale-90 absolute bg-orange-500 top-0 p-1 right-0 invisible group-hover:visible "
                             onClick={(e) => {
                               e.stopPropagation();
                               setIndex(index);
                             }}
                           >
                             <path
-                              fill-rule="evenodd"
+                              fillRule="evenodd"
                               d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                              clip-rule="evenodd"
+                              clipRule="evenodd"
                             />
                           </svg>
                           <img
@@ -158,20 +157,20 @@ const EditProductInputs = ({
                     {productPicture.map((item, index) => {
                       if (index > 0) {
                         return (
-                          <div className="relative w-[20%] h-full">
+                          <div className="relative w-[20%] h-full" key={index}>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 24 24"
                               fill="currentColor"
-                              class="w-7 h-7 text-white hover:scale-90 absolute bg-orange-500 bottom-0 p-1 left-0 invisible group-hover:visible"
+                              className="w-7 h-7 text-white hover:scale-90 absolute bg-orange-500 bottom-0 p-1 left-0 invisible group-hover:visible"
                               onClick={(e) => {
                                 setIndex(index);
                               }}
                             >
                               <path
-                                fill-rule="evenodd"
+                                fillRule="evenodd"
                                 d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                                clip-rule="evenodd"
+                                clipRule="evenodd"
                               />
                             </svg>
                             <img
@@ -224,6 +223,7 @@ const EditProductInputs = ({
               onChange={(e) => setCollectionValue(e.target.value)}
               value={collectionValue}
             >
+              {collectionValue === "" && <option></option>}
               {user &&
                 user.store.storeCollections.map((option, index) => {
                   return (

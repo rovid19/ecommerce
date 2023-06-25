@@ -16,7 +16,6 @@ const StoreProductPictures = ({
   //functions
 
   function handleChangePictureNext(index) {
-    console.log("da");
     return function () {
       let newArray = [...productPicture];
       const arrayEnd = newArray.length;
@@ -73,12 +72,12 @@ const StoreProductPictures = ({
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          class="w-14 h-14 absolute right-2 text-white cursor-pointer hover:scale-95"
+                          className="w-14 h-14 absolute right-2 text-white cursor-pointer hover:scale-95"
                         >
                           <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                           />
                         </svg>
                       </button>
@@ -87,12 +86,12 @@ const StoreProductPictures = ({
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          class="w-14 h-14 absolute left-2 text-white cursor-pointer hover:scale-95"
+                          className="w-14 h-14 absolute left-2 text-white cursor-pointer hover:scale-95"
                         >
                           <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                           />
                         </svg>
                       </button>
@@ -215,12 +214,12 @@ const StoreProductPictures = ({
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          class="w-14 h-14 absolute right-2 text-white cursor-pointer hover:scale-95"
+                          className="w-14 h-14 absolute right-2 text-white cursor-pointer hover:scale-95"
                         >
                           <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                           />
                         </svg>
                       </button>
@@ -229,12 +228,12 @@ const StoreProductPictures = ({
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          class="w-14 h-14 absolute left-2 text-white cursor-pointer hover:scale-95"
+                          className="w-14 h-14 absolute left-2 text-white cursor-pointer hover:scale-95"
                         >
                           <path
-                            fill-rule="evenodd"
+                            fillRule="evenodd"
                             d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
-                            clip-rule="evenodd"
+                            clipRule="evenodd"
                           />
                         </svg>
                       </button>

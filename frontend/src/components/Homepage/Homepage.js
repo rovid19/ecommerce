@@ -43,7 +43,7 @@ const Homepage = () => {
             <div className="h-[95%] w-full grid grid-cols-4 grid-rows-2 gap-2 p-2 absolute bottom-0 ">
               {stores &&
                 stores.map((store, index) => (
-                  <HomepageStoreCard store={stores} index={index} />
+                  <HomepageStoreCard store={stores} index={index} key={index} />
                 ))}
             </div>
             <h1 className="absolute right-2 bottom-2 bg-orange-500 text-white p-2 text-2xl rounded-l-md ">
@@ -61,7 +61,11 @@ const Homepage = () => {
               {products &&
                 products.map((product, index) => {
                   return (
-                    <StoreProductCard storeProducts={product} index={index} />
+                    <StoreProductCard
+                      storeProducts={product}
+                      index={index}
+                      key={index}
+                    />
                   );
                 })}
             </div>

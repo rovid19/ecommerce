@@ -53,7 +53,12 @@ export const addCollectionItem = async (req, res) => {
 };
 
 export const deleteCollection = async (req, res) => {
-  const { itemName, storeId } = req.body;
+  const { itemName, storeId, imeKolekcije } = req.body;
+
+  await Product.updateMany(
+    { productCollection: imeKolekcije },
+    { $set: { productCollection: "" } }
+  );
 
   const store = await Store.findById(storeId);
 

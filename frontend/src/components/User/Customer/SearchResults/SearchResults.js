@@ -49,6 +49,7 @@ const SearchResults = () => {
                   onClick={() => {
                     navigate(`/store/${result.storeName}/${result._id}`);
                   }}
+                  key={i}
                 >
                   <img
                     src={result.storeProfile}
@@ -60,7 +61,6 @@ const SearchResults = () => {
                 </article>
               );
             } else {
-              console.log(result);
               return (
                 <article
                   className="h-[280px] "

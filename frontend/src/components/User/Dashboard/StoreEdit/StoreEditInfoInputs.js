@@ -26,7 +26,6 @@ const StoreEditInfoInputs = ({
     const file = e.target.files;
     const formData = new FormData();
     formData.append("photo", file[0]);
-    console.log(file[0]);
 
     axios
       .post("/api/store/upload-image", formData, {
@@ -56,16 +55,16 @@ const StoreEditInfoInputs = ({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          class={
+          className={
             editMode
               ? "w-8 h-8 absolute bottom-4 right-4 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-20 border-2 border-gray-300 transition-all"
               : "hidden"
           }
         >
           <path
-            fill-rule="evenodd"
+            fillRule="evenodd"
             d="M12 5.25a.75.75 0 01.75.75v5.25H18a.75.75 0 010 1.5h-5.25V18a.75.75 0 01-1.5 0v-5.25H6a.75.75 0 010-1.5h5.25V6a.75.75 0 01.75-.75z"
-            clip-rule="evenodd"
+            clipRule="evenodd"
           />
         </svg>
       </label>
@@ -94,16 +93,16 @@ const StoreEditInfoInputs = ({
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class={
+            className={
               editMode
                 ? "w-6 h-6 absolute bottom-0 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white hover:bg-orange-500 hover:border-orange-500 z-10 border-2 rounded-md border-gray-300 transition-all"
                 : "hidden"
             }
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M12 5.25a.75.75 0 01.75.75v5.25H18a.75.75 0 010 1.5h-5.25V18a.75.75 0 01-1.5 0v-5.25H6a.75.75 0 010-1.5h5.25V6a.75.75 0 01.75-.75z"
-              clip-rule="evenodd"
+              clipRule="evenodd"
             />
           </svg>
         </label>

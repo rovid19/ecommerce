@@ -46,7 +46,7 @@ const LoginPage = () => {
         }
       });
   }
-  console.log(googlePass);
+
   return (
     <div className="h-screen flex justify-center items-center">
       <motion.div
@@ -97,7 +97,7 @@ const LoginPage = () => {
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
                   var decoded = jwt_decode(credentialResponse.credential);
-                  console.log(decoded);
+
                   setGoogleMail(decoded.email);
                   setGooglePass(true);
                 }}

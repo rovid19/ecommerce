@@ -25,7 +25,6 @@ const LoginGooglePass = ({ email }) => {
         password,
       })
       .then(() => {
-        console.log("why");
         dispatch(fetchUserData());
         dispatch(fetchStoreProducts());
         debugger;
@@ -38,7 +37,7 @@ const LoginGooglePass = ({ email }) => {
         }
       });
   }
-  console.log(email);
+
   return (
     <motion.div
       initial={{ x: 100, opacity: 0 }}

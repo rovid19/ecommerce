@@ -166,6 +166,7 @@ const StoreAddProducts = () => {
             return (
               <>
                 <div
+                  key={index}
                   className="relative"
                   onDragStart={() => {
                     dragItem.current = index;

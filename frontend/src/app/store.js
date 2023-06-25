@@ -28,6 +28,7 @@ import isReviewReducer from "./features/User/isReview.js";
 import userDataReducer from "./features/User/userSlice.js";
 import trendingStoreReducer from "./features/User/trendingStore.js";
 import collectionReducer from "./features/Store/collections.js";
+import scrollStopReducer from "./features/Store/scrollStop.js";
 
 export const store = configureStore({
   reducer: {
@@ -60,5 +61,6 @@ export const store = configureStore({
     userData: userDataReducer,
     trendingStore: trendingStoreReducer,
     collection: collectionReducer,
+    scrollStop: scrollStopReducer,
   },
 });

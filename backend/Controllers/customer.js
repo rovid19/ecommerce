@@ -237,15 +237,11 @@ export const cancelOrder = async (req, res) => {
 
   const newArray = productBought.filter((product) => product === productId);
 
-  console.log(newArray);
-
   fsale.set({
     productBought: newArray,
   });
 
   await fsale.save();
-
-  console.log(fsale);
 
   if (productBought.length === 0) {
     await Sale.findByIdAndDelete(idd);
@@ -268,7 +264,7 @@ export const searchResults = async (req, res) => {
   if (option === "Stores") {
     const regex = new RegExp(`${searchValue}`, "gi");
     const specificStore = await Store.find({ storeName: regex }).lean().exec();
-    console.log(specificStore);
+
     const jsonsend = [...specificStore];
 
     const newArray = jsonsend.map((item) => {
@@ -355,14 +351,11 @@ export const deleteReview = async (req, res) => {
       (product) => product !== productId
     );
 
-    console.log("new Array", newArray);
-
     userCommented.set({
       reviewsLeft: [...newArray],
     });
 
     await userCommented.save();
-    console.log(userCommented.reviewsLeft);
   });
 
   const findReview = await Review.findByIdAndDelete(deleteReview);

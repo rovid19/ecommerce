@@ -32,7 +32,6 @@ const Profile = () => {
     const file = e.target.files;
     const formData = new FormData();
     formData.append("photo", file[0]);
-    console.log(file[0]);
 
     axios
       .post("/api/store/upload-image", formData, {

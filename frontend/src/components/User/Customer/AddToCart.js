@@ -59,7 +59,6 @@ const AddToCart = () => {
 
   useEffect(() => {
     if (boughtItems.length > 0) {
-      console.log("glup sam");
       handleBuyNow();
     }
   }, [boughtItems]);
@@ -125,12 +124,12 @@ const AddToCart = () => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            class="w-6 h-6"
+            className="w-6 h-6"
           >
             <path
-              fill-rule="evenodd"
+              fillRule="evenodd"
               d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
-              clip-rule="evenodd"
+              clipRule="evenodd"
             />
           </svg>
         </button>
@@ -139,7 +138,10 @@ const AddToCart = () => {
       <div className="h-[90%] border-b-2 border-gray-300 border-opacity-20 pb-2 overflow-scroll pt-2 ">
         {cartItems.map((item, index) => {
           return (
-            <div className="h-[15%] bg-gray-300 bg-opacity-50 flex items-center pt-2 pb-2 pl-2 mt-1 relative">
+            <div
+              className="h-[15%] bg-gray-300 bg-opacity-50 flex items-center pt-2 pb-2 pl-2 mt-1 relative"
+              key={index}
+            >
               <button
                 className="absolute left-1 top-1 text-white"
                 onClick={() => {
@@ -151,12 +153,12 @@ const AddToCart = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  class="w-6 h-6"
+                  className="w-6 h-6"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   />
                 </svg>
               </button>
@@ -175,7 +177,7 @@ const AddToCart = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      class="w-5 h-5"
+                      className="w-5 h-5"
                       onClick={() => {
                         let newArray = [...quantity];
                         let productPrice = item.productNewPrice;
@@ -188,9 +190,9 @@ const AddToCart = () => {
                       }}
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M11.47 7.72a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06L12 9.31l-6.97 6.97a.75.75 0 01-1.06-1.06l7.5-7.5z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       />
                     </svg>
                   </button>
@@ -200,7 +202,7 @@ const AddToCart = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      class="w-5 h-5"
+                      className="w-5 h-5"
                       onClick={() => {
                         if (quantity[index] === 1) {
                           setSelectedProduct(item._id);
@@ -218,9 +220,9 @@ const AddToCart = () => {
                       }}
                     >
                       <path
-                        fill-rule="evenodd"
+                        fillRule="evenodd"
                         d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z"
-                        clip-rule="evenodd"
+                        clipRule="evenodd"
                       />
                     </svg>
                   </button>

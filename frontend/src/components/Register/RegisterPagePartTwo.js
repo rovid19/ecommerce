@@ -122,7 +122,6 @@ const RegisterPagePartTwo = () => {
             <button className="mt-6 flex justify-center">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
-                  console.log(credentialResponse.credential);
                   var decoded = jwt_decode(credentialResponse.credential);
                   setGoogleEmail(decoded.email);
                   setGooglePass(true);
