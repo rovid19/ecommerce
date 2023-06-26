@@ -27,11 +27,7 @@ const Homepage = () => {
 
   return (
     <>
-      <div className="w-full h-16 z-50">
-        <Navbar />
-      </div>
-
-      <main className="skrin2  flex justify-center  ">
+      <main className="h-full w-full flex justify-center ">
         <div className="h-full w-[86%] grid place-items-center grid-rows-4 ">
           <section className=" h-full w-full p-2 relative group">
             <h1 className="absolute bottom-2 rounded-r-md text-white left-2 z-20 text-4xl bg-orange-500 p-4 group-hover:invisible transition-all">

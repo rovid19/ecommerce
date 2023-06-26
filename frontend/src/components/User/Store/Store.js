@@ -125,7 +125,7 @@ const Store = () => {
             productCollections.map((item, index) => {
               return (
                 <article key={index} className="h-full relative">
-                  <h1 className=" text-2xl h-[40px] bg-neutral-800 text-white   pl-4 pt-1 hover:text-white hover:bg-gray-500 transition-all cursor-pointer ">
+                  <h1 className=" text-2xl h-[40px] bg-neutral-800 text-neutral-400   pl-4 pt-1    ">
                     {collection[index]}
                   </h1>
 

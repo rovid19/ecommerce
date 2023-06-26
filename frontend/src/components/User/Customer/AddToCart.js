@@ -111,14 +111,14 @@ const AddToCart = () => {
     <div
       className={
         cartVisible
-          ? "animacija  bg-white shadow-xl p-3 z-50 fixed top-0 right-0"
-          : "closingAnimacija bg-white shadow-xl p-3 z-50 fixed top-0 right-0"
+          ? "animacija  bg-neutral-800  text-neutral-300 shadow-xl p-3 z-50 fixed top-0 right-0  h-full"
+          : "closingAnimacija bg-neutral-800  text-neutral-300 shadow-xl p-3 z-50 fixed top-0 right-0 h-full"
       }
     >
-      <div className="flex border-b-2 border-gray-300 border-opacity-20 pb-2 mt-2">
+      <div className="flex border-b-2 border-neutral-600 border-opacity-20 h-[5%] p-1">
         <button
           onClick={() => dispatch(setCartVisible(false))}
-          className="bg-orange-500 text-white"
+          className="bg-neutral-700 rounded-md text-neutral-400 hover:text-white transition-all"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -135,15 +135,15 @@ const AddToCart = () => {
         </button>
         <h1 className="ml-4 text-2xl">Cart</h1>
       </div>
-      <div className="h-[90%] border-b-2 border-gray-300 border-opacity-20 pb-2 overflow-scroll pt-2 ">
+      <div className="h-[85%] scrollbar-hide border-b-2 border-neutral-600 border-opacity-20 pb-2 overflow-scroll  ">
         {cartItems.map((item, index) => {
           return (
             <div
-              className="h-[15%] bg-gray-300 bg-opacity-50 flex items-center pt-2 pb-2 pl-2 mt-1 relative"
+              className="h-[15%] bg-neutral-700 bg-opacity-50 flex items-center  mt-1 relative rounded-md p-4"
               key={index}
             >
               <button
-                className="absolute left-1 top-1 text-white"
+                className="absolute right-0 top-0 text-white"
                 onClick={() => {
                   setIndex(index);
                   setDeleteItem(true);
@@ -153,12 +153,12 @@ const AddToCart = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="w-6 h-6"
+                  class="w-6 h-6"
                 >
                   <path
-                    fillRule="evenodd"
-                    d="M5.47 5.47a.75.75 0 011.06 0L12 10.94l5.47-5.47a.75.75 0 111.06 1.06L13.06 12l5.47 5.47a.75.75 0 11-1.06 1.06L12 13.06l-5.47 5.47a.75.75 0 01-1.06-1.06L10.94 12 5.47 6.53a.75.75 0 010-1.06z"
-                    clipRule="evenodd"
+                    fill-rule="evenodd"
+                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                    clip-rule="evenodd"
                   />
                 </svg>
               </button>
@@ -166,9 +166,9 @@ const AddToCart = () => {
                 src={item.productPicture[0]}
                 className="w-[35%] h-full object-cover rounded-sm"
               ></img>
-              <div className="ml-2">
+              <div className="ml-2 h-full w-[50%]">
                 <h1 className="text-2xl ">{item.productName}</h1>
-                <h2 className="mt-2">{item.productNewPrice}$</h2>
+                <h2 className="">{item.productNewPrice}$</h2>
               </div>
               <div className="h-full absolute right-2 ">
                 <div className=" h-full fl2 ">
@@ -232,12 +232,12 @@ const AddToCart = () => {
           );
         })}
       </div>
-      <div className="p-2 h-[4.5%] flex relative items-center ">
+      <div className=" h-[10%] flex relative p-4 ">
         {" "}
-        <h1 className="text-xl">Total: {total}$</h1>
+        <h1 className="text-xl text-neutral-400">Total: {total}$</h1>
         <button
           onClick={handleBoughtProducts}
-          className="absolute right-0 bg-orange-500 text-white h-[80%] rounded-md w-[20%] hover:scale-95 "
+          className="absolute right-0 bg-orange-500 text-white h-[40%] rounded-md w-[30%] hover:w-[40%] transition-all "
         >
           Checkout
         </button>

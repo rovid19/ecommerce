@@ -29,6 +29,8 @@ import {
   fetchUserData,
   userData,
 } from "./app/features/User/userSlice.js";
+import Search from "./components/Search/Search.js";
+import Inbox from "./components/User/Inbox/Inbox.js";
 
 axios.defaults.baseURL = "http://localhost:4000";
 //axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
@@ -65,8 +67,8 @@ const App = () => {
     <div>
       {cartVisible && <AddToCart />}
       <Routes>
-        <Route path="/" element={<Homepage />} />
         <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Homepage />} />
           <Route path="/store/:storeName/:storeid" element={<Store />} />
           <Route
             path="/store/:storeName/product/:productId"
@@ -75,10 +77,13 @@ const App = () => {
           <Route path="/:id/profile" element={<UserMenu />}></Route>
           <Route path="/:id/orderhistory" element={<UserMenu />}></Route>
           <Route path="/:id/shippingdetails" element={<UserMenu />}></Route>
+          <Route path="/search" element={<Search />} />
           <Route
             path="/search/:searchOption/:searchResults"
             element={<SearchResults />}
           />
+
+          <Route path="/inbox/:userId" element={<Inbox />} />
           <Route path="/search/:searchOption/" element={<SearchResults />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />

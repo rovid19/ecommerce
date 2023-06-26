@@ -43,8 +43,8 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
     <div
       className={
         editMode
-          ? "h-[95%] lg:h-[100%] bg-neutral-800 text-white rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden  "
-          : "h-[95%] lg:h-[100%] bg-neutral-800 text-white rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden "
+          ? "h-[95%] lg:h-[100%] bg-neutral-800 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden  "
+          : "h-[95%] lg:h-[100%] bg-neutral-800 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden "
       }
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
@@ -103,8 +103,8 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
         <h1 className="font-bold text-base lg:text-4xl absolute top-2 right-3">
           {storeProducts && storeProducts.productNewPrice}€
         </h1>
-        <div className="w-full   h-[15%] absolute bottom-4  left-0 rounded-b-md grid grid-cols-3 text-gray-500 ">
-          <div className="flex justify-center items-center border-r-2 border-gray-300 border-opacity-40">
+        <div className="w-full   h-[15%] absolute bottom-4  left-0 rounded-b-md grid grid-cols-3 text-neutral-600 ">
+          <div className="flex justify-center items-center border-r-2 border-neutral-600 border-opacity-40">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
@@ -122,9 +122,9 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
           <div className="flex items-center justify-center">
             <h1>120 sold</h1>
           </div>
-          <div className="flex items-center justify-center border-l-2 border-gray-300 border-opacity-40  ">
+          <div className="flex items-center justify-center border-l-2 border-neutral-600 border-opacity-40  ">
             <button
-              className="  rounded-md p-2 h-[85%] w-[82%] bg-gray-400 text-white  transition-all text-sm flex items-center justify-center hover:bg-orange-500"
+              className="  rounded-md p-2 h-[85%] w-[82%] bg-neutral-700 text-neutral-300  transition-all text-sm flex items-center justify-center hover:bg-orange-500 hover:text-white"
               onClick={(e) => {
                 e.stopPropagation();
                 addProductToCart();
