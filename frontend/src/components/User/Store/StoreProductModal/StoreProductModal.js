@@ -84,10 +84,10 @@ const StoreProductModal = () => {
   console.log(viewProductModal);
 
   return (
-    <div className=" w-full bg-black bg-opacity-50 flex items-center justify-center skrin relative ">
+    <div className="w-full h-full bg-neutral-700 text-neutral-300 relative">
       {openReviewPic && (
         <section className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-25 flex items-center justify-center mido">
-          <article className="h-[30%] w-[70%] bg-white relative grid grid-cols-5 overflow-hidden rounded-md shadow-2xl">
+          <article className="h-[30%] w-[70%] bg-neutral-700 relative grid grid-cols-5 overflow-hidden rounded-md shadow-2xl">
             {reviewPic.map((pic, i) => {
               return (
                 <div className="h-full w-full relative" key={i}>
@@ -148,13 +148,13 @@ const StoreProductModal = () => {
           }
           dispatch(removePic([]));
         }}
-        className=" text-black absolute top-20 left-4"
+        className=" text-black absolute top-2 left-2 zeze"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-10 h-10 text-white hover:scale-95 opacity-50 hover:opacity-100"
+          className="w-10 h-10 text-neutral-800 hover:text-neutral-300 transition-all hover:opacity-100"
         >
           <path
             fillRule="evenodd"
@@ -164,76 +164,75 @@ const StoreProductModal = () => {
         </svg>
       </button>
       {/* MAIN DIV */}
-      <div className="w-[85%] h-full bg-white relative">
-        {isFetching && (
-          <div className="w-full h-full absolute top-0 left-0 z-50 bg-white flex items-center justify-center">
-            {" "}
-            <img src={Loader}></img>{" "}
-          </div>
-        )}
-        {/* IMAGE ZOOMED IN */}
-        {viewImage && (
-          <div className="absolute top-0 left-0 h-full w-full z-50">
-            <img
-              src={
-                viewReviewPic
-                  ? viewReviewPic
-                  : productPicture && productPicture[0]
-              }
-              className="h-full w-full object-cover "
-            ></img>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="w-16 h-16 absolute right-2 bottom-2 text-white cursor-pointer hover:scale-95"
-              onClick={() => {
-                dispatch(setviewImage(false));
-                dispatch(setViewReviewPic(null));
-              }}
-            >
-              <path
-                fillRule="evenodd"
-                d="M2.515 10.674a1.875 1.875 0 000 2.652L8.89 19.7c.352.351.829.549 1.326.549H19.5a3 3 0 003-3V6.75a3 3 0 00-3-3h-9.284c-.497 0-.974.198-1.326.55l-6.375 6.374zM12.53 9.22a.75.75 0 10-1.06 1.06L13.19 12l-1.72 1.72a.75.75 0 101.06 1.06l1.72-1.72 1.72 1.72a.75.75 0 101.06-1.06L15.31 12l1.72-1.72a.75.75 0 10-1.06-1.06l-1.72 1.72-1.72-1.72z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </div>
-        )}
-        <StoreProductPictures
-          storeProducts={storeProducts}
-          productIndex={productIndex}
-          viewImage={viewImage}
-          isFetching={isFetching}
-          productPicture={productPicture}
-          setProductPicture={setProductPicture}
-        />
-        {/* DETAILS ABOUT PRODUCT */}
-        <div className="h-[50%] w-[75%]  p-4 relative">
-          {/* PRODUCT TITLE*/}
-          <h1 className="text-6xl">{productTitle}</h1>
-          {/* PRODUCT DESCRIPTION */}
-          <p className="mt-4"> {productDescription}</p>
-          {/* ADD TO CART BUTTON*/}
-          <button
-            onClick={addProductToCart}
-            className="bottom-4 border-2 border-orange-500 text-orange-500 p-4 rounded-lg left-[30%] w-[15%] text-xl hover:bg-orange-500 hover:text-white transition-all absolute"
-          >
-            Add to cart
-          </button>
-          {/* BUY NOW BUTTON*/}
-          <button className="bottom-4 bg-orange-500 p-4 rounded-lg text-white left-4 w-[25%] text-xl hover:w-[28%] transition-all absolute">
-            Buy now
-          </button>
-          {/* PRODUCT RATING*/}
-          <div className="bottom-4 right-4 absolute">
-            <h2 className="text-xl">4.5</h2>
-          </div>
-        </div>
-        {/* REVIEWS */}
 
-        <Reviews />
+      {isFetching && (
+        <div className="w-full h-full absolute top-0 left-0 z-50 bg-white flex items-center justify-center">
+          {" "}
+          <img src={Loader}></img>{" "}
+        </div>
+      )}
+      {/* IMAGE ZOOMED IN */}
+      {viewImage && (
+        <div className="absolute top-0 left-0 h-full w-full z-50">
+          <img
+            src={
+              viewReviewPic
+                ? viewReviewPic
+                : productPicture && productPicture[0]
+            }
+            className="h-full w-full object-cover "
+          ></img>
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-16 h-16 absolute right-2 bottom-2 text-white cursor-pointer hover:scale-95"
+            onClick={() => {
+              dispatch(setviewImage(false));
+              dispatch(setViewReviewPic(null));
+            }}
+          >
+            <path
+              fillRule="evenodd"
+              d="M2.515 10.674a1.875 1.875 0 000 2.652L8.89 19.7c.352.351.829.549 1.326.549H19.5a3 3 0 003-3V6.75a3 3 0 00-3-3h-9.284c-.497 0-.974.198-1.326.55l-6.375 6.374zM12.53 9.22a.75.75 0 10-1.06 1.06L13.19 12l-1.72 1.72a.75.75 0 101.06 1.06l1.72-1.72 1.72 1.72a.75.75 0 101.06-1.06L15.31 12l1.72-1.72a.75.75 0 10-1.06-1.06l-1.72 1.72-1.72-1.72z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </div>
+      )}
+      <StoreProductPictures
+        storeProducts={storeProducts}
+        productIndex={productIndex}
+        viewImage={viewImage}
+        isFetching={isFetching}
+        productPicture={productPicture}
+        setProductPicture={setProductPicture}
+      />
+      {/* DETAILS ABOUT PRODUCT */}
+      <div className="h-[50%] w-[75%]  p-4 relative">
+        {/* PRODUCT TITLE*/}
+        <h1 className="text-6xl">{productTitle}</h1>
+        {/* PRODUCT DESCRIPTION */}
+        <p className="mt-4"> {productDescription}</p>
+        {/* ADD TO CART BUTTON*/}
+        <button
+          onClick={addProductToCart}
+          className="bottom-4 border-2 border-orange-500 text-orange-500 p-4 rounded-lg left-[30%] w-[15%] text-xl hover:bg-orange-500 hover:text-white transition-all absolute"
+        >
+          Add to cart
+        </button>
+        {/* BUY NOW BUTTON*/}
+        <button className="bottom-4 bg-orange-500 p-4 rounded-lg text-white left-4 w-[25%] text-xl hover:w-[28%] transition-all absolute">
+          Buy now
+        </button>
+        {/* PRODUCT RATING*/}
+        <div className="bottom-4 right-4 absolute">
+          <h2 className="text-xl">4.5</h2>
+        </div>
       </div>
+      {/* REVIEWS */}
+
+      <Reviews />
     </div>
   );
 };

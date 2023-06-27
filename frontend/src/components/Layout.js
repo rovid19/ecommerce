@@ -1,14 +1,19 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "./Navbar/Navbar";
 import { Outlet } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setCartVisible } from "../app/features/User/cartVisible";
 
 const Layout = () => {
   const [className, setClassName] = useState("collectionItems2");
+
+  const dispatch = useDispatch();
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const collectionItems = useSelector(
     (state) => state.collection.collectionItems
   );
+  const cartItems = useSelector((state) => state.cartItems.value);
+  const cartVisible = useSelector((state) => state.cartVisible.value);
   /*
   useEffect(() => {
    if (storeSubPage === "store") {
@@ -35,9 +40,34 @@ const Layout = () => {
       }
     }
   }, [collectionItems]);*/
-
+  console.log(cartItems);
   return (
     <main className="h-screen w-screen flex relative">
+      {cartItems.length > 0 && cartVisible === false ? (
+        <article className="h-full w-[1.5%] flex items-center absolute zeze right-4 ">
+          <button
+            className="rounded-full bg-neutral-600 p-2 opacity-50 hover:opacity-100  transition-all"
+            onClick={() => dispatch(setCartVisible(true))}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke-width="1.5"
+              stroke="currentColor"
+              class="w-6 h-6 text-neutral-900"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+              />
+            </svg>
+          </button>
+        </article>
+      ) : (
+        ""
+      )}
       <div className="w-[12%] h-full overflow-hidden ">
         {" "}
         <Navbar />

@@ -78,30 +78,44 @@ const Navbar = () => {
                       </div>
                     </Link>
                     <h1 className="text-gray-500 mt-2">User settings:</h1>
-                    <li className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1">
+                    <Link
+                      to="/profile"
+                      onClick={() => dispatch(getStoreSubPage("profile"))}
+                      className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                    >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                         <ProfileSettings />
                       </div>
                       <div className="w-[80%] h-full flex  items-center">
                         <h1 className="text-base">Profile settings </h1>
                       </div>
-                    </li>
-                    <li className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1">
+                    </Link>
+                    <Link
+                      to="/shippingdetails"
+                      onClick={() =>
+                        dispatch(getStoreSubPage("shippingdetails"))
+                      }
+                      className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                    >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                         <ShippingDetails />
                       </div>
                       <div className="w-[80%] h-full flex  items-center">
                         <h1 className="text-base">Shipping details </h1>
                       </div>
-                    </li>
-                    <li className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1">
+                    </Link>
+                    <Link
+                      to="/myorders"
+                      onClick={() => dispatch(getStoreSubPage("myorders"))}
+                      className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                    >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                         <MyOrders />
                       </div>
                       <div className="w-[80%] h-full flex  items-center">
                         <h1 className="text-base">My orders </h1>
                       </div>
-                    </li>{" "}
+                    </Link>{" "}
                   </>
                 ) : (
                   ""

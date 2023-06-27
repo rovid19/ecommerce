@@ -102,7 +102,7 @@ const Reviews = () => {
   }, [postTrigger]);
 
   return (
-    <section className="absolute right-0 top-0 h-full w-[25%] border-l-2 border-gray-300 border-opacity-25   ">
+    <section className="absolute right-0 top-0 h-full w-[25%] border-l-2 border-neutral-600 border-opacity-25 bg-neutral-800   ">
       <div className="h-[80%] overflow-scroll scrollbar-hide">
         {" "}
         {reviews &&
@@ -111,10 +111,10 @@ const Reviews = () => {
               <article
                 className={
                   i === 0 && review.pictures.length > 0
-                    ? "h-[30%] w-full bg-gray-50 p-2 relative shadow-lg"
+                    ? "h-[30%] w-full bg-neutral-900 p-2 relative shadow-lg"
                     : review.pictures.length > 0
-                    ? "h-[30%] w-full bg-gray-50 mt-1 p-2 relative shadow-lg"
-                    : "h-[20%] w-full bg-gray-50 mt-1 p-2 relative shadow-lg"
+                    ? "h-[30%] w-full bg-neutral-900 mt-1 p-2 relative shadow-lg"
+                    : "h-[20%] w-full bg-neutral-900 mt-1 p-2 relative shadow-lg"
                 }
                 key={i}
               >
@@ -127,7 +127,7 @@ const Reviews = () => {
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="currentColor"
-                      className="w-8 h-8 text-white bg-gray-300 p-1 rounded-md hover:bg-orange-500 transition-all"
+                      className="w-8 h-8 text-neutral-400 bg-neutral-800 p-1 rounded-md hover:bg-orange-500 hover:text-white transition-all"
                     >
                       <path
                         fillRule="evenodd"
@@ -214,7 +214,7 @@ const Reviews = () => {
             );
           })}
       </div>
-      <div className="h-[20%] ">
+      <div className="h-[20%] pl-4 pr-4">
         {userCommented ? (
           ""
         ) : ratingActive ? (
@@ -225,8 +225,8 @@ const Reviews = () => {
                   ref={inputRef}
                   className={
                     reviewPic && reviewPic.length > 0
-                      ? "h-[70%] w-[80%] p-2 bg-gray-50"
-                      : "h-[70%] w-full p-2 bg-gray-50"
+                      ? "h-[70%] w-[80%] p-2 bg-neutral-700 rounded-t-md"
+                      : "h-[70%] w-full p-2 bg-neutral-700 rounded-t-md"
                   }
                   onChange={(e) => setComment(e.target.value)}
                 />
@@ -248,18 +248,18 @@ const Reviews = () => {
                 ) : (
                   ""
                 )}
-                <button className="w-[80%] h-[30%] absolute bottom-0 left-0 bg-orange-500 text-white hover:bg-black ">
+                <button className="w-[80%] h-[30%] absolute bottom-0 left-0 bg-neutral-900 text-neutral-300 hover:bg-orange-500 transition-all hover:text-white rounded-b-md">
                   Post
                 </button>
                 <label
                   onChange={pictureUpload}
-                  className="cursor-pointer w-[20%] h-[30%] absolute bottom-0 right-0 flex items-center justify-center   bg-gray-300 group  "
+                  className="cursor-pointer w-[20%] h-[30%] absolute bottom-0 right-0 flex items-center justify-center   bg-neutral-500 group rounded-md  "
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 24 24"
                     fill="currentColor"
-                    class="w-6 h-6 text-black group-hover:text-white"
+                    class="w-6 h-6 text-neutral-800 group-hover:text-white "
                   >
                     <path d="M9.97.97a.75.75 0 011.06 0l3 3a.75.75 0 01-1.06 1.06l-1.72-1.72v3.44h-1.5V3.31L8.03 5.03a.75.75 0 01-1.06-1.06l3-3zM9.75 6.75v6a.75.75 0 001.5 0v-6h3a3 3 0 013 3v7.5a3 3 0 01-3 3h-7.5a3 3 0 01-3-3v-7.5a3 3 0 013-3h3z" />
                     <path d="M7.151 21.75a2.999 2.999 0 002.599 1.5h7.5a3 3 0 003-3v-7.5c0-1.11-.603-2.08-1.5-2.599v7.099a4.5 4.5 0 01-4.5 4.5H7.151z" />

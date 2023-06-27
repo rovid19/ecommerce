@@ -46,7 +46,7 @@ const StoreProductPictures = ({
                 case 0:
                   return (
                     <div className="h-full w-[50%] object-cover z-50 flex items-center relative ">
-                      <button className="absolute top-4 left-4 z-30">
+                      <button className="absolute bottom-4 right-4 z-30">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -188,7 +188,7 @@ const StoreProductPictures = ({
                 case 0:
                   return (
                     <div className="h-full w-[50%] object-cover z-50 flex items-center relative ">
-                      <button className="absolute top-4 left-4 z-30">
+                      <button className="absolute bottom-4 right-4 z-30">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"

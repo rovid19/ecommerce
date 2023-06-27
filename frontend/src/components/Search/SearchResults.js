@@ -79,15 +79,16 @@ const SearchResults = () => {
           })}
       </section>
         </main>*/}
-      <section className="w-full h-full  p-4 overflow-scroll scrollbar-hide">
+      <section className="w-full h-full grid grid-cols-3 grid-rows-2 p-4 overflow-scroll scrollbar-hide">
         {search &&
           search.map((result, i) => {
+            console.log(result);
             return (
               <article
                 className={
-                  i === 0
-                    ? "h-[40%] w-[30%] mt-1 rounded-md shadow-lg cursor-pointer bg-neutral-900"
-                    : "h-[40%] w-[30%] mt-2 rounded-md shadow-lg cursor-pointer bg-neutral-900"
+                  i > 2
+                    ? "h-full w-[90%] mt-4 rounded-md shadow-2xl cursor-pointer bg-neutral-900 "
+                    : "h-full w-[90%]  rounded-md shadow-2xl cursor-pointer bg-neutral-900 "
                 }
                 onClick={() => {
                   navigate(`/store/${result.storeName}/${result._id}`);
@@ -95,12 +96,13 @@ const SearchResults = () => {
                 key={i}
               >
                 {" "}
-                <div className="h-[30%] w-full p-4">
-                  <h1 className="text-5xl">{result.storeName}</h1>
+                <div className="h-[30%] w-full p-4 text-neutral-400">
+                  <span>Store name:</span>
+                  <h1 className="text-2xl"> {result.storeName}</h1>
                 </div>
                 <img
                   src={result.storeProfile}
-                  className="h-[70%] w-full object-cover rounded-b-md"
+                  className="h-[70%] w-full object-cover rounded-b-md rounded-md"
                 ></img>
               </article>
             );

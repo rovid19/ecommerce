@@ -111,8 +111,8 @@ const AddToCart = () => {
     <div
       className={
         cartVisible
-          ? "animacija  bg-neutral-800  text-neutral-300 shadow-xl p-3 z-50 fixed top-0 right-0  h-full"
-          : "closingAnimacija bg-neutral-800  text-neutral-300 shadow-xl p-3 z-50 fixed top-0 right-0 h-full"
+          ? "animacija  bg-neutral-900  text-neutral-300 shadow-xl p-3 z-50 fixed top-0 right-0  h-full"
+          : "closingAnimacija bg-neutral-900  text-neutral-300 shadow-xl p-3 z-50 fixed top-0 right-0 h-full"
       }
     >
       <div className="flex border-b-2 border-neutral-600 border-opacity-20 h-[5%] p-1">
@@ -139,11 +139,11 @@ const AddToCart = () => {
         {cartItems.map((item, index) => {
           return (
             <div
-              className="h-[15%] bg-neutral-700 bg-opacity-50 flex items-center  mt-1 relative rounded-md p-4"
+              className="h-[15%] bg-neutral-700 bg-opacity-50 flex items-center  mt-1 relative rounded-md p-4 group cursor-pointer"
               key={index}
             >
               <button
-                className="absolute right-0 top-0 text-white"
+                className="absolute left-2 top-2 text-white invisible group-hover:visible "
                 onClick={() => {
                   setIndex(index);
                   setDeleteItem(true);
@@ -151,14 +151,16 @@ const AddToCart = () => {
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
                   viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-6 h-6"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6 text-neutral-300 bg-orange-500 p-1 rounded-md hover:text-white hover:bg-orange-500 transition-all "
                 >
                   <path
-                    fill-rule="evenodd"
-                    d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
-                    clip-rule="evenodd"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                   />
                 </svg>
               </button>

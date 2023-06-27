@@ -29,6 +29,9 @@ import {
   fetchUserData,
   userData,
 } from "./app/features/User/userSlice.js";
+import OrderHistory from "./components/User/Customer/Profile/ProfileSubpages/OrderHistory.js";
+import Profile from "./components/User/Customer/Profile/ProfileSubpages/Profile.js";
+import ShippingDetails from "./components/User/Customer/Profile/ProfileSubpages/ShippingDetails.js";
 import Search from "./components/Search/Search.js";
 import Inbox from "./components/User/Inbox/Inbox.js";
 
@@ -74,9 +77,9 @@ const App = () => {
             path="/store/:storeName/product/:productId"
             element={<StoreProductModal />}
           />
-          <Route path="/:id/profile" element={<UserMenu />}></Route>
-          <Route path="/:id/orderhistory" element={<UserMenu />}></Route>
-          <Route path="/:id/shippingdetails" element={<UserMenu />}></Route>
+          <Route path="/profile" element={<Search />} />
+          <Route path="/myorders" element={<OrderHistory />} />
+          <Route path="/shippingdetails" element={<ShippingDetails />} />
           <Route path="/search" element={<Search />}>
             <Route
               path="/search/:searchOption/:searchValue"
