@@ -4,6 +4,7 @@ const initialState = {
   value: {
     search: "",
     searchOption: "",
+    searchResults: [],
   },
 };
 
@@ -17,9 +18,13 @@ export const searchSlice = createSlice({
     setSearchOption: (state, action) => {
       state.value.searchOption = action.payload;
     },
+    setSearchResults: (state, action) => {
+      state.value = action.payload;
+    },
   },
 });
 
-export const { setSearch, setSearchOption } = searchSlice.actions;
+export const { setSearch, setSearchOption, setSearchResults } =
+  searchSlice.actions;
 
 export default searchSlice.reducer;

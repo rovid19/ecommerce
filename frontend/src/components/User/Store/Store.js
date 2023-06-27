@@ -103,7 +103,7 @@ const Store = () => {
             className=" h-full w-full object-cover"
           ></img>
           <div className="h-full w-full bg-black bg-opacity-40 absolute top-0">
-            <div className="text-white absolute bottom-[25%] left-[20%] lg:left-[15%] xl:left-[12%] lg:bottom-[10%] bg-black p-4 rounded-xl z-50">
+            <div className="text-white absolute bottom-[25%] left-[20%] lg:left-[15%] xl:left-[12%] lg:bottom-[10%] bg-neutral-900 p-4 rounded-xl z-50">
               <h1 className="text-xl lg:text-3xl">
                 {storeData && storeData.storeName}
               </h1>
@@ -125,11 +125,11 @@ const Store = () => {
             productCollections.map((item, index) => {
               return (
                 <article key={index} className="h-full relative">
-                  <h1 className=" text-2xl h-[40px] bg-neutral-800 text-neutral-400   pl-4 pt-1    ">
+                  <h1 className=" text-2xl h-[40px] bg-neutral-900 text-neutral-400   pl-4 pt-1    ">
                     {collection[index]}
                   </h1>
 
-                  <div className="h-[calc(100%-40px)] w-full grid grid-cols-6 gap-4 p-4 bg-neutral-900 scrollbar-hide  ">
+                  <div className="h-[calc(100%-40px)] w-full grid grid-cols-6 gap-4 p-4 bg-neutral-800 scrollbar-hide  ">
                     {item &&
                       item.map((product, index) => {
                         return (

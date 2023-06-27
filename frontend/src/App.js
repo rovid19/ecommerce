@@ -21,7 +21,7 @@ import AddToCart from "./components/User/Customer/AddToCart.js";
 import Layout from "./components/Layout.js";
 import UserMenu from "./components/User/Customer/Profile/UserMenu.js";
 import StoreOrders from "./components/User/Dashboard/StoreOrders/StoreOrders.js";
-import SearchResults from "./components/User/Customer/SearchResults/SearchResults.js";
+import SearchResults from "./components/Search/SearchResults.js";
 import { setStoreProducts } from "./app/features/Store/userStoreProducts.js";
 import Homepage from "./components/Homepage/Homepage.js";
 import {
@@ -77,14 +77,14 @@ const App = () => {
           <Route path="/:id/profile" element={<UserMenu />}></Route>
           <Route path="/:id/orderhistory" element={<UserMenu />}></Route>
           <Route path="/:id/shippingdetails" element={<UserMenu />}></Route>
-          <Route path="/search" element={<Search />} />
-          <Route
-            path="/search/:searchOption/:searchResults"
-            element={<SearchResults />}
-          />
+          <Route path="/search" element={<Search />}>
+            <Route
+              path="/search/:searchOption/:searchValue"
+              element={<SearchResults />}
+            />
+          </Route>
 
           <Route path="/inbox/:userId" element={<Inbox />} />
-          <Route path="/search/:searchOption/" element={<SearchResults />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />

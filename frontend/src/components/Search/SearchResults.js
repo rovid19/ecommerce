@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import StoreProductCard from "../../Store/StoreProductCard";
+import StoreProductCard from "../User/Store/StoreProductCard";
 import axios from "axios";
 const SearchResults = () => {
-  const searchResults = useSelector((state) => state.searchResults.value);
+  const search = useSelector((state) => state.search.value);
+  const navigate = useNavigate();
+  /*const searchResults = useSelector((state) => state.searchResults.value);
+  
 
   const [getStore, setGetStore] = useState(null);
   const [selectedStore, setSelectedStore] = useState(null);
-  const navigate = useNavigate();
+  
   const { searchOption } = useParams();
   useEffect(() => {
     if (getStore) {
@@ -25,9 +28,12 @@ const SearchResults = () => {
       navigate(`/store/${selectedStore.storeName}/product/${getStore}`);
     }
   }, [selectedStore]);
+*/
 
   return (
-    <main className="w-full h-full flex justify-center">
+    <>
+      {" "}
+      {/*<main className="w-full h-full flex justify-center">
       <section className="w-[85%] h-full flex gap-2">
         {searchResults.length === 0 && searchOption === "Stores" ? (
           <div className="h-full w-full flex items-center justify-center ">
@@ -72,7 +78,35 @@ const SearchResults = () => {
             }
           })}
       </section>
-    </main>
+        </main>*/}
+      <section className="w-full h-full  p-4 overflow-scroll scrollbar-hide">
+        {search &&
+          search.map((result, i) => {
+            return (
+              <article
+                className={
+                  i === 0
+                    ? "h-[40%] w-[30%] mt-1 rounded-md shadow-lg cursor-pointer bg-neutral-900"
+                    : "h-[40%] w-[30%] mt-2 rounded-md shadow-lg cursor-pointer bg-neutral-900"
+                }
+                onClick={() => {
+                  navigate(`/store/${result.storeName}/${result._id}`);
+                }}
+                key={i}
+              >
+                {" "}
+                <div className="h-[30%] w-full p-4">
+                  <h1 className="text-5xl">{result.storeName}</h1>
+                </div>
+                <img
+                  src={result.storeProfile}
+                  className="h-[70%] w-full object-cover rounded-b-md"
+                ></img>
+              </article>
+            );
+          })}{" "}
+      </section>
+    </>
   );
 };
 
