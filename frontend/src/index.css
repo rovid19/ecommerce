@@ -233,3 +233,7 @@ input[type="radio"] {
 .zeze {
   z-index: 100;
 }
+
+.dgri {
+  grid-auto-rows: 50%;
+}

@@ -20,12 +20,6 @@ const ShippingDetails = () => {
   const { id } = params;
 
   useEffect(() => {
-    if (user._id === id) {
-    } else {
-      navigate("/");
-    }
-  }, []);
-  useEffect(() => {
     axios.get("/api/customer/get-shipping-details").then(({ data }) => {
       setAddress(data[0].address);
       setAddressDva(data[0].addressDva);
@@ -49,12 +43,12 @@ const ShippingDetails = () => {
   }
 
   return (
-    <div className="h-full w-full bg-white flex items-center justify-center">
+    <div className="h-full w-full bg-neutral-800 flex items-center justify-center">
       <form className="w-[50%] h-full fl2" onSubmit={handleShippingInfoChange}>
         <div className="h-[20%] flex justify-center items-center ">
           {" "}
           <h1
-            className="text-xl mt-12
+            className="text-xl mt-12 text-neutral-300
           "
           >
             Enter your shipping information
@@ -64,42 +58,42 @@ const ShippingDetails = () => {
           <input
             type="text"
             placeholder="Country"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
+            className="h-[20%] w-[65%] bg-neutral-900 text-neutral-300 mt-1 rounded-md p-2"
             onChange={(e) => setCountry(e.target.value)}
             defaultValue={country}
           />
           <input
             type="text"
             placeholder="Region"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
+            className="h-[20%] w-[65%] bg-neutral-900 text-neutral-300 mt-1 rounded-md p-2"
             onChange={(e) => setRegion(e.target.value)}
             defaultValue={region}
           />
           <input
             type="text"
             placeholder="Address 1"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
+            className="h-[20%] w-[65%] bg-neutral-900 text-neutral-300 mt-1 rounded-md p-2"
             onChange={(e) => setAddress(e.target.value)}
             defaultValue={address}
           />
           <input
             type="text"
             placeholder="Address 2"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
+            className="h-[20%] w-[65%] bg-neutral-900 text-neutral-300 mt-1 rounded-md p-2"
             onChange={(e) => setAddressDva(e.target.value)}
             defaultValue={addressDva}
           />
           <input
             type="text"
             placeholder="Postal Code"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
+            className="h-[20%] w-[65%] bg-neutral-900 text-neutral-300 mt-1 rounded-md p-2"
             onChange={(e) => setPostalCode(e.target.value)}
             defaultValue={postalCode}
           />
           <input
             type="text"
             placeholder="Phone Number"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
+            className="h-[20%] w-[65%] bg-neutral-900 text-neutral-300 mt-1 rounded-md p-2"
             onChange={(e) => setPhoneNumber(e.target.value)}
             defaultValue={phoneNumber}
           />

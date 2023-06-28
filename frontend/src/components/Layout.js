@@ -44,7 +44,7 @@ const Layout = () => {
   return (
     <main className="h-screen w-screen flex relative">
       {cartItems.length > 0 && cartVisible === false ? (
-        <article className="h-full w-[1.5%] flex items-center absolute zeze right-4 ">
+        <article className="h-full w-[1.5%] flex items-center absolute z-40 right-4 ">
           <button
             className="rounded-full bg-neutral-600 p-2 opacity-50 hover:opacity-100  transition-all"
             onClick={() => dispatch(setCartVisible(true))}

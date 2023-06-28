@@ -14,6 +14,8 @@ import { useSelector } from "react-redux";
 const Search = () => {
   const [searchValue, setSearchValue] = useState(null);
   const [option, setOption] = useState("Stores");
+  const [filterVisible, setFilterVisible] = useState(false);
+  const [sortBy, setSortBy] = useState(null);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,11 +33,66 @@ const Search = () => {
         dispatch(setSearchOption(option));
       });
   }
-  console.log(search);
+  // FILTER OPTIONS FUNCTIONS
+  async function sortByAtoZ() {
+    let newArray = [...search.searchResults];
+    newArray.sort((a, b) => {
+      if (a.productName < b.productName) return -1;
+      if (a.productName > b.productName) return 1;
+      return 0;
+    });
+
+    console.log(newArray);
+    dispatch(setSearchResults(newArray));
+  }
+  async function sortByPriceHighest() {
+    let newArray = [...search.searchResults];
+    newArray.sort((a, b) => {
+      return b.productNewPrice - a.productNewPrice;
+    });
+
+    dispatch(setSearchResults(newArray));
+  }
+  async function sortByPriceLowest() {
+    let newArray = [...search.searchResults];
+    newArray.sort((a, b) => {
+      return a.productNewPrice - b.productNewPrice;
+    });
+
+    dispatch(setSearchResults(newArray));
+  }
+  async function sortBySold() {
+    let newArray = [...search.searchResults];
+    newArray.sort((a, b) => {
+      return b.productSold - a.productSold;
+    });
+
+    dispatch(setSearchResults(newArray));
+  }
+
+  // USEEFFECT
+
+  useEffect(() => {
+    if (sortBy) {
+      if (sortBy === "A-Z") {
+        sortByAtoZ();
+      } else if (sortBy === "Lowest to highest price") {
+        sortByPriceLowest();
+      } else if (sortBy === "Highest to lowest price") {
+        sortByPriceHighest();
+      } else {
+        sortBySold();
+      }
+    }
+  }, [sortBy]);
+
   return (
-    <main className="h-full w-full bg-neutral-800">
-      <article className="w-full h-[5%] relative">
-        <button className="h-full flex items-center absolute right-2  ">
+    <main className="h-full w-full bg-neutral-800 relative">
+      <article className="w-full h-[8%] p-2 relative bg-neutral-900">
+        <button
+          className="h-full flex items-center absolute right-2 top-0 "
+          onClick={() => setFilterVisible(true)}
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -53,11 +110,11 @@ const Search = () => {
           <form className="w-[70%] h-full relative" onSubmit={handleSearch}>
             <label className="absolute left-0  h-full w-[8%] z-50">
               <select
-                className="h-full w-full flex items-center bg-neutral-700 p-2 text-black"
+                className="h-full w-full flex items-center bg-neutral-500 p-2 text-neutral-900"
                 onChange={(e) => setOption(e.target.value)}
               >
-                <option className="text-black">stores</option>
-                <option>products</option>
+                <option className="text-black">&#127980; stores</option>
+                <option>🛍️ products</option>
               </select>
             </label>
             <button className="absolute right-2 top-0 h-full flex items-center ">
@@ -75,13 +132,45 @@ const Search = () => {
               </svg>
             </button>
             <input
-              className="w-full h-full bg-neutral-700 rounded-md text-neutral-300 text-xl pl-[10%] "
+              className="w-full h-full bg-neutral-500 rounded-md text-neutral-900 text-xl pl-[10%] "
               onChange={(e) => setSearchValue(e.target.value)}
             />
           </form>
         </fieldset>
       </article>
-      <section className="h-[95%] w-full">
+      <section className="h-[92%] w-full relative">
+        {filterVisible && (
+          <div className="h-[50%] w-[20%] bg-neutral-600 absolute z-50 right-0 ">
+            <button
+              className="absolute left-2 top-2  z-50"
+              onClick={() => {
+                setFilterVisible(false);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6 hover:text-orange-500 text-neutral-800"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+            <form className="h-full w-full fl2">
+              <h1 className="text-3xl">Sort results by:</h1>
+              <select onChange={(e) => setSortBy(e.target.value)}>
+                <option>A-Z</option>
+                <option>Highest to lowest price</option>
+                <option>Lowest to highest price</option>
+                <option>Most units sold</option>
+              </select>
+            </form>
+          </div>
+        )}
         <Outlet />
       </section>
     </main>

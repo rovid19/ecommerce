@@ -77,7 +77,7 @@ const App = () => {
             path="/store/:storeName/product/:productId"
             element={<StoreProductModal />}
           />
-          <Route path="/profile" element={<Search />} />
+          <Route path="/profile" element={<Profile />} />
           <Route path="/myorders" element={<OrderHistory />} />
           <Route path="/shippingdetails" element={<ShippingDetails />} />
           <Route path="/search" element={<Search />}>

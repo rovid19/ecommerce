@@ -49,26 +49,26 @@ const OrderHistoryModal = ({
 
   return (
     <div className="h-full w-full absolute top-0 left-0 bg-black bg-opacity-20 0 z-50 flex items-center justify-center">
-      <button
-        className="absolute left-2 top-2  z-50"
-        onClick={() => {
-          setIsVisible(false);
-        }}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="currentColor"
-          className="w-12 h-12 hover:text-orange-500"
+      <div className="h-[90%] w-[85%] bg-neutral-600 flex items-center justify-center rounded-md relative text-neutral-200">
+        <button
+          className="absolute left-2 top-2  z-50"
+          onClick={() => {
+            setIsVisible(false);
+          }}
         >
-          <path
-            fillRule="evenodd"
-            d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
-            clipRule="evenodd"
-          />
-        </svg>
-      </button>
-      <div className="h-[90%] w-[85%] bg-gray-50 flex items-center justify-center rounded-md relative">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            className="w-12 h-12 hover:text-orange-500 text-neutral-800"
+          >
+            <path
+              fillRule="evenodd"
+              d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+              clipRule="evenodd"
+            />
+          </svg>
+        </button>
         <div className="w-[30%] h-full">
           <img
             src={orderHistory[index].productBought[indexDva].productPicture}
@@ -112,12 +112,12 @@ const OrderHistoryModal = ({
                       <input
                         defaultValue={orderHistory[index].noteToSeller}
                         type="text"
-                        className="h-full w-full rounded-md"
+                        className="h-full w-full rounded-md bg-neutral-700"
                         onChange={(e) => setNote(e.target.value)}
                       ></input>
                       <button
                         onClick={handlePostNote}
-                        className="absolute bottom-0 right-0 bg-orange-500 p-2 rounded-md text-white w-full z-40 "
+                        className="absolute bottom-0 right-0 bg-neutral-800 p-4 rounded-md text-neutral-500 w-full z-40 hover:text-neutral-200 "
                       >
                         Add note
                       </button>
@@ -129,7 +129,7 @@ const OrderHistoryModal = ({
             <div className="h-[30%] w-full flex relative   ">
               <div className="h-[33%] w-full flex absolute bottom-0 left-2 items-center">
                 {orderHistory[index].productShipped ? (
-                  <div className="bg-gray-400 w-full text-white p-4 rounded-md shadow-lg">
+                  <div className="bg-neutral-800 w-full text-white p-4 rounded-md shadow-lg">
                     <h1 className="text-2xl">
                       Product shipped, arrives in{""}
                       <span> </span>

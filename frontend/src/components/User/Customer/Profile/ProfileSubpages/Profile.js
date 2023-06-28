@@ -58,15 +58,8 @@ const Profile = () => {
       });
   }
 
-  useEffect(() => {
-    if (user._id === id) {
-    } else {
-      navigate("/");
-    }
-  }, []);
-
   return (
-    <div className="skrin w-full flex items-center bg-white justify-center ">
+    <div className="h-full w-full flex items-center bg-neutral-800 justify-center ">
       {profileSavedModal && <StoreSavedModal />}
       <form className="w-[50%] h-full fl2" onSubmit={handleProfileChanges}>
         <div className="h-[30%] w-full flex justify-center items-center p-2">
@@ -98,23 +91,25 @@ const Profile = () => {
           </label>
         </div>
         <div className="h-[30%] w-full fl2    ">
-          <h1 className="text-gray-300">Enter new account information.</h1>
+          <h1 className="text-neutral-600">
+            You can change your account information here
+          </h1>
           <input
             type="text"
             placeholder="New Email"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
+            className="h-[20%] w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
             onChange={(e) => setNewEmail(e.target.value)}
           />
           <input
             type="text"
             placeholder="New Username"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
+            className="h-[20%] w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
             onChange={(e) => setNewUsername(e.target.value)}
           />
           <input
             type="text"
             placeholder="New Password"
-            className="h-[20%] w-[65%] bg-gray-100 mt-1 rounded-md p-2"
+            className="h-[20%] w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
             onChange={(e) => setNewPassword(e.target.value)}
           />
         </div>

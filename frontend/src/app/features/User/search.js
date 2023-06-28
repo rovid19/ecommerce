@@ -19,7 +19,7 @@ export const searchSlice = createSlice({
       state.value.searchOption = action.payload;
     },
     setSearchResults: (state, action) => {
-      state.value = action.payload;
+      state.value.searchResults = action.payload;
     },
   },
 });

@@ -20,12 +20,6 @@ const OrderHistory = () => {
   const params = useParams();
   const navigate = useNavigate();
   const { id } = params;
-  useEffect(() => {
-    if (user._id === id) {
-    } else {
-      navigate("/");
-    }
-  }, []);
 
   useEffect(() => {
     setIsFetching(true);
@@ -36,7 +30,7 @@ const OrderHistory = () => {
   }, [getOrderHistoryTrigger]);
 
   return (
-    <div className="skrin w-full bg-white flex items-center justify-center relative">
+    <div className="h-full w-full bg-neutral-800 flex items-center justify-center relative">
       {isVisible && (
         <OrderHistoryModal
           setIsVisible={setIsVisible}
@@ -64,7 +58,7 @@ const OrderHistory = () => {
                 if (index === 0) {
                   return (
                     <div
-                      className="h-[20%] w-full bg-gray-50 flex cursor-pointer hover:bg-gray-500 hover:text-white transition-all rounded-md "
+                      className="h-[20%] w-full bg-neutral-900 text-neutral-400 mt-2 flex cursor-pointer hover:bg-gray-500 hover:text-white transition-all rounded-md "
                       onClick={() => {
                         setIsVisible(true);
                         setIndex(indexMap);
@@ -75,7 +69,7 @@ const OrderHistory = () => {
                       key={index}
                     >
                       <div className="w-[50%]  h-full flex p-2">
-                        <div className="h-full w-[50%] ">
+                        <div className="h-full w-[50%] p-4 ">
                           {" "}
                           <img
                             src={item.productPicture}
@@ -83,21 +77,25 @@ const OrderHistory = () => {
                           />
                         </div>
                         <div className="h-full w-[70%] fl3 ml-4">
-                          <h1 className="text-3xl">{item.productName}</h1>
+                          <h1 className="text-3xl text-white">
+                            {item.productName}
+                          </h1>
 
                           <p>{item.productDescription} </p>
                         </div>
                       </div>
                       <div className="h-full w-[20%] p-2">
-                        <div className="h-full w-full border-l-2 border-gray-300 border-opacity-20 fl2">
+                        <div className="h-full w-full border-l-2 border-neutral-600 border-opacity-20 fl2">
                           <h1 className="">Price paid</h1>
-                          <h1 className="text-4xl">{item.productNewPrice}$</h1>
+                          <h1 className="text-4xl text-white">
+                            {item.productNewPrice}$
+                          </h1>
                         </div>
                       </div>
 
-                      <div className="w-[30%] h-full  p-2 border-l-2 border-gray-300 border-opacity-20 relative fl2">
+                      <div className="w-[30%] h-full  p-2 border-l-2 border-neutral-600 border-opacity-20 relative fl2">
                         <h1 className=" text-xl">Shippment Status</h1>
-                        <div className="flex mt-2">
+                        <div className="flex mt-2 text-white">
                           {orderHistory &&
                           orderHistory[indexMap].productShipped ? (
                             <>
@@ -150,7 +148,7 @@ const OrderHistory = () => {
                 } else {
                   return (
                     <div
-                      className="h-[20%] w-full bg-gray-50 flex cursor-pointer hover:bg-gray-500 hover:text-white transition-all rounded-md "
+                      className="h-[20%] w-full beforeee relative bg-neutral-900 text-neutral-400 mt-2 flex cursor-pointer hover:bg-gray-500 hover:text-white transition-all rounded-md "
                       onClick={() => {
                         setIsVisible(true);
                         setIndex(indexMap);
@@ -160,8 +158,8 @@ const OrderHistory = () => {
                       }}
                     >
                       {}
-                      <div className="w-[50%]  h-full flex p-2">
-                        <div className="h-full w-[50%] ">
+                      <div className="w-[50%]  h-full flex p-4 z-20">
+                        <div className="h-full w-[50%] p-4  ">
                           {" "}
                           <img
                             src={item.productPicture}
@@ -169,24 +167,26 @@ const OrderHistory = () => {
                           />
                         </div>
                         <div className="h-full w-[70%] fl3 ml-4">
-                          <h1 className="text-3xl">{item.productName}</h1>
+                          <h1 className="text-3xl text-white">
+                            {item.productName}
+                          </h1>
 
                           <p>{item.productDescription} </p>
                         </div>
                       </div>
-                      <div className="h-full w-[20%] p-2">
-                        <div className="h-full w-full border-l-2 border-gray-300 border-opacity-20 fl2">
+                      <div className="h-full w-[20%] p-2 z-20">
+                        <div className="h-full w-full border-l-2 border-neutral-600 border-opacity-20 fl2">
                           <h1 className="">Price paid/quantity</h1>
-                          <h1 className="text-4xl">
+                          <h1 className="text-4xl text-white">
                             {item.productNewPrice}$/
                             {orderHistory[indexMap].productQuantity[index]}
                           </h1>
                         </div>
                       </div>
 
-                      <div className="w-[30%] h-full  p-2 border-l-2 border-gray-300 border-opacity-20 relative fl2">
+                      <div className="w-[30%] h-full  p-2 border-l-2 border-neutral-600 border-opacity-20 relative fl2 z-20">
                         <h1 className=" text-xl">Shippment Status</h1>
-                        <div className="flex mt-2">
+                        <div className="flex mt-2 text-white">
                           {orderHistory &&
                           orderHistory[indexMap].productShipped ? (
                             <>
