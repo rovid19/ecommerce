@@ -17,6 +17,8 @@ import {
   getReview,
   deleteReview,
   getHomePage,
+  getAllChat,
+  getAllUsers,
 } from "../Controllers/customer.js";
 
 const router = express.Router();
@@ -38,5 +40,7 @@ router.post("/submit-review", submitReview);
 router.post("/reviews", getReview);
 router.post("/delete-review", deleteReview);
 router.post("/get-homepage", getHomePage);
+router.get("/get-chat", getAllChat);
+router.get("/all-users", getAllUsers);
 
 export default router;

@@ -13,9 +13,10 @@ import { useSelector } from "react-redux";
 
 const Search = () => {
   const [searchValue, setSearchValue] = useState(null);
-  const [option, setOption] = useState("Stores");
+  const [option, setOption] = useState("stores");
   const [filterVisible, setFilterVisible] = useState(false);
   const [sortBy, setSortBy] = useState(null);
+  const [filterOptions, setFilterOptions] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +24,7 @@ const Search = () => {
   const search = useSelector((state) => state.search.value);
 
   function handleSearch(e) {
+    console.log(searchValue, option);
     e.preventDefault();
     axios
       .post("/api/customer/search", { searchValue, option })
@@ -74,6 +76,20 @@ const Search = () => {
 
   useEffect(() => {
     if (sortBy) {
+      /* switch (sortBy) {
+        case "A-Z":
+          sortByAtoZ;
+          break;
+        case "Lowest to highest price":
+          sortByPriceLowest();
+          break;
+        case "Highest to lowest price":
+          sortByPriceHighest;
+          break;
+        case "Most units sold":
+          sortBySold();
+          break;
+      }*/
       if (sortBy === "A-Z") {
         sortByAtoZ();
       } else if (sortBy === "Lowest to highest price") {
@@ -86,6 +102,7 @@ const Search = () => {
     }
   }, [sortBy]);
 
+  console.log(option);
   return (
     <main className="h-full w-full bg-neutral-800 relative">
       <article className="w-full h-[8%] p-2 relative bg-neutral-900">
@@ -113,8 +130,8 @@ const Search = () => {
                 className="h-full w-full flex items-center bg-neutral-500 p-2 text-neutral-900"
                 onChange={(e) => setOption(e.target.value)}
               >
-                <option className="text-black">&#127980; stores</option>
-                <option>🛍️ products</option>
+                <option className="text-black">stores</option>
+                <option>products</option>
               </select>
             </label>
             <button className="absolute right-2 top-0 h-full flex items-center ">
@@ -163,10 +180,16 @@ const Search = () => {
             <form className="h-full w-full fl2">
               <h1 className="text-3xl">Sort results by:</h1>
               <select onChange={(e) => setSortBy(e.target.value)}>
-                <option>A-Z</option>
-                <option>Highest to lowest price</option>
-                <option>Lowest to highest price</option>
-                <option>Most units sold</option>
+                {option === "products" ? (
+                  <>
+                    <option>A-Z</option>
+                    <option>Highest To Lowest</option>
+                    <option>Lowest To Highest</option>
+                    <option>Most Units Sold</option>
+                  </>
+                ) : (
+                  <option>A-Z</option>
+                )}
               </select>
             </form>
           </div>

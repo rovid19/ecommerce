@@ -21,6 +21,7 @@ const userSchema = new mongoose.Schema({
     },
   ],
   reviewsLeft: [],
+  chat: [{ type: mongoose.Schema.Types.ObjectId, ref: "chat" }],
 });
 
 const userModel = mongoose.model("user", userSchema);

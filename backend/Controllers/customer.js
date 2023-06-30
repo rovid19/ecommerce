@@ -261,7 +261,7 @@ export const getStore = async (req, res) => {
 export const searchResults = async (req, res) => {
   const { searchValue, option } = req.body;
 
-  if (option === "Stores") {
+  if (option === "stores") {
     const regex = new RegExp(`${searchValue}`, "gi");
     const specificStore = await Store.find({ storeName: regex }).lean().exec();
 
@@ -366,4 +366,21 @@ export const getHomePage = async (req, res) => {
   const allStores = await Store.find();
 
   res.json(allStores);
+};
+
+export const getAllChat = async (req, res) => {
+  const { token } = req.cookies;
+
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const user = await User.findById(userData.id);
+
+    res.json(user.chat);
+  });
+};
+
+export const getAllUsers = async (req, res) => {
+  const allUsers = await User.find().populate("store", "storeProfile");
+
+  res.json(allUsers);
 };

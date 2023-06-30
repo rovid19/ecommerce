@@ -65,7 +65,7 @@ const App = () => {
     dispatch(fetchUserData());
     dispatch(fetchStoreProducts());
   }, [getUserTrigger]);
-  console.log(viewProductModal);
+  console.log(userData);
   return (
     <div>
       {cartVisible && <AddToCart />}

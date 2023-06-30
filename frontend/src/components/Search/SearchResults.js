@@ -81,14 +81,14 @@ const SearchResults = () => {
         </main>*/}
       <section
         className={
-          search && search.searchOption === "Stores"
+          search && search.searchOption === "stores"
             ? "w-full h-[100%] grid grid-cols-3 dgri overflow-scroll scrollbar-hide p-4 gap-4 "
             : "w-full h-[100%] grid grid-cols-4 dgri overflow-scroll scrollbar-hide p-4 gap-4 "
         }
       >
         {search &&
           search.searchResults.map((result, i) => {
-            if (search.searchOption === "Stores") {
+            if (search.searchOption === "stores") {
               return (
                 <article
                   className={
