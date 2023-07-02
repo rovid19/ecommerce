@@ -7,53 +7,32 @@ const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "rockjefakatludirock";
 
 export const registerUser = async (req, res) => {
-  const { dynamicName, email, password, input } = req.body;
+  const { username, email, password } = req.body;
   const existingUser = await User.findOne({ email });
-  const existingUsername = await User.findOne({ username: dynamicName });
-  if (input === "Customer") {
-    if (existingUser) {
-      res.status(400).json("Email already in use");
+  const existingUsername = await User.findOne({ username: username });
+
+  if (existingUser) {
+    res.status(400).json("Email already in use");
+  } else {
+    if (existingUsername) {
+      res.status(400).json("Username already in use");
     } else {
-      if (existingUsername) {
-        res.status(400).json("Username already in use");
-      } else {
+      const newStore = await Store.create({
+        storeName: username,
+        storeDescription: "",
+        storeProfile: "",
+        storeCover: "",
+        storeAddress: "",
+      });
+      if (newStore) {
         const newUser = await User.create({
           email,
-          username: dynamicName,
-          storeName: dynamicName,
+          username: username,
           password: bcrypt.hashSync(password, bcryptSalt),
-          role: input,
+          store: newStore._id,
         });
 
         res.json(newUser);
-      }
-    }
-  } else {
-    if (existingUser) {
-      res.status(400).json("Email already in use");
-    } else {
-      if (existingUsername) {
-        res.status(400).json("Store name already in use");
-      } else {
-        const newStore = await Store.create({
-          storeName: dynamicName,
-          storeDescription: "",
-          storeProfile: "",
-          storeCover: "",
-          storeAddress: "",
-        });
-        if (newStore) {
-          const newUser = await User.create({
-            email,
-            username: dynamicName,
-            storeName: dynamicName,
-            password: bcrypt.hashSync(password, bcryptSalt),
-            role: input,
-            store: newStore._id,
-          });
-
-          res.json(newUser);
-        }
       }
     }
   }

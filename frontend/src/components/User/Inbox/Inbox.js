@@ -51,7 +51,7 @@ const Inbox = () => {
       )}
 
       <section className="h-[100%] w-full flex">
-        <div className="h-[92%] overflow-scroll  w-[85%]">
+        <div className="h-[92%] overflow-scroll scrollbar-hide  w-[85%]">
           {chatVisible && (
             <Chat
               setChatVisible={setChatVisible}
@@ -75,6 +75,10 @@ const Inbox = () => {
           <div className="h-[92%] w-full">
             {allChat &&
               allChat.map((chat, i) => {
+                const filt = chat.participants.filter(
+                  (userd) => userd._id !== user._id
+                );
+                console.log(filt);
                 return (
                   <article
                     className="h-[10%] w-full bg-neutral-900 cursor-pointer flex hover:bg-neutral-700 transition-all "
@@ -93,11 +97,11 @@ const Inbox = () => {
                     <div className="h-full w-[30%] flex p-2 items-center">
                       <img
                         className="h-full w-full rounded-full object-cover"
-                        src={chat.participants[i].profilePicture}
+                        src={filt[0].profilePicture}
                       />
                     </div>
                     <div className="h-full w-[70%] p-2 text-neutral-300  flex items-center">
-                      @{chat.participants[i].username}
+                      @{filt[0].username}
                     </div>
                   </article>
                 );

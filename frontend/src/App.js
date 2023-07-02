@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "./components/Navbar/Navbar.js";
 import { Route, Routes } from "react-router-dom";
 import LoginPage from "./components/Login/LoginPage";
-import RegisterPage from "./components/Register/RegisterPage";
 import RegisterPagePartTwo from "./components/Register/RegisterPagePartTwo.js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,8 +88,8 @@ const App = () => {
           <Route path="/inbox/:userId" element={<Inbox />} />
         </Route>
         <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-        <Route path="/register/form" element={<RegisterPagePartTwo />} />
+        <Route path="/register" element={<RegisterPagePartTwo />} />
+
         <Route
           exact
           path="/dashboard/:storename"

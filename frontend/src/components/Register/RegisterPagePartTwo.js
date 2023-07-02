@@ -37,7 +37,7 @@ const RegisterPagePartTwo = () => {
         try {
           e.preventDefault();
           await axios.post("/api/auth/register-user", {
-            dynamicName: storeName,
+            username: storeName,
             email,
             password,
             input,
@@ -76,11 +76,11 @@ const RegisterPagePartTwo = () => {
           <RegisterGooglePass email={googleEmail} />
         ) : (
           <>
-            <h1 className="text-center text-5xl">Dear, {input} </h1>
+            <h1 className="text-center text-5xl">Dear, User </h1>
             <p className="mt-3 text-center text-gray-400">
               {input === "Customer"
                 ? "Please fill out this form below"
-                : "Please fill out form below in order to start selling"}
+                : "Please fill out form below in order to start using our website"}
             </p>
             {error && (
               <h1 className="text-red-500 mt-2 font-bold text-center">
@@ -96,7 +96,7 @@ const RegisterPagePartTwo = () => {
               />
               <input
                 type="text"
-                placeholder={input === "Customer" ? "Username" : "Store name"}
+                placeholder={input === "Customer" ? "Username" : "Username"}
                 className="border-2 border-gray-300 border-opacity-25 rounded-xl mt-1 p-2"
                 onChange={(e) => setStoreName(e.target.value)}
               />
