@@ -1,13 +1,21 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-const SendMessage = ({ SendMessage, setSendMessage }) => {
+const SendMessage = ({
+  SendMessage,
+  setSendMessage,
+  fetchMessagesTrigger,
+  setFetchMessagesTrigger,
+}) => {
   const [allUsers, setAllUsers] = useState(null);
   const [allUsersC, setAllUsersC] = useState(null);
   const [inputUser, setInputUser] = useState(null);
   const [oldInput, setOldInput] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [message, setMessage] = useState(null);
+
+  const user = useSelector((state) => state.userData.value.user);
 
   // loadanje svih usera na stranici
   useEffect(() => {
@@ -35,10 +43,21 @@ const SendMessage = ({ SendMessage, setSendMessage }) => {
       setAllUsers(allUsersC);
     }
   }, [inputUser]);
-  console.log(inputUser);
+
+  // slanje poruke
+  async function handleSendMessage(e) {
+    e.preventDefault();
+    await axios.post("/api/customer/send-message", {
+      senderId: user._id,
+      receiverId: selectedUser.userId,
+      message,
+    });
+    setSendMessage(false);
+    setFetchMessagesTrigger(!fetchMessagesTrigger);
+  }
   return (
     <div className="z-50 absolute h-full w-full bg-black bg-opacity-30 flex justify-center items-center">
-      <article className="h-[50%] w-[50%] relative bg-neutral-700 rounded-md">
+      <article className="h-[50%] w-[50%] relative bg-neutral-900 rounded-md">
         <button
           className="absolute top-2 left-2"
           onClick={() => setSendMessage(false)}
@@ -58,8 +77,11 @@ const SendMessage = ({ SendMessage, setSendMessage }) => {
             />
           </svg>
         </button>
-        <form className="h-full w-full flex justify-center items-center">
-          <div className="h-[80%] w-[80%] overflow-scroll scrollbar-hide">
+        <form
+          className="h-full w-full flex justify-center items-center"
+          onSubmit={handleSendMessage}
+        >
+          <div className="h-[70%] w-[70%] overflow-scroll scrollbar-hide">
             {selectedUser ? (
               <div className="h-[20%] w-full flex relative bg-neutral-900 rounded-md ">
                 <button
@@ -97,7 +119,7 @@ const SendMessage = ({ SendMessage, setSendMessage }) => {
             ) : (
               <div className="h-[20%] w-full relative">
                 <input
-                  className="h-full w-full bg-neutral-900 text-neutral-300 p-4 rounded-md text-xl outline-none"
+                  className="h-full w-full bg-neutral-800 text-neutral-300 p-4 rounded-md text-xl outline-none"
                   placeholder="To :"
                   onChange={(e) => setInputUser(e.target.value)}
                 />
@@ -137,9 +159,10 @@ const SendMessage = ({ SendMessage, setSendMessage }) => {
                 )}
               </div>
             )}
-            <div className="w-full h-[65%] bg-neutral-900 rounded-md p-4 mt-1 relative">
+            <div className="w-full h-[65%] bg-neutral-800 rounded-md p-4 mt-1 relative">
               <textarea
-                className="h-full w-full bg-neutral-900 align-top text-xl text-neutral-300 outline-none"
+                onChange={(e) => setMessage(e.target.value)}
+                className="h-full w-full bg-neutral-800 align-top text-xl text-neutral-300 outline-none"
                 placeholder="Text :"
               />
             </div>{" "}

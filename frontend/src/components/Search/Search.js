@@ -24,7 +24,6 @@ const Search = () => {
   const search = useSelector((state) => state.search.value);
 
   function handleSearch(e) {
-    console.log(searchValue, option);
     e.preventDefault();
     axios
       .post("/api/customer/search", { searchValue, option })
@@ -44,7 +43,6 @@ const Search = () => {
       return 0;
     });
 
-    console.log(newArray);
     dispatch(setSearchResults(newArray));
   }
   async function sortByPriceHighest() {
@@ -102,7 +100,6 @@ const Search = () => {
     }
   }, [sortBy]);
 
-  console.log(option);
   return (
     <main className="h-full w-full bg-neutral-800 relative">
       <article className="w-full h-[8%] p-2 relative bg-neutral-900">

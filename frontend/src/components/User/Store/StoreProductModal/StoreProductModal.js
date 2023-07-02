@@ -81,7 +81,6 @@ const StoreProductModal = () => {
       setDeleteProduct(null);
     }
   }, [deleteProduct]);
-  console.log(viewProductModal);
 
   return (
     <div className="w-full h-full bg-neutral-700 text-neutral-300 relative">

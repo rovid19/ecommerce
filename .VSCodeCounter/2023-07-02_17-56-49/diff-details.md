@@ -1,0 +1,134 @@
+# Diff Details
+
+Date : 2023-07-02 17:56:49
+
+Directory c:\\Users\\Ljubo\\Documents\\GitHub\\ecommerce\\frontend
+
+Total : 119 files,  31666 codes, 281 comments, 338 blanks, all 32285 lines
+
+[Summary](results.md) / [Details](details.md) / [Diff Summary](diff.md) / Diff Details
+
+## Files
+| filename | language | code | comment | blank | total |
+| :--- | :--- | ---: | ---: | ---: | ---: |
+| [backend/.env](/backend/.env) | Properties | -3 | 0 | 0 | -3 |
+| [backend/Controllers/auth.js](/backend/Controllers/auth.js) | JavaScript | -83 | 0 | -10 | -93 |
+| [backend/Controllers/customer.js](/backend/Controllers/customer.js) | JavaScript | -265 | -28 | -84 | -377 |
+| [backend/Controllers/store.js](/backend/Controllers/store.js) | JavaScript | -278 | -9 | -85 | -372 |
+| [backend/Controllers/user.js](/backend/Controllers/user.js) | JavaScript | -69 | 0 | -27 | -96 |
+| [backend/Models/addToCart.js](/backend/Models/addToCart.js) | JavaScript | -6 | 0 | -4 | -10 |
+| [backend/Models/product.js](/backend/Models/product.js) | JavaScript | -17 | 0 | -5 | -22 |
+| [backend/Models/review.js](/backend/Models/review.js) | JavaScript | -10 | 0 | -4 | -14 |
+| [backend/Models/sale.js](/backend/Models/sale.js) | JavaScript | -14 | 0 | -4 | -18 |
+| [backend/Models/store.js](/backend/Models/store.js) | JavaScript | -13 | 0 | -4 | -17 |
+| [backend/Models/user.js](/backend/Models/user.js) | JavaScript | -25 | 0 | -4 | -29 |
+| [backend/Routes/auth.js](/backend/Routes/auth.js) | JavaScript | -7 | 0 | -6 | -13 |
+| [backend/Routes/customer.js](/backend/Routes/customer.js) | JavaScript | -39 | 0 | -4 | -43 |
+| [backend/Routes/store.js](/backend/Routes/store.js) | JavaScript | -49 | -1 | -23 | -73 |
+| [backend/Routes/user.js](/backend/Routes/user.js) | JavaScript | -15 | -1 | -9 | -25 |
+| [backend/index.js](/backend/index.js) | JavaScript | -34 | 0 | -5 | -39 |
+| [backend/package-lock.json](/backend/package-lock.json) | JSON | -6,030 | 0 | -1 | -6,031 |
+| [backend/package.json](/backend/package.json) | JSON | -24 | 0 | -1 | -25 |
+| [frontend/README.md](/frontend/README.md) | Markdown | 38 | 0 | 33 | 71 |
+| [frontend/package-lock.json](/frontend/package-lock.json) | JSON | 31,075 | 0 | 1 | 31,076 |
+| [frontend/package.json](/frontend/package.json) | JSON | 61 | 0 | 1 | 62 |
+| [frontend/public/index.html](/frontend/public/index.html) | HTML | 26 | 23 | 2 | 51 |
+| [frontend/src/App.js](/frontend/src/App.js) | JavaScript | 104 | 12 | 9 | 125 |
+| [frontend/src/app/features/Store/Dashboard/editProductModal.js](/frontend/src/app/features/Store/Dashboard/editProductModal.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/Store/collections.js](/frontend/src/app/features/Store/collections.js) | JavaScript | 20 | 0 | 5 | 25 |
+| [frontend/src/app/features/Store/deleteProductModal.js](/frontend/src/app/features/Store/deleteProductModal.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/Store/htmlElement.js](/frontend/src/app/features/Store/htmlElement.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/Store/savedStore.js](/frontend/src/app/features/Store/savedStore.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/Store/scrollStop.js](/frontend/src/app/features/Store/scrollStop.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/Store/selectedProduct.js](/frontend/src/app/features/Store/selectedProduct.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/Store/storeEditMode.js](/frontend/src/app/features/Store/storeEditMode.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/Store/storeId.js](/frontend/src/app/features/Store/storeId.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/Store/storeProducts.js](/frontend/src/app/features/Store/storeProducts.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/Store/userStoreProducts.js](/frontend/src/app/features/Store/userStoreProducts.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/Store/viewProductModal.js](/frontend/src/app/features/Store/viewProductModal.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/User/cartItems.js](/frontend/src/app/features/User/cartItems.js) | JavaScript | 26 | 0 | 7 | 33 |
+| [frontend/src/app/features/User/cartVisible.js](/frontend/src/app/features/User/cartVisible.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/User/isReview.js](/frontend/src/app/features/User/isReview.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/User/isUserFetching.js](/frontend/src/app/features/User/isUserFetching.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/User/openReviewPic.js](/frontend/src/app/features/User/openReviewPic.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/User/productIndex.js](/frontend/src/app/features/User/productIndex.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/User/profileSavedModal.js](/frontend/src/app/features/User/profileSavedModal.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/User/reviewPic.js](/frontend/src/app/features/User/reviewPic.js) | JavaScript | 22 | 0 | 5 | 27 |
+| [frontend/src/app/features/User/search.js](/frontend/src/app/features/User/search.js) | JavaScript | 26 | 0 | 5 | 31 |
+| [frontend/src/app/features/User/trendingStore.js](/frontend/src/app/features/User/trendingStore.js) | JavaScript | 28 | 1 | 7 | 36 |
+| [frontend/src/app/features/User/userSlice.js](/frontend/src/app/features/User/userSlice.js) | JavaScript | 54 | 2 | 9 | 65 |
+| [frontend/src/app/features/User/viewImage.js](/frontend/src/app/features/User/viewImage.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/User/viewReviewPic.js](/frontend/src/app/features/User/viewReviewPic.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/getUserTrigger.js](/frontend/src/app/features/getUserTrigger.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/features/registrationInput.js](/frontend/src/app/features/registrationInput.js) | JavaScript | 15 | 0 | 4 | 19 |
+| [frontend/src/app/features/storeSlice.js](/frontend/src/app/features/storeSlice.js) | JavaScript | 15 | 0 | 4 | 19 |
+| [frontend/src/app/features/storeSubPage.js](/frontend/src/app/features/storeSubPage.js) | JavaScript | 15 | 0 | 5 | 20 |
+| [frontend/src/app/store.js](/frontend/src/app/store.js) | JavaScript | 63 | 0 | 2 | 65 |
+| [frontend/src/assets/svg-loaders/audio.svg](/frontend/src/assets/svg-loaders/audio.svg) | XML | 28 | 1 | 0 | 29 |
+| [frontend/src/assets/svg-loaders/ball-triangle.svg](/frontend/src/assets/svg-loaders/ball-triangle.svg) | XML | 45 | 2 | 0 | 47 |
+| [frontend/src/assets/svg-loaders/bars.svg](/frontend/src/assets/svg-loaders/bars.svg) | XML | 52 | 0 | 1 | 53 |
+| [frontend/src/assets/svg-loaders/circles.svg](/frontend/src/assets/svg-loaders/circles.svg) | XML | 20 | 0 | 1 | 21 |
+| [frontend/src/assets/svg-loaders/grid.svg](/frontend/src/assets/svg-loaders/grid.svg) | XML | 56 | 0 | 1 | 57 |
+| [frontend/src/assets/svg-loaders/hearts.svg](/frontend/src/assets/svg-loaders/hearts.svg) | XML | 17 | 1 | 1 | 19 |
+| [frontend/src/assets/svg-loaders/oval.svg](/frontend/src/assets/svg-loaders/oval.svg) | XML | 16 | 1 | 0 | 17 |
+| [frontend/src/assets/svg-loaders/puff.svg](/frontend/src/assets/svg-loaders/puff.svg) | XML | 36 | 1 | 0 | 37 |
+| [frontend/src/assets/svg-loaders/rings.svg](/frontend/src/assets/svg-loaders/rings.svg) | XML | 41 | 1 | 0 | 42 |
+| [frontend/src/assets/svg-loaders/spinning-circles.svg](/frontend/src/assets/svg-loaders/spinning-circles.svg) | XML | 54 | 1 | 0 | 55 |
+| [frontend/src/assets/svg-loaders/tail-spin.svg](/frontend/src/assets/svg-loaders/tail-spin.svg) | XML | 31 | 1 | 1 | 33 |
+| [frontend/src/assets/svg-loaders/three-dots.svg](/frontend/src/assets/svg-loaders/three-dots.svg) | XML | 32 | 1 | 1 | 34 |
+| [frontend/src/components/Homepage/Homepage.js](/frontend/src/components/Homepage/Homepage.js) | JavaScript | 73 | 0 | 6 | 79 |
+| [frontend/src/components/Homepage/HomepageProduct.js](/frontend/src/components/Homepage/HomepageProduct.js) | JavaScript | 39 | 0 | 4 | 43 |
+| [frontend/src/components/Homepage/HomepageProductCard.js](/frontend/src/components/Homepage/HomepageProductCard.js) | JavaScript | 6 | 0 | 3 | 9 |
+| [frontend/src/components/Homepage/HomepageStoreCard.js](/frontend/src/components/Homepage/HomepageStoreCard.js) | JavaScript | 26 | 24 | 3 | 53 |
+| [frontend/src/components/Homepage/HomepageTrending.js](/frontend/src/components/Homepage/HomepageTrending.js) | JavaScript | 40 | 0 | 5 | 45 |
+| [frontend/src/components/Layout.js](/frontend/src/components/Layout.js) | JavaScript | 52 | 26 | 5 | 83 |
+| [frontend/src/components/Login/LoginGooglePass.js](/frontend/src/components/Login/LoginGooglePass.js) | JavaScript | 63 | 0 | 10 | 73 |
+| [frontend/src/components/Login/LoginPage.js](/frontend/src/components/Login/LoginPage.js) | JavaScript | 109 | 0 | 8 | 117 |
+| [frontend/src/components/Navbar/Icons/IconsExport.js](/frontend/src/components/Navbar/Icons/IconsExport.js) | JavaScript | 162 | 0 | 9 | 171 |
+| [frontend/src/components/Navbar/Navbar.js](/frontend/src/components/Navbar/Navbar.js) | JavaScript | 183 | 0 | 6 | 189 |
+| [frontend/src/components/Navbar/NavbarUserMenu.js](/frontend/src/components/Navbar/NavbarUserMenu.js) | JavaScript | 114 | 0 | 5 | 119 |
+| [frontend/src/components/Register/RegisterGooglePass.js](/frontend/src/components/Register/RegisterGooglePass.js) | JavaScript | 88 | 0 | 9 | 97 |
+| [frontend/src/components/Register/RegisterPage.js](/frontend/src/components/Register/RegisterPage.js) | JavaScript | 46 | 0 | 5 | 51 |
+| [frontend/src/components/Register/RegisterPagePartTwo.js](/frontend/src/components/Register/RegisterPagePartTwo.js) | JavaScript | 133 | 0 | 9 | 142 |
+| [frontend/src/components/Search/Search.js](/frontend/src/components/Search/Search.js) | JavaScript | 172 | 16 | 13 | 201 |
+| [frontend/src/components/Search/SearchResults.js](/frontend/src/components/Search/SearchResults.js) | JavaScript | 55 | 67 | 3 | 125 |
+| [frontend/src/components/User/Customer/AddToCart.js](/frontend/src/components/User/Customer/AddToCart.js) | JavaScript | 216 | 21 | 15 | 252 |
+| [frontend/src/components/User/Customer/Profile/ProfileSubpages/OrderHistory.js](/frontend/src/components/User/Customer/Profile/ProfileSubpages/OrderHistory.js) | JavaScript | 244 | 0 | 10 | 254 |
+| [frontend/src/components/User/Customer/Profile/ProfileSubpages/OrderHistoryModal.js](/frontend/src/components/User/Customer/Profile/ProfileSubpages/OrderHistoryModal.js) | JavaScript | 158 | 0 | 7 | 165 |
+| [frontend/src/components/User/Customer/Profile/ProfileSubpages/Profile.js](/frontend/src/components/User/Customer/Profile/ProfileSubpages/Profile.js) | JavaScript | 119 | 0 | 8 | 127 |
+| [frontend/src/components/User/Customer/Profile/ProfileSubpages/ShippingDetails.js](/frontend/src/components/User/Customer/Profile/ProfileSubpages/ShippingDetails.js) | JavaScript | 105 | 0 | 7 | 112 |
+| [frontend/src/components/User/Customer/Profile/UserMenu.js](/frontend/src/components/User/Customer/Profile/UserMenu.js) | JavaScript | 131 | 0 | 2 | 133 |
+| [frontend/src/components/User/Dashboard/StoreDasboardNavMobile.js](/frontend/src/components/User/Dashboard/StoreDasboardNavMobile.js) | JavaScript | 125 | 0 | 5 | 130 |
+| [frontend/src/components/User/Dashboard/StoreDashboard.js](/frontend/src/components/User/Dashboard/StoreDashboard.js) | JavaScript | 20 | 0 | 4 | 24 |
+| [frontend/src/components/User/Dashboard/StoreDashboardNav.js](/frontend/src/components/User/Dashboard/StoreDashboardNav.js) | JavaScript | 166 | 0 | 6 | 172 |
+| [frontend/src/components/User/Dashboard/StoreEdit/Modals/StoreDeleteProductModal.js](/frontend/src/components/User/Dashboard/StoreEdit/Modals/StoreDeleteProductModal.js) | JavaScript | 56 | 0 | 5 | 61 |
+| [frontend/src/components/User/Dashboard/StoreEdit/Modals/StoreSavedModal.js](/frontend/src/components/User/Dashboard/StoreEdit/Modals/StoreSavedModal.js) | JavaScript | 34 | 0 | 4 | 38 |
+| [frontend/src/components/User/Dashboard/StoreEdit/StoreEdit.js](/frontend/src/components/User/Dashboard/StoreEdit/StoreEdit.js) | JavaScript | 126 | 17 | 11 | 154 |
+| [frontend/src/components/User/Dashboard/StoreEdit/StoreEditInfo.js](/frontend/src/components/User/Dashboard/StoreEdit/StoreEditInfo.js) | JavaScript | 81 | 2 | 6 | 89 |
+| [frontend/src/components/User/Dashboard/StoreEdit/StoreEditInfoInputs.js](/frontend/src/components/User/Dashboard/StoreEdit/StoreEditInfoInputs.js) | JavaScript | 140 | 2 | 7 | 149 |
+| [frontend/src/components/User/Dashboard/StoreFinance/StoreFinance.js](/frontend/src/components/User/Dashboard/StoreFinance/StoreFinance.js) | JavaScript | 34 | 0 | 4 | 38 |
+| [frontend/src/components/User/Dashboard/StoreFinance/StoreFinanceLast5Sales.js](/frontend/src/components/User/Dashboard/StoreFinance/StoreFinanceLast5Sales.js) | JavaScript | 83 | 0 | 5 | 88 |
+| [frontend/src/components/User/Dashboard/StoreFinance/StoreFinanceSales.js](/frontend/src/components/User/Dashboard/StoreFinance/StoreFinanceSales.js) | JavaScript | 104 | 1 | 9 | 114 |
+| [frontend/src/components/User/Dashboard/StoreOrders/StoreOrders.js](/frontend/src/components/User/Dashboard/StoreOrders/StoreOrders.js) | JavaScript | 203 | 5 | 10 | 218 |
+| [frontend/src/components/User/Dashboard/StoreOrders/StoreOrdersModal.js](/frontend/src/components/User/Dashboard/StoreOrders/StoreOrdersModal.js) | JavaScript | 160 | 0 | 8 | 168 |
+| [frontend/src/components/User/Dashboard/StoreYourProducts/Modals/AddCollectionModal/Add.js](/frontend/src/components/User/Dashboard/StoreYourProducts/Modals/AddCollectionModal/Add.js) | JavaScript | 34 | 0 | 4 | 38 |
+| [frontend/src/components/User/Dashboard/StoreYourProducts/Modals/AddCollectionModal/AddCollectionModal.js](/frontend/src/components/User/Dashboard/StoreYourProducts/Modals/AddCollectionModal/AddCollectionModal.js) | JavaScript | 189 | 1 | 6 | 196 |
+| [frontend/src/components/User/Dashboard/StoreYourProducts/Modals/AddProductModal/AddProductInputs.js](/frontend/src/components/User/Dashboard/StoreYourProducts/Modals/AddProductModal/AddProductInputs.js) | JavaScript | 230 | 3 | 10 | 243 |
+| [frontend/src/components/User/Dashboard/StoreYourProducts/Modals/AddProductModal/AddProductModal.js](/frontend/src/components/User/Dashboard/StoreYourProducts/Modals/AddProductModal/AddProductModal.js) | JavaScript | 51 | 1 | 4 | 56 |
+| [frontend/src/components/User/Dashboard/StoreYourProducts/Modals/EditProductModal/EditProductInputs.js](/frontend/src/components/User/Dashboard/StoreYourProducts/Modals/EditProductModal/EditProductInputs.js) | JavaScript | 238 | 3 | 10 | 251 |
+| [frontend/src/components/User/Dashboard/StoreYourProducts/Modals/EditProductModal/EditProductModal.js](/frontend/src/components/User/Dashboard/StoreYourProducts/Modals/EditProductModal/EditProductModal.js) | JavaScript | 73 | 2 | 6 | 81 |
+| [frontend/src/components/User/Dashboard/StoreYourProducts/YourProducts.js](/frontend/src/components/User/Dashboard/StoreYourProducts/YourProducts.js) | JavaScript | 172 | 12 | 10 | 194 |
+| [frontend/src/components/User/Inbox/Chat.js](/frontend/src/components/User/Inbox/Chat.js) | JavaScript | 29 | 0 | 4 | 33 |
+| [frontend/src/components/User/Inbox/Inbox.js](/frontend/src/components/User/Inbox/Inbox.js) | JavaScript | 119 | 2 | 9 | 130 |
+| [frontend/src/components/User/Inbox/SendMessage.js](/frontend/src/components/User/Inbox/SendMessage.js) | JavaScript | 172 | 3 | 7 | 182 |
+| [frontend/src/components/User/Store/Reviews/ReviewStarRating.js](/frontend/src/components/User/Store/Reviews/ReviewStarRating.js) | JavaScript | 47 | 0 | 5 | 52 |
+| [frontend/src/components/User/Store/Reviews/Reviews.js](/frontend/src/components/User/Store/Reviews/Reviews.js) | JavaScript | 264 | 4 | 19 | 287 |
+| [frontend/src/components/User/Store/Store.js](/frontend/src/components/User/Store/Store.js) | JavaScript | 135 | 52 | 16 | 203 |
+| [frontend/src/components/User/Store/StoreProductCard.js](/frontend/src/components/User/Store/StoreProductCard.js) | JavaScript | 132 | 2 | 9 | 143 |
+| [frontend/src/components/User/Store/StoreProductModal/StoreProductModal.js](/frontend/src/components/User/Store/StoreProductModal/StoreProductModal.js) | JavaScript | 226 | 3 | 11 | 240 |
+| [frontend/src/components/User/Store/StoreProductModal/StoreProductPictures.js](/frontend/src/components/User/Store/StoreProductModal/StoreProductPictures.js) | JavaScript | 321 | 1 | 7 | 329 |
+| [frontend/src/index.css](/frontend/src/index.css) | CSS | 203 | 1 | 36 | 240 |
+| [frontend/src/index.js](/frontend/src/index.js) | JavaScript | 18 | 0 | 2 | 20 |
+| [frontend/tailwind.config.js](/frontend/tailwind.config.js) | JavaScript | 12 | 1 | 2 | 15 |
+
+[Summary](results.md) / [Details](details.md) / [Diff Summary](diff.md) / Diff Details

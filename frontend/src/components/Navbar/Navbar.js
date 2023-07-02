@@ -24,7 +24,7 @@ const Navbar = () => {
     await axios.post("/api/auth/logout-user");
     dispatch(addUser(null));
   }
-  console.log(user.user, "");
+
   return (
     <>
       <main className="flex h-full w-full justify-center z-50  items-center shadow-md  ">

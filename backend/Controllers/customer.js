@@ -5,6 +5,7 @@ import Product from "../Models/product.js";
 import bcrypt from "bcrypt";
 import Sale from "../Models/sale.js";
 import Review from "../Models/review.js";
+import Chat from "../Models/chat.js";
 
 const jwtSecret = "rockjefakatludirock";
 const bcryptSalt = bcrypt.genSaltSync(10);
@@ -373,8 +374,14 @@ export const getAllChat = async (req, res) => {
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err;
-    const user = await User.findById(userData.id);
-
+    const user = await User.findById(userData.id).populate({
+      path: "chat",
+      select: " participants messages",
+      populate: {
+        path: "participants",
+        select: "username profilePicture",
+      },
+    });
     res.json(user.chat);
   });
 };
@@ -383,4 +390,71 @@ export const getAllUsers = async (req, res) => {
   const allUsers = await User.find().populate("store", "storeProfile");
 
   res.json(allUsers);
+};
+
+export const sendMessage = async (req, res) => {
+  const { senderId, receiverId, message, chatId } = req.body;
+  const { token } = req.cookies;
+  const messageSent = { id: senderId, messages: message };
+
+  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+    if (err) throw err;
+    const user = await User.findById(userData.id).populate(
+      "chat",
+      "participants, messages"
+    );
+    if (chatId) {
+      const chat = await Chat.findById(chatId);
+      chat.messages.push(messageSent);
+
+      await chat.save();
+      res.json("ok");
+    } else {
+      const newMessage = await Chat.create({
+        participants: [senderId, receiverId],
+        messages: [messageSent],
+      });
+      const receivingUser = await User.findById(receiverId);
+      receivingUser.chat.push(newMessage._id);
+      user.chat.push(newMessage._id);
+      await user.save();
+      await receivingUser.save();
+      res.json(newMessage);
+    }
+
+    // AK USER NEMA NI JEDAN AKTIVAN CHAT i TE DVIJE OSOBE JOS NISU CHATALE ONDA SE RADI NOVI CHAT NA OBA PROFILA
+    /*if (!user.chat.participants) {
+      const newMessage = await Chat.create({
+        participants: [senderId, receiverId],
+        messages: [messageSent],
+      });
+      const receivingUser = await User.findById(receiverId);
+      receivingUser.chat.push(newMessage._id);
+      user.chat.push(newMessage._id);
+      await user.save();
+      await receivingUser.save();
+      res.json(newMessage);
+    } else {
+      // AK CHAT IZMEDU TA DVA USERA POSTOJI
+      if (user.chat.participants.includes(receiverId)) {
+        console.log("da tu sam");
+        const chat = await Chat.findById(chatId);
+        chat.messages.push(messageSent);
+
+        await chat.save();
+      } else {
+        // AK TE DVIJE OSOBE JOS NISU CHATALE ONDA SE RADI NOVI CHAT NA OBA PROFILA
+        const newMessage = await Chat.create({
+          participants: [senderId, receiverId],
+          messages: [messageSent],
+        });
+        const receivingUser = await User.findById(receiverId);
+        receivingUser.chat.push(newMessage._id);
+        user.chat.push(newMessage._id);
+        await user.save();
+        await receivingUser.save();
+        res.json(newMessage);
+      }
+    }*/
+  });
 };

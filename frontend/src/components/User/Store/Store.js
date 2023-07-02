@@ -68,7 +68,6 @@ const Store = () => {
     if (scrollStop) {
       setTimeout(() => {
         window.scrollTo({ top: scrollStop, left: 0, behavior: "smooth" });
-        console.log("dada");
       }, [500]);
     }
   }, [viewProductModal]);
@@ -87,7 +86,7 @@ const Store = () => {
     });
     setProductCollections(newArray);
   }
-  console.log(scrollStop);
+
   return (
     <>
       <main className="w-[100%]  h-full  relative  ">

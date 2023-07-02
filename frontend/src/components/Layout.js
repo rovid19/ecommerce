@@ -40,7 +40,7 @@ const Layout = () => {
       }
     }
   }, [collectionItems]);*/
-  console.log(cartItems);
+
   return (
     <main className="h-screen w-screen flex relative">
       {cartItems.length > 0 && cartVisible === false ? (
