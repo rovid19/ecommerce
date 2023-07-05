@@ -2,8 +2,10 @@ import axios from "axios";
 import React, { useEffect, useRef, useState } from "react";
 import SendMessage from "./SendMessage";
 import Chat from "./Chat";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { io } from "socket.io-client";
 
+const socket = io.connect("http://localhost:4005");
 const Inbox = () => {
   const [allChat, setAllChat] = useState(null);
   const [sendMessage, setSendMessage] = useState(false);
@@ -16,7 +18,9 @@ const Inbox = () => {
   const [chatId, setChatId] = useState(null);
 
   const user = useSelector((state) => state.userData.value.user);
+
   const inputRef = useRef();
+  const dispatch = useDispatch();
 
   // ucitaj sve chatove korisnika
   useEffect(() => {
@@ -38,7 +42,12 @@ const Inbox = () => {
     setFetchMessagesTrigger(!fetchMessagesTrigger);
     inputRef.current.value = "";
   }
-  console.log(inputRef);
+
+  //socket za autorefresh allChata
+  socket.on("newChat", async () => {
+    setFetchMessagesTrigger(!fetchMessagesTrigger);
+  });
+
   return (
     <main className="h-full w-full bg-neutral-800 relative">
       {sendMessage && (
@@ -78,7 +87,7 @@ const Inbox = () => {
                 const filt = chat.participants.filter(
                   (userd) => userd._id !== user._id
                 );
-                console.log(filt);
+
                 return (
                   <article
                     className="h-[10%] w-full bg-neutral-900 cursor-pointer flex hover:bg-neutral-700 transition-all "

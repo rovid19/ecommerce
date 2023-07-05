@@ -32,11 +32,12 @@ import Profile from "./components/User/Customer/Profile/ProfileSubpages/Profile.
 import ShippingDetails from "./components/User/Customer/Profile/ProfileSubpages/ShippingDetails.js";
 import Search from "./components/Search/Search.js";
 import Inbox from "./components/User/Inbox/Inbox.js";
+import { io } from "socket.io-client";
 
 axios.defaults.baseURL = "http://localhost:4000";
 //axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
 axios.defaults.withCredentials = true;
-
+const socket = io.connect("http://localhost:4005");
 const App = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
@@ -49,17 +50,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(setUserFetching(true));
-    /*axios
-      .get("/api/user/get-logged-user?timestamp=" + new Date().getTime(), {})
-      .then(({ data }) => {
-     
-        dispatch(addUser(data));
-        dispatch(setUserFetching(false));
-      });
-
-    axios.get("/api/store/get-store-products").then(({ data }) => {
-      dispatch(setStoreProducts(data.storeProducts));
-    });*/
     dispatch(fetchUserData());
     dispatch(fetchStoreProducts());
   }, [getUserTrigger]);

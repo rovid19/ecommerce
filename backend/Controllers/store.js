@@ -60,7 +60,6 @@ export const editStore = async (req, res) => {
 
 export const uploadImage = async (req, res) => {
   const { path, originalname, mimetype } = req.files[0];
-
   const url = await uploadToS3(path, originalname, mimetype);
   res.json(url);
 };

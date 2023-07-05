@@ -6,6 +6,7 @@ import bcrypt from "bcrypt";
 import Sale from "../Models/sale.js";
 import Review from "../Models/review.js";
 import Chat from "../Models/chat.js";
+import axios from "axios";
 
 const jwtSecret = "rockjefakatludirock";
 const bcryptSalt = bcrypt.genSaltSync(10);
@@ -396,7 +397,7 @@ export const sendMessage = async (req, res) => {
   const { senderId, receiverId, message, chatId } = req.body;
   const { token } = req.cookies;
   const messageSent = { id: senderId, messages: message };
-
+  const receiverUser = await User.findById(receiverId);
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err;
     const user = await User.findById(userData.id).populate(
@@ -405,8 +406,28 @@ export const sendMessage = async (req, res) => {
     );
     if (chatId) {
       const chat = await Chat.findById(chatId);
-      chat.messages.push(messageSent);
+      // UPDEJTANJE USER PROPERTIJA NA TEMELJU CEGA RADIM NOTIFIKACIJE O PORUKAMA
+      const isChatInUser = receiverUser.allChat.some(
+        (property) => property === chatId
+      );
+      if (isChatInUser) {
+        const foundObject = receiverUser.allChat(
+          (object) => object.id === chatId
+        );
+        foundObject.oldChatCount = chat.messages.length - 1;
+        foundObject.newChatCount = chat.messages.length;
+      } else {
+        console.log("ok");
+        const receiverUserChat = {
+          id: receiverId,
+          oldChatCount: chat.messages.length - 1,
+          newChatCount: chat.messages.length,
+        };
+        receiverUser.allChat.push(receiverUserChat);
+        await receiverUser.save();
+      }
 
+      chat.messages.push(messageSent);
       await chat.save();
       res.json("ok");
     } else {
@@ -414,11 +435,25 @@ export const sendMessage = async (req, res) => {
         participants: [senderId, receiverId],
         messages: [messageSent],
       });
-      const receivingUser = await User.findById(receiverId);
-      receivingUser.chat.push(newMessage._id);
+
+      const receiverUserChat = {
+        id: receiverId,
+        oldChatCount: newMessage.messages.length - 1,
+        newChatCount: newMessage.messages.length,
+      };
+      const senderUserChat = {
+        id: senderId,
+        oldChatCount: 0,
+        newChatCount: 0,
+      };
+      receiverUser.allChat.push(receiverUserChat);
+      senderUserChat.allChat.push(senderUserChat);
+
+      receiverUser.chat.push(newMessage._id);
       user.chat.push(newMessage._id);
       await user.save();
-      await receivingUser.save();
+      await receiverUser.save();
+      await receiverUser.save();
       res.json(newMessage);
     }
 

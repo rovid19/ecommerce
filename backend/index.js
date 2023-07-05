@@ -9,6 +9,10 @@ import userRoute from "./Routes/user.js";
 import storeRoute from "./Routes/store.js";
 import cookieParser from "cookie-parser";
 import customerRoute from "./Routes/customer.js";
+import { Server } from "socket.io";
+import http from "http";
+import Chat from "./Models/chat.js";
+import { getAllChat } from "./Controllers/customer.js";
 
 const app = express();
 const PORT = 4000;
@@ -36,3 +40,22 @@ app.use("/api/store", storeRoute);
 app.use("/api/customer", customerRoute);
 
 app.use("/uploads", express.static(__dirname + "/uploads"));
+
+const server = http.createServer(app);
+
+const io = new Server(4005, {
+  cors: {
+    credentials: true,
+    origin: ["http://localhost:3000"],
+  },
+});
+
+io.on("connection", (socket) => {
+  const chatChange = Chat.watch();
+
+  chatChange.on("change", async (change) => {
+    socket.emit("newChat");
+  });
+});
+
+// MODEL WATCH
