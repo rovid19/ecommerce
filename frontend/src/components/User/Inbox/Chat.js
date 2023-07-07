@@ -1,9 +1,20 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import axios from "axios";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchUserData } from "../../../app/features/User/userSlice";
 
 const Chat = ({ chat, setChatVisible, index }) => {
   const user = useSelector((state) => state.userData.value.user);
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    axios
+      .post("/api/customer/seen-message", {
+        chatId: chat[index]._id,
+        userId: user._id,
+      })
+      .then(() => dispatch(fetchUserData()));
+  }, []);
+  console.log(chat[index]);
   return (
     <section className="h-full w-full">
       {chat[index].messages.map((message) => {

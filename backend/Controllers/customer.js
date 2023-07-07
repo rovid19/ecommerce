@@ -407,8 +407,8 @@ export const sendMessage = async (req, res) => {
     if (chatId) {
       const chat = await Chat.findById(chatId);
       // UPDEJTANJE USER PROPERTIJA NA TEMELJU CEGA RADIM NOTIFIKACIJE O PORUKAMA
-      const isChatInUser = receiverUser.allChat.some(
-        (property) => property === chatId
+      /*   const isChatInUser = receiverUser.allChat.some(
+       (property) => property === chatId
       );
       if (isChatInUser) {
         const foundObject = receiverUser.allChat(
@@ -417,19 +417,24 @@ export const sendMessage = async (req, res) => {
         foundObject.oldChatCount = chat.messages.length - 1;
         foundObject.newChatCount = chat.messages.length;
       } else {
-        console.log("ok");
         const receiverUserChat = {
-          id: receiverId,
+          id: chatId,
           oldChatCount: chat.messages.length - 1,
           newChatCount: chat.messages.length,
-        };
+        }; 
         receiverUser.allChat.push(receiverUserChat);
         await receiverUser.save();
-      }
-
-      chat.messages.push(messageSent);
+      }*/ chat.messages.push(messageSent);
       await chat.save();
-      res.json("ok");
+      const foundObject = receiverUser.allChat.find(
+        (object) => object.id.toString() === chatId
+      );
+      foundObject.newChatCount = chat.messages.length;
+
+      console.log(receiverUser.allChat);
+      await receiverUser.save();
+
+      res.json(receiverUser.allChat);
     } else {
       const newMessage = await Chat.create({
         participants: [senderId, receiverId],
@@ -437,24 +442,24 @@ export const sendMessage = async (req, res) => {
       });
 
       const receiverUserChat = {
-        id: receiverId,
+        id: newMessage._id,
         oldChatCount: newMessage.messages.length - 1,
         newChatCount: newMessage.messages.length,
       };
       const senderUserChat = {
-        id: senderId,
+        id: newMessage._id,
         oldChatCount: 0,
         newChatCount: 0,
       };
       receiverUser.allChat.push(receiverUserChat);
-      senderUserChat.allChat.push(senderUserChat);
-
+      user.allChat.push(senderUserChat);
+      console.log(user.allChat);
       receiverUser.chat.push(newMessage._id);
       user.chat.push(newMessage._id);
       await user.save();
       await receiverUser.save();
-      await receiverUser.save();
-      res.json(newMessage);
+
+      res.json(user);
     }
 
     // AK USER NEMA NI JEDAN AKTIVAN CHAT i TE DVIJE OSOBE JOS NISU CHATALE ONDA SE RADI NOVI CHAT NA OBA PROFILA
@@ -492,4 +497,16 @@ export const sendMessage = async (req, res) => {
       }
     }*/
   });
+};
+
+export const seenMessage = async (req, res) => {
+  const { chatId, userId } = req.body;
+  const user = await User.findById(userId);
+
+  const found = user.allChat.find((object) => object.id.toString() === chatId);
+  found.oldChatCount = found.newChatCount;
+
+  await user.save();
+  console.log(user.allChat);
+  res.json(user.allChat);
 };
