@@ -1,10 +1,32 @@
 import axios from "axios";
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../../../app/features/User/userSlice";
+import { switchValue } from "../../../app/features/getUserTrigger";
+import {
+  setFetchUserTrigger,
+  setInboxTrigger,
+} from "../../../app/features/triggeri";
 
-const Chat = ({ chat, setChatVisible, index }) => {
+const Chat = ({
+  chat,
+  setChatVisible,
+  index,
+  fetchMessagesTrigger,
+  setFetchMessagesTrigger,
+  seenTrigger,
+  setSeenTrigger,
+}) => {
   const user = useSelector((state) => state.userData.value.user);
+  const sectionRef = useRef();
+  const inboxTrigger = useSelector(
+    (state) => state.triggeri.value.inboxTrigger
+  );
+  const fetchUserTrigger = useSelector(
+    (state) => state.triggeri.value.fetchUserTrigger
+  );
+
+  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const dispatch = useDispatch();
   useEffect(() => {
     axios
@@ -12,11 +34,25 @@ const Chat = ({ chat, setChatVisible, index }) => {
         chatId: chat[index]._id,
         userId: user._id,
       })
-      .then(() => dispatch(fetchUserData()));
+      .then(() => {
+        dispatch(switchValue(!getUserTrigger));
+      });
+  }, [seenTrigger]);
+  useEffect(() => {
+    setTimeout(() => {
+      sectionRef.current.scrollIntoView({ behavior: "smooth" });
+    }, [1100]);
+  }, [fetchMessagesTrigger]);
+
+  useEffect(() => {}, []);
+
+  //seen poruke kad ti neko posalje poruku, a ti si u tom trenutku u chatu
+
+  useEffect(() => {
+    axios.post("/api/customer/get-specific-chat");
   }, []);
-  console.log(chat[index]);
   return (
-    <section className="h-full w-full">
+    <section className="h-full w-full relative">
       {chat[index].messages.map((message) => {
         if (message.id === user._id) {
           return (
@@ -36,6 +72,7 @@ const Chat = ({ chat, setChatVisible, index }) => {
           );
         }
       })}
+      <div ref={sectionRef} />
     </section>
   );
 };

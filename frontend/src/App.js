@@ -33,27 +33,56 @@ import ShippingDetails from "./components/User/Customer/Profile/ProfileSubpages/
 import Search from "./components/Search/Search.js";
 import Inbox from "./components/User/Inbox/Inbox.js";
 import { io } from "socket.io-client";
+import inboxMessages, {
+  setInboxMessages,
+} from "./app/features/User/inboxMessages";
+import { setInboxTrigger } from "./app/features/triggeri";
+import Chat from "./components/User/Inbox/Chat";
 
 axios.defaults.baseURL = "http://localhost:4000";
 //axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
 axios.defaults.withCredentials = true;
 const socket = io.connect("http://localhost:4005");
 const App = () => {
+  const [runUseEffect, setRunUseEffect] = useState(false);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
   const viewProductModal = useSelector((state) => state.viewProductModal.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
+  const inboxTrigger = useSelector(
+    (state) => state.triggeri.value.inboxTrigger
+  );
+  const fetchUserTrigger = useSelector(
+    (state) => state.triggeri.value.fetchUserTrigger
+  );
 
   const userData = useSelector((state) => state.userData.value.user);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(setUserFetching(true));
-    dispatch(fetchUserData());
-    dispatch(fetchStoreProducts());
-  }, [getUserTrigger]);
-  console.log(userData);
+    async function da() {
+      dispatch(setUserFetching(true));
+      await dispatch(fetchUserData()).unwrap();
+      dispatch(fetchStoreProducts());
+      setRunUseEffect(true);
+    }
+    da();
+  }, [getUserTrigger, fetchUserTrigger]);
+  useEffect(() => {
+    if (runUseEffect) {
+      let totalCount = 0;
+      userData.allChat.forEach((item) => {
+        const zbroj = item.newChatCount - item.oldChatCount;
+
+        totalCount += zbroj;
+      });
+
+      dispatch(setInboxMessages(totalCount));
+      setRunUseEffect(false);
+    }
+  }, [runUseEffect]);
+
   return (
     <div>
       {cartVisible && <AddToCart />}
@@ -68,6 +97,7 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/myorders" element={<OrderHistory />} />
           <Route path="/shippingdetails" element={<ShippingDetails />} />
+
           <Route path="/search" element={<Search />}>
             <Route
               path="/search/:searchOption/:searchValue"
@@ -75,7 +105,9 @@ const App = () => {
             />
           </Route>
 
-          <Route path="/inbox/:userId" element={<Inbox />} />
+          <Route path="/inbox" element={<Inbox />}>
+            <Route path="/inbox/:chatid" element={<Chat />} />{" "}
+          </Route>
         </Route>
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPagePartTwo />} />

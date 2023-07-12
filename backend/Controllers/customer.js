@@ -429,11 +429,17 @@ export const sendMessage = async (req, res) => {
       const foundObject = receiverUser.allChat.find(
         (object) => object.id.toString() === chatId
       );
-      foundObject.newChatCount = chat.messages.length;
+      const foundObject2 = user.allChat.find(
+        (object) => object.id.toString() === chatId
+      );
+      foundObject.newChatCount = foundObject.newChatCount + 1;
+      foundObject2.newChatCount = foundObject2.newChatCount + 1;
+      foundObject2.oldChatCount = foundObject2.oldChatCount + 1;
 
-      console.log(receiverUser.allChat);
+      receiverUser.markModified("allChat");
+      user.markModified("allChat");
       await receiverUser.save();
-
+      await user.save();
       res.json(receiverUser.allChat);
     } else {
       const newMessage = await Chat.create({
@@ -443,17 +449,17 @@ export const sendMessage = async (req, res) => {
 
       const receiverUserChat = {
         id: newMessage._id,
-        oldChatCount: newMessage.messages.length - 1,
-        newChatCount: newMessage.messages.length,
+        oldChatCount: 0,
+        newChatCount: 1,
       };
       const senderUserChat = {
         id: newMessage._id,
-        oldChatCount: 0,
-        newChatCount: 0,
+        oldChatCount: 1,
+        newChatCount: 1,
       };
       receiverUser.allChat.push(receiverUserChat);
       user.allChat.push(senderUserChat);
-      console.log(user.allChat);
+
       receiverUser.chat.push(newMessage._id);
       user.chat.push(newMessage._id);
       await user.save();
@@ -477,7 +483,7 @@ export const sendMessage = async (req, res) => {
     } else {
       // AK CHAT IZMEDU TA DVA USERA POSTOJI
       if (user.chat.participants.includes(receiverId)) {
-        console.log("da tu sam");
+   
         const chat = await Chat.findById(chatId);
         chat.messages.push(messageSent);
 
@@ -499,14 +505,53 @@ export const sendMessage = async (req, res) => {
   });
 };
 
-export const seenMessage = async (req, res) => {
+/*export const seenMessage = async (req, res) => {
   const { chatId, userId } = req.body;
-  const user = await User.findById(userId);
+  let user = await User.findById(userId);
 
   const found = user.allChat.find((object) => object.id.toString() === chatId);
-  found.oldChatCount = found.newChatCount;
+  const newValue = found.newChatCount;
 
-  await user.save();
-  console.log(user.allChat);
-  res.json(user.allChat);
+  await user.updateOne(
+    { _id: userId, "allChat.id": chatId },
+    { $set: { "allChat.$.oldChatCount": newValue } }
+  );
+
+  res.json("ok");
+};*/
+
+export const seenMessage = async (req, res) => {
+  const { chatId, userId } = req.body;
+  try {
+    let user = await User.findById(userId);
+
+    // Check if user was found
+    if (!user) {
+      return res.status(404).json("User not found");
+    }
+
+    const found = user.allChat.find(
+      (object) => object.id.toString() === chatId
+    );
+
+    // Check if chat was found
+    if (!found) {
+      return res.status(404).json("Chat not found");
+    }
+    if (found.oldChatCount === found.newChatCount) {
+      console.log(found);
+    } else {
+      console.log(found);
+      const newValue = found.newChatCount;
+
+      found.oldChatCount = newValue;
+      user.markModified("allChat");
+      await user.save();
+
+      res.json(found);
+    }
+  } catch (error) {
+    // Handle any errors
+    res.status(500).json({ error: error.toString() });
+  }
 };

@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   value: {
     inboxTrigger: false,
+    fetchUserTrigger: false,
   },
 };
 
@@ -10,12 +11,15 @@ export const triggeriSlice = createSlice({
   name: "triggeri",
   initialState,
   reducers: {
-    inboxTrigger: (state, action) => {
-      state.value = action.payload;
+    setInboxTrigger: (state, action) => {
+      state.value.inboxTrigger = action.payload;
+    },
+    setFetchUserTrigger: (state, action) => {
+      state.value.fetchUserTrigger = action.payload;
     },
   },
 });
 
-export const { inboxTrigger } = triggeriSlice.actions;
+export const { setInboxTrigger, setFetchUserTrigger } = triggeriSlice.actions;
 
 export default triggeriSlice.reducer;

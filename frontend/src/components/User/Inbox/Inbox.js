@@ -4,6 +4,10 @@ import SendMessage from "./SendMessage";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { io } from "socket.io-client";
+import { fetchUserData } from "../../../app/features/User/userSlice";
+import getUserTrigger from "../../../app/features/getUserTrigger";
+import { setInboxTrigger } from "../../../app/features/triggeri";
+import { useNavigate } from "react-router-dom";
 
 const socket = io.connect("http://localhost:4005");
 const Inbox = () => {
@@ -16,18 +20,46 @@ const Inbox = () => {
   const [textMessage, setTextMessage] = useState(null);
   const [selectedUser, setSelectedUser] = useState(null);
   const [chatId, setChatId] = useState(null);
+  const [sviRazgovori, setSviRazgovori] = useState(null);
+  const [runUseEffect, setRunUseEffect] = useState(false);
+  const [seenTrigger, setSeenTrigger] = useState(false);
 
   const user = useSelector((state) => state.userData.value.user);
+  const inboxTrigger = useSelector(
+    (state) => state.triggeri.value.inboxTrigger
+  );
+  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const inboxMessages = useSelector(
+    (state) => state.inboxMessages.value.allChat
+  );
+  const navigate = useNavigate();
 
   const inputRef = useRef();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (runUseEffect) {
+      let newArray = [...sviRazgovori];
+      user.allChat.forEach((item, index) => {
+        const zbroj = item.newChatCount - item.oldChatCount;
+        newArray[index] = zbroj;
+      });
+      setSviRazgovori(newArray);
+      setRunUseEffect(false);
+      dispatch(fetchUserData());
+    }
+  }, [runUseEffect]);
 
   // ucitaj sve chatove korisnika
   useEffect(() => {
     axios.get("/api/customer/get-chat").then(({ data }) => {
       setAllChat(data);
+
+      setSviRazgovori(Array(data.length).fill(0));
+      setRunUseEffect(true);
+      console.log(user.allChat[index]);
     });
-  }, [fetchMessagesTrigger]);
+  }, [fetchMessagesTrigger, getUserTrigger, inboxTrigger]);
 
   //posalji poruku
   async function handleSendMessage(e) {
@@ -39,14 +71,15 @@ const Inbox = () => {
       chatId,
     });
 
-    setFetchMessagesTrigger(!fetchMessagesTrigger);
     inputRef.current.value = "";
+    dispatch(fetchUserData());
   }
 
   //socket za autorefresh allChata
   socket.on("newChat", async () => {
     setFetchMessagesTrigger(!fetchMessagesTrigger);
   });
+  console.log(index);
 
   return (
     <main className="h-full w-full bg-neutral-800 relative">
@@ -59,13 +92,17 @@ const Inbox = () => {
         />
       )}
 
-      <section className="h-[100%] w-full flex">
+      <section className="h-[100%] w-full flex overflow-scroll scrollbar-hide">
         <div className="h-[92%] overflow-scroll scrollbar-hide  w-[85%]">
           {chatVisible && (
             <Chat
               setChatVisible={setChatVisible}
               chat={allChat}
               index={index}
+              fetchMessagesTrigger={fetchMessagesTrigger}
+              setFetchMessagesTrigger={setFetchMessagesTrigger}
+              seenTrigger={seenTrigger}
+              setSeenTrigger={setSeenTrigger}
             />
           )}
         </div>
@@ -92,6 +129,7 @@ const Inbox = () => {
                   <article
                     className="h-[10%] w-full bg-neutral-900 cursor-pointer flex hover:bg-neutral-700 transition-all "
                     onClick={() => {
+                      navigate(`/inbox/${chat._id}`);
                       setChatVisible(true);
                       setChat(chat);
                       setIndex(i);
@@ -109,8 +147,15 @@ const Inbox = () => {
                         src={filt[0].profilePicture}
                       />
                     </div>
-                    <div className="h-full w-[70%] p-2 text-neutral-300  flex items-center">
+                    <div className="h-full w-[70%] p-2 text-neutral-300  flex items-center relative">
                       @{filt[0].username}
+                      {inboxMessages > 0
+                        ? sviRazgovori[i] > 0 && (
+                            <div className="h-full w-[15%] right-0 top-0 absolute flex items-center ">
+                              + {sviRazgovori[i]}
+                            </div>
+                          )
+                        : ""}
                     </div>
                   </article>
                 );

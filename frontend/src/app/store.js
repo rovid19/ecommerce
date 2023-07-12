@@ -29,7 +29,7 @@ import trendingStoreReducer from "./features/User/trendingStore.js";
 import collectionReducer from "./features/Store/collections.js";
 import scrollStopReducer from "./features/Store/scrollStop.js";
 import triggeriReducer from "./features/triggeri.js";
-
+import inboxMessagesReducer from "./features/User/inboxMessages.js";
 export const store = configureStore({
   reducer: {
     registrationInput: registrationInputReducer,
@@ -62,5 +62,6 @@ export const store = configureStore({
     collection: collectionReducer,
     scrollStop: scrollStopReducer,
     triggeri: triggeriReducer,
+    inboxMessages: inboxMessagesReducer,
   },
 });
