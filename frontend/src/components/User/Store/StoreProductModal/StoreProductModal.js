@@ -153,7 +153,7 @@ const StoreProductModal = () => {
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-10 h-10 text-neutral-800 hover:text-neutral-300 transition-all hover:opacity-100"
+          className="w-10 h-10 text-neutral-500 hover:text-neutral-300 transition-all hover:opacity-100"
         >
           <path
             fillRule="evenodd"

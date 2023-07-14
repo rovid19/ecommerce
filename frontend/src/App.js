@@ -39,8 +39,8 @@ import inboxMessages, {
 import { setInboxTrigger } from "./app/features/triggeri";
 import Chat from "./components/User/Inbox/Chat";
 
-axios.defaults.baseURL = "http://localhost:4000";
-//axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
+//axios.defaults.baseURL = "http://localhost:4000";
+axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
 axios.defaults.withCredentials = true;
 const socket = io.connect("http://localhost:4005");
 const App = () => {

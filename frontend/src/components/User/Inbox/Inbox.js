@@ -75,7 +75,7 @@ const Inbox = () => {
     dispatch(fetchUserData());
   }
 
-  //socket za autorefresh allChata
+  // socket za autorefresh allChata
   socket.on("newChat", async () => {
     setFetchMessagesTrigger(!fetchMessagesTrigger);
   });

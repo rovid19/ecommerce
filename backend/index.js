@@ -41,8 +41,6 @@ app.use("/api/customer", customerRoute);
 
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
-const server = http.createServer(app);
-
 const io = new Server(4005, {
   cors: {
     credentials: true,

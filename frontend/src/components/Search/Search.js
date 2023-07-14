@@ -17,6 +17,8 @@ const Search = () => {
   const [filterVisible, setFilterVisible] = useState(false);
   const [sortBy, setSortBy] = useState(null);
   const [filterOptions, setFilterOptions] = useState([]);
+  const [stores, setStores] = useState(null);
+  const [outletOn, setOutletOn] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -28,12 +30,19 @@ const Search = () => {
     axios
       .post("/api/customer/search", { searchValue, option })
       .then(({ data }) => {
+        setOutletOn(true);
         navigate(`/search/${option}/${searchValue}`);
         dispatch(setSearchResults(data));
         dispatch(setSearch(searchValue));
         dispatch(setSearchOption(option));
       });
   }
+
+  useEffect(() => {
+    axios
+      .get("/api/customer/get-all-stores")
+      .then(({ data }) => setStores(data));
+  }, []);
   // FILTER OPTIONS FUNCTIONS
   async function sortByAtoZ() {
     let newArray = [...search.searchResults];
@@ -99,7 +108,7 @@ const Search = () => {
       }
     }
   }, [sortBy]);
-
+  console.log(stores);
   return (
     <main className="h-full w-full bg-neutral-800 relative">
       <article className="w-full h-[8%] p-2 relative bg-neutral-900">
@@ -191,7 +200,38 @@ const Search = () => {
             </form>
           </div>
         )}
-        <Outlet />
+        {outletOn ? (
+          <Outlet />
+        ) : (
+          <div className="w-full h-[100%] grid grid-cols-3 dgri overflow-scroll scrollbar-hide p-4 gap-4 ">
+            {stores &&
+              stores.map((result, i) => {
+                return (
+                  <article
+                    className={
+                      i > 2
+                        ? "h-full w-full mt-4 rounded-md shadow-2xl cursor-pointer bg-neutral-900 "
+                        : "h-full w-full  rounded-md shadow-2xl cursor-pointer bg-neutral-900 "
+                    }
+                    onClick={() => {
+                      navigate(`/store/${result.storeName}/${result._id}`);
+                    }}
+                    key={i}
+                  >
+                    {" "}
+                    <div className="h-[30%] w-full p-4 text-neutral-400">
+                      <span>Store name:</span>
+                      <h1 className="text-2xl"> {result.storeName}</h1>
+                    </div>
+                    <img
+                      src={result.storeProfile}
+                      className="h-[70%] w-full object-cover rounded-b-md rounded-md"
+                    ></img>
+                  </article>
+                );
+              })}{" "}
+          </div>
+        )}
       </section>
     </main>
   );

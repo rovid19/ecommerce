@@ -237,3 +237,7 @@ input[type="radio"] {
 .dgri {
   grid-auto-rows: 50%;
 }
+
+.griddd {
+  grid-auto-rows: 100%;
+}

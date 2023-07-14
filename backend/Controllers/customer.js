@@ -405,6 +405,7 @@ export const sendMessage = async (req, res) => {
       "participants, messages"
     );
     if (chatId) {
+      console.log("da");
       const chat = await Chat.findById(chatId);
       // UPDEJTANJE USER PROPERTIJA NA TEMELJU CEGA RADIM NOTIFIKACIJE O PORUKAMA
       /*   const isChatInUser = receiverUser.allChat.some(

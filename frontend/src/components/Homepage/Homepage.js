@@ -27,16 +27,16 @@ const Homepage = () => {
 
   return (
     <>
-      <main className="h-full w-full flex justify-center ">
-        <div className="h-full w-[86%] grid place-items-center grid-rows-4 ">
-          <section className=" h-full w-full p-2 relative group">
+      <main className="h-full w-full overflow-scroll  scrollbar-hide griddd bg-neutral-900">
+        <div className="h-full w-full grid grid-rows-2">
+          <section className=" h-full w-full relative group">
             <h1 className="absolute bottom-2 rounded-r-md text-white left-2 z-20 text-4xl bg-orange-500 p-4 group-hover:invisible transition-all">
               Trending store this week{" "}
             </h1>
             <HomepageTrending />
           </section>
-          <section className=" h-full w-full relative  ">
-            <div className="h-[95%] w-full grid grid-cols-4 grid-rows-2 gap-2 p-2 absolute bottom-0 ">
+          <section className=" h-full w-full relative flex items-center ">
+            <div className="h-[95%] w-full grid grid-cols-4 grid-rows-2 gap-2 p-2  ">
               {stores &&
                 stores.map((store, index) => (
                   <HomepageStoreCard store={stores} index={index} key={index} />
@@ -46,8 +46,10 @@ const Homepage = () => {
               Other popular stores
             </h1>
           </section>
+        </div>
+        <div className="h-full w-full grid grid-rows-2">
           <section className="h-full w-full relative">
-            <h1 className="absolute bottom-0 rounded-r-md text-black left-0 z-20 text-4xl bg-gray-50 p-4  transition-all">
+            <h1 className="absolute bottom-0 rounded-r-md text-white left-0 z-20 text-4xl bg-orange-500 p-4  transition-all">
               Trending product this week{" "}
             </h1>
             <HomepageProduct />

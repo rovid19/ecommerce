@@ -22,6 +22,7 @@ import {
   sendMessage,
   seenMessage,
 } from "../Controllers/customer.js";
+import { getAllStores } from "../Controllers/store.js";
 
 const router = express.Router();
 
@@ -45,6 +46,6 @@ router.post("/get-homepage", getHomePage);
 router.get("/get-chat", getAllChat);
 router.get("/all-users", getAllUsers);
 router.post("/send-message", sendMessage);
-router.post("/seen-message", seenMessage);
+router.get("/get-all-stores", getAllStores);
 
 export default router;

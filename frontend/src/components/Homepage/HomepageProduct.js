@@ -18,7 +18,7 @@ const HomepageProduct = () => {
         navigate(`/store/${product.store[0].storeName}/product/${product._id}`)
       }
     >
-      <div className="absolute top-0 left-0 h-full w-full bg-black z-10  hover:bg-opacity-70 transition-all"></div>
+      <div className="absolute top-0 left-0 h-full w-full bg-neutral-800 z-10  hover:bg-opacity-70 transition-all"></div>
       <div className="bg-gray-500 h-[60%] w-[50%] z-20 rounded-md flex group-hover:w-[55%] group-hover:h-[65%] transition-all">
         <img
           src={product && product.productPicture[0]}

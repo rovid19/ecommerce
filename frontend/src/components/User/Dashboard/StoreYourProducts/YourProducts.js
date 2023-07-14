@@ -146,10 +146,17 @@ const StoreAddProducts = () => {
       <div
         className={
           editMode
-            ? "h-[55%] lg:h-[65%] w-full grid grid-cols-3 grid-rows-2 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide border-8 border-orange-500 transition-all relative"
-            : "h-[55%] lg:h-[65%] w-full grid grid-cols-3 grid-rows-2 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide transition-all relative"
+            ? "gap-2 h-[55%] lg:h-[65%] w-full grid grid-cols-3 grid-rows-2 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide border-8 border-orange-500 transition-all relative group"
+            : "gap-2 h-[55%] lg:h-[65%] w-full grid grid-cols-3 grid-rows-2 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide transition-all relative group"
         }
       >
+        {editMode && (
+          <div className="absolute top-0 right-0 w-[15%] h-[10%] bg-black rounded-l-md rounded-b-md text-white flex justify-center items-center p-2 group-hover:invisible">
+            <h1 className="text-sm text-center">
+              You can drag and drop your products
+            </h1>
+          </div>
+        )}
         <div
           className={
             editMode

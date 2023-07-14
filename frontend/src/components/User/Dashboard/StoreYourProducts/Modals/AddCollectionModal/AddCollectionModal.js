@@ -132,7 +132,7 @@ const AddCollectionModal = () => {
               +
             </button>
           </div>
-          <div className="h-[80%] overflow-scroll">
+          <div className="h-[80%] overflow-scroll scrollbar-hide">
             {collection &&
               collection.map((item, index) => {
                 return (
