@@ -36,41 +36,55 @@ import { io } from "socket.io-client";
 import inboxMessages, {
   setInboxMessages,
 } from "./app/features/User/inboxMessages";
-import { setInboxTrigger } from "./app/features/triggeri";
+import { setInboxTrigger, setRunUseEffect } from "./app/features/triggeri";
 import Chat from "./components/User/Inbox/Chat";
+import { setSocket } from "./app/features/socket";
 
-//axios.defaults.baseURL = "http://localhost:4000";
-axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
+axios.defaults.baseURL = "http://localhost:4000";
+//axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
 axios.defaults.withCredentials = true;
-const socket = io.connect("http://localhost:4005");
+
 const App = () => {
-  const [runUseEffect, setRunUseEffect] = useState(false);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
-  const viewProductModal = useSelector((state) => state.viewProductModal.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const inboxTrigger = useSelector(
-    (state) => state.triggeri.value.inboxTrigger
+  const inboxMessages = useSelector(
+    (state) => state.inboxMessages.value.allChat
   );
   const fetchUserTrigger = useSelector(
     (state) => state.triggeri.value.fetchUserTrigger
   );
 
   const userData = useSelector((state) => state.userData.value.user);
-
+  const socket = useSelector((state) => state.socket.value);
+  const runUseEffect = useSelector(
+    (state) => state.triggeri.value.runUseEffect
+  );
   const dispatch = useDispatch();
+  useEffect(() => {
+    if (Object.keys(socket).length === 0) {
+      const sockett = io.connect("http://localhost:4005");
+      dispatch(setSocket(sockett));
+
+      return () => {
+        sockett.disconnect();
+      };
+    }
+  }, []);
 
   useEffect(() => {
     async function da() {
-      dispatch(setUserFetching(true));
-      await dispatch(fetchUserData()).unwrap();
-      dispatch(fetchStoreProducts());
-      setRunUseEffect(true);
+      if (Object.keys(userData).length === 0) {
+        await dispatch(fetchUserData()).unwrap();
+        dispatch(fetchStoreProducts());
+        dispatch(setRunUseEffect(true));
+      }
     }
     da();
   }, [getUserTrigger, fetchUserTrigger]);
   useEffect(() => {
     if (runUseEffect) {
+      console.log(userData);
       let totalCount = 0;
       userData.allChat.forEach((item) => {
         const zbroj = item.newChatCount - item.oldChatCount;
@@ -79,9 +93,19 @@ const App = () => {
       });
 
       dispatch(setInboxMessages(totalCount));
-      setRunUseEffect(false);
+      dispatch(setRunUseEffect(false));
     }
   }, [runUseEffect]);
+
+  //live notifikacije za poruke
+  useEffect(() => {
+    if (socket.connected === true) {
+      socket.on("newChat", async () => {
+        await dispatch(fetchUserData()).unwrap();
+        dispatch(setRunUseEffect(true));
+      });
+    }
+  }, [inboxMessages]);
 
   return (
     <div>

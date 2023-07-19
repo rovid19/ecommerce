@@ -108,7 +108,7 @@ const Search = () => {
       }
     }
   }, [sortBy]);
-  console.log(stores);
+
   return (
     <main className="h-full w-full bg-neutral-800 relative">
       <article className="w-full h-[8%] p-2 relative bg-neutral-900">

@@ -1,11 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUserData } from "../../../app/features/User/userSlice";
+import { addUser, fetchUserData } from "../../../app/features/User/userSlice";
 import { switchValue } from "../../../app/features/getUserTrigger";
 import {
   setFetchUserTrigger,
   setInboxTrigger,
+  setRunUseEffect,
 } from "../../../app/features/triggeri";
 
 const Chat = ({
@@ -22,6 +23,9 @@ const Chat = ({
   const inboxTrigger = useSelector(
     (state) => state.triggeri.value.inboxTrigger
   );
+  const runUseEffect = useSelector(
+    (state) => state.triggeri.value.runUseEffect
+  );
   const fetchUserTrigger = useSelector(
     (state) => state.triggeri.value.fetchUserTrigger
   );
@@ -29,14 +33,17 @@ const Chat = ({
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const dispatch = useDispatch();
   useEffect(() => {
-    axios
-      .post("/api/customer/seen-message", {
+    async function fetch() {
+      await axios.post("/api/customer/seen-message", {
         chatId: chat[index]._id,
         userId: user._id,
-      })
-      .then(() => {
-        dispatch(switchValue(!getUserTrigger));
       });
+      await dispatch(fetchUserData()).unwrap();
+      setFetchMessagesTrigger(!fetchMessagesTrigger);
+
+      dispatch(setRunUseEffect(true));
+    }
+    fetch();
   }, [seenTrigger]);
   useEffect(() => {
     setTimeout(() => {
@@ -44,13 +51,8 @@ const Chat = ({
     }, [1100]);
   }, [fetchMessagesTrigger]);
 
-  useEffect(() => {}, []);
-
   //seen poruke kad ti neko posalje poruku, a ti si u tom trenutku u chatu
 
-  useEffect(() => {
-    axios.post("/api/customer/get-specific-chat");
-  }, []);
   return (
     <section className="h-full w-full relative">
       {chat[index].messages.map((message) => {

@@ -3,15 +3,15 @@ import React, { useEffect, useRef, useState } from "react";
 import SendMessage from "./SendMessage";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
-import { io } from "socket.io-client";
 import { fetchUserData } from "../../../app/features/User/userSlice";
 import getUserTrigger from "../../../app/features/getUserTrigger";
 import { setInboxTrigger } from "../../../app/features/triggeri";
 import { useNavigate } from "react-router-dom";
+import { setSocket } from "../../../app/features/socket";
 
-const socket = io.connect("http://localhost:4005");
 const Inbox = () => {
-  const [allChat, setAllChat] = useState(null);
+  //States
+  const [allChat, setAllChat] = useState([]);
   const [sendMessage, setSendMessage] = useState(false);
   const [fetchMessagesTrigger, setFetchMessagesTrigger] = useState(false);
   const [chat, setChat] = useState(null);
@@ -23,19 +23,32 @@ const Inbox = () => {
   const [sviRazgovori, setSviRazgovori] = useState(null);
   const [runUseEffect, setRunUseEffect] = useState(false);
   const [seenTrigger, setSeenTrigger] = useState(false);
+  const [date, setDate] = useState(new Date());
 
+  //date
+  const formattedDate = date.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  });
+  //time
+  const formattedTime = date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
+
+  //Redux
   const user = useSelector((state) => state.userData.value.user);
-  const inboxTrigger = useSelector(
-    (state) => state.triggeri.value.inboxTrigger
-  );
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const inboxMessages = useSelector(
     (state) => state.inboxMessages.value.allChat
   );
-  const navigate = useNavigate();
+  const socket = useSelector((state) => state.socket.value);
 
-  const inputRef = useRef();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+  const inputRef = useRef();
 
   useEffect(() => {
     if (runUseEffect) {
@@ -52,14 +65,29 @@ const Inbox = () => {
 
   // ucitaj sve chatove korisnika
   useEffect(() => {
+    console.log("useeffeect");
     axios.get("/api/customer/get-chat").then(({ data }) => {
       setAllChat(data);
 
       setSviRazgovori(Array(data.length).fill(0));
       setRunUseEffect(true);
-      console.log(user.allChat[index]);
     });
-  }, [fetchMessagesTrigger, getUserTrigger, inboxTrigger]);
+  }, [fetchMessagesTrigger, getUserTrigger]);
+
+  // seenanje poruke dok si u chatu s nekim
+  useEffect(() => {
+    if (allChat) {
+      if (user.allChat[index]) {
+        let result =
+          user.allChat[index].oldChatCount !== user.allChat[index].newChatCount;
+        console.log(user.allChat[index]);
+        if (result) {
+          console.log(user.allChat[index]);
+          setSeenTrigger(!seenTrigger);
+        }
+      }
+    }
+  }, [allChat]);
 
   //posalji poruku
   async function handleSendMessage(e) {
@@ -69,18 +97,27 @@ const Inbox = () => {
       receiverId: selectedUser,
       message: textMessage,
       chatId,
+      date: formattedDate,
+      time: formattedTime,
     });
 
     inputRef.current.value = "";
-    dispatch(fetchUserData());
   }
 
   // socket za autorefresh allChata
-  socket.on("newChat", async () => {
-    setFetchMessagesTrigger(!fetchMessagesTrigger);
-  });
-  console.log(index);
+  useEffect(() => {
+    const handler = () => {
+      setFetchMessagesTrigger((prevState) => !prevState);
+    };
 
+    socket.on("newChat", handler);
+
+    return () => {
+      socket.off("newChat", handler);
+    };
+  }, []);
+
+  console.log(formattedDate, formattedTime);
   return (
     <main className="h-full w-full bg-neutral-800 relative">
       {sendMessage && (

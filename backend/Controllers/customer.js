@@ -394,7 +394,7 @@ export const getAllUsers = async (req, res) => {
 };
 
 export const sendMessage = async (req, res) => {
-  const { senderId, receiverId, message, chatId } = req.body;
+  const { senderId, receiverId, message, chatId, date, time } = req.body;
   const { token } = req.cookies;
   const messageSent = { id: senderId, messages: message };
   const receiverUser = await User.findById(receiverId);
@@ -405,7 +405,6 @@ export const sendMessage = async (req, res) => {
       "participants, messages"
     );
     if (chatId) {
-      console.log("da");
       const chat = await Chat.findById(chatId);
       // UPDEJTANJE USER PROPERTIJA NA TEMELJU CEGA RADIM NOTIFIKACIJE O PORUKAMA
       /*   const isChatInUser = receiverUser.allChat.some(
@@ -441,7 +440,7 @@ export const sendMessage = async (req, res) => {
       user.markModified("allChat");
       await receiverUser.save();
       await user.save();
-      res.json(receiverUser.allChat);
+      res.json(chat);
     } else {
       const newMessage = await Chat.create({
         participants: [senderId, receiverId],
@@ -540,9 +539,7 @@ export const seenMessage = async (req, res) => {
       return res.status(404).json("Chat not found");
     }
     if (found.oldChatCount === found.newChatCount) {
-      console.log(found);
     } else {
-      console.log(found);
       const newValue = found.newChatCount;
 
       found.oldChatCount = newValue;

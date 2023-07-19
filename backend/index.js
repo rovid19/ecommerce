@@ -46,13 +46,24 @@ const io = new Server(4005, {
     credentials: true,
     origin: ["http://localhost:3000"],
   },
+  pingTimeout: 120000,
+  pingInterval: 50000,
 });
 
 io.on("connection", (socket) => {
+  console.log(`A user connected with socket id ${socket.id}`);
+  const handleChange = () => {
+    socket.emit("newChat");
+    console.log("okokokok");
+  };
   const chatChange = Chat.watch();
 
-  chatChange.on("change", async (change) => {
-    socket.emit("newChat");
+  chatChange.on("change", handleChange);
+
+  socket.on("disconnect", () => {
+    chatChange.removeListener("change", handleChange);
+    chatChange.close();
+    console.log("close");
   });
 });
 

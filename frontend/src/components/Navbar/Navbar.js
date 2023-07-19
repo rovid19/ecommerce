@@ -28,7 +28,6 @@ const Navbar = () => {
     dispatch(addUser(null));
   }
 
-  console.log(user);
   return (
     <>
       <main className="flex h-full w-full justify-center z-50  items-center shadow-md  ">

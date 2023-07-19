@@ -47,5 +47,6 @@ router.get("/get-chat", getAllChat);
 router.get("/all-users", getAllUsers);
 router.post("/send-message", sendMessage);
 router.get("/get-all-stores", getAllStores);
+router.post("/seen-message", seenMessage);
 
 export default router;
