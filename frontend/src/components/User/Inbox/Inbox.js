@@ -117,7 +117,7 @@ const Inbox = () => {
     };
   }, []);
 
-  console.log(formattedDate, formattedTime);
+  console.log(allChat);
   return (
     <main className="h-full w-full bg-neutral-800 relative">
       {sendMessage && (

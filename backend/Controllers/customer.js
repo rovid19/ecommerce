@@ -396,7 +396,12 @@ export const getAllUsers = async (req, res) => {
 export const sendMessage = async (req, res) => {
   const { senderId, receiverId, message, chatId, date, time } = req.body;
   const { token } = req.cookies;
-  const messageSent = { id: senderId, messages: message };
+  const messageSent = {
+    id: senderId,
+    messages: message,
+    date: date,
+    time: time,
+  };
   const receiverUser = await User.findById(receiverId);
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err;

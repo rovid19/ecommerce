@@ -6,7 +6,11 @@ const userSchema = new mongoose.Schema({
   username: String,
   store: { type: mongoose.Schema.Types.ObjectId, ref: "store" },
   addToCart: [{ type: mongoose.Schema.Types.ObjectId, ref: "product" }],
-  profilePicture: String,
+  profilePicture: {
+    type: String,
+    default:
+      "https://gymtok-photo-video-upload.s3.amazonaws.com/1689844678127.png",
+  },
   orderHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: "sale" }],
   shippingDetails: [
     {
