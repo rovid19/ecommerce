@@ -11,6 +11,7 @@ import { getStoreSubPage } from "../../../app/features/storeSubPage.js";
 import { setSavedStore } from "../../../app/features/Store/savedStore.js";
 import { addCollectionItems } from "../../../app/features/Store/collections.js";
 import { setScrollStop } from "../../../app/features/Store/scrollStop.js";
+import StoreFeed from "./StoreFeed.js";
 
 const Store = () => {
   // STATES
@@ -19,6 +20,7 @@ const Store = () => {
   const [storeItems, setStoreItems] = useState(null);
   const [trigger, setTrigger] = useState(false);
   const [productCollections, setProductCollections] = useState([]);
+  const [active, setActive] = useState("Store");
 
   // REDUX
   const storeProducts = useSelector((state) => state.storeProducts.value);
@@ -118,9 +120,34 @@ const Store = () => {
             src={storeData && storeData.storeProfile}
             className="h-28 w-[10%] absolute bottom-4 left-2 lg:h-36 lg:left-4 rounded-xl shadow-xl object-cover"
           ></img>
+          <div className="absolute right-0 bottom-0   h-[10%] w-[20%]">
+            <button
+              className={
+                active === "Store"
+                  ? "h-full w-[50%] bg-orange-500 rounded-l-md text-white"
+                  : "h-full w-[50%] bg-neutral-900 bg-opacity-50 text-white  rounded-l-md border-2 border-opacity-50 border-orange-500 transition-all hover:border-opacity-75"
+              }
+              onClick={() => setActive("Store")}
+            >
+              Store
+            </button>
+            <button
+              className={
+                active === "Feed"
+                  ? "h-full w-[50%] bg-orange-500 text-white"
+                  : "h-full w-[50%] bg-neutral-900 bg-opacity-50 text-white  border-2 border-opacity-50 border-orange-500 transition-all hover:border-opacity-75"
+              }
+              onClick={() => setActive("Feed")}
+            >
+              Feed
+            </button>
+          </div>
         </div>
         <div className="h-[50%] overflow-scroll scrollbar-hide">
-          {productCollections &&
+          {active === "Feed" ? (
+            <StoreFeed />
+          ) : (
+            productCollections &&
             productCollections.map((item, index) => {
               return (
                 <article key={index} className="h-full relative">
@@ -145,7 +172,8 @@ const Store = () => {
                   </div>
                 </article>
               );
-            })}
+            })
+          )}
         </div>
       </main>
       {/*productCollections.length > 2 && (

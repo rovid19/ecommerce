@@ -199,23 +199,25 @@ const Inbox = () => {
               })}
           </div>
         </div>
-        <fieldset className="h-[8%] w-[85%] absolute bottom-0">
-          <form
-            className="h-full w-full bg-neutral-900 flex relative"
-            onSubmit={handleSendMessage}
-          >
-            <div className="h-full w-full relative">
-              <input
-                ref={inputRef}
-                className="h-full w-[80%] bg-neutral-500  p-4 text-2xl rounded-l-md outline-none"
-                onChange={(e) => setTextMessage(e.target.value)}
-              />
-            </div>
-            <button className="absolute right-0 h-full w-[20%] bg-neutral-900 border-2 border-orange-500 text-neutral-300  rounded-r-md hover:bg-orange-500 hover:text-white transition-all">
-              Send
-            </button>
-          </form>
-        </fieldset>
+        {chatVisible && (
+          <fieldset className="h-[8%] w-[85%] absolute bottom-0">
+            <form
+              className="h-full w-full bg-neutral-900 flex relative"
+              onSubmit={handleSendMessage}
+            >
+              <div className="h-full w-full relative">
+                <input
+                  ref={inputRef}
+                  className="h-full w-[80%] bg-neutral-500  p-4 text-2xl rounded-l-md outline-none"
+                  onChange={(e) => setTextMessage(e.target.value)}
+                />
+              </div>
+              <button className="absolute right-0 h-full w-[20%] bg-neutral-900 border-2 border-orange-500 text-neutral-300  rounded-r-md hover:bg-orange-500 hover:text-white transition-all">
+                Send
+              </button>
+            </form>
+          </fieldset>
+        )}
       </section>
     </main>
   );
