@@ -56,6 +56,7 @@ const App = () => {
   );
 
   const userData = useSelector((state) => state.userData.value.user);
+  const userData2 = useSelector((state) => state.userData.value.products);
   const socket = useSelector((state) => state.socket.value);
   const runUseEffect = useSelector(
     (state) => state.triggeri.value.runUseEffect
@@ -106,7 +107,7 @@ const App = () => {
       });
     }
   }, [inboxMessages]);
-
+  console.log(userData2);
   return (
     <div>
       {cartVisible && <AddToCart />}

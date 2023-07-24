@@ -64,6 +64,12 @@ export const uploadImage = async (req, res) => {
   res.json(url);
 };
 
+export const uploadVideo = async (req, res) => {
+  const { path, filename, mimetype } = req.file;
+  const url = await uploadToS3(path, filename, mimetype);
+  res.json(url);
+};
+
 export const addProduct = async (req, res) => {
   const { token } = req.cookies;
   const {

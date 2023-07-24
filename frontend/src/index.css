@@ -246,3 +246,10 @@ input[type="radio"] {
   display: flex;
   flex-direction: column;
 }
+
+.flexcenter {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
