@@ -9,12 +9,14 @@ const commentSchema = new mongoose.Schema({
 const Comment = mongoose.model("comment", commentSchema);
 
 const postSchema = new mongoose.Schema({
+  postDate: String,
+  postAuthor: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   postText: String,
   postVideo: String,
+  postProduct: {},
   postLikes: [{ type: String }],
   postComments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comment" }],
 });
 
-const postModel = mongoose.model("post", postSchema);
-
-export default postModel;
+const Post = mongoose.model("post", postSchema);
+export { Post, Comment };

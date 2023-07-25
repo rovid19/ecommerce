@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import VideoUploadModal from "./VideoUploadModal";
 import AddProductModal from "./AddProductModal";
 import VideoPlayerModal from "./VideoPlayerModal";
+import Post from "./Post";
+import PostModal from "./PostModal";
+import axios from "axios";
 
 const YourFeed = () => {
   const [text, setText] = useState(null);
@@ -11,11 +14,50 @@ const YourFeed = () => {
   const [product, setProduct] = useState(null);
   const [addProductModalVisible, setAddProductModalVisible] = useState(false);
   const [videoPlayerModalVisible, setVideoPlayerModalVisible] = useState(false);
+  const [feedPosts, setFeedPosts] = useState(null);
+  const [postTrigger, setPostTrigger] = useState(false);
+  const [postModalVisible, setPostModalVisible] = useState(false);
+  const [date, setDate] = useState(new Date());
+  const [index, setIndex] = useState(null);
+
+  const textA = useRef();
+
+  const formattedDate = date.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  });
+
+  async function handlePostUpload(e) {
+    e.preventDefault();
+    if (!text && !video && !product) {
+      alert("You cant post empty post");
+    } else {
+      await axios.post("/api/customer/post-upload", {
+        text,
+        video,
+        product,
+        userId: user._id,
+        date: formattedDate,
+      });
+      setText(null);
+      setVideo(null);
+      setProduct(null);
+      setPostTrigger(!postTrigger);
+      textA.current.value = "";
+    }
+  }
+
+  useEffect(() => {
+    axios
+      .get("/api/customer/get-all-posts")
+      .then(({ data }) => setFeedPosts(data));
+  }, [postTrigger]);
 
   const user = useSelector((state) => state.userData.value.user);
-  console.log(video);
+
   return (
-    <section className="h-full w-full bg-neutral-800">
+    <section className="h-full w-full bg-neutral-800 overflow-scroll scrollbar-hide">
       {videoModalVisible && (
         <VideoUploadModal
           setVideoModalVisible={setVideoModalVisible}
@@ -34,6 +76,13 @@ const YourFeed = () => {
           video={video}
         />
       )}
+      {postModalVisible && (
+        <PostModal
+          setPostModalVisible={setPostModalVisible}
+          feedPosts={feedPosts}
+          index={index}
+        />
+      )}
       <fieldset
         className={
           text || product || video
@@ -41,7 +90,10 @@ const YourFeed = () => {
             : "h-[15%] w-full bg-neutral-700 rounded-r-md p-2 transition-all"
         }
       >
-        <form className="h-full w-full relative flex">
+        <form
+          className="h-full w-full relative flex"
+          onSubmit={handlePostUpload}
+        >
           <div className="h-full w-[6%] pr-2 pl-2 ">
             <img
               className={
@@ -53,15 +105,16 @@ const YourFeed = () => {
             ></img>
           </div>
           <div className="w-[86%] h-full relative flexend ">
-            <input
+            <textarea
+              ref={textA}
               onChange={(e) => setText(e.target.value)}
               className={
                 text || product || video
-                  ? "w-full bg-neutral-900 rounded-md p-4 text-xl text-white h-[90%] z-20"
-                  : "w-full bg-neutral-900 rounded-md p-4 text-xl text-white h-[75%] z-20"
+                  ? "w-full bg-neutral-900 rounded-md p-4 text-xl text-white h-[90%] z-20 align-top"
+                  : "w-full bg-neutral-900 rounded-md p-4 text-xl text-white h-[75%] z-20 align-top"
               }
               placeholder="Write something in here..."
-            ></input>
+            ></textarea>
             <div className="flex h-full gap-2 relative ">
               {product && (
                 <>
@@ -181,6 +234,21 @@ const YourFeed = () => {
           </button>
         </form>
       </fieldset>
+      <div className=" w-full flex justify-center bg-neutral-800">
+        <div className="h-full w-[60%] bg-neutral-800">
+          {feedPosts &&
+            feedPosts.map((post, i) => {
+              return (
+                <Post
+                  post={post}
+                  setPostModalVisible={setPostModalVisible}
+                  setIndex={setIndex}
+                  index={i}
+                />
+              );
+            })}{" "}
+        </div>
+      </div>
     </section>
   );
 };

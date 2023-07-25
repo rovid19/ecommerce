@@ -6,7 +6,7 @@ import bcrypt from "bcrypt";
 import Sale from "../Models/sale.js";
 import Review from "../Models/review.js";
 import Chat from "../Models/chat.js";
-import axios from "axios";
+import { Post, Comment } from "../Models/post.js";
 
 const jwtSecret = "rockjefakatludirock";
 const bcryptSalt = bcrypt.genSaltSync(10);
@@ -557,4 +557,27 @@ export const seenMessage = async (req, res) => {
     // Handle any errors
     res.status(500).json({ error: error.toString() });
   }
+};
+
+export const postUpload = async (req, res) => {
+  const { text, video, product, userId, date } = req.body;
+  console.log(text, video, product);
+  const post = await Post.create({
+    postText: text,
+    postVideo: video,
+    postProduct: product,
+    postAuthor: userId,
+    postDate: date,
+  });
+
+  res.json(post);
+};
+
+export const getAllPosts = async (req, res) => {
+  const allPosts = await Post.find().populate(
+    "postAuthor",
+    "username profilePicture"
+  );
+
+  res.json(allPosts);
 };

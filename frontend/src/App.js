@@ -107,7 +107,7 @@ const App = () => {
       });
     }
   }, [inboxMessages]);
-  console.log(userData2);
+  console.log(userData);
   return (
     <div>
       {cartVisible && <AddToCart />}

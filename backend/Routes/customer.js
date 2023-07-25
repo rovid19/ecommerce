@@ -21,6 +21,8 @@ import {
   getAllUsers,
   sendMessage,
   seenMessage,
+  postUpload,
+  getAllPosts,
 } from "../Controllers/customer.js";
 import { getAllStores } from "../Controllers/store.js";
 
@@ -48,5 +50,7 @@ router.get("/all-users", getAllUsers);
 router.post("/send-message", sendMessage);
 router.get("/get-all-stores", getAllStores);
 router.post("/seen-message", seenMessage);
+router.post("/post-upload", postUpload);
+router.get("/get-all-posts", getAllPosts);
 
 export default router;
