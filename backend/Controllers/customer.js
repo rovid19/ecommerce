@@ -581,3 +581,49 @@ export const getAllPosts = async (req, res) => {
 
   res.json(allPosts);
 };
+
+export const likePost = async (req, res) => {
+  const { postId, userId } = req.body;
+
+  const findPost = await Post.findById(postId);
+  findPost.postLikes.push(userId);
+  await findPost.save();
+  res.json(findPost);
+};
+
+export const unlikePost = async (req, res) => {
+  const { postId, userId } = req.body;
+
+  const findPost = await Post.findById(postId);
+  const newLikes = findPost.postLikes.filter((post) => post !== userId);
+  findPost.set({
+    postLikes: [...newLikes],
+  });
+  await findPost.save();
+  res.json(findPost);
+};
+
+export const removePost = async (req, res) => {
+  const { postId } = req.body;
+
+  const findPost = await Post.findByIdAndDelete(postId);
+
+  res.json("ok");
+};
+
+export const postComment = async (req, res) => {
+  const { comment, userId, postId } = req.body;
+
+  const newComment = await Comment.create({
+    commentAuthor: userId,
+    commentText: comment,
+  });
+  const post = await Post.findById(postId);
+
+  console.log(post);
+
+  post.postComments.push(newComment._id);
+
+  await post.save();
+  res.json(newComment);
+};

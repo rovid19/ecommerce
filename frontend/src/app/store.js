@@ -31,6 +31,7 @@ import scrollStopReducer from "./features/Store/scrollStop.js";
 import triggeriReducer from "./features/triggeri.js";
 import inboxMessagesReducer from "./features/User/inboxMessages.js";
 import socketReducer from "./features/socket.js";
+import postReducer from "./features/post.js";
 export const store = configureStore({
   reducer: {
     registrationInput: registrationInputReducer,
@@ -65,5 +66,6 @@ export const store = configureStore({
     triggeri: triggeriReducer,
     inboxMessages: inboxMessagesReducer,
     socket: socketReducer,
+    post: postReducer,
   },
 });

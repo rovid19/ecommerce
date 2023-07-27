@@ -30,6 +30,7 @@ const Store = () => {
   const dispatch = useDispatch();
 
   const { storeid } = useParams();
+  const containerRef = useRef(null);
 
   // USEEFFECT
   useEffect(() => {
@@ -55,21 +56,28 @@ const Store = () => {
 
   // Set scroll height to state
   useEffect(() => {
+    let scroll = 0;
     const handleScroll = () => {
-      dispatch(setScrollStop(window.scrollY));
+      if (containerRef.current.scrollTop > scroll) {
+        dispatch(setScrollStop(scroll));
+        scroll = containerRef.current.scrollTop;
+      } else {
+        dispatch(setScrollStop(scroll));
+        scroll = containerRef.current.scrollTop;
+      }
     };
-    window.addEventListener("scroll", handleScroll);
-
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
+    containerRef.current.addEventListener("scroll", handleScroll);
   }, []);
 
   // When closing store product modal, go back to where you left from
   useEffect(() => {
     if (scrollStop) {
       setTimeout(() => {
-        window.scrollTo({ top: scrollStop, left: 0, behavior: "smooth" });
+        containerRef.current.scrollTo({
+          top: scrollStop,
+          left: 0,
+          behavior: "smooth",
+        });
       }, [500]);
     }
   }, [viewProductModal]);
@@ -143,7 +151,10 @@ const Store = () => {
             </button>
           </div>
         </div>
-        <div className="h-[50%] overflow-scroll scrollbar-hide">
+        <div
+          className="h-[50%] overflow-scroll scrollbar-hide"
+          ref={containerRef}
+        >
           {active === "Feed" ? (
             <StoreFeed />
           ) : (

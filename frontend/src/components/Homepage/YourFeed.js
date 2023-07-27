@@ -19,8 +19,10 @@ const YourFeed = () => {
   const [postModalVisible, setPostModalVisible] = useState(false);
   const [date, setDate] = useState(new Date());
   const [index, setIndex] = useState(null);
+  //const [likeTrigger, setLikeTrigger] = useState(false);
 
   const textA = useRef();
+  const feedContainer = useRef(null);
 
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "2-digit",
@@ -49,15 +51,22 @@ const YourFeed = () => {
   }
 
   useEffect(() => {
-    axios
-      .get("/api/customer/get-all-posts")
-      .then(({ data }) => setFeedPosts(data));
+    axios.get("/api/customer/get-all-posts").then(({ data }) => {
+      let reverseArray = data.reverse();
+      setFeedPosts(reverseArray);
+      //setLikeTrigger(true);
+    });
   }, [postTrigger]);
+
+  //vracanje na scrollheight nakon zatvaranje post iz fullscreena
 
   const user = useSelector((state) => state.userData.value.user);
 
   return (
-    <section className="h-full w-full bg-neutral-800 overflow-scroll scrollbar-hide">
+    <section
+      className="h-full w-full bg-neutral-800 overflow-scroll scrollbar-hide "
+      ref={feedContainer}
+    >
       {videoModalVisible && (
         <VideoUploadModal
           setVideoModalVisible={setVideoModalVisible}
@@ -81,6 +90,8 @@ const YourFeed = () => {
           setPostModalVisible={setPostModalVisible}
           feedPosts={feedPosts}
           index={index}
+          setPostTrigger={setPostTrigger}
+          postTrigger={postTrigger}
         />
       )}
       <fieldset
@@ -244,6 +255,10 @@ const YourFeed = () => {
                   setPostModalVisible={setPostModalVisible}
                   setIndex={setIndex}
                   index={i}
+                  setPostTrigger={setPostTrigger}
+                  postTrigger={postTrigger}
+                  /*likeTrigger={likeTrigger}
+                  setLikeTrigger={setLikeTrigger}*/
                 />
               );
             })}{" "}
