@@ -2,19 +2,19 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   value: {
-    postLiked: false,
+    postModalVisible: false,
   },
 };
 
 export const postSlice = createSlice({
-  name: "postSlice",
+  name: "post",
   initialState,
   reducers: {
-    isLiked: (state, action) => {
-      state.value = action.payload;
+    setPostModalVisible: (state, action) => {
+      state.value.postModalVisible = action.payload;
     },
   },
 });
 
-export const { isLiked } = postSlice.actions;
+export const { setPostModalVisible } = postSlice.actions;
 export default postSlice.reducer;

@@ -574,10 +574,23 @@ export const postUpload = async (req, res) => {
 };
 
 export const getAllPosts = async (req, res) => {
-  const allPosts = await Post.find().populate(
-    "postAuthor",
-    "username profilePicture"
-  );
+  const allPosts = await Post.find().populate([
+    {
+      path: "postAuthor",
+      select: " username profilePicture store",
+      populate: { path: "store", select: "_id" },
+    },
+
+    {
+      path: "postComments",
+      select: "commentText commentAuthor",
+
+      populate: {
+        path: "commentAuthor",
+        select: "username profilePicture",
+      },
+    },
+  ]);
 
   res.json(allPosts);
 };
@@ -626,4 +639,34 @@ export const postComment = async (req, res) => {
 
   await post.save();
   res.json(newComment);
+};
+
+export const deleteComment = async (req, res) => {
+  const { commentId } = req.body;
+  const deleteComment = await Comment.findByIdAndDelete(commentId);
+  res.json("ok");
+};
+
+export const specificUserPosts = async (req, res) => {
+  const { userId } = req.body;
+
+  const post = await Post.find({ postAuthor: userId }).populate([
+    {
+      path: "postAuthor",
+      select: " username profilePicture store",
+      populate: { path: "store", select: "_id" },
+    },
+
+    {
+      path: "postComments",
+      select: "commentText commentAuthor",
+
+      populate: {
+        path: "commentAuthor",
+        select: "username profilePicture",
+      },
+    },
+  ]);
+
+  res.json(post);
 };

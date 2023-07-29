@@ -1,22 +1,16 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setPostModalVisible } from "../../app/features/post";
 
-const Post = ({
-  post,
-  setPostModalVisible,
-  setIndex,
-  index,
-  setPostTrigger,
-  postTrigger,
-  /* likeTrigger,
-  setLikeTrigger,*/
-}) => {
+const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
   const [liked, setLiked] = useState(false);
 
+  const dispatch = useDispatch();
   const navigate = useNavigate();
   const user = useSelector((state) => state.userData.value.user);
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   async function likePost() {
     await axios.post("/api/customer/like-post", {
@@ -41,12 +35,15 @@ const Post = ({
   useEffect(() => {
     const isLiked = post.postLikes.includes(user._id);
     setLiked(isLiked);
-    // setLikeTrigger(false);
   }, [post]);
-
+  console.log(storeSubPage);
   return (
     <article
-      className="border-b-2 border-neutral-900 border-opacity-50  w-full mt-4  bg-neutral-900 rounded-md relative  "
+      className={
+        storeSubPage === "store"
+          ? "border-b-2 border-neutral-600 border-opacity-25  w-full mt-4  bg-neutral-900 relative rounded-md  "
+          : "border-b-2 border-neutral-900 border-opacity-50  w-full mt-4  bg-neutral-900 rounded-md relative  "
+      }
       onClick={() => {
         setIndex(index);
       }}
@@ -72,14 +69,34 @@ const Post = ({
       )}
       <div className=" w-full ">
         <div className="h-full w-full flex ">
-          <div className="w-[8%]  h-full p-4 flex justify-center">
+          <div
+            className={
+              storeSubPage === "store"
+                ? "w-[5%]  h-full p-4 flex justify-center"
+                : "w-[8%]  h-full p-4 flex justify-center"
+            }
+          >
             <img
+              onClick={() =>
+                navigate(
+                  `/store/${post.postAuthor.username}/${post.postAuthor.store._id}`
+                )
+              }
               src={post.postAuthor.profilePicture}
-              className="h-[50px] w-full rounded-full object-cover"
+              className="h-[50px] w-full rounded-full object-cover cursor-pointer"
             ></img>
           </div>
           <div className="w-[80%] h-full pt-2 text-neutral-400">
-            <h1 className="text-xl">{post.postAuthor.username}</h1>
+            <h1
+              className="text-xl cursor-pointer hover:text-white "
+              onClick={() =>
+                navigate(
+                  `/store/${post.postAuthor.username}/${post.postAuthor.store._id}`
+                )
+              }
+            >
+              {post.postAuthor.username}
+            </h1>
             <h3 className="text-sm">{post.postDate}</h3>
           </div>
         </div>
@@ -96,7 +113,8 @@ const Post = ({
             <div className="h-full w-full absolute top-0 bg-neutral flex justify-center items-center bg-neutral-900 bg-opacity-40">
               <button
                 onClick={() => {
-                  setPostModalVisible(true);
+                  setIndex(index);
+                  dispatch(setPostModalVisible(true));
                 }}
               >
                 <svg
@@ -132,7 +150,7 @@ const Post = ({
             <h1>{post.postLikes.length}</h1>
           </div>
           <div className="h-full flex items-center justify-center ">
-            <h1>85 comments</h1>
+            <h1>{post.postComments.length} comments</h1>
           </div>
         </div>
         <div className="h-[50%] flex p-2">
@@ -161,7 +179,10 @@ const Post = ({
             {liked ? "unlike" : "like"}
           </button>
           <button
-            onClick={() => setPostModalVisible(true)}
+            onClick={() => {
+              setIndex(index);
+              dispatch(setPostModalVisible(true));
+            }}
             className="w-[50%] h-full flex items-center justify-center gap-2 text-neutral-300 hover:text-orange-500 transition-all"
           >
             <svg

@@ -27,6 +27,8 @@ import {
   unlikePost,
   removePost,
   postComment,
+  deleteComment,
+  specificUserPosts,
 } from "../Controllers/customer.js";
 import { getAllStores } from "../Controllers/store.js";
 
@@ -60,5 +62,7 @@ router.post("/like-post", likePost);
 router.post("/unlike-post", unlikePost);
 router.post("/remove-post", removePost);
 router.post("/post-comment", postComment);
+router.post("/delete-comment", deleteComment);
+router.post("/get-user-posts", specificUserPosts);
 
 export default router;

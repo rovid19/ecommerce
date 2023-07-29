@@ -191,7 +191,12 @@ export const fetchStoreData = async (req, res) => {
     "productName productPicture productDescription productRating productNewPrice productOldPrice productCollection"
   );
 
-  res.json(store);
+  const user = await User.findOne({ store: storeid });
+
+  res.json({
+    store: store,
+    user: user,
+  });
 };
 
 export const getOrders = async (req, res) => {
@@ -370,4 +375,52 @@ export const getMostSoldProduct = async (req, res) => {
   const index = newArray.findIndex((sold) => sold === mostSold);
 
   res.json(allProducts[index]);
+};
+
+export const followStore = async (req, res) => {
+  const { followerId, userStoreId } = req.body;
+
+  const followedStoreUser = await User.findById(userStoreId);
+  const user = await User.findById(followerId);
+
+  user.followings.push(userStoreId);
+
+  followedStoreUser.followers.push(followerId);
+
+  await followedStoreUser.save();
+  await user.save();
+
+  res.json({
+    user: user,
+    storefollowed: followedStoreUser,
+  });
+};
+
+export const unfollowStore = async (req, res) => {
+  const { unfollowerId, userStoreId } = req.body;
+
+  const followedStoreUser = await User.findById(userStoreId);
+  const user = await User.findById(unfollowerId);
+
+  const newFollowings = user.followings.filter(
+    (storeid) => storeid.toString() !== userStoreId.toString()
+  );
+  user.set({
+    followings: [...newFollowings],
+  });
+  console.log(newFollowings);
+
+  const newFollowers = followedStoreUser.followers.filter(
+    (userid) => userid.toString() !== unfollowerId.toString()
+  );
+  followedStoreUser.set({
+    followers: [...newFollowers],
+  });
+  await followedStoreUser.save();
+  await user.save();
+
+  res.json({
+    user: user,
+    storefollowed: followedStoreUser,
+  });
 };

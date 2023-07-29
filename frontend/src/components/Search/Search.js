@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
+import Loader from "../../assets/svg-loaders/three-dots.svg";
 
 import {
   setSearch,
@@ -19,6 +20,7 @@ const Search = () => {
   const [filterOptions, setFilterOptions] = useState([]);
   const [stores, setStores] = useState(null);
   const [outletOn, setOutletOn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,9 +41,11 @@ const Search = () => {
   }
 
   useEffect(() => {
-    axios
-      .get("/api/customer/get-all-stores")
-      .then(({ data }) => setStores(data));
+    setIsLoading(true);
+    axios.get("/api/customer/get-all-stores").then(({ data }) => {
+      setStores(data);
+      setIsLoading(false);
+    });
   }, []);
   // FILTER OPTIONS FUNCTIONS
   async function sortByAtoZ() {
@@ -202,8 +206,12 @@ const Search = () => {
         )}
         {outletOn ? (
           <Outlet />
+        ) : isLoading ? (
+          <div className="h-full w-full flex items-center justify-center">
+            <img src={Loader}></img>
+          </div>
         ) : (
-          <div className="w-full h-[100%] grid grid-cols-3 dgri overflow-scroll scrollbar-hide p-4 gap-4 ">
+          <div className="w-full h-[100%] grid grid-cols-3 dgri overflow-scroll scrollbar-hide p-4 gap-4  ">
             {stores &&
               stores.map((result, i) => {
                 return (
@@ -229,7 +237,7 @@ const Search = () => {
                     ></img>
                   </article>
                 );
-              })}{" "}
+              })}
           </div>
         )}
       </section>

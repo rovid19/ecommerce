@@ -25,6 +25,8 @@ const userSchema = new mongoose.Schema({
   reviewsLeft: [],
   chat: [{ type: mongoose.Schema.Types.ObjectId, ref: "chat" }],
   allChat: [],
+  followings: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
+  followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
 });
 
 const userModel = mongoose.model("user", userSchema);

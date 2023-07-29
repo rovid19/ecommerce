@@ -6,6 +6,7 @@ import VideoPlayerModal from "./VideoPlayerModal";
 import Post from "./Post";
 import PostModal from "./PostModal";
 import axios from "axios";
+import Loader from "../../assets/svg-loaders/three-dots.svg";
 
 const YourFeed = () => {
   const [text, setText] = useState(null);
@@ -16,13 +17,17 @@ const YourFeed = () => {
   const [videoPlayerModalVisible, setVideoPlayerModalVisible] = useState(false);
   const [feedPosts, setFeedPosts] = useState(null);
   const [postTrigger, setPostTrigger] = useState(false);
-  const [postModalVisible, setPostModalVisible] = useState(false);
+
   const [date, setDate] = useState(new Date());
   const [index, setIndex] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   //const [likeTrigger, setLikeTrigger] = useState(false);
 
   const textA = useRef();
   const feedContainer = useRef(null);
+  const postModalVisible = useSelector(
+    (state) => state.post.value.postModalVisible
+  );
 
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "2-digit",
@@ -51,9 +56,14 @@ const YourFeed = () => {
   }
 
   useEffect(() => {
+    if (!feedPosts) {
+      setIsLoading(true);
+    }
+
     axios.get("/api/customer/get-all-posts").then(({ data }) => {
       let reverseArray = data.reverse();
       setFeedPosts(reverseArray);
+      setIsLoading(false);
       //setLikeTrigger(true);
     });
   }, [postTrigger]);
@@ -85,9 +95,8 @@ const YourFeed = () => {
           video={video}
         />
       )}
-      {postModalVisible && (
+      {feedPosts && feedPosts[index] && postModalVisible && (
         <PostModal
-          setPostModalVisible={setPostModalVisible}
           feedPosts={feedPosts}
           index={index}
           setPostTrigger={setPostTrigger}
@@ -245,25 +254,29 @@ const YourFeed = () => {
           </button>
         </form>
       </fieldset>
-      <div className=" w-full flex justify-center bg-neutral-800">
-        <div className="h-full w-[60%] bg-neutral-800">
-          {feedPosts &&
-            feedPosts.map((post, i) => {
-              return (
-                <Post
-                  post={post}
-                  setPostModalVisible={setPostModalVisible}
-                  setIndex={setIndex}
-                  index={i}
-                  setPostTrigger={setPostTrigger}
-                  postTrigger={postTrigger}
-                  /*likeTrigger={likeTrigger}
-                  setLikeTrigger={setLikeTrigger}*/
-                />
-              );
-            })}{" "}
+      {isLoading ? (
+        <div className="h-full w-full flex items-center justify-center">
+          <img src={Loader}></img>
         </div>
-      </div>
+      ) : (
+        <div className=" w-full flex justify-center bg-neutral-800">
+          <div className="h-full w-[60%] bg-neutral-800">
+            {feedPosts &&
+              feedPosts.map((post, i) => {
+                console.log(post);
+                return (
+                  <Post
+                    post={post}
+                    setIndex={setIndex}
+                    index={i}
+                    setPostTrigger={setPostTrigger}
+                    postTrigger={postTrigger}
+                  />
+                );
+              })}{" "}
+          </div>
+        </div>
+      )}
     </section>
   );
 };

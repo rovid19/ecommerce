@@ -20,6 +20,8 @@ import {
   getAllProducts,
   getMostSoldProduct,
   uploadVideo,
+  followStore,
+  unfollowStore,
 } from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
@@ -83,4 +85,7 @@ router.get("/get-homepage", getAllStores);
 router.get("/get-products", getAllProducts);
 
 router.get("/most-sold-product", getMostSoldProduct);
+
+router.post("/follow-store", followStore);
+router.post("/unfollow-store", unfollowStore);
 export default router;

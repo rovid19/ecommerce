@@ -1,24 +1,35 @@
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect, useRef } from "react";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+import { setPostModalVisible } from "../../app/features/post";
 
-const PostModal = ({
-  setPostModalVisible,
-  feedPosts,
-  index,
-  setPostTrigger,
-  postTrigger,
-}) => {
+const PostModal = ({ feedPosts, index, setPostTrigger, postTrigger }) => {
   const [commentText, setCommentText] = useState(null);
   const [liked, setLiked] = useState(false);
+  const [showLess, setShowLess] = useState(true);
+  const [commentId, setCommentId] = useState(null);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const textRef = useRef();
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
   useEffect(() => {
     const isLiked = feedPosts[index].postLikes.includes(user._id);
     setLiked(isLiked);
     // setLikeTrigger(false);
   }, [feedPosts[index]]);
+
+  const handleDeleteComment = async () => {
+    await axios.post("/api/customer/delete-comment", { commentId });
+    setPostTrigger(!postTrigger);
+  };
+  useEffect(() => {
+    if (commentId) {
+      handleDeleteComment();
+    }
+  }, [commentId]);
 
   async function likePost() {
     await axios.post("/api/customer/like-post", {
@@ -46,13 +57,19 @@ const PostModal = ({
     textRef.current.value = "";
   };
   const user = useSelector((state) => state.userData.value.user);
-  console.log(feedPosts[index]);
+
   return (
-    <div className="absolute h-[100%] w-full bg-neutral-900 bg-opacity-60 z-50 flex justify-center items-center">
+    <div
+      className={
+        storeSubPage === "store"
+          ? "absolute top-0 h-[100%] w-full bg-neutral-900 bg-opacity-60 z-50 flex justify-center items-center"
+          : "absolute h-[100%] w-full bg-neutral-900 bg-opacity-60 z-50 flex justify-center items-center"
+      }
+    >
       <article className="h-[100%] w-[70%] bg-neutral-900  relative rounded-md p-4 overflow-scroll scrollbar-hide">
         <button
           className="absolute top-2 left-2 z-50"
-          onClick={() => setPostModalVisible(false)}
+          onClick={() => dispatch(setPostModalVisible(false))}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -72,12 +89,24 @@ const PostModal = ({
           <div className="h-full w-full flex ">
             <div className="w-[5%]  h-full p-4 flex justify-center">
               <img
+                onClick={() =>
+                  navigate(
+                    `/store/${feedPosts[index].postAuthor.username}/${feedPosts[index].postAuthor.store._id}`
+                  )
+                }
                 src={feedPosts[index].postAuthor.profilePicture}
-                className="h-[50px] w-full rounded-full object-cover"
+                className="h-[50px] w-full rounded-full object-cover cursor-pointer"
               ></img>
             </div>
             <div className="w-[80%] h-full pt-2 text-neutral-400">
-              <h1 className="text-xl">
+              <h1
+                className="text-xl cursor-pointer hover:text-white "
+                onClick={() =>
+                  navigate(
+                    `/store/${feedPosts[index].postAuthor.username}/${feedPosts[index].postAuthor.store._id}`
+                  )
+                }
+              >
                 {feedPosts[index].postAuthor.username}
               </h1>
               <h3 className="text-sm">{feedPosts[index].postDate}</h3>
@@ -154,14 +183,62 @@ const PostModal = ({
             </button>
           </div>
         </div>
-        <div className="h-[30%] w-full ">
-          <div className="h-[60%]">
+        <div
+          className={
+            showLess
+              ? "h-[30%] w-full  relative overflow-hidden transition-all"
+              : "h-[30%] w-full  relative transition-all"
+          }
+        >
+          <h1 className="text-neutral-600 p-2 text-base">
+            {feedPosts[index].postComments.length} Comments:
+          </h1>
+          <button
+            className="absolute top-2 right-2 text-neutral-600 hover:text-orange-500 "
+            onClick={() => setShowLess(!showLess)}
+          >
+            {showLess ? "Show more comments" : "Show less"}
+          </button>
+          <div className={showLess ? "h-full w-full p-2" : "w-full p-2"}>
             {feedPosts[index].postComments.map((comment) => {
-              return <article className="h-[70%] mt-1 bg-red-500"></article>;
+              return (
+                <article className="  mt-4 flex ">
+                  <div className="h-[80px] w-[5%] p-2 ">
+                    <img
+                      src={comment.commentAuthor.profilePicture}
+                      className="rounded-full h-[60%] w-full object-cover"
+                    ></img>
+                  </div>
+                  <div className=" w-auto bg-neutral-800 text-neutral-300 p-4 max-w-[80%] break-words rounded-lg relative">
+                    {comment.commentText}
+                    <button
+                      className="absolute bottom-1 right-1"
+                      onClick={() => setCommentId(comment._id)}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="w-4 h-4 text-neutral-600 hover:text-orange-500 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </article>
+              );
             })}
           </div>
           <form
-            className="h-[40%] flex p-2 gap-2 relative"
+            className={
+              showLess
+                ? "h-[40%] flex p-2 gap-2 absolute bottom-0 w-full bg-neutral-900"
+                : "h-[40%] flex p-2 gap-2 relative"
+            }
             onSubmit={sumbitComment}
           >
             <img
