@@ -80,7 +80,7 @@ const Store = () => {
     containerRef.current.addEventListener("scroll", handleScroll);
   }, []);
 
-  // When closing store product modal, go back to where you left from
+  // When closing store product modal, scroll back to where you left from
   useEffect(() => {
     if (scrollStop) {
       setTimeout(() => {
@@ -117,7 +117,7 @@ const Store = () => {
     setStoreDataTrigger(!storeDataTrigger);
   };
 
-  //unfollow store
+  // unfollow store
   const unfollowStore = async () => {
     await axios.post("/api/store/unfollow-store", {
       unfollowerId: user._id,
@@ -130,7 +130,7 @@ const Store = () => {
     <>
       <main className="w-[100%]  h-full  relative  ">
         {isFetching && (
-          <div className="flex items-center justify-center absolute top-0 left-0 w-full h-full z-50 bg-white">
+          <div className="flex items-center justify-center absolute top-0 left-0 w-full h-full z-50 bg-neutral-800">
             <img src={Loader} className="h-24 w-[400px] object-cover"></img>
           </div>
         )}
@@ -183,8 +183,20 @@ const Store = () => {
             src={storeData && storeData.storeCover}
             className=" h-full w-full object-cover"
           ></img>
-          <div className="h-full w-full bg-black bg-opacity-40 absolute top-0">
-            <div className="text-white absolute bottom-[25%] left-[20%] lg:left-[15%] xl:left-[12%] lg:bottom-[10%] bg-neutral-900 p-4 rounded-xl z-50">
+          <div
+            className={
+              isFetching
+                ? "invisible"
+                : "h-full w-full bg-black bg-opacity-40 absolute top-0"
+            }
+          ></div>
+          <div className="w-[50%] h-[35%]  z-50 absolute bottom-0 flex gap-4 p-4">
+            {" "}
+            <img
+              src={storeData && storeData.storeProfile}
+              className="h-full w-[20%]  rounded-xl shadow-xl object-cover"
+            ></img>
+            <div className="text-white bg-neutral-900 p-4 rounded-xl z-50 min-w-[20%] max-w-[40%] ">
               <h1 className="text-xl lg:text-3xl">
                 {storeData && storeData.storeName}
               </h1>
@@ -193,13 +205,14 @@ const Store = () => {
               </h3>
               <p className="text-sm lg:text-base">
                 {storeData && storeData.storeDescription}
-              </p>{" "}
+              </p>
+              <div className="flex">
+                <h1 className="">
+                  {storeUser && storeUser.followers.length} followers
+                </h1>{" "}
+              </div>
             </div>
           </div>
-          <img
-            src={storeData && storeData.storeProfile}
-            className="h-28 w-[10%] absolute bottom-4 left-2 lg:h-36 lg:left-4 rounded-xl shadow-xl object-cover"
-          ></img>
           <div className="absolute right-0 bottom-0   h-[10%] w-[20%]">
             <button
               className={

@@ -22,6 +22,8 @@ import {
   uploadVideo,
   followStore,
   unfollowStore,
+  getFollow,
+  removeFollower,
 } from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
@@ -88,4 +90,7 @@ router.get("/most-sold-product", getMostSoldProduct);
 
 router.post("/follow-store", followStore);
 router.post("/unfollow-store", unfollowStore);
+
+router.post("/get-follow", getFollow);
+router.post("/remove-follower", removeFollower);
 export default router;

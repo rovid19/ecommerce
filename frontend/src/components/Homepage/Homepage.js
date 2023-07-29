@@ -58,7 +58,7 @@ const Homepage = () => {
           <>
             <div className="h-full w-full grid grid-rows-2">
               <section className=" h-full w-full relative group">
-                <h1 className="absolute bottom-2 rounded-r-md text-white left-2 z-20 text-4xl bg-neutral-900 p-4 group-hover:invisible transition-all">
+                <h1 className="absolute bottom-0 rounded-r-md text-white left-0 z-20 text-4xl bg-neutral-900 p-4 group-hover:invisible transition-all">
                   Trending store this week{" "}
                 </h1>
                 <HomepageTrending />
@@ -74,7 +74,7 @@ const Homepage = () => {
                       />
                     ))}
                 </div>
-                <h1 className="absolute right-4 bottom-2 bg-neutral-900 text-white p-2 text-xl rounded-l-md  ">
+                <h1 className="absolute right-0 bottom-0 bg-neutral-900 text-white p-2 text-xl rounded-l-md  ">
                   Other popular stores
                 </h1>
               </section>

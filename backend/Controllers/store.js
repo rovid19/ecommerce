@@ -424,3 +424,93 @@ export const unfollowStore = async (req, res) => {
     storefollowed: followedStoreUser,
   });
 };
+
+export const getFollow = async (req, res) => {
+  const { userId } = req.body;
+
+  const user = await User.findById(userId).populate([
+    {
+      path: "followers",
+      select: "username profilePicture _id",
+    },
+    { path: "followings", select: "username profilePicture _id " },
+  ]);
+
+  res.json({
+    followers: user.followers,
+    followings: user.followings,
+  });
+};
+
+export const removeFollower = async (req, res) => {
+  const { removeFollower, select } = req.body;
+  const { token } = req.cookies;
+  console.log(removeFollower);
+  if (select === "Followers") {
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      if (err) throw err;
+      const user = await User.findById(userData.id);
+
+      const newFollowers = user.followers.filter(
+        (follower) => follower.toString() !== removeFollower.toString()
+      );
+
+      console.log(newFollowers);
+
+      user.set({
+        followers: [...newFollowers],
+      });
+
+      await user.save();
+
+      const removedFollower = await User.findById(removeFollower);
+
+      const newFollowing = removedFollower.followings.filter(
+        (following) => following.toString() !== userData.id.toString()
+      );
+
+      removedFollower.set({
+        followings: [...newFollowing],
+      });
+
+      await removedFollower.save();
+
+      res.json({
+        user: user.followers,
+        removedUser: removedFollower.followings,
+      });
+    });
+  } else {
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      if (err) throw err;
+      const user = await User.findById(userData.id);
+
+      const newFollowings = user.followings.filter(
+        (following) => following.toString() !== removeFollower.toString()
+      );
+
+      user.set({
+        followings: [...newFollowings],
+      });
+
+      await user.save();
+
+      const removedFollower = await User.findById(removeFollower);
+
+      const newFollowers = removedFollower.followers.filter(
+        (followers) => followers.toString() !== userData.id.toString()
+      );
+
+      removedFollower.set({
+        followers: [...newFollowers],
+      });
+
+      await removedFollower.save();
+
+      res.json({
+        user: user.followers,
+        removedUser: removedFollower.followings,
+      });
+    });
+  }
+};

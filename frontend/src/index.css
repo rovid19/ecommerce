@@ -253,3 +253,9 @@ input[type="radio"] {
   flex-direction: column;
   align-items: center;
 }
+
+.flexcentar2 {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}

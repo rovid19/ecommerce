@@ -9,6 +9,7 @@ import { switchValue } from "../../../../../app/features/getUserTrigger";
 import { setUserProfileSavedModal } from "../../../../../app/features/User/profileSavedModal.js";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserData } from "../../../../../app/features/User/userSlice";
+import ManageFollowers from "./ManageFollowers";
 
 const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -16,6 +17,7 @@ const Profile = () => {
   const [newEmail, setNewEmail] = useState(null);
   const [newPassword, setNewPassword] = useState(null);
   const [newUsername, setNewUsername] = useState(null);
+  const [manageFollowersVisible, setManageFollowersVisible] = useState(false);
 
   const user = useSelector((state) => state.userData.value.user);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
@@ -59,7 +61,12 @@ const Profile = () => {
   }
   console.log(user);
   return (
-    <div className="h-full w-full flex items-center bg-neutral-800 justify-center ">
+    <div className="h-full w-full flex items-center bg-neutral-800 justify-center relative ">
+      {manageFollowersVisible && (
+        <ManageFollowers
+          setManageFollowersVisible={setManageFollowersVisible}
+        />
+      )}
       {profileSavedModal && <StoreSavedModal />}
       <form className="w-[50%] h-full fl2" onSubmit={handleProfileChanges}>
         <div className="h-[30%] w-full flex justify-center items-center p-2">
@@ -112,8 +119,18 @@ const Profile = () => {
             className="h-[20%] w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
             onChange={(e) => setNewPassword(e.target.value)}
           />
+          <button
+            className="h-[20%] bg-neutral-700 w-[65%] rounded-md text-neutral-200 mt-1 hover:bg-orange-500 hover:text-white"
+            onClick={(e) => {
+              e.preventDefault();
+              setManageFollowersVisible(true);
+            }}
+          >
+            Manage followers/followings
+          </button>
         </div>
-        <div className="w-full h-[20%] flex justify-center ">
+
+        <div className="w-full h-[20%] flex justify-center mt-6">
           <button className="bg-orange-500 h-[35%] w-[50%] text-white rounded-md hover:w-[65%] transition-all  ">
             Save
           </button>
