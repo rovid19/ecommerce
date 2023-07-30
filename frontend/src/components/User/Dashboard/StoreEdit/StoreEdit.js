@@ -77,12 +77,12 @@ const StoreEdit = () => {
     <div
       className={
         storeSubPage === "editStore"
-          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0"
+          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0 bg-neutral-800"
           : "hidden"
       }
     >
       {isLoading && (
-        <div className="h-full w-full absolute top-0 left-0 z-50 bg-black bg-opacity-40 flex items-center justify-center">
+        <div className="h-full w-full absolute top-0 left-0 z-50 bg-neutral-900 bg-opacity-40 flex items-center justify-center">
           <img src={Loader} />
         </div>
       )}

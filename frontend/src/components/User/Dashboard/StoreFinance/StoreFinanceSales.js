@@ -52,19 +52,19 @@ const StoreFinanceSales = () => {
   }, [value]);
 
   return (
-    <div className="w-full h-full fl2 relative">
+    <div className="w-full h-full fl2 relative bg-neutral-800">
       {isFetching && (
-        <div className="h-full w-full flex items-center justify-center bg-white absolute top-0 left-0">
+        <div className="h-full w-full flex items-center justify-center bg-neutral-800 absolute top-0 left-0">
           {" "}
           <img src={Loader}></img>{" "}
         </div>
       )}
       {calendar && (
-        <div className="absolute top-0 left-0 flex items-center justify-center bg-white bg-opacity-50 h-full w-full">
+        <div className="absolute top-0 left-0 flex items-center justify-center bg-neutral-900 bg-opacity-50 h-full w-full">
           <Calendar value={value} onChange={onChange} />{" "}
         </div>
       )}
-      <div className="w-full h-[10%] grid grid-cols-2">
+      <div className="w-full h-[10%] grid grid-cols-2 bg-neutral-700 text-neutral-500">
         <button
           onClick={() => {
             setSubPage("sales");
@@ -72,8 +72,8 @@ const StoreFinanceSales = () => {
           }}
           className={
             subPage === "sales"
-              ? "bg-gray-400 text-white"
-              : "border-b-2  border-gray-300 border-opacity-20"
+              ? "bg-neutral-700 text-white"
+              : "border-b-2 border-r-2 border-neutral-900 border-opacity-20"
           }
         >
           {subPage === "total"
@@ -89,22 +89,22 @@ const StoreFinanceSales = () => {
           }}
           className={
             subPage === "total"
-              ? "bg-gray-400 text-white"
-              : "border-l-2 border-b-2 border-gray-300 border-opacity-20"
+              ? "bg-neutral-700 text-white"
+              : "border-l-2 border-b-2 border-neutral-900 border-opacity-20"
           }
         >
           Total Sales
         </button>
       </div>
       <div className="w-full h-[90%] fl2">
-        <h3 className="text-xl lg:text-2xl text-gray-300">
+        <h3 className="text-xl lg:text-2xl text-neutral-400">
           {subPage === "sales"
             ? formattedDate === todayDate
               ? "Today Sales"
               : formattedDate + " " + "Sales"
             : "Total Sales"}
         </h3>
-        <h1 className="text-8xl lg:text-9xl mt-2">{dailySales}$</h1>
+        <h1 className="text-8xl lg:text-9xl mt-2 text-white">{dailySales}$</h1>
       </div>
     </div>
   );

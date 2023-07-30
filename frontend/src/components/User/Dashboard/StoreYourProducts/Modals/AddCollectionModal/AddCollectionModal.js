@@ -64,12 +64,12 @@ const AddCollectionModal = () => {
   }, [item]);
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50 absolute top-0 left-0">
-      <div className="w-[85%] h-[70%]  lg:w-[35%] lg:h-[70%] bg-white p-4 rounded-lg relative ">
+    <div className="w-full h-full flex items-center justify-center bg-neutral-900 bg-opacity-40 z-50 absolute top-0 left-0">
+      <div className="w-[85%] h-[70%]  lg:w-[35%] lg:h-[70%] bg-neutral-800 text-neutral-300 p-4 rounded-lg relative ">
         {edit && (
           <div className="h-full w-full bg-black bg-opacity-20 z-30 flex justify-center absolute top-0 left-0 rounded-md items-center">
             <form
-              className="w-full h-[50%] bg-white fl2 relative "
+              className="w-[90%] h-[50%] bg-neutral-700 fl2 relative rounded-md "
               onSubmit={handleCollectionNameChange}
             >
               <button
@@ -80,7 +80,7 @@ const AddCollectionModal = () => {
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="currentColor"
-                  className="w-6 h-6 bg-orange-500 rounded-sm text-white hover:scale-90 transition-all "
+                  className="w-6 h-6 bg-neutral-600 rounded-md text-white hover:bg-orange-500 transition-all "
                 >
                   <path
                     fillRule="evenodd"
@@ -91,7 +91,7 @@ const AddCollectionModal = () => {
               </button>{" "}
               <input
                 placeholder={collection[placeHolderIndex]}
-                className="w-[80%] h-[30%] text-3xl p-4 bg-gray-50 rounded-md"
+                className="w-[80%] h-[30%] text-3xl p-4 bg-neutral-600 rounded-md text-white"
                 onChange={(e) => setNewCollectionName(e.target.value)}
               />
               <button className="absolute bottom-4 w-[20%] bg-orange-500 text-white p-2 rounded-md hover:w-[25%] transition-all">
@@ -107,7 +107,7 @@ const AddCollectionModal = () => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 bg-orange-500 rounded-sm text-white hover:scale-90 transition-all "
+              className="w-6 h-6 text-neutral-300 rounded-md  hover:bg-orange-500 hover:text-white "
             >
               <path
                 fillRule="evenodd"
@@ -124,11 +124,11 @@ const AddCollectionModal = () => {
           <div className="h-[20%] w-full relative mt-6 mb-4">
             <h1 className="text-xl h-[30%] ">Add a new collection</h1>
             <input
-              className=" text-3xl p-2 h-[70%] w-full border-2 border-gray-300 border-opacity-40 rounded-md"
+              className=" text-3xl p-2 h-[70%] w-full rounded-md bg-neutral-600 text-white"
               onChange={(e) => setCollectionInput(e.target.value)}
               ref={inputRef}
             />
-            <button className="absolute right-0 h-[70%] text-5xl w-[15%] bg-gray-300 hover:bg-orange-500 text-white rounded-r-md">
+            <button className="absolute right-0 h-[70%] text-5xl w-[15%] bg-neutral-700 hover:bg-orange-500 text-white rounded-r-md">
               +
             </button>
           </div>
@@ -137,12 +137,12 @@ const AddCollectionModal = () => {
               collection.map((item, index) => {
                 return (
                   <article
-                    className="h-[15%] w-full bg-gray-50 mt-1 relative p-4 flex items-center rounded-md"
+                    className="h-[15%] w-full mt-1 relative p-4 flex items-center rounded-md bg-neutral-900"
                     key={index}
                   >
                     {<h1 className="text-2xl">{item}</h1>}
                     <button
-                      className="absolute right-10 top-0 h-full grid place-items-center"
+                      className="absolute right-10 top-0 h-full grid place-items-center "
                       onClick={(e) => {
                         e.preventDefault();
                         setEdit(!edit);

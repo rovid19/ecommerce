@@ -133,7 +133,7 @@ const EditProductInputs = ({
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            className="w-10 h-10 text-white hover:scale-90 absolute bg-orange-500 top-0 p-1 right-0 invisible group-hover:visible "
+                            className="w-8 h-8 text-white hover:bg-orange-500    absolute bg-neutral-600 rounded-l-md rounded-b-md top-0 p-1 right-0 invisible group-hover:visible"
                             onClick={(e) => {
                               e.stopPropagation();
                               setIndex(index);
@@ -162,7 +162,7 @@ const EditProductInputs = ({
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 24 24"
                               fill="currentColor"
-                              className="w-7 h-7 text-white hover:scale-90 absolute bg-orange-500 bottom-0 p-1 left-0 invisible group-hover:visible"
+                              className="w-6 h-6 text-white hover:bg-orange-500 absolute bg-neutral-600 rounded-t-md rounded-r-md bottom-0 p-1 left-0 invisible group-hover:visible"
                               onClick={(e) => {
                                 setIndex(index);
                               }}
@@ -196,14 +196,14 @@ const EditProductInputs = ({
       <div className="h-[40%] w-full pt-2 pl-2  ">
         <input
           type="text"
-          className="text-xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
+          className="text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800  text-white placeholder-neutral-500"
           placeholder="Name of your product"
           onChange={(e) => setProductTitle(e.target.value)}
           defaultValue={currentProduct && currentProduct.productName}
         />
         <input
           type="text"
-          className="text-xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
+          className="text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500"
           placeholder="Description of your product"
           onChange={(e) => setProductDescription(e.target.value)}
           defaultValue={currentProduct && currentProduct.productDescription}
@@ -211,15 +211,15 @@ const EditProductInputs = ({
         <div className="relative ">
           <input
             type="text"
-            className="text-xl  w-full border-b-2 border-gray-300 border-opacity-10 p-2"
+            className="text-xl  w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500"
             placeholder="Price of your product"
             onChange={(e) => setProductPrice(e.target.value)}
             defaultValue={currentProduct && currentProduct.productNewPrice}
           />
           <label className="w-full   ">
-            <h1 className="text-gray-400 pl-2 text-xl mt-1">Collection:</h1>
+            <h1 className="text-neutral-500 pl-2 text-xl mt-1">Collection:</h1>
             <select
-              className="w-full pl-1 text-gray-400 text-xl border-b-2 border-gray-300 border-opacity-10"
+              className="w-full pl-1 text-white text-xl border-b-2 border-neutral-600 border-opacity-10 bg-neutral-800"
               onChange={(e) => setCollectionValue(e.target.value)}
               value={collectionValue}
             >

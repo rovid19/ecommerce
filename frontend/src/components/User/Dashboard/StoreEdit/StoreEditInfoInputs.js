@@ -57,7 +57,7 @@ const StoreEditInfoInputs = ({
           fill="currentColor"
           className={
             editMode
-              ? "w-8 h-8 absolute bottom-4 right-4 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-20 border-2 border-gray-300 transition-all"
+              ? "w-8 h-8 absolute bottom-4 right-4 cursor-pointer text-neutral-300 shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-20 border-2 border-gray-300 transition-all"
               : "hidden"
           }
         >
@@ -75,11 +75,11 @@ const StoreEditInfoInputs = ({
           </div>
         )}
         <img
-          src={profilePhoto ? profilePhoto : user.store.storeProfile}
+          src={profilePhoto ? profilePhoto : user.profilePicture}
           className={
             user.store.storeProfile
               ? "h-full w-full object-cover rounded-lg   "
-              : "h-full w-full object-cover  border-2 border-gray-300 "
+              : "h-full w-full object-cover  border-2 border-neutral-800 p-2 "
           }
         ></img>
         <label>
@@ -95,7 +95,7 @@ const StoreEditInfoInputs = ({
             fill="currentColor"
             className={
               editMode
-                ? "w-6 h-6 absolute bottom-0 cursor-pointer text-white shadow-xl hover:scale-105 hover:text-white hover:bg-orange-500 hover:border-orange-500 z-10 border-2 rounded-md border-gray-300 transition-all"
+                ? "w-6 h-6 absolute bottom-0 cursor-pointer text-neutral-300 shadow-xl hover:scale-105 hover:text-white hover:bg-orange-500 hover:border-orange-500 z-10 border-2 rounded-md border-gray-300 transition-all"
                 : "hidden"
             }
           >

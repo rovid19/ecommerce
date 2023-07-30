@@ -36,20 +36,20 @@ const EditProductModal = () => {
   }, []);
 
   return (
-    <div className="w-full h-full flex items-center justify-center bg-black bg-opacity-40 z-50 absolute top-0 left-0">
+    <div className="w-full h-full flex items-center justify-center bg-neutral-900 bg-opacity-40 z-50 absolute top-0 left-0">
       {isFetching && (
-        <div className="w-full h-full absolute top-0 bg-black bg-opacity-50 left-0 flex items-center justify-center z-40">
+        <div className="w-full h-full absolute top-0 bg-neutral-900 bg-opacity-50 left-0 flex items-center justify-center z-40">
           <img src={Loader}></img>
         </div>
       )}
-      <div className="w-[85%] h-[70%]  lg:w-[35%] lg:h-[70%] bg-white p-4 rounded-lg relative  ">
+      <div className="w-[85%] h-[70%]  lg:w-[35%] lg:h-[70%] bg-neutral-800 p-4 rounded-lg relative  ">
         <div className="h-[5%] ">
           <button onClick={() => dispatch(setEditProductModal(false))}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 bg-orange-500 rounded-sm text-white hover:scale-90 transition-all "
+              className="w-6 h-6 text-neutral-300 rounded-md  hover:bg-orange-500 hover:text-white "
             >
               <path
                 fillRule="evenodd"

@@ -10,7 +10,7 @@ const StoreDashboard = () => {
         <div className="lg:hidden h-full w-full">
           <StoreDashboardNavMobile />
         </div>
-        <div className="hidden lg:block h-full w-full">
+        <div className="hidden lg:block h-full w-full ">
           <StoreDashboardNav />
         </div>
       </div>

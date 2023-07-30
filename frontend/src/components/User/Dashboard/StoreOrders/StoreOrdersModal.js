@@ -60,7 +60,7 @@ const StoreOrdersModal = ({
   }, []);
 
   return (
-    <div className="h-full w-full absolute top-0 left-0 bg-white bg-opacity-50 z-50 flex items-center justify-center">
+    <div className="h-full w-full absolute top-0 left-0 bg-neutral-800 bg-opacity-50 z-50 flex items-center justify-center">
       <button
         className="absolute left-2 top-2  z-50"
         onClick={() => {
@@ -71,7 +71,7 @@ const StoreOrdersModal = ({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-12 h-12 hover:text-orange-500"
+          className="w-12 h-12 hover:text-orange-500 text-neutral-300"
         >
           <path
             fillRule="evenodd"
@@ -80,7 +80,7 @@ const StoreOrdersModal = ({
           />
         </svg>
       </button>
-      <div className="h-[90%] w-[85%] bg-gray-50 flex items-center justify-center rounded-md">
+      <div className="h-[90%] w-[85%] bg-neutral-700 text-neutral-300 flex items-center justify-center rounded-md">
         <div className="w-[30%] h-full">
           <img
             src={orderData.productBought[indexDva].productPicture}
@@ -93,7 +93,7 @@ const StoreOrdersModal = ({
               <h1 className="text-8xl">
                 {orderData.productBought[indexDva].productName}
               </h1>
-              <div className=" border-b-2 border-gray-300 border-opacity-20 p-2">
+              <div className=" border-b-2 border-neutral-900 border-opacity-10 p-2">
                 <h2 className="text-gray-400 mt-6">Total price paid:</h2>
                 <h1 className="text-3xl ">
                   {orderData.productBought[indexDva].productNewPrice}$
@@ -105,13 +105,13 @@ const StoreOrdersModal = ({
                 <span className="font-light">Customer:</span>{" "}
                 <h1>{orderData.buyerUsername} </h1>
               </div>{" "}
-              <div className=" border-b-2 border-gray-300 border-opacity-20 p-2">
+              <div className=" border-b-2 border-neutral-900 border-opacity-10 p-2">
                 <h1 className="text-gray-400">Quantity</h1>
                 <h2 className="text-2xl">
                   {orderData.productQuantity[indexDva]}
                 </h2>
               </div>
-              <div className=" border-b-2 border-gray-300 border-opacity-20 p-2">
+              <div className=" border-b-2 border-neutral-900 border-opacity-10 p-2">
                 <h1 className="text-gray-400">Note:</h1>
                 <p className="text-xl">
                   {orderData.noteToSeller
@@ -119,14 +119,14 @@ const StoreOrdersModal = ({
                     : "Customer didn't leave any note."}
                 </p>
               </div>
-              <div className=" border-b-2 border-gray-300 border-opacity-20 p-2 ">
+              <div className=" border-b-2 border-neutral-900 border-opacity-10 p-2 ">
                 <h1 className="text-gray-400">Approximate shipping date:</h1>
                 <div className="w-full  relative">
                   <input
                     readOnly={orderData.productShipped ? true : false}
                     type="number"
                     value={orderData.arrivalDate}
-                    className="w-full h-full rounded-md "
+                    className="w-full h-full rounded-md bg-neutral-700 "
                     onChange={(e) => setShippingDate(e.target.value)}
                   />
                   <span className="absolute right-5 top-0">Days</span>
@@ -138,7 +138,7 @@ const StoreOrdersModal = ({
                 {" "}
                 {orderData.productShipped ? (
                   <button
-                    className="w-full h-[80%] border-2 border-orange-500 text-black ml-4 rounded-md hover:bg-orange-500 hover:text-white transition-all"
+                    className="w-full h-[80%] border-2 border-orange-500 text-neutral-300 ml-4 rounded-md hover:bg-orange-500 hover:text-white transition-all"
                     onClick={() => {
                       handleCancelOrder();
                     }}
@@ -147,7 +147,7 @@ const StoreOrdersModal = ({
                   </button>
                 ) : (
                   <button
-                    className="w-full h-[80%] border-2 border-orange-500 text-black ml-4 rounded-md hover:bg-orange-500 hover:text-white transition-all"
+                    className="w-full h-[80%] border-2 border-orange-500 text-neutral-300 ml-4 rounded-md hover:bg-orange-500 hover:text-white transition-all"
                     onClick={() => {
                       handleShipOrder();
                     }}

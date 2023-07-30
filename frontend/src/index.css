@@ -119,7 +119,7 @@ body {
 }
 
 .Navlink {
-  @apply text-gray-500;
+  @apply text-neutral-400;
   @apply border-opacity-25;
   height: 50px;
   display: flex;

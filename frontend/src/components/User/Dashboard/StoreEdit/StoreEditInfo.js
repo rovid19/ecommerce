@@ -44,9 +44,9 @@ const StoreEditInfo = ({
       }
       style={user ? styles : ""}
     >
-      <div className="absolute top-0 left-0 h-full w-full bg-black bg-opacity-50 z-20"></div>
+      <div className="absolute top-0 left-0 h-full w-full bg-neutral-900 bg-opacity-70 z-20"></div>
       <div className="w-full h-[30%] lg:h-[50%] z-50  "></div>
-      <div className=" h-[50px] w-[250px] toggle flex items-center justify-center absolute top-0 left-2 z-40 text-white">
+      <div className=" h-[50px] w-[250px] toggle flex items-center justify-center absolute top-0 left-2 z-40 text-neutral-300">
         <label className="switch transition-all  ">
           <input
             type="checkbox"
@@ -57,7 +57,11 @@ const StoreEditInfo = ({
           />
           <span className={editMode ? "sliderOrange" : "slider"}></span>
         </label>
-        <h1 className={editMode ? "mr-2 text-white " : "mr-2 "}>
+        <h1
+          className={
+            editMode ? "mr-2 text-neutral-400 " : "mr-2  text-neutral-400"
+          }
+        >
           {editMode ? "Disable" : "Enable "} Edit Mode
         </h1>
       </div>

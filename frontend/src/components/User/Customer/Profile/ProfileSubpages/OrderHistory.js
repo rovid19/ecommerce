@@ -24,7 +24,7 @@ const OrderHistory = () => {
   useEffect(() => {
     setIsFetching(true);
     axios.get("/api/customer/get-order-history").then(({ data }) => {
-      setOrderHistory(data);
+      setOrderHistory(data.reverse());
       setIsFetching(false);
     });
   }, [getOrderHistoryTrigger]);

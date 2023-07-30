@@ -87,7 +87,7 @@ const StoreAddProducts = () => {
     <div
       className={
         storeSubPage === "products"
-          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0"
+          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0 bg-neutral-800"
           : "hidden"
       }
     >
@@ -105,9 +105,9 @@ const StoreAddProducts = () => {
         className="h-[35%] w-full flex items-center justify-center bg-cover   shadow-lg relative"
         style={styles}
       >
-        <div className="h-full w-full bg-black bg-opacity-50 absolute top-0 left-0"></div>
+        <div className="h-full w-full bg-neutral-900 bg-opacity-50 absolute top-0 left-0"></div>
         {editMode && (
-          <div className="w-full h-full bg-black bg-opacity-50 absolute top-0 left-0 z-20">
+          <div className="w-full h-full bgneutral-900k bg-opacity-50 absolute top-0 left-0 z-20">
             {" "}
           </div>
         )}
@@ -123,7 +123,11 @@ const StoreAddProducts = () => {
             />
             <span className={editMode ? "sliderOrange" : "slider"}></span>
           </label>
-          <h1 className={editMode ? "mr-2 text-white " : "mr-2 "}>
+          <h1
+            className={
+              editMode ? "mr-2 text-neutral-400 " : "mr-2 text-neutral-400 "
+            }
+          >
             {editMode ? "Disable" : "Enable"} Edit Mode
           </h1>
         </div>{" "}

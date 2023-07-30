@@ -2,8 +2,8 @@ import React from "react";
 
 const Add = ({ setAdd }) => {
   return (
-    <article className="h-full w-full bg-black p-4 bg-transparent rounded-md">
-      <div className="h-[5%]">
+    <article className="h-full w-full bg-neutral-900 p-4 bg-transparent rounded-md">
+      <div className="h-[5%] ">
         <button onClick={() => setAdd(false)}>
           <svg
             xmlns="http://www.w3.org/2000/svg"

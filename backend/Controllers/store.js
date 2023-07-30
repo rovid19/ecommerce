@@ -52,7 +52,12 @@ export const editStore = async (req, res) => {
       storeAddress: address,
     });
 
+    user.set({
+      profilePicture: profilePhoto,
+    });
+
     await findStore.save();
+    await user.save();
 
     res.json(findStore);
   });

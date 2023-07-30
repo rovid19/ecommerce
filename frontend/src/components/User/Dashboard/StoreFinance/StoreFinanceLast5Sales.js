@@ -19,60 +19,52 @@ const StoreFinanceLast5Sales = () => {
   }, []);
 
   return (
-    <div className="w-full h-full ">
+    <div className="w-full h-full bg-neutral-800">
       {isFetching && (
-        <div className="h-full w-full flex items-center justify-center bg-white absolute top-0 left-0">
+        <div className="h-full w-full flex items-center justify-center bg-neutral-800 absolute top-0 left-0">
           {" "}
           <img src={Loader}></img>{" "}
         </div>
       )}
-      <div className="h-[10%] p-4 border-b-2 border-gray-300 border-opacity-20">
-        <h2 className="text-xl lg:text-2xl uppercase text-gray-300">
+      <div className="h-[10%] p-4 border-b-2 border-neutral-900 border-opacity-20">
+        <h2 className="text-xl lg:text-2xl uppercase text-neutral-400">
           Last 5 sales:
         </h2>
       </div>
-      <div className="w-full h-[90%] overflow-scroll">
+      <div className="w-full h-[90%]  overflow-scroll scrollbar-hide">
         {last5 &&
           last5.map((item, index) => {
-            const indexMap = index;
+            console.log(item);
             return (
               <div
                 className={
                   index === 0
-                    ? "w-full h-[20%] grid grid-cols-3 bg-gray-50 p-1  rounded-md"
-                    : "w-full h-[20%]  mt-2 grid grid-cols-3 bg-gray-50 p-1 rounded-md"
+                    ? "w-full h-[25%] grid grid-cols-3 bg-neutral-900 p-2  rounded-md"
+                    : "w-full h-[25%]  mt-2 grid grid-cols-3 bg-neutral-900 p-2 rounded-md"
                 }
                 key={index}
               >
-                <div className="border-r-2 border-gray-300 border-opacity-20 text-gray-500">
+                <div className="border-r-2 border-neutral-600 border-opacity-20 text-neutral-500">
                   <div className="h-[10%] w-full p-1 flex items-center justify-center">
                     <h1>Products</h1>
                   </div>
-                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-2xl text-black gap-2 overflow-scroll scrollbar-hide">
-                    {item.productBought.map((picture, index) => {
-                      return (
-                        <img
-                          src={picture.productPicture[0]}
-                          className="w-[30%] h-[70%] rounded-md "
-                          key={index}
-                        ></img>
-                      );
-                    })}
+                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-2xl text-neutral-300 gap-2">
+                    <h1>{item.pro}</h1>
                   </div>
                 </div>
-                <div className="border-r-2 border-gray-300 border-opacity-20 text-gray-500">
+                <div className="border-r-2 border-neutral-600 border-opacity-20 text-neutral-500">
                   <div className="h-[10%] w-full p-1 flex items-center justify-center">
                     <h1>Price</h1>
                   </div>
-                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-2xl text-black">
+                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-2xl text-neutral-400">
                     {item.total}$
                   </div>
                 </div>
-                <div className="border-r-2 border-gray-300 border-opacity-20 text-gray-500">
+                <div className=" text-neutral-500">
                   <div className="h-[10%] w-full p-1 flex items-center justify-center">
                     <h1>Date</h1>
                   </div>
-                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-2xl text-black">
+                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-2xl text-neutral-400">
                     {item.orderPlacedDate}
                   </div>
                 </div>

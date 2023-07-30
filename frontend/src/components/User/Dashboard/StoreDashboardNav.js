@@ -36,11 +36,11 @@ const StoreDashboardNav = () => {
   });
 
   return (
-    <div className=" w-full h-full shadow-xl relative">
+    <div className=" w-full h-full shadow-xl relative bg-neutral-900 text-neutral-300">
       {editMode && (
         <div className="w-full h-full bg-black bg-opacity-50 absolute top-0 left-0 z-20"></div>
       )}
-      <div className="h-[15%]  flex justify-center items-center">
+      <div className="h-[15%]  flex justify-center items-center text-neutral-300">
         <h1
           className="font-bold cursor-pointer"
           onClick={() => {
@@ -52,10 +52,10 @@ const StoreDashboardNav = () => {
           Rock's market
         </h1>
       </div>
-      <nav className="">
+      <nav className="text-neutral-300">
         {" "}
         <ul className="p-4 ">
-          <li className="text-gray-300 p-2">{user && user.storeName}</li>{" "}
+          <li className=" p-2">{user && user.storeName}</li>{" "}
           <Link
             exact
             to={`/dashboard/${user.storeName}`}
@@ -65,8 +65,8 @@ const StoreDashboardNav = () => {
             }}
             className={
               storeEdit
-                ? "Navlink hover:bg-orange-500 hover:text-white active"
-                : "Navlink hover:bg-orange-500 hover:text-white "
+                ? "Navlink hover:bg-orange-500  hover:text-white active"
+                : "Navlink hover:bg-orange-500  hover:text-white "
             }
             use
           >

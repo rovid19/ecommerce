@@ -17,14 +17,14 @@ const StoreAddProductModal = ({ setIsVisible }) => {
           <img src={Loader}></img>
         </div>
       )}
-      <div className="w-[85%] h-[70%]  lg:w-[35%] lg:h-[70%] bg-white p-4 rounded-lg relative  ">
+      <div className="w-[85%] h-[70%]  lg:w-[35%] lg:h-[70%] bg-neutral-800 p-4 rounded-lg relative  ">
         <div className="h-[5%] ">
           <button onClick={() => setIsVisible(false)}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 bg-orange-500 rounded-sm text-white hover:scale-90 transition-all "
+              className="w-6 h-6 text-neutral-300 rounded-md  hover:bg-orange-500 hover:text-white "
             >
               <path
                 fillRule="evenodd"

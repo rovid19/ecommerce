@@ -88,8 +88,8 @@ const AddProductInputs = ({
   }, []);
 
   return (
-    <form onSubmit={handleAddProduct} className="h-[95%]">
-      <div className="h-[55%] rounded-lg w-full overflow-hidden">
+    <form onSubmit={handleAddProduct} className="h-[95%] bg-neutral-800">
+      <div className="h-[55%] rounded-lg w-full overflow-hidden bg-neutral-800">
         <label
           className={
             productPicture
@@ -127,7 +127,7 @@ const AddProductInputs = ({
                             xmlns="http://www.w3.org/2000/svg"
                             viewBox="0 0 24 24"
                             fill="currentColor"
-                            className="w-10 h-10 text-white hover:scale-90 absolute bg-orange-500 top-0 p-1 right-0 invisible group-hover:visible"
+                            className="w-8 h-8 text-white hover:bg-orange-500    absolute bg-neutral-600 rounded-l-md rounded-b-md top-0 p-1 right-0 invisible group-hover:visible"
                             onClick={(e) => {
                               e.stopPropagation();
                               setIndex(index);
@@ -159,7 +159,7 @@ const AddProductInputs = ({
                               xmlns="http://www.w3.org/2000/svg"
                               viewBox="0 0 24 24"
                               fill="currentColor"
-                              className="w-7 h-7 text-white hover:scale-90 absolute bg-orange-500 bottom-0 p-1 left-0 invisible group-hover:visible"
+                              className="w-6 h-6 text-white hover:bg-orange-500 absolute bg-neutral-600 rounded-t-md rounded-r-md bottom-0 p-1 left-0 invisible group-hover:visible"
                               onClick={(e) => {
                                 setIndex(index);
                               }}
@@ -182,7 +182,7 @@ const AddProductInputs = ({
                   ;
                 </>
               ) : (
-                <h1 className="text-3xl text-gray-300 group-hover:text-gray-500">
+                <h1 className="text-3xl text-neutral-300 group-hover:text-white">
                   Insert Product Picture Here
                 </h1>
               )}
@@ -190,30 +190,30 @@ const AddProductInputs = ({
           )}
         </label>
       </div>
-      <div className="h-[40%] w-full pt-2 pl-2  ">
+      <div className="h-[40%] w-full pt-2 pl-2  bg-neutral-800 ">
         <input
           type="text"
-          className="text-xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
+          className="text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800  text-white placeholder-neutral-500"
           placeholder="Name of your product"
           onChange={(e) => setProductTitle(e.target.value)}
         />
         <input
           type="text"
-          className="text-xl w-full border-b-2 border-gray-300 border-opacity-10 p-2"
+          className="text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500"
           placeholder="Description of your product"
           onChange={(e) => setProductDescription(e.target.value)}
         />
         <div className="relative ">
           <input
             type="text"
-            className="text-xl  w-full border-b-2 border-gray-300 border-opacity-10 p-2"
+            className="text-xl  w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500"
             placeholder="Price of your product"
             onChange={(e) => setProductPrice(e.target.value)}
           />
           <label className="w-full   ">
-            <h1 className="text-gray-400 pl-2 text-xl mt-1">Collection:</h1>
+            <h1 className="text-neutral-500 pl-2 text-xl mt-1">Collection:</h1>
             <select
-              className="w-full pl-1 text-gray-400 text-xl border-b-2 border-gray-300 border-opacity-10"
+              className="w-full pl-1 text-neutral-400 text-xl border-b-2 border-neutral-600 border-opacity-10 bg-neutral-800"
               onChange={(e) => setCollections(e.target.value)}
             >
               {user &&
@@ -221,7 +221,7 @@ const AddProductInputs = ({
                   return (
                     <option
                       value={option}
-                      className=" text-gray-400"
+                      className=" text-neutral-400 bg-neutral-800"
                       key={index}
                     >
                       {option}

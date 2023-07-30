@@ -53,21 +53,21 @@ const StoreOrders = () => {
     <div
       className={
         storeSubPage === "orders"
-          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0 fl2 "
+          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0 fl2 bg-neutral-800 "
           : "hidden"
       }
     >
       <div className="fl2">
         {" "}
-        <h1 className="text-7xl">Orders</h1>
+        <h1 className="text-7xl text-white">Orders</h1>
         <h3
-          className="text-gray-400 mt-2 text-xl cursor-pointer hover:text-black"
+          className="text-neutral-400 mt-2 text-xl cursor-pointer hover:text-neutral-500"
           onClick={() => setCalendar(!calendar)}
         >
           {date}
         </h3>
       </div>
-      <div className="w-[80%] h-[80%] bg-white mt-2 shadow-xl relative">
+      <div className="w-[80%] h-[80%] bg-neutral-800 mt-2 shadow-xl relative">
         {/* EXTRA DETAILS ABOUT ORDER POPUP */}
         {isVisible && (
           <StoreOrdersModal
@@ -88,12 +88,12 @@ const StoreOrders = () => {
         )}
         {/* CALENDAR POPUP */}
         {calendar && (
-          <div className="absolute top-0 bg-white w-full h-full z-50 flex items-center justify-center bg-opacity-70">
+          <div className="absolute top-0 bg-neutral-800 w-full h-full z-50 flex items-center justify-center bg-opacity-70">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-12 h-12 absolute left-2 top-2 cursor-pointer hover:text-orange-500"
+              className="w-12 h-12 absolute left-2 top-2 cursor-pointer text-neutral-300 hover:text-orange-500"
               onClick={() => setCalendar(!calendar)}
             >
               <path
@@ -107,7 +107,7 @@ const StoreOrders = () => {
         )}{" "}
         {/* SVG LOADER WHEN DATA IS FETCHING */}
         {isFetching && (
-          <div className="w-full h-full flex items-center justify-center absolute top-0 bg-white z-50">
+          <div className="w-full h-full flex items-center justify-center absolute top-0 bg-neutral-800 z-50">
             <img src={Loader} className="w-[30%] h-24 object-cover"></img>
           </div>
         )}
@@ -118,7 +118,7 @@ const StoreOrders = () => {
             return item.productBought.map((item, index) => {
               return (
                 <div
-                  className="h-[20%] w-full bg-gray-50 flex cursor-pointer hover:bg-gray-400 hover:text-white transition-all rounded-md "
+                  className="h-[20%] w-full bg-neutral-900 flex cursor-pointer hover:bg-neutral-700 hover:text-white transition-all rounded-md text-neutral-300"
                   onClick={() => {
                     setIsVisible(true);
                     setIndexDva(index);
@@ -143,13 +143,13 @@ const StoreOrders = () => {
                     </div>
                   </div>
                   <div className="h-full w-[20%] p-2">
-                    <div className="h-full w-full border-l-2 border-gray-300 border-opacity-20 fl2">
+                    <div className="h-full w-full border-l-2 border-neutral-700 border-opacity-50 fl2">
                       <h1 className="">Price paid/quantity</h1>
                       <h1 className="text-4xl">{item.productNewPrice}$</h1>
                     </div>
                   </div>
 
-                  <div className="w-[30%] h-full  p-2 border-l-2 border-gray-300 border-opacity-20 relative fl2">
+                  <div className="w-[30%] h-full  p-2 border-l-2 border-neutral-700 border-opacity-50 relative fl2">
                     <h1 className=" text-xl">Shippment Status</h1>
                     <div className="flex mt-2">
                       {orders && orders[indexMap].productShipped ? (

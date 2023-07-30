@@ -108,13 +108,13 @@ const OrderHistoryModal = ({
                 ) : (
                   <>
                     <h1 className="text-gray-400">Write a note to seller:</h1>
-                    <div className="relative h-[80%] w-full">
-                      <input
+                    <div className="relative h-[80%] w-full mt-1">
+                      <textarea
                         defaultValue={orderHistory[index].noteToSeller}
                         type="text"
-                        className="h-full w-full rounded-md bg-neutral-700"
+                        className="h-full w-full rounded-md bg-neutral-700 p-2"
                         onChange={(e) => setNote(e.target.value)}
-                      ></input>
+                      ></textarea>
                       <button
                         onClick={handlePostNote}
                         className="absolute bottom-0 right-0 bg-neutral-800 p-4 rounded-md text-neutral-500 w-full z-40 hover:text-neutral-200 "

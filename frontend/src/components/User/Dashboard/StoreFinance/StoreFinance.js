@@ -16,17 +16,16 @@ const StoreFinance = () => {
       }
     >
       <div className="h-[60%] grid grid-cols-2">
-        <div className=" fl2 border-b-2 border-r-2 border-gray-300  border-opacity-20">
+        <div className=" fl2 border-b-2 border-r-2 border-neutral-900  ">
           <StoreFinanceSales />
         </div>
 
-        <div className=" border-b-2  border-gray-300 border-opacity-20  ">
+        <div className=" border-b-2  border-neutral-900   ">
           <StoreFinanceLast5Sales />
-          <div className="h-[80%]"></div>
         </div>
       </div>
-      <div className="h-[40%] flex justify-center">
-        <h1 className="text-gray-500 text-base lg:text-xl">
+      <div className="h-[40%] flex justify-center bg-neutral-800">
+        <h1 className="text-neutral-500 text-base lg:text-xl">
           Yearly sales chart:
         </h1>{" "}
       </div>
