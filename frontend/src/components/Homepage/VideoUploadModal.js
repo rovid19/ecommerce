@@ -44,7 +44,7 @@ const VideoUploadModal = ({ setVideoModalVisible, setVideo }) => {
   console.log(videoFormData);
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
-      <article className="h-[50%] w-[50%] bg-neutral-900 fl2 relative">
+      <article className="lg:h-[50%] lg:w-[50%] h-[80%] w-full bg-neutral-900 fl2 relative">
         <button
           className="absolute top-2 left-2"
           onClick={() => setVideoModalVisible(false)}

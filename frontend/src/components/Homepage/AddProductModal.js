@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
   const products = useSelector((state) => state.userData.value.products);
@@ -7,7 +8,12 @@ const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
   console.log(products);
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
-      <article className="lg:h-[50%] h-[80%] w-full lg:w-[50%] bg-neutral-900 fl2 relative rounded-md p-4">
+      <motion.article
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ type: "tween", duration: 0.2 }}
+        className="lg:h-[50%] h-[80%] w-full lg:w-[50%] bg-neutral-900 fl2 relative rounded-md p-4"
+      >
         <button
           className="absolute top-2 left-2"
           onClick={() => setAddProductModalVisible(false)}
@@ -68,7 +74,7 @@ const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
               })}
           </div>
         </div>
-      </article>
+      </motion.article>
     </div>
   );
 };

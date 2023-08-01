@@ -76,7 +76,7 @@ const Layout = () => {
       <div
         className={
           mobileActive && showNavbar
-            ? "w-[150px] h-full absolute top-0 left-0 z-50 "
+            ? "w-[150px] h-full absolute top-0 left-0 z-50"
             : mobileActive
             ? "w-[45px] h-[50px] absolute top-0 left-0 z-50 "
             : "md:w-[12%] xl:w-[12%] lg:w-[16%] h-full overflow-hidden "

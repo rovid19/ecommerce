@@ -284,7 +284,7 @@ const YourFeed = () => {
         </div>
       ) : (
         <div className=" w-full flex justify-center bg-neutral-800">
-          <div className="h-full w-[60%] bg-neutral-800">
+          <div className="h-full lg:w-[60%] w-[90%] bg-neutral-800">
             {feedPosts &&
               feedPosts.map((post, i) => {
                 console.log(post);
