@@ -7,7 +7,7 @@ const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
   console.log(products);
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
-      <article className="h-[50%] w-[50%] bg-neutral-900 fl2 relative rounded-md p-4">
+      <article className="lg:h-[50%] h-[80%] w-full lg:w-[50%] bg-neutral-900 fl2 relative rounded-md p-4">
         <button
           className="absolute top-2 left-2"
           onClick={() => setAddProductModalVisible(false)}

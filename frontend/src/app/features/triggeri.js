@@ -6,6 +6,9 @@ const initialState = {
     fetchUserTrigger: false,
     runUseEffect: false,
     runSocket: false,
+    showNavbar: true,
+    mobileActive: false,
+    active: "",
   },
 };
 
@@ -25,6 +28,15 @@ export const triggeriSlice = createSlice({
     setSocket: (state, action) => {
       state.value.runUseEffect = action.payload;
     },
+    setShowNavbar: (state, action) => {
+      state.value.showNavbar = action.payload;
+    },
+    setMobileActive: (state, action) => {
+      state.value.mobileActive = action.payload;
+    },
+    setActive: (state, action) => {
+      state.value.active = action.payload;
+    },
   },
 });
 
@@ -33,6 +45,9 @@ export const {
   setFetchUserTrigger,
   setRunUseEffect,
   setSocket,
+  setShowNavbar,
+  setMobileActive,
+  setActive,
 } = triggeriSlice.actions;
 
 export default triggeriSlice.reducer;

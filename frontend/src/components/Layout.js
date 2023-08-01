@@ -3,44 +3,48 @@ import Navbar from "./Navbar/Navbar";
 import { Outlet } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setCartVisible } from "../app/features/User/cartVisible";
+import { setMobileActive, setShowNavbar } from "../app/features/triggeri";
+import NavbarMobile from "./Navbar/NavbarMobile";
 
 const Layout = () => {
-  const [className, setClassName] = useState("collectionItems2");
-
   const dispatch = useDispatch();
-  const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const collectionItems = useSelector(
-    (state) => state.collection.collectionItems
+  const showNavbar = useSelector((state) => state.triggeri.value.showNavbar);
+  const mobileActive = useSelector(
+    (state) => state.triggeri.value.mobileActive
   );
   const cartItems = useSelector((state) => state.cartItems.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
-  /*
+
   useEffect(() => {
-   if (storeSubPage === "store") {
-      switch (collectionItems.length) {
-        case 1:
-          setClassName("collectionItems2");
-          break;
-        case 2:
-          setClassName("collectionItems2");
-          break;
-        case 3:
-          setClassName("collectionItems4");
-          break;
-        case 4:
-          setClassName("collectionItems4");
-          break;
+    const resizeFunc = () => {
+      console.log(window.innerWidth);
 
-        case 5:
-          setClassName("collectionItems6");
-          break;
-        case 6:
-          setClassName("collectionItems4");
-          break;
+      if (window.innerWidth <= 1024) {
+        dispatch(setShowNavbar(false));
+        dispatch(setMobileActive(true));
+      } else {
+        dispatch(setShowNavbar(true));
+        dispatch(setMobileActive(false));
       }
-    }
-  }, [collectionItems]);*/
+    };
 
+    window.addEventListener("resize", resizeFunc);
+
+    return () => {
+      window.removeEventListener("resize", resizeFunc);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (window.innerWidth <= 1024) {
+      dispatch(setShowNavbar(false));
+      dispatch(setMobileActive(true));
+    } else {
+      dispatch(setShowNavbar(true));
+      dispatch(setMobileActive(false));
+    }
+  }, []);
+  console.log(mobileActive, showNavbar);
   return (
     <main className="h-screen w-screen flex relative">
       {cartItems.length > 0 && cartVisible === false ? (
@@ -68,11 +72,21 @@ const Layout = () => {
       ) : (
         ""
       )}
-      <div className="w-[12%] h-full overflow-hidden ">
+
+      <div
+        className={
+          mobileActive && showNavbar
+            ? "w-[150px] h-full absolute top-0 left-0 z-50 "
+            : mobileActive
+            ? "w-[45px] h-[50px] absolute top-0 left-0 z-50 "
+            : "md:w-[12%] xl:w-[12%] lg:w-[16%] h-full overflow-hidden "
+        }
+      >
         {" "}
-        <Navbar />
+        {mobileActive ? <NavbarMobile /> : <Navbar />}
       </div>
-      <div className="w-[88%] h-full   ">
+
+      <div className={mobileActive ? "w-full h-full   " : "w-[88%] h-full   "}>
         <Outlet />
       </div>
     </main>

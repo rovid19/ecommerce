@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import VideoUploadModal from "./VideoUploadModal";
 import AddProductModal from "./AddProductModal";
 import VideoPlayerModal from "./VideoPlayerModal";
@@ -7,6 +7,7 @@ import Post from "./Post";
 import PostModal from "./PostModal";
 import axios from "axios";
 import Loader from "../../assets/svg-loaders/three-dots.svg";
+import { setActive } from "../../app/features/triggeri";
 
 const YourFeed = () => {
   const [text, setText] = useState(null);
@@ -18,6 +19,7 @@ const YourFeed = () => {
   const [feedPosts, setFeedPosts] = useState(null);
   const [postTrigger, setPostTrigger] = useState(false);
 
+  const dispatch = useDispatch();
   const [date, setDate] = useState(new Date());
   const [index, setIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -28,6 +30,7 @@ const YourFeed = () => {
   const postModalVisible = useSelector(
     (state) => state.post.value.postModalVisible
   );
+  const active = useSelector((state) => state.triggeri.value.active);
 
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "2-digit",
@@ -106,36 +109,57 @@ const YourFeed = () => {
       <fieldset
         className={
           text || product || video
-            ? "h-[60%] w-full bg-neutral-700 rounded-r-md p-2 transition-all"
-            : "h-[15%] w-full bg-neutral-700 rounded-r-md p-2 transition-all"
+            ? "h-[50%] lg:h-[60%] w-full bg-neutral-700 rounded-r-md p-2 transition-all relative"
+            : "h-[15%] w-full bg-neutral-700 rounded-r-md p-1 lg:p-2 transition-all relative"
         }
       >
+        {active === "Home" ? (
+          ""
+        ) : (
+          <div
+            className={
+              "absolute bottom-0 left-0 lg:top-0 lg:left-[92%] lg:w-[8%] w-[45px] h-[50px]  z-30 lg:rounded-l-md"
+            }
+          >
+            <select
+              className={
+                active === "Your Feed"
+                  ? "h-full w-full text-center bg-neutral-700 text-white rounded-l-md"
+                  : "h-full w-full text-center bg-neutral-900 text-white rounded-l-md"
+              }
+              onChange={(e) => dispatch(setActive(e.target.value))}
+            >
+              <option className="text-sm text-center">Your Feed</option>
+              <option className="text-sm text-center">Home</option>
+            </select>
+          </div>
+        )}
         <form
           className="h-full w-full relative flex"
           onSubmit={handlePostUpload}
         >
-          <div className="h-full w-[6%] pr-2 pl-2 ">
+          <div className="h-full lg:w-[6%] w-[50px] pr-2 pl-2 ">
             <img
               className={
                 text || product || video
-                  ? "h-[15%] object-cover w-full rounded-full transition-all"
-                  : "h-[70%] object-cover w-full rounded-full transition-all"
+                  ? "lg:h-[15%] h-0 object-cover w-full rounded-full transition-all"
+                  : "lg:h-[70%] object-cover w-full rounded-full transition-all"
               }
               src={user && user.profilePicture}
             ></img>
           </div>
-          <div className="w-[86%] h-full relative flexend ">
+          <div className="w-full lg:w-[86%] h-full relative flexend ">
             <textarea
               ref={textA}
               onChange={(e) => setText(e.target.value)}
               className={
                 text || product || video
-                  ? "w-full bg-neutral-900 rounded-md p-4 text-xl text-white h-[90%] z-20 align-top"
-                  : "w-full bg-neutral-900 rounded-md p-4 text-xl text-white h-[75%] z-20 align-top"
+                  ? "w-full bg-neutral-900 rounded-md p-4 text-xl text-white h-[90%] z-20 align-top placeholder:text-base md:placeholder:text-xl"
+                  : "w-full bg-neutral-900 rounded-md p-4 text-xl text-white h-[75%] z-20 align-top placeholder:text-base md:placeholder:text-xl "
               }
               placeholder="Write something in here..."
             ></textarea>
-            <div className="flex h-full gap-2 relative ">
+            <div className="flex h-full gap-2 relative  ">
               {product && (
                 <>
                   {" "}
@@ -145,7 +169,7 @@ const YourFeed = () => {
                     }
                   >
                     <button
-                      className="absolute h-full w-[3%] right-0 top-0 flex items-center"
+                      className="absolute h-full w-[8%] lg:w-[5%] 2xl:w-[3%] md:w-[6%] right-0 top-0 flex items-center"
                       onClick={(e) => {
                         e.preventDefault(e);
                         setProduct(null);
@@ -155,7 +179,7 @@ const YourFeed = () => {
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="w-8 h-8 hover:text-orange-500 text-neutral-900 transition-all"
+                        class="lg:w-8 lg:h-8 w-6 h-6 hover:text-orange-500 lg:text-neutral-900 transition-all text-orange-500"
                       >
                         <path
                           fill-rule="evenodd"
@@ -164,13 +188,13 @@ const YourFeed = () => {
                         />
                       </svg>
                     </button>
-                    <div className="overflow-hidden flex items-center justify-center border-r-2 border-neutral-900 border-opacity-20">
+                    <div className="overflow-hidden flex items-center justify-center border-r-2 border-neutral-900 border-opacity-20  ">
                       <img
                         className="h-[80%] w-[80%] object-cover rounded-md"
                         src={product.productPicture[0]}
                       ></img>
                     </div>
-                    <div className="p-4  border-r-2 border-neutral-900 border-opacity-20">
+                    <div className="  border-r-2 border-neutral-900 border-opacity-20 h-full lg:p-4 p-1 ">
                       <h1 className="text-xl text-neutral-400">
                         {product.productName}
                       </h1>
@@ -179,7 +203,7 @@ const YourFeed = () => {
                       </h3>
                     </div>
                     <div className="flex items-center justify-center">
-                      <h1 className="text-neutral-400 text-3xl">
+                      <h1 className="text-neutral-400 text-xl lg:text-3xl">
                         {product.productNewPrice}$
                       </h1>
                     </div>
@@ -233,7 +257,7 @@ const YourFeed = () => {
                   e.preventDefault();
                   setVideoModalVisible(true);
                 }}
-                className=" bg-neutral-900 text-white h-[40px] w-[8%] flex items-center justify-center rounded-md rounded-b-md hover:bg-orange-500 transition-all self-end"
+                className=" bg-neutral-900 text-white lg:text-base text-sm h-[40px] lg:w-[10%] xl:w-[8%] w-[25%] flex items-center justify-center rounded-md rounded-b-md hover:bg-orange-500 transition-all self-end"
               >
                 Add video
               </button>
@@ -242,14 +266,14 @@ const YourFeed = () => {
                   e.preventDefault(e);
                   setAddProductModalVisible(true);
                 }}
-                className=" bg-neutral-900 text-white h-[40px] w-[8%] flex items-center justify-center rounded-md rounded-b-md hover:bg-orange-500 transition-all  self-end"
+                className=" bg-neutral-900 lg:text-base text-sm text-white h-[40px] lg:w-[10%] xl:w-[8%] w-[25%] flex items-center justify-center rounded-md rounded-b-md hover:bg-orange-500 transition-all  self-end"
               >
                 Add product
               </button>
             </div>
           </div>
 
-          <button className="absolute bottom-0 right-0 w-[8%]  bg-neutral-900 text-white h-[40px] flex items-center justify-center rounded-l-md rounded-b-md hover:bg-orange-500 transition-all">
+          <button className="absolute lg:text-base text-sm bottom-0 right-0 w-[20%] lg:w-[8%] h-[40px]  bg-orange-500 lg:bg-neutral-900 text-white lg:h-[40px] flex items-center justify-center rounded-md lg:rounded-l-md rounded-b-md hover:bg-orange-500 transition-all">
             Post
           </button>
         </form>

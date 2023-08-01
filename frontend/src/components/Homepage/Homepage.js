@@ -6,13 +6,15 @@ import HomepageStoreCard from "./HomepageStoreCard";
 import StoreProductCard from "../User/Store/StoreProductCard";
 import Navbar from "../Navbar/Navbar";
 import YourFeed from "./YourFeed";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setActive } from "../../app/features/triggeri";
 
 const Homepage = () => {
   const [stores, setStores] = useState(null);
   const [products, setProducts] = useState(null);
-  const [active, setActive] = useState("Your Feed");
 
+  const active = useSelector((state) => state.triggeri.value.active);
+  const dispatch = useDispatch();
   const user = useSelector((state) => state.userData.value.user);
   useEffect(() => {
     axios.get("/api/store/get-homepage").then(({ data }) => {
@@ -28,30 +30,40 @@ const Homepage = () => {
     });
   }, []);
 
+  // ak je user ulogiran stavi mu your feed odmah, a ak nije onda ga prebaci na homepage
   useEffect(() => {
     if (user) {
-      setActive("Your Feed");
+      dispatch(setActive("Your Feed"));
     } else {
-      setActive("Home");
+      dispatch(setActive("Home"));
     }
   }, []);
-
+  console.log(active);
   return (
     <>
       <main className="h-full w-full overflow-scroll  scrollbar-hide griddd bg-neutral-900 relative">
-        <div className="absolute top-0 right-0 w-[8%] h-[4%] bg-black z-50 rounded-l-md">
-          <select
+        {active === "Your Feed" ? (
+          ""
+        ) : (
+          <div
             className={
-              active === "Your Feed"
-                ? "h-full w-full text-center bg-neutral-700 text-white rounded-l-md"
-                : "h-full w-full text-center bg-neutral-900 text-white rounded-l-md"
+              "absolute top-0 right-0 lg:w-[8%] w-[50px] h-[4%] bg-black z-50 rounded-l-md"
             }
-            onChange={(e) => setActive(e.target.value)}
           >
-            <option className="text-sm text-center">Your Feed</option>
-            <option className="text-sm text-center">Home</option>
-          </select>
-        </div>
+            <select
+              className={
+                active === "Your Feed"
+                  ? "h-full w-full text-center bg-neutral-700 text-white rounded-l-md"
+                  : "h-full w-full text-center bg-neutral-900 text-white rounded-l-md"
+              }
+              onChange={(e) => dispatch(setActive(e.target.value))}
+              defaultValue={active}
+            >
+              <option className="text-sm text-center">Your Feed</option>
+              <option className="text-sm text-center">Home</option>
+            </select>
+          </div>
+        )}
         {active === "Your Feed" ? (
           <YourFeed />
         ) : (

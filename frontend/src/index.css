@@ -259,3 +259,114 @@ input[type="radio"] {
   justify-content: center;
   flex-direction: column;
 }
+
+/* animacije */
+
+/*open i close za navbar mobile menu */
+
+.openNavbar {
+  animation: openNavbarAnim 0.5s forwards;
+}
+
+@keyframes openNavbarAnim {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 100%;
+  }
+}
+
+.navbarItems {
+  animation: opacityItems 1s forwards;
+}
+
+@keyframes opacityItems {
+  from {
+    opacity: 0%;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
+.closeNavbar {
+  animation: closeNavbarAnim 0.5s forwards;
+}
+
+@keyframes closeNavbarAnim {
+  from {
+    height: 100%;
+  }
+  to {
+    height: 0%;
+  }
+}
+
+.closeNavbarItems {
+  animation: opacityCloseItems 0.2s forwards;
+}
+
+@keyframes opacityCloseItems {
+  from {
+    opacity: 100%;
+  }
+  to {
+    opacity: 0%;
+  }
+}
+/* CLOSE NAVBAR BUTTON ICON ANIMATION */
+.closeButtonOpen {
+  animation: closeBtnOpenAni 0.5s forwards;
+}
+
+.closeButtonClose {
+  animation: closeBtnCloseAni 0.5s forwards;
+}
+
+@keyframes closeBtnOpenAni {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 32px;
+  }
+}
+
+@keyframes closeBtnCloseAni {
+  from {
+    width: 32px;
+  }
+  to {
+    width: 0px;
+  }
+}
+
+/* MOBILE MENU DIV ANIMATION */
+.openHamburgerMenu {
+  animation: opnHamMen 0.5s forwards;
+}
+
+@keyframes opnHamMen {
+  from {
+    width: 0px;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+/* MOBILE MENU ICON ANIMATION */
+
+.openHamMenuBtn {
+  animation: opnHamMenBtn 0.7s forwards;
+}
+
+@keyframes openHamMenuBtn {
+  from {
+    transform: scale(125);
+  }
+  to {
+    transform: scale(100);
+  }
+}
