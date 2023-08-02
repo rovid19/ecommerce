@@ -398,3 +398,70 @@ input[type="radio"] {
     scale: 0;
   }
 }
+
+/* ANIMACIJA ZA FILTER NA SEARCHU */
+.filterSearchAni {
+  animation: filterSearchAniOpen 0.5s forwards;
+}
+
+@keyframes filterSearchAniOpen {
+  from {
+    height: 0%;
+  }
+  to {
+    height: 50%;
+  }
+}
+
+.filterSearchAniClose {
+  animation: filterSearchAniClosee 0.5s forwards;
+}
+
+@keyframes filterSearchAniClosee {
+  from {
+    height: 50%;
+  }
+  to {
+    height: 0%;
+  }
+}
+
+.filterItemsOpen {
+  animation: filterItemsOpenn 0.3s forwards;
+}
+
+@keyframes filterItemsOpenn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.filterItemsClose {
+  animation: filterItemsClosee 0.3s forwards;
+}
+
+@keyframes filterItemsClosee {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+.filterBtnClose {
+  animation: filterBtnClosee 0.3s forwards;
+}
+
+@keyframes filterBtnClosee {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}

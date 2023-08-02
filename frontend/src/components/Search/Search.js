@@ -21,6 +21,14 @@ const Search = () => {
   const [stores, setStores] = useState(null);
   const [outletOn, setOutletOn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [filterSearchAni, setFilterSearchAni] = useState(
+    "h-[50%] w-[40%] lg:w-[30%] bg-neutral-900 rounded-b-md absolute z-50 right-0 text-white "
+  );
+  const [filterSearchItemsAni, setFilterSearchItemsAni] =
+    useState("h-full w-full fl2");
+  const [filterBtnAni, setFilterBtnAni] = useState(
+    "absolute left-2 top-2  z-50"
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -112,13 +120,37 @@ const Search = () => {
       }
     }
   }, [sortBy]);
-
+  console.log(filterSearchAni);
   return (
     <main className="h-full w-full bg-neutral-800 relative">
       <article className="w-full h-[8%] p-2 relative bg-neutral-900">
         <button
           className="h-full flex items-center absolute right-2 top-0 "
-          onClick={() => setFilterVisible(true)}
+          onClick={() => {
+            if (filterSearchAni.includes("filterSearchAniClose")) {
+              setFilterSearchAni((prev) => {
+                let newPrev = prev.replace(
+                  "filterSearchAniClose",
+                  "filterSearchAni"
+                );
+                return newPrev;
+              });
+              setFilterSearchItemsAni((prev) => {
+                let newPrev = prev.replace(
+                  "filterItemsClose",
+                  "filterItemsOpen"
+                );
+                return newPrev;
+              });
+              setFilterBtnAni("absolute left-2 top-2  z-50");
+            } else {
+              setFilterSearchAni((prev) => prev + " filterSearchAni");
+              setFilterSearchItemsAni((prev) => prev + " filterItemsOpen");
+              setFilterBtnAni("absolute left-2 top-2  z-50");
+            }
+
+            setFilterVisible(true);
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -134,8 +166,11 @@ const Search = () => {
           </svg>
         </button>
         <fieldset className="w-full h-full">
-          <form className="w-[70%] h-full relative" onSubmit={handleSearch}>
-            <label className="absolute left-0  h-full w-[8%] z-50">
+          <form
+            className="w-[70%] h-full relative ml-[50px] lg:ml-0"
+            onSubmit={handleSearch}
+          >
+            <label className="absolute left-0  h-full w-[30%] md:w-[15%] lg:w-[12%] xl:w-[10%] z-40">
               <select
                 className="h-full w-full flex items-center bg-neutral-500 p-2 text-neutral-900"
                 onChange={(e) => setOption(e.target.value)}
@@ -167,18 +202,35 @@ const Search = () => {
       </article>
       <section className="h-[92%] w-full relative">
         {filterVisible && (
-          <div className="h-[50%] w-[20%] bg-neutral-600 absolute z-50 right-0 ">
+          <div className={filterSearchAni}>
             <button
-              className="absolute left-2 top-2  z-50"
+              className={filterBtnAni}
               onClick={() => {
-                setFilterVisible(false);
+                setFilterSearchAni((prev) => {
+                  let newPrev = prev.replace(
+                    "filterSearchAni",
+                    "filterSearchAniClose"
+                  );
+                  return newPrev;
+                });
+                setFilterSearchItemsAni((prev) => {
+                  let newPrev = prev.replace(
+                    "filterItemsOpen",
+                    "filterItemsClose"
+                  );
+                  return newPrev;
+                });
+                setFilterBtnAni((prev) => prev + " filterBtnClose");
+                setTimeout(() => {
+                  setFilterVisible(false);
+                }, [500]);
               }}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 24 24"
                 fill="currentColor"
-                className="w-6 h-6 hover:text-orange-500 text-neutral-800"
+                className="w-6 h-6 hover:text-orange-500 text-neutral-600"
               >
                 <path
                   fillRule="evenodd"
@@ -187,9 +239,14 @@ const Search = () => {
                 />
               </svg>
             </button>
-            <form className="h-full w-full fl2">
-              <h1 className="text-3xl">Sort results by:</h1>
-              <select onChange={(e) => setSortBy(e.target.value)}>
+            <form className={filterSearchItemsAni}>
+              <h1 className="text-xl lg:text-2xl xl:text-3xl">
+                Sort results by:
+              </h1>
+              <select
+                className="rounded-md text-neutral-900 w-[50%] text-center mt-1"
+                onChange={(e) => setSortBy(e.target.value)}
+              >
                 {option === "products" ? (
                   <>
                     <option>A-Z</option>
@@ -211,7 +268,7 @@ const Search = () => {
             <img src={Loader}></img>
           </div>
         ) : (
-          <div className="w-full h-[100%] grid grid-cols-3 dgri overflow-scroll scrollbar-hide p-4 gap-4  ">
+          <div className="w-full h-[100%] grid grid-cols-2 lg:grid-cols-3 dgri overflow-scroll scrollbar-hide p-4 gap-4  ">
             {stores &&
               stores.map((result, i) => {
                 return (
