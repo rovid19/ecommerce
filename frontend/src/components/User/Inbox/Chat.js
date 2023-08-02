@@ -61,17 +61,17 @@ const Chat = ({
             <article
               className={
                 i === 0
-                  ? "self-start  text-xl max-w-[30%] min-w-[20%] break-words  bg-orange-500 text-white p-4 rounded-r-md flex-col group relative inline-flex"
-                  : "self-start  max-w-[30%] break-words  bg-orange-500 text-white p-4 rounded-r-md flex-col group mt-4 relative inline-flex"
+                  ? "self-start max-w-[50%]  text-xl lg:max-w-[30%] min-w-[20%] break-words  bg-orange-500 text-white p-4 rounded-r-md flex-col group relative inline-flex"
+                  : "self-start max-w-[50%]  lg:max-w-[30%] break-words  bg-orange-500 text-white p-4 rounded-r-md flex-col group mt-4 relative inline-flex"
               }
             >
-              <div className="h-full w-[50px] flex justify-center absolute left-0 top-0">
+              <div className="h-full w-[30px] lg:w-[50px] flex justify-center absolute left-0 top-0">
                 <img
                   src={user.profilePicture}
                   className="h-[40px] w-[80%] rounded-full mt-2 object-cover"
                 ></img>
               </div>
-              <div className="h-full w-[85%] ml-12">
+              <div className="h-full w-[85%] ml-4 lg:ml-12">
                 {" "}
                 <p>{message.messages}</p>
               </div>
@@ -85,17 +85,17 @@ const Chat = ({
             <article
               className={
                 i === 0
-                  ? "self-end  text-xl max-w-[30%] min-w-[20%] break-words  bg-neutral-900 text-white p-4 rounded-l-md flex-col group relative inline-flex"
-                  : "self-end  max-w-[30%] break-words  bg-neutral-900 text-white p-4 rounded-l-md flex-col group mt-4 relative inline-flex"
+                  ? "self-end max-w-[50%]  text-xl lg:max-w-[30%] min-w-[20%] break-words  bg-neutral-900 text-white p-4 rounded-l-md flex-col group relative inline-flex"
+                  : "self-end max-w-[50%]  lg:max-w-[30%] break-words  bg-neutral-900 text-white p-4 rounded-l-md flex-col group mt-4 relative inline-flex"
               }
             >
-              <div className="h-full w-[50px] flex justify-center absolute right-0 top-0">
+              <div className="h-full w-[30px] lg:w-[50px] flex justify-center absolute right-0 top-0">
                 <img
                   src={user.profilePicture}
                   className="h-[40px] w-[80%] rounded-full mt-2 object-cover"
                 ></img>
               </div>
-              <div className="h-full w-[85%] mr-12">
+              <div className="h-full w-[85%] mr-4 lg:mr-12">
                 {" "}
                 <p>{message.messages}</p>
               </div>

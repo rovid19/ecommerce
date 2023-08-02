@@ -167,10 +167,10 @@ const Search = () => {
         </button>
         <fieldset className="w-full h-full">
           <form
-            className="w-[70%] h-full relative ml-[50px] lg:ml-0"
+            className="w-[70%] h-full relative ml-[50px] lg:ml-0 flex"
             onSubmit={handleSearch}
           >
-            <label className="absolute left-0  h-full w-[30%] md:w-[15%] lg:w-[12%] xl:w-[10%] z-40">
+            <label className="  h-full w-[40%] md:w-[18%] lg:w-[15%] xl:w-[10%] z-40">
               <select
                 className="h-full w-full flex items-center bg-neutral-500 p-2 text-neutral-900"
                 onChange={(e) => setOption(e.target.value)}
@@ -194,7 +194,7 @@ const Search = () => {
               </svg>
             </button>
             <input
-              className="w-full h-full bg-neutral-500 rounded-md text-neutral-900 text-xl pl-[10%] "
+              className="w-full h-full bg-neutral-500 rounded-r-md text-neutral-900 text-base md:text-xl pl-2 outline-none "
               onChange={(e) => setSearchValue(e.target.value)}
             />
           </form>

@@ -143,7 +143,7 @@ const Inbox = () => {
             />
           )}
         </div>
-        <div className="h-full w-[15%] bg-neutral-900 ">
+        <div className="h-full w-[40%] md:w-[30%] lg:w-[15%] bg-neutral-900 ">
           <div className="h-[8%] w-full">
             <button
               className="border-2 border-orange-500  text-neutral-300 h-full w-full rounded-md hover:bg-orange-500 hover:text-white transition-all"
@@ -178,13 +178,13 @@ const Inbox = () => {
                       setChatId(chat._id);
                     }}
                   >
-                    <div className="h-full w-[30%] flex p-2 items-center">
+                    <div className="h-full w-[40%] md:w-[30%] flex p-2 items-center">
                       <img
                         className="h-full w-full rounded-full object-cover"
                         src={filt[0].profilePicture}
                       />
                     </div>
-                    <div className="h-full w-[70%] p-2 text-neutral-300  flex items-center relative">
+                    <div className="h-full w-[60%] md:w-[70%] p-2 text-neutral-300 text-sm md:text-base  flex items-center relative">
                       @{filt[0].username}
                       {inboxMessages > 0
                         ? sviRazgovori[i] > 0 && (
@@ -200,7 +200,7 @@ const Inbox = () => {
           </div>
         </div>
         {chatVisible && (
-          <fieldset className="h-[8%] w-[85%] absolute bottom-0">
+          <fieldset className="h-[8%] w-[68%] md:w-[74%] lg:w-[85%] absolute bottom-0">
             <form
               className="h-full w-full bg-neutral-900 flex relative"
               onSubmit={handleSendMessage}
@@ -208,7 +208,7 @@ const Inbox = () => {
               <div className="h-full w-full relative">
                 <input
                   ref={inputRef}
-                  className="h-full w-[80%] bg-neutral-500  p-4 text-2xl rounded-l-md outline-none"
+                  className="h-full w-[80%] bg-neutral-500  p-4 text-xl lg:text-2xl rounded-l-md outline-none"
                   onChange={(e) => setTextMessage(e.target.value)}
                 />
               </div>

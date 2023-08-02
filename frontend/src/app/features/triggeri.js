@@ -9,6 +9,7 @@ const initialState = {
     showNavbar: true,
     mobileActive: false,
     active: "",
+    closeNavbar: false,
   },
 };
 
@@ -37,6 +38,9 @@ export const triggeriSlice = createSlice({
     setActive: (state, action) => {
       state.value.active = action.payload;
     },
+    setCloseNavbar: (state, action) => {
+      state.value.closeNavbar = action.payload;
+    },
   },
 });
 
@@ -48,6 +52,7 @@ export const {
   setShowNavbar,
   setMobileActive,
   setActive,
+  setCloseNavbar,
 } = triggeriSlice.actions;
 
 export default triggeriSlice.reducer;

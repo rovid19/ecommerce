@@ -57,7 +57,7 @@ const SendMessage = ({
   }
   return (
     <div className="z-50 absolute h-full w-full bg-black bg-opacity-30 flex justify-center items-center">
-      <article className="h-[50%] w-[50%] relative bg-neutral-900 rounded-md">
+      <article className="lg:h-[50%] h-[60%] md:w-[90%] lg:w-[50%] w-full relative bg-neutral-900 rounded-md">
         <button
           className="absolute top-2 left-2"
           onClick={() => setSendMessage(false)}
@@ -106,7 +106,7 @@ const SendMessage = ({
                     />
                   </svg>
                 </button>
-                <div className="h-full w-[10%] flex p-2 items-center">
+                <div className="h-full w-[20%] md:w-[10%] flex p-2 items-center">
                   <img
                     className="h-full w-full rounded-full object-cover"
                     src={selectedUser.pic}
@@ -119,7 +119,7 @@ const SendMessage = ({
             ) : (
               <div className="h-[20%] w-full relative">
                 <input
-                  className="h-full w-full bg-neutral-800 text-neutral-300 p-4 rounded-md text-xl outline-none"
+                  className="h-full w-full bg-neutral-800 text-neutral-300 p-4 rounded-md text-xl lg:text-xl outline-none"
                   placeholder="To :"
                   onChange={(e) => setInputUser(e.target.value)}
                 />
@@ -139,7 +139,7 @@ const SendMessage = ({
                               })
                             }
                           >
-                            <div className="h-full w-[10%] flex p-2 items-center">
+                            <div className="h-full w-[20%]  md:w-[10%] flex p-2 items-center">
                               <img
                                 className="h-full w-full rounded-full object-cover"
                                 src={
@@ -162,12 +162,12 @@ const SendMessage = ({
             <div className="w-full h-[65%] bg-neutral-800 rounded-md p-4 mt-1 relative">
               <textarea
                 onChange={(e) => setMessage(e.target.value)}
-                className="h-full w-full bg-neutral-800 align-top text-xl text-neutral-300 outline-none"
+                className="h-full w-full bg-neutral-800 align-top text-base md:text-xl text-neutral-300 outline-none"
                 placeholder="Text :"
               />
             </div>{" "}
             <div className="h-[12%] w-full flex justify-end">
-              <button className="bg-orange-500 text-neutral-300 w-full h-full mt-1 rounded-md hover:text-white transition-all text-xl ">
+              <button className="bg-orange-500 text-white lg:text-neutral-300 w-full h-full mt-1 rounded-md hover:text-white transition-all text-xl ">
                 Send
               </button>{" "}
             </div>

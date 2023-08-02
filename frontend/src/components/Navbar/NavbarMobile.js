@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet } from "react-router-dom";
 import { getStoreSubPage } from "../../app/features/storeSubPage";
 import {
@@ -15,7 +15,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addUser } from "../../app/features/User/userSlice";
-import { setShowNavbar } from "../../app/features/triggeri";
+import { setCloseNavbar, setShowNavbar } from "../../app/features/triggeri";
 
 const NavbarMobile = () => {
   const [navbarClassname, setNavbarClassname] = useState(
@@ -35,13 +35,44 @@ const NavbarMobile = () => {
   const inboxMessages = useSelector(
     (state) => state.inboxMessages.value.allChat
   );
+  const closeNavbar = useSelector((state) => state.triggeri.value.closeNavbar);
 
   async function handleLogout() {
     await axios.post("/api/auth/logout-user");
     dispatch(addUser(null));
   }
 
-  console.log(hamMenuBtn);
+  useEffect(() => {
+    if (closeNavbar) {
+      setTimeout(() => {
+        dispatch(setShowNavbar(false));
+      }, [600]);
+
+      dispatch(setCloseNavbar(false));
+    }
+  }, [closeNavbar]);
+
+  const closeNavbarMenu = () => {
+    console.log("jaooo");
+    dispatch(setCloseNavbar(true));
+    setNavbarClassname((prev) => {
+      let newPrev = prev.replace("openNavbar", "closeNavbar");
+      return newPrev;
+    });
+    setNavbarItems((prev) => {
+      let newPrev = prev.replace("navbarItems", "closeNavbarItems");
+      return newPrev;
+    });
+    setCloseNavbarButton((prev) => {
+      let newPrev = prev.replace("closeButtonOpen", "closeButtonClose");
+      return newPrev;
+    });
+    setTimeout(() => {
+      setHamburgerMenu((prev) => prev + " openHamburgerMenu");
+    }, [600]);
+  };
+
+  console.log(navbarClassname, "ok", navbarItems);
   return (
     <>
       <main
@@ -99,7 +130,10 @@ const NavbarMobile = () => {
                 <li className="text-gray-500">General:</li>
                 <Link
                   to={`/`}
-                  onClick={() => dispatch(getStoreSubPage("homepage"))}
+                  onClick={() => {
+                    closeNavbarMenu();
+                    dispatch(getStoreSubPage("homepage"));
+                  }}
                   className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group rounded-r-md"
                 >
                   <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
@@ -111,7 +145,10 @@ const NavbarMobile = () => {
                 </Link>
                 <Link
                   to={`/search`}
-                  onClick={() => dispatch(getStoreSubPage("search"))}
+                  onClick={() => {
+                    closeNavbarMenu();
+                    dispatch(getStoreSubPage("search"));
+                  }}
                   className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
                 >
                   <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
@@ -126,7 +163,10 @@ const NavbarMobile = () => {
                     {" "}
                     <Link
                       to={user && `/inbox`}
-                      onClick={() => dispatch(getStoreSubPage("inbox"))}
+                      onClick={() => {
+                        closeNavbarMenu();
+                        dispatch(getStoreSubPage("inbox"));
+                      }}
                       className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
@@ -166,7 +206,10 @@ const NavbarMobile = () => {
                     <h1 className="text-gray-500 mt-2">User settings:</h1>
                     <Link
                       to="/profile"
-                      onClick={() => dispatch(getStoreSubPage("profile"))}
+                      onClick={() => {
+                        closeNavbarMenu();
+                        dispatch(getStoreSubPage("profile"));
+                      }}
                       className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
@@ -180,9 +223,10 @@ const NavbarMobile = () => {
                     </Link>
                     <Link
                       to="/shippingdetails"
-                      onClick={() =>
-                        dispatch(getStoreSubPage("shippingdetails"))
-                      }
+                      onClick={() => {
+                        closeNavbarMenu();
+                        dispatch(getStoreSubPage("shippingdetails"));
+                      }}
                       className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
@@ -196,7 +240,10 @@ const NavbarMobile = () => {
                     </Link>
                     <Link
                       to="/myorders"
-                      onClick={() => dispatch(getStoreSubPage("myorders"))}
+                      onClick={() => {
+                        closeNavbarMenu();
+                        dispatch(getStoreSubPage("myorders"));
+                      }}
                       className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
@@ -222,7 +269,10 @@ const NavbarMobile = () => {
                     </Link>
                     <Link
                       to={user && `/dashboard/${user.storeName}`}
-                      onClick={() => dispatch(getStoreSubPage("editStore"))}
+                      onClick={() => {
+                        closeNavbarMenu();
+                        dispatch(getStoreSubPage("editStore"));
+                      }}
                       className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
