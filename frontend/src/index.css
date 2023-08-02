@@ -370,3 +370,31 @@ input[type="radio"] {
     transform: scale(100);
   }
 }
+
+/* POST KOMENTAR ANIMACIJA ULAZ*/
+
+.commentAniPost {
+  animation: commentAniP 0.3s forwards;
+}
+
+@keyframes commentAniP {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+.commentAniDelete {
+  animation: commentAniD 0.3s forwards;
+}
+
+@keyframes commentAniD {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 0;
+  }
+}

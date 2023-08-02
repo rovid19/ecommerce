@@ -38,7 +38,7 @@ const Homepage = () => {
       dispatch(setActive("Home"));
     }
   }, []);
-  console.log(active);
+
   return (
     <>
       <main className="h-full w-full overflow-scroll  scrollbar-hide griddd bg-neutral-900 relative">

@@ -7,11 +7,23 @@ import { setPostModalVisible } from "../../app/features/post";
 import { motion } from "framer-motion";
 import { AnimatePresence } from "framer-motion";
 
-const PostModal = ({ feedPosts, index, setPostTrigger, postTrigger }) => {
+const PostModal = ({
+  feedPosts,
+  index,
+  setPostTrigger,
+  postTrigger,
+  comIndex,
+  setComIndex,
+  setDeleteIndex,
+  comPostDelete,
+  setComPostDelete,
+}) => {
   const [commentText, setCommentText] = useState(null);
   const [liked, setLiked] = useState(false);
   const [showLess, setShowLess] = useState(true);
   const [commentId, setCommentId] = useState(null);
+  const [commentAni, setCommentAni] = useState(" mt-4 flex ");
+  const [deleteTrigger, setDeleteTrigger] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -25,6 +37,8 @@ const PostModal = ({ feedPosts, index, setPostTrigger, postTrigger }) => {
 
   const handleDeleteComment = async () => {
     await axios.post("/api/customer/delete-comment", { commentId });
+    setComPostDelete("Delete");
+    setCommentAni(" mt-4 flex ");
     setPostTrigger(!postTrigger);
   };
   useEffect(() => {
@@ -55,11 +69,34 @@ const PostModal = ({ feedPosts, index, setPostTrigger, postTrigger }) => {
       comment: commentText,
       postId: feedPosts[index]._id,
     });
+    setComPostDelete("Post");
+    setCommentAni(" mt-4 flex ");
     setPostTrigger(!postTrigger);
     textRef.current.value = "";
   };
   const user = useSelector((state) => state.userData.value.user);
 
+  useEffect(() => {
+    if (comIndex >= 0) {
+      if (comPostDelete === "Post") {
+        console.log("post");
+        setCommentAni((prev) => prev + " commentAniPost");
+        setTimeout(() => {
+          setCommentAni(" mt-4 flex ");
+          setComIndex(undefined);
+        }, [400]);
+      } else {
+        console.log("delete");
+        setCommentAni((prev) => prev + " commentAniDelete");
+        setTimeout(() => {
+          setCommentAni(" mt-4 flex ");
+          setComIndex(undefined);
+        }, [600]);
+      }
+    }
+  }, [comIndex]);
+
+  console.log(commentAni, "index", comIndex);
   return (
     <div
       className={
@@ -210,9 +247,11 @@ const PostModal = ({ feedPosts, index, setPostTrigger, postTrigger }) => {
               {showLess ? "Show more comments" : "Show less"}
             </button>
             <div className={showLess ? "h-full w-full p-2 " : "w-full p-2 "}>
-              {feedPosts[index].postComments.map((comment) => {
+              {feedPosts[index].postComments.map((comment, i) => {
                 return (
-                  <article className="  mt-4 flex ">
+                  <article
+                    className={comIndex === i ? commentAni : " mt-4 flex "}
+                  >
                     <div className="h-[80px] lg:w-[6%] xl:[4%] w-[10%]  p-3 flex justify-center  ">
                       <img
                         src={comment.commentAuthor.profilePicture}
@@ -223,7 +262,10 @@ const PostModal = ({ feedPosts, index, setPostTrigger, postTrigger }) => {
                       {comment.commentText}
                       <button
                         className="absolute bottom-1 right-1"
-                        onClick={() => setCommentId(comment._id)}
+                        onClick={() => {
+                          setDeleteIndex(i);
+                          setCommentId(comment._id);
+                        }}
                       >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

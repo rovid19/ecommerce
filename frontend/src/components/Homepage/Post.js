@@ -36,7 +36,7 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
     const isLiked = post.postLikes.includes(user._id);
     setLiked(isLiked);
   }, [post]);
-  console.log(storeSubPage);
+
   return (
     <article
       className={

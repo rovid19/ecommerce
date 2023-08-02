@@ -44,7 +44,7 @@ const Layout = () => {
       dispatch(setMobileActive(false));
     }
   }, []);
-  console.log(mobileActive, showNavbar);
+
   return (
     <main className="h-screen w-screen flex relative">
       {cartItems.length > 0 && cartVisible === false ? (

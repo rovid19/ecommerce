@@ -18,6 +18,9 @@ const YourFeed = () => {
   const [videoPlayerModalVisible, setVideoPlayerModalVisible] = useState(false);
   const [feedPosts, setFeedPosts] = useState(null);
   const [postTrigger, setPostTrigger] = useState(false);
+  const [comIndex, setComIndex] = useState(null);
+  const [comPostDelete, setComPostDelete] = useState(null);
+  const [deleteIndex, setDeleteIndex] = useState(null);
 
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date());
@@ -62,12 +65,22 @@ const YourFeed = () => {
     if (!feedPosts) {
       setIsLoading(true);
     }
+    if (comPostDelete === "Delete") {
+      setComIndex(deleteIndex);
+    }
 
     axios.get("/api/customer/get-all-posts").then(({ data }) => {
       let reverseArray = data.reverse();
       setFeedPosts(reverseArray);
       setIsLoading(false);
       //setLikeTrigger(true);
+      if (comPostDelete === "Post") {
+        if (data[index].postComments.length === 0) {
+          setComIndex(data[index].postComments.length);
+        } else {
+          setComIndex(data[index].postComments.length - 1);
+        }
+      }
     });
   }, [postTrigger]);
 
@@ -104,6 +117,11 @@ const YourFeed = () => {
           index={index}
           setPostTrigger={setPostTrigger}
           postTrigger={postTrigger}
+          comIndex={comIndex}
+          setComIndex={setComIndex}
+          comPostDelete={comPostDelete}
+          setComPostDelete={setComPostDelete}
+          setDeleteIndex={setDeleteIndex}
         />
       )}
       <fieldset
@@ -287,7 +305,6 @@ const YourFeed = () => {
           <div className="h-full lg:w-[60%] w-[90%] bg-neutral-800">
             {feedPosts &&
               feedPosts.map((post, i) => {
-                console.log(post);
                 return (
                   <Post
                     post={post}
