@@ -48,10 +48,10 @@ const OrderHistoryModal = ({
   }, []);
 
   return (
-    <div className="h-full w-full absolute top-0 left-0 bg-black bg-opacity-20 0 z-50 flex items-center justify-center">
-      <div className="h-[90%] w-[85%] bg-neutral-600 flex items-center justify-center rounded-md relative text-neutral-200">
+    <div className="h-full w-full absolute top-0 left-0 bg-black bg-opacity-20 0 z-40 flex items-center justify-center">
+      <div className="h-[80%] md:h-[90%] w-[95%] bg-neutral-600 flex items-center justify-center rounded-md relative text-neutral-200">
         <button
-          className="absolute left-2 top-2  z-50"
+          className="absolute md:left-2 top-2 right-2  z-50"
           onClick={() => {
             setIsVisible(false);
           }}
@@ -60,7 +60,7 @@ const OrderHistoryModal = ({
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="w-12 h-12 hover:text-orange-500 text-neutral-800"
+            className="md:w-12 h-8 w-8 md:h-12 hover:text-orange-500 text-neutral-800"
           >
             <path
               fillRule="evenodd"
@@ -84,17 +84,17 @@ const OrderHistoryModal = ({
           )}
           <div className="w-[80%] h-[85%]     ">
             <div className="h-[70%] w-full  bg-opacity-25 relative ">
-              <h1 className="text-8xl">
+              <h1 className="text-xl md:text-4xl lg:text-6xl 2xl:text-8xl">
                 {orderHistory[index].productBought[indexDva].productName}
               </h1>
               {orderHistory[index].productShipped ? (
                 ""
               ) : (
-                <h1 className="text-2xl mt-6">
+                <h1 className="font-bold text-4xl mt-2 md:mt-2 lg:mt-6">
                   {orderHistory[index].productBought[indexDva].productNewPrice}$
                 </h1>
               )}{" "}
-              <div className="text-xl font-bold mt-6 text-right absolute top-1 right-0">
+              <div className="text-sm md:text-xl font-bold mt-[2px] lg:mt-[8px] 2xl:mt-6 text-right absolute top-1 right-0">
                 {orderHistory[index].orderPlacedDate.substring(0, 10)}
                 <br />
                 <span className="font-light">Store:</span>{" "}
@@ -102,17 +102,19 @@ const OrderHistoryModal = ({
                   {store && store.storeName}
                 </Link>
               </div>
-              <div className="w-full h-[90%] mt-1 ">
+              <div className="w-full h-[90%] mt-4 lg:mt-1 ">
                 {orderHistory[index].productShipped ? (
                   ""
                 ) : (
                   <>
-                    <h1 className="text-gray-400">Write a note to seller:</h1>
-                    <div className="relative h-[80%] w-full mt-1">
+                    <h1 className="text-gray-400 text-sm md:text-base">
+                      Write a note to seller:
+                    </h1>
+                    <div className="relative h-[95%] md:h-[80%] w-full mt-1">
                       <textarea
                         defaultValue={orderHistory[index].noteToSeller}
                         type="text"
-                        className="h-full w-full rounded-md bg-neutral-700 p-2"
+                        className="h-full w-full rounded-md bg-neutral-700 p-2 md:text-base text-sm"
                         onChange={(e) => setNote(e.target.value)}
                       ></textarea>
                       <button
@@ -130,7 +132,7 @@ const OrderHistoryModal = ({
               <div className="h-[33%] w-full flex absolute bottom-0 left-2 items-center">
                 {orderHistory[index].productShipped ? (
                   <div className="bg-neutral-800 w-full text-white p-4 rounded-md shadow-lg">
-                    <h1 className="text-2xl">
+                    <h1 className="text-base md:text-2xl">
                       Product shipped, arrives in{""}
                       <span> </span>
                       <span className="text-3xl">
@@ -141,11 +143,11 @@ const OrderHistoryModal = ({
                   </div>
                 ) : (
                   <>
-                    <h1 className="text-2xl">
+                    <h1 className="text-base md:text-2xl">
                       Product still hasn't been shipped
                     </h1>
                     <button
-                      className="w-[30%] h-[80%] border-2 border-orange-500 text-black ml-4 rounded-md hover:bg-orange-500 hover:text-white transition-all"
+                      className="text-sm w-[50%] md:w-[30%] h-full md:h-[80%] border-2 border-orange-500 text-black ml-4 rounded-md hover:bg-orange-500 hover:text-white transition-all"
                       onClick={handleCancelOrder}
                     >
                       Cancel order

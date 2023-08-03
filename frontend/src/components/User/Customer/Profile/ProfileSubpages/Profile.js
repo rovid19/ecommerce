@@ -68,9 +68,12 @@ const Profile = () => {
         />
       )}
       {profileSavedModal && <StoreSavedModal />}
-      <form className="w-[50%] h-full fl2" onSubmit={handleProfileChanges}>
+      <form
+        className="lg:w-[50%] w-full h-full fl2"
+        onSubmit={handleProfileChanges}
+      >
         <div className="h-[30%] w-full flex justify-center items-center p-2">
-          <label className="h-full w-[30%] mt-4">
+          <label className="h-full w-[40%] md:w-[30%] mt-4">
             {isLoading ? (
               <img
                 src={Loader}
@@ -97,30 +100,30 @@ const Profile = () => {
             )}
           </label>
         </div>
-        <div className="h-[30%] w-full fl2    ">
+        <div className="h-[30%] w-full fl2  mt-2 lg:mt-0 ">
           <h1 className="text-neutral-600">
             You can change your account information here
           </h1>
           <input
             type="text"
             placeholder="New Email"
-            className="h-[20%] w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
+            className="h-[20%] w-[80%] md:w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
             onChange={(e) => setNewEmail(e.target.value)}
           />
           <input
             type="text"
             placeholder="New Username"
-            className="h-[20%] w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
+            className="h-[20%] w-[80%] md:w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
             onChange={(e) => setNewUsername(e.target.value)}
           />
           <input
             type="text"
             placeholder="New Password"
-            className="h-[20%] w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
+            className="h-[20%] w-[80%] md:w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
             onChange={(e) => setNewPassword(e.target.value)}
           />
           <button
-            className="h-[20%] bg-neutral-700 w-[65%] rounded-md text-neutral-200 mt-1 hover:bg-orange-500 hover:text-white"
+            className="h-[20%] bg-neutral-700 w-[70%] md:w-[65%] rounded-md text-neutral-200 mt-1 hover:bg-orange-500 hover:text-white"
             onClick={(e) => {
               e.preventDefault();
               setManageFollowersVisible(true);

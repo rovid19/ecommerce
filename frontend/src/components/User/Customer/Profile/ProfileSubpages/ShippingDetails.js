@@ -44,11 +44,14 @@ const ShippingDetails = () => {
 
   return (
     <div className="h-full w-full bg-neutral-800 flex items-center justify-center">
-      <form className="w-[50%] h-full fl2" onSubmit={handleShippingInfoChange}>
-        <div className="h-[20%] flex justify-center items-center ">
+      <form
+        className="w-full md:w-[80%] lg:w-[60%] xl:w-[50%] h-full fl2"
+        onSubmit={handleShippingInfoChange}
+      >
+        <div className="lg:h-[20%] h-[15%] flex justify-center items-center ">
           {" "}
           <h1
-            className="text-xl mt-12 text-neutral-300
+            className="mt-12 text-base md:text-xl text-neutral-300
           "
           >
             Enter your shipping information

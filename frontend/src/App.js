@@ -41,8 +41,8 @@ import Chat from "./components/User/Inbox/Chat";
 import { setSocket } from "./app/features/socket";
 import YourFeed from "./components/Homepage/YourFeed";
 
-//axios.defaults.baseURL = "http://localhost:4000";
-axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
+axios.defaults.baseURL = "http://localhost:4000";
+//axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
 axios.defaults.withCredentials = true;
 
 const App = () => {

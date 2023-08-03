@@ -50,7 +50,7 @@ const OrderHistory = () => {
           <img src={Loader} className="w-[15%] h-[15%] "></img>
         </div>
       ) : (
-        <div className="h-[90%] w-[80%] shadow-lg overflow-scroll scrollbar-hide">
+        <div className="h-[80%] w-[90%] md:h-[90%] md:w-[80%] shadow-lg overflow-scroll scrollbar-hide">
           {orderHistory && orderHistory.length > 0 ? (
             orderHistory.map((item, index) => {
               let indexMap = index;
@@ -68,8 +68,8 @@ const OrderHistory = () => {
                       }}
                       key={index}
                     >
-                      <div className="w-[50%]  h-full flex p-2">
-                        <div className="h-full w-[50%] p-4 ">
+                      <div className="w-[40%] md:w-[50%]  h-full flex md:p-2">
+                        <div className="h-full w-[80%] md:w-[50%] p-4 ">
                           {" "}
                           <img
                             src={item.productPicture}
@@ -77,37 +77,37 @@ const OrderHistory = () => {
                           />
                         </div>
                         <div className="h-full w-[70%] fl3 ml-4">
-                          <h1 className="text-3xl text-white">
+                          <h1 className="text-base md:text-xl lg:text-3xl text-white">
                             {item.productName}
                           </h1>
 
                           <p>{item.productDescription} </p>
                         </div>
                       </div>
-                      <div className="h-full w-[20%] p-2">
+                      <div className="h-full w-[20%] md:w-[20%] md:p-2">
                         <div className="h-full w-full border-l-2 border-neutral-600 border-opacity-20 fl2">
                           <h1 className="">Price paid</h1>
-                          <h1 className="text-4xl text-white">
+                          <h1 className=" text-2xl md:text-2xl lg:text-4xl text-white">
                             {item.productNewPrice}$
                           </h1>
                         </div>
                       </div>
 
-                      <div className="w-[30%] h-full  p-2 border-l-2 border-neutral-600 border-opacity-20 relative fl2">
-                        <h1 className=" text-xl">Shippment Status</h1>
-                        <div className="flex mt-2 text-white">
+                      <div className="w-[40%] md:w-[30%] h-full  md:p-2 border-l-2 border-neutral-600 border-opacity-20 relative fl2">
+                        <h1 className="text-sm md:text-xl">Shippment Status</h1>
+                        <div className="flex md:mt-2 text-white">
                           {orderHistory &&
                           orderHistory[indexMap].productShipped ? (
                             <>
                               <div className="bg-orange-500 p-2 rounded-md text-white flex">
-                                Shipped
+                                <h1>Shipped</h1>
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
                                   fill="none"
                                   viewBox="0 0 24 24"
                                   strokeWidth="1.5"
                                   stroke="currentColor"
-                                  className="w-6 h-6 ml-2"
+                                  className="w-4 h-6 md:w-6 md:h-6 ml-2"
                                 >
                                   <path
                                     strokeLinecap="round"
@@ -119,14 +119,14 @@ const OrderHistory = () => {
                             </>
                           ) : (
                             <>
-                              Waiting to be shipped
+                              <h1 className="text-sm">Waiting to be shipped</h1>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-6 h-6 ml-2"
+                                className="w-4 h-6 md:w-6 md:h-6 md:ml-2"
                               >
                                 <path
                                   strokeLinecap="round"
@@ -158,8 +158,8 @@ const OrderHistory = () => {
                       }}
                     >
                       {}
-                      <div className="w-[50%]  h-full flex p-4 z-20">
-                        <div className="h-full w-[50%] p-4  ">
+                      <div className="w-[40%] md:w-[50%]  h-full flex md:p-2">
+                        <div className="h-full w-[80%] md:w-[50%] p-4 ">
                           {" "}
                           <img
                             src={item.productPicture}
@@ -167,55 +167,61 @@ const OrderHistory = () => {
                           />
                         </div>
                         <div className="h-full w-[70%] fl3 ml-4">
-                          <h1 className="text-3xl text-white">
+                          <h1 className="text-base md:text-xl lg:text-3xl text-white">
                             {item.productName}
                           </h1>
 
                           <p>{item.productDescription} </p>
                         </div>
                       </div>
-                      <div className="h-full w-[20%] p-2 z-20">
+                      <div className="h-full w-[20%] md:w-[20%] md:p-2">
                         <div className="h-full w-full border-l-2 border-neutral-600 border-opacity-20 fl2">
-                          <h1 className="">Price paid/quantity</h1>
-                          <h1 className="text-4xl text-white">
+                          <h1 className="text-sm text-center md:text-base">
+                            Price paid/
+                            <br />
+                            quantity
+                          </h1>
+                          <h1 className="text-xl md:text-2xl lg:text-4xl text-white">
                             {item.productNewPrice}$/
                             {orderHistory[indexMap].productQuantity[index]}
                           </h1>
                         </div>
                       </div>
 
-                      <div className="w-[30%] h-full  p-2 border-l-2 border-neutral-600 border-opacity-20 relative fl2 z-20">
-                        <h1 className=" text-xl">Shippment Status</h1>
-                        <div className="flex mt-2 text-white">
+                      <div className="w-[40%] md:w-[30%] h-full  md:p-2 border-l-2 border-neutral-600 border-opacity-20 relative fl2">
+                        <h1 className="text-sm md:text-xl">Shippment Status</h1>
+                        <div className="flex md:mt-2 text-white">
                           {orderHistory &&
                           orderHistory[indexMap].productShipped ? (
                             <>
-                              "Shipped"
-                              <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                strokeWidth="1.5"
-                                stroke="currentColor"
-                                className="w-6 h-6 ml-2"
-                              >
-                                <path
-                                  strokeLinecap="round"
-                                  strokeLinejoin="round"
-                                  d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
-                                />
-                              </svg>{" "}
+                              <div className="bg-orange-500 p-2 rounded-md text-white flex">
+                                <h1>Shipped</h1>
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  fill="none"
+                                  viewBox="0 0 24 24"
+                                  strokeWidth="1.5"
+                                  stroke="currentColor"
+                                  className="w-4 h-6 md:w-6 md:h-6 ml-2"
+                                >
+                                  <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M8.25 18.75a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h6m-9 0H3.375a1.125 1.125 0 01-1.125-1.125V14.25m17.25 4.5a1.5 1.5 0 01-3 0m3 0a1.5 1.5 0 00-3 0m3 0h1.125c.621 0 1.129-.504 1.09-1.124a17.902 17.902 0 00-3.213-9.193 2.056 2.056 0 00-1.58-.86H14.25M16.5 18.75h-2.25m0-11.177v-.958c0-.568-.422-1.048-.987-1.106a48.554 48.554 0 00-10.026 0 1.106 1.106 0 00-.987 1.106v7.635m12-6.677v6.677m0 4.5v-4.5m0 0h-12"
+                                  />
+                                </svg>
+                              </div>
                             </>
                           ) : (
                             <>
-                              Waiting to be shipped
+                              <h1 className="text-sm">Waiting to be shipped</h1>
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"
                                 viewBox="0 0 24 24"
                                 strokeWidth={1.5}
                                 stroke="currentColor"
-                                className="w-6 h-6 ml-2"
+                                className="w-4 h-6 md:w-6 md:h-6 md:ml-2"
                               >
                                 <path
                                   strokeLinecap="round"
@@ -239,7 +245,7 @@ const OrderHistory = () => {
             })
           ) : (
             <div className="h-full w-full flex items-center justify-center">
-              <h1 className="text-gray-500 text-xl">
+              <h1 className="text-gray-500 text-base md:text-xl">
                 Opps... It looks like you didn't make any purchase yet!
               </h1>
             </div>
