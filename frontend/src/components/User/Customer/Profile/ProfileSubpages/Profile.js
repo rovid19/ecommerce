@@ -59,7 +59,7 @@ const Profile = () => {
         dispatch(setUserProfileSavedModal(true));
       });
   }
-  console.log(user);
+
   return (
     <div className="h-full w-full flex items-center bg-neutral-800 justify-center relative ">
       {manageFollowersVisible && (

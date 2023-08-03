@@ -154,9 +154,7 @@ const Navbar = () => {
                       </Link>{" "}
                       <h1 className="text-gray-500 mt-2">Store settings:</h1>
                       <Link
-                        to={
-                          /*user && `/store/${user.username}/${user.store._id}`*/ ""
-                        }
+                        /*to={user && `/store/${user.username}/${user.store._id}`}*/
                         className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
                       >
                         <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">

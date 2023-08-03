@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
   const products = useSelector((state) => state.userData.value.products);
 
-  console.log(products);
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
       <motion.article

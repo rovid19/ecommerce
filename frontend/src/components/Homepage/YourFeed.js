@@ -22,6 +22,10 @@ const YourFeed = () => {
   const [comPostDelete, setComPostDelete] = useState(null);
   const [deleteIndex, setDeleteIndex] = useState(null);
 
+  const [videoModalClass, setVideoModalClass] = useState(
+    "h-[80%] md:h-[70%] lg:w-[70%] w-full  md:w-[80%] bg-neutral-900 fl2 relative rounded-md p-4"
+  );
+
   const dispatch = useDispatch();
   const [date, setDate] = useState(new Date());
   const [index, setIndex] = useState(null);
@@ -33,7 +37,13 @@ const YourFeed = () => {
   const postModalVisible = useSelector(
     (state) => state.post.value.postModalVisible
   );
+  const postModalClass = useSelector(
+    (state) => state.post.value.postModalClass
+  );
   const active = useSelector((state) => state.triggeri.value.active);
+  const mobileActive = useSelector(
+    (state) => state.triggeri.value.mobileActive
+  );
 
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "2-digit",
@@ -109,6 +119,8 @@ const YourFeed = () => {
         <VideoPlayerModal
           setVideoPlayerModalVisible={setVideoPlayerModalVisible}
           video={video}
+          videoModalClass={videoModalClass}
+          setVideoModalClass={setVideoModalClass}
         />
       )}
       {feedPosts && feedPosts[index] && postModalVisible && (
@@ -160,8 +172,8 @@ const YourFeed = () => {
             <img
               className={
                 text || product || video
-                  ? "lg:h-[15%] h-0 object-cover w-full rounded-full transition-all"
-                  : "lg:h-[70%] object-cover w-full rounded-full transition-all"
+                  ? "lg:h-[15%] h-0 object-cover w-0 lg:w-full rounded-full transition-all"
+                  : "lg:h-[70%] h-0 w-0 object-cover lg:w-full rounded-full transition-all"
               }
               src={user && user.profilePicture}
             ></img>
@@ -197,7 +209,7 @@ const YourFeed = () => {
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 24 24"
                         fill="currentColor"
-                        class="lg:w-8 lg:h-8 w-6 h-6 hover:text-orange-500 lg:text-neutral-900 transition-all text-orange-500"
+                        class="lg:w-8 lg:h-8 w-6 h-6 hover:text-orange-500 lg:text-neutral-400 transition-all text-orange-500"
                       >
                         <path
                           fill-rule="evenodd"
@@ -232,24 +244,38 @@ const YourFeed = () => {
                 <div
                   className={
                     product
-                      ? " h-[40%] w-full absolute top-[40%] rounded-md"
-                      : " h-[40%] w-full absolute top-2 rounded-md"
+                      ? " h-[30%] md:h-[40%] w-full absolute top-[42%] md:top-[40%] rounded-md"
+                      : " h-[30%] md:h-[40%] w-full absolute top-2 rounded-md"
                   }
                 >
                   <button
-                    className="absolute h-full w-[3%] right-0 top-0 flex items-center z-50"
+                    className="absolute h-full w-[8%] lg:w-[5%] 2xl:w-[3%] md:w-[6%] right-0 top-0 flex items-center z-50"
                     onClick={(e) => {
                       e.preventDefault(e);
                       setVideo(null);
                     }}
-                  ></button>
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="lg:w-8 lg:h-8 w-6 h-6 hover:text-orange-500 lg:text-neutral-400 transition-all text-orange-500"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
                   <video
                     src={video}
                     className="h-full w-full object-cover rounded-md"
                   ></video>
-                  <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 flex items-center justify-center rounded-md">
+                  <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-40 flex items-center justify-center rounded-md">
                     <button
                       onClick={(e) => {
+                        setVideoModalClass((prev) => prev + " postModalOpen");
                         e.preventDefault();
                         setVideoPlayerModalVisible(true);
                       }}

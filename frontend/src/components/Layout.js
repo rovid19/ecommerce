@@ -17,8 +17,6 @@ const Layout = () => {
 
   useEffect(() => {
     const resizeFunc = () => {
-      console.log(window.innerWidth);
-
       if (window.innerWidth <= 1024) {
         dispatch(setShowNavbar(false));
         dispatch(setMobileActive(true));

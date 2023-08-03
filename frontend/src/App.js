@@ -42,7 +42,7 @@ import { setSocket } from "./app/features/socket";
 import YourFeed from "./components/Homepage/YourFeed";
 
 axios.defaults.baseURL = "http://localhost:4000";
-//axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
+//axios.defaults.baseURL = "https://ecommerce-frontend-i3h3.onrender.com";
 axios.defaults.withCredentials = true;
 
 const App = () => {
@@ -86,7 +86,6 @@ const App = () => {
   }, [getUserTrigger, fetchUserTrigger]);
   useEffect(() => {
     if (runUseEffect) {
-      console.log(userData);
       let totalCount = 0;
       userData.allChat.forEach((item) => {
         const zbroj = item.newChatCount - item.oldChatCount;

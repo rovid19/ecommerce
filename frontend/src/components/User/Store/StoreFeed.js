@@ -26,14 +26,14 @@ const StoreFeed = ({ storeUser }) => {
     const response = await axios.post("/api/customer/get-user-posts", {
       userId: storeUser._id,
     });
-    setUserPosts(response.data);
+    setUserPosts(response.data.reverse());
     setIsLoading(false);
   };
-  console.log(index);
+
   return (
     <div className=" w-full flex justify-center bg-neutral-800 ">
       {isLoading && (
-        <div className="h-[50vh] w-full flex items-center justify-center ">
+        <div className="h-[50vh] w-full flex items-center justify-center  absolute top-[50%] left-0 z-50 bg-neutral-800 ">
           <img src={Loader}></img>{" "}
         </div>
       )}
@@ -45,7 +45,7 @@ const StoreFeed = ({ storeUser }) => {
           setPostTrigger={setPostTrigger}
         />
       )}
-      <div className="h-full w-[80%]">
+      <div className="h-full w-[90%] md:w-[80%]">
         {userPosts &&
           userPosts.map((post, i) => (
             <div className="">

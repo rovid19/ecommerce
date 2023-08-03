@@ -2,7 +2,10 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { setPostModalVisible } from "../../app/features/post";
+import {
+  setPostModalClass,
+  setPostModalVisible,
+} from "../../app/features/post";
 
 const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
   const [liked, setLiked] = useState(false);
@@ -11,6 +14,9 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.userData.value.user);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
+  const postModalClass = useSelector(
+    (state) => state.post.value.postModalClass
+  );
 
   async function likePost() {
     await axios.post("/api/customer/like-post", {
@@ -45,6 +51,7 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
           : "border-b-2 border-neutral-900 border-opacity-50  w-full mt-4  bg-neutral-900 rounded-md relative  "
       }
       onClick={() => {
+        dispatch(setPostModalClass(postModalClass + " postModalOpen"));
         setIndex(index);
       }}
     >
@@ -56,7 +63,7 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              class="w-4 h-4 text-neutral-500 hover:text-orange-500 transition-all "
+              class="w-6 h-6 lg:w-4 lg:h-4 text-neutral-500 hover:text-orange-500 transition-all "
             >
               <path
                 fill-rule="evenodd"
@@ -72,8 +79,8 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
           <div
             className={
               storeSubPage === "store"
-                ? "w-[5%]  h-full p-4 flex justify-center"
-                : "w-[8%]  h-full p-4 flex justify-center"
+                ? "md:w-[5%] w-[45px]  h-full p-4 flex justify-center"
+                : "md:w-[8%] w-[65px]  h-full p-4 flex justify-center"
             }
           >
             <img

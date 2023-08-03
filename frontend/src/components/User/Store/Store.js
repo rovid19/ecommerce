@@ -72,9 +72,11 @@ const Store = () => {
       if (containerRef.current.scrollTop > scroll) {
         dispatch(setScrollStop(scroll));
         scroll = containerRef.current.scrollTop;
+        console.log("scroll down");
       } else {
         dispatch(setScrollStop(scroll));
         scroll = containerRef.current.scrollTop;
+        console.log("scroll up");
       }
     };
     containerRef.current.addEventListener("scroll", handleScroll);
@@ -144,7 +146,7 @@ const Store = () => {
                 followStore();
               }
             }}
-            className="w-[6%] h-[10%] bg-transparent absolute top-2 left-4 flex p-4 rounded-md text-white z-50 justify-center items-center gap-1 hover:bg-orange-500 transition-all "
+            className="lg:w-[120px] h-[10%] bg-transparent absolute top-2 right-0 lg:left-4 flex p-4 rounded-md text-white z-40 justify-center items-center gap-1 hover:bg-orange-500 transition-all "
           >
             {isFollowing ? (
               <svg
@@ -153,7 +155,7 @@ const Store = () => {
                 viewBox="0 0 24 24"
                 stroke-width="1.5"
                 stroke="currentColor"
-                class="w-6 h-6"
+                class="w-4 h-4 md:w-6 md:h-6"
               >
                 <path
                   stroke-linecap="round"
@@ -190,13 +192,13 @@ const Store = () => {
                 : "h-full w-full bg-black bg-opacity-40 absolute top-0"
             }
           ></div>
-          <div className="w-[50%] h-[35%]  z-50 absolute bottom-0 flex gap-4 p-4">
+          <div className="w-[75%] md:w-[50%] lg:h-[170px]   h-[160px] md:h-[35%]  z-40 absolute bottom-0 flex gap-2 md:gap-4 p-4">
             {" "}
             <img
               src={storeData && storeData.storeProfile}
-              className="h-full w-[20%]  rounded-xl shadow-xl object-cover"
+              className="h-full w-[30%] md:w-[20%]  rounded-xl shadow-xl object-cover"
             ></img>
-            <div className="text-white bg-neutral-900 p-4 rounded-xl z-50 min-w-[20%] max-w-[40%] ">
+            <div className="text-white bg-neutral-900 p-4 rounded-xl z-50 min-w-[40%] md:min-w-[30%] max-w-full  md:max-w-full overflow-hidden">
               <h1 className="text-xl lg:text-3xl">
                 {storeData && storeData.storeName}
               </h1>
@@ -213,7 +215,7 @@ const Store = () => {
               </div>
             </div>
           </div>
-          <div className="absolute right-0 bottom-0   h-[10%] w-[20%]">
+          <div className="absolute right-0 bottom-0   h-[10%] w-[28%] lg:w-[20%]">
             <button
               className={
                 active === "Store"
@@ -237,7 +239,7 @@ const Store = () => {
           </div>
         </div>
         <div
-          className="h-[50%] overflow-scroll scrollbar-hide"
+          className="h-[50%] w-full overflow-scroll scrollbar-hide"
           ref={containerRef}
         >
           {active === "Feed" ? (
@@ -246,16 +248,16 @@ const Store = () => {
             productCollections &&
             productCollections.map((item, index) => {
               return (
-                <article key={index} className="h-full relative">
-                  <h1 className=" text-2xl h-[40px] bg-neutral-900 text-neutral-400   pl-4 pt-1    ">
+                <article key={index} className="h-full w-full relative fl">
+                  <h1 className="text-2xl h-[40px] bg-neutral-900 text-neutral-400 pl-4 pt-1">
                     {collection[index]}
                   </h1>
-
-                  <div className="h-[calc(100%-40px)] w-full grid grid-cols-6 gap-4 p-4 bg-neutral-800 scrollbar-hide  ">
+                  <div className="flex-grow flex 2xl:grid-cols-6 gap-4 p-2 lg:p-4 bg-neutral-800 overflow-x-auto scrollbar-hide">
                     {item &&
                       item.map((product, index) => {
                         return (
-                          <article className="mt-2 mb-2">
+                          <article className="h-full w-[220px] lg:w-[250px]  flex items-center">
+                            {" "}
                             <StoreProductCard
                               storeProducts={product}
                               index={index}
@@ -272,53 +274,6 @@ const Store = () => {
           )}
         </div>
       </main>
-      {/*productCollections.length > 2 && (
-        <section className="h-screen grid grid-rows-2 bg-whitew-full place-items-center overflow-scroll">
-          <div className="h-full w-[85%] ">
-            {productCollections &&
-              productCollections.map((item, index) => {
-                if (index > 0) {
-                  return (
-                    <article key={index} className="h-full relative ">
-                      <h1 className=" text-2xl h-[40px] bg-gray-500 text-white rouned-md  pl-4 pt-1 hover:text-white hover:bg-gray-500 transition-all cursor-pointer rounded-md">
-                        {collection[index]}
-                      </h1>
-
-                      <div
-                        className={
-                          item.length === 0
-                            ? "h-[calc(100%-40px)] w-full bg-gray-50 border-r-2 border-l-2 border-gray-300 border-opacity-20 p-4"
-                            : "h-[calc(100%-40px)] w-full grid grid-cols-6 gap-4 bg-gray-50 border-r-2 border-l-2 border-gray-300 border-opacity-20 p-4"
-                        }
-                      >
-                        {item.length === 0 && (
-                          <div className="w-full h-full flex justify-center items-center ">
-                            <h1 className="text-black text-3xl">
-                              There's no products in this collection
-                            </h1>
-                          </div>
-                        )}
-                        {item &&
-                          item.map((product, index) => {
-                            return (
-                              <article className="mt-2 mb-2">
-                                <StoreProductCard
-                                  storeProducts={product}
-                                  index={index}
-                                  storeData={storeData}
-                                  key={index}
-                                />
-                              </article>
-                            );
-                          })}
-                      </div>
-                    </article>
-                  );
-                }
-              })}
-          </div>
-        </section>
-      )*/}
     </>
   );
 };

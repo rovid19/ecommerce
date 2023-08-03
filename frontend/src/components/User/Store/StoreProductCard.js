@@ -43,8 +43,8 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
     <div
       className={
         editMode
-          ? "h-[95%] lg:h-[100%] bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden  "
-          : "h-[95%] lg:h-[100%] bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden "
+          ? "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden  "
+          : "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden "
       }
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
@@ -94,13 +94,13 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
         </div>
       </div>
       <div className="h-[45%]  w-full pl-2 pt-1 lg:pt-2 relative ">
-        <h1 className="font-bold lg:text-xl text-sm uppercase">
+        <h1 className="font-bold text-xl  uppercase">
           {storeProducts && storeProducts.productName}
         </h1>
         <p className="text-sm text-gray-500">
           {storeProducts && storeProducts.productDescription}
         </p>{" "}
-        <h1 className="font-bold text-base lg:text-4xl absolute top-2 right-3">
+        <h1 className="font-bold text-xl lg:text-4xl absolute top-1 lg:top-2 right-3">
           {storeProducts && storeProducts.productNewPrice}€
         </h1>
         <div className="w-full   h-[15%] absolute bottom-4  left-0 rounded-b-md grid grid-cols-3 text-neutral-600 ">

@@ -52,7 +52,7 @@ const Chat = ({
   }, [fetchMessagesTrigger]);
 
   //seen poruke kad ti neko posalje poruku, a ti si u tom trenutku u chatu
-  console.log(chat);
+
   return (
     <section className="h-full w-full relative flexend">
       {chat[index].messages.map((message, i) => {

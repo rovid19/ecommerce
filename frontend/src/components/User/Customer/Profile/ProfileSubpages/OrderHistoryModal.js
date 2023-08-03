@@ -14,6 +14,8 @@ const OrderHistoryModal = ({
   setGetOrderHistoryTrigger,
   getOrderHistoryTrigger,
   isFetching,
+  modalClassname,
+  setModalClassname,
 }) => {
   const [note, setNote] = useState(null);
   const [store, setStore] = useState(null);
@@ -49,11 +51,24 @@ const OrderHistoryModal = ({
 
   return (
     <div className="h-full w-full absolute top-0 left-0 bg-black bg-opacity-20 0 z-40 flex items-center justify-center">
-      <div className="h-[80%] md:h-[90%] w-[95%] bg-neutral-600 flex items-center justify-center rounded-md relative text-neutral-200">
+      <div className={modalClassname}>
         <button
           className="absolute md:left-2 top-2 right-2  z-50"
           onClick={() => {
-            setIsVisible(false);
+            setModalClassname((prev) => {
+              let newPrev = prev.replace(
+                "orderModalAniOpen",
+                "orderModalAniClose"
+              );
+              return newPrev;
+            });
+            setTimeout(() => {
+              setIsVisible(false);
+              setModalClassname((prev) => {
+                let newPrev = prev.replace("orderModalAniClose", "");
+                return newPrev;
+              });
+            }, [300]);
           }}
         >
           <svg
@@ -102,7 +117,7 @@ const OrderHistoryModal = ({
                   {store && store.storeName}
                 </Link>
               </div>
-              <div className="w-full h-[90%] mt-4 lg:mt-1 ">
+              <div className="w-full h-[80%] md:h-[90%] mt-4 lg:mt-1 ">
                 {orderHistory[index].productShipped ? (
                   ""
                 ) : (

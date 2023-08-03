@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 
 const VideoUploadModal = ({ setVideoModalVisible, setVideo }) => {
   const [progress, setProgress] = useState(null);
@@ -41,10 +42,15 @@ const VideoUploadModal = ({ setVideoModalVisible, setVideo }) => {
       handleUploadVideo();
     }
   }, [videoFormData]);
-  console.log(videoFormData);
+
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
-      <article className="lg:h-[50%] lg:w-[50%] h-[80%] w-full bg-neutral-900 fl2 relative">
+      <motion.article
+        initial={{ x: 100, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ type: "tween", duration: 0.3 }}
+        className="lg:h-[50%] lg:w-[50%] h-[80%] w-full bg-neutral-900 fl2 relative"
+      >
         <button
           className="absolute top-2 left-2"
           onClick={() => setVideoModalVisible(false)}
@@ -102,7 +108,7 @@ const VideoUploadModal = ({ setVideoModalVisible, setVideo }) => {
             </div>
           </form>
         </div>
-      </article>
+      </motion.article>
     </div>
   );
 };

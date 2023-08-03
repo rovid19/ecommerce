@@ -1,12 +1,29 @@
 import React from "react";
 
-const VideoPlayerModal = ({ setVideoPlayerModalVisible, video }) => {
+const VideoPlayerModal = ({
+  setVideoPlayerModalVisible,
+  video,
+  videoModalClass,
+  setVideoModalClass,
+}) => {
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
-      <article className="h-[70%] w-[70%] bg-neutral-900 fl2 relative rounded-md p-4">
+      <article className={videoModalClass}>
         <button
           className="absolute top-2 left-2 z-50"
-          onClick={() => setVideoPlayerModalVisible(false)}
+          onClick={() => {
+            setVideoModalClass((prev) => {
+              let newPrev = prev.replace("postModalOpen", "postModalClose");
+              return newPrev;
+            });
+            setTimeout(() => {
+              setVideoModalClass((prev) => {
+                let newPrev = prev.replace("postModalClose", "");
+                return newPrev;
+              });
+              setVideoPlayerModalVisible(false);
+            }, [400]);
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

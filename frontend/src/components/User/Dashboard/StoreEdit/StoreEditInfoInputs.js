@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 
@@ -15,6 +15,7 @@ const StoreEditInfoInputs = ({
   currentPhoto,
   setIsLoading,
   profilePhoto,
+  description,
 }) => {
   // redux
   const editMode = useSelector((state) => state.editMode.value);
@@ -40,6 +41,11 @@ const StoreEditInfoInputs = ({
         setIsLoading(false);
       });
   }
+  useEffect(() => {
+    if (description && description.length === 35) {
+      alert("you cant add any more characters than this");
+    }
+  }, [description]);
 
   return (
     <>
@@ -133,6 +139,7 @@ const StoreEditInfoInputs = ({
         </h3>
         <p className="text-base lg:text-sm 2xl:text-base">
           <input
+            maxlength="35"
             placeholder="Store description"
             className="bg-transparent text-white"
             defaultValue={user.store && user.store.storeDescription}

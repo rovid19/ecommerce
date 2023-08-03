@@ -117,6 +117,7 @@ const StoreEdit = () => {
         currentPhoto={currentPhoto}
         setIsLoading={setIsLoading}
         profilePhoto={profilePhoto}
+        description={description}
       />
 
       <div className=" gap-2 h-[55%] lg:h-[65%] w-full grid grid-cols-3 grid-rows-2 md:grid-cols-5 2xl:grid-cols-6 p-2 overflow-scroll relative scrollbar-hide ">

@@ -65,7 +65,6 @@ const Inbox = () => {
 
   // ucitaj sve chatove korisnika
   useEffect(() => {
-    console.log("useeffeect");
     axios.get("/api/customer/get-chat").then(({ data }) => {
       setAllChat(data);
 
@@ -80,9 +79,8 @@ const Inbox = () => {
       if (user.allChat[index]) {
         let result =
           user.allChat[index].oldChatCount !== user.allChat[index].newChatCount;
-        console.log(user.allChat[index]);
+
         if (result) {
-          console.log(user.allChat[index]);
           setSeenTrigger(!seenTrigger);
         }
       }
@@ -117,7 +115,6 @@ const Inbox = () => {
     };
   }, []);
 
-  console.log(allChat);
   return (
     <main className="h-full w-full bg-neutral-800 relative">
       {sendMessage && (

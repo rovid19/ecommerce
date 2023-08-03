@@ -34,7 +34,6 @@ const StoreFinanceLast5Sales = () => {
       <div className="w-full h-[90%]  overflow-scroll scrollbar-hide">
         {last5 &&
           last5.map((item, index) => {
-            console.log(item);
             return (
               <div
                 className={

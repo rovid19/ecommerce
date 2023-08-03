@@ -291,7 +291,7 @@ input[type="radio"] {
 }
 
 .closeNavbar {
-  animation: closeNavbarAnim 0.5s forwards;
+  animation: closeNavbarAnim 0.4s forwards;
 }
 
 @keyframes closeNavbarAnim {
@@ -344,7 +344,7 @@ input[type="radio"] {
 
 /* MOBILE MENU DIV ANIMATION */
 .openHamburgerMenu {
-  animation: opnHamMen 0.5s forwards;
+  animation: opnHamMen 0.4s forwards;
 }
 
 @keyframes opnHamMen {
@@ -464,4 +464,72 @@ input[type="radio"] {
   to {
     opacity: 0;
   }
+}
+
+/* Animacija za order modal popup */
+
+.orderModalAniOpen {
+  animation: orderModalAniOpenn 0.3s forwards;
+}
+
+.orderModalAniClose {
+  animation: orderModalAniClosee 0.3s forwards;
+}
+
+@keyframes orderModalAniClosee {
+  from {
+    scale: 1;
+  }
+  to {
+    scale: 0;
+  }
+}
+
+@keyframes orderModalAniOpenn {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+/* Animacija za order modal popup */
+
+.postModalOpen {
+  animation: postModalOpenn 0.3s forwards;
+}
+
+.postModalClose {
+  animation: postModalClosee 0.3s forwards;
+}
+
+@keyframes postModalClosee {
+  from {
+    scale: 1;
+    opacity: 1;
+  }
+  to {
+    scale: 0;
+    opacity: 0;
+  }
+}
+
+@keyframes postModalOpenn {
+  from {
+    scale: 0;
+    opacity: 0;
+  }
+  to {
+    scale: 1;
+    opacity: 1;
+  }
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(
+    5,
+    1fr
+  ); /* This will create a row with 5 equal-width columns */
 }

@@ -17,6 +17,7 @@ const StoreEditInfo = ({
   currentPhoto,
   setIsLoading,
   profilePhoto,
+  description,
 }) => {
   // redux
   const user = useSelector((state) => state.userData.value.user);
@@ -83,6 +84,7 @@ const StoreEditInfo = ({
           currentPhoto={currentPhoto}
           setIsLoading={setIsLoading}
           profilePhoto={profilePhoto}
+          description={description}
         />
       </div>
     </div>

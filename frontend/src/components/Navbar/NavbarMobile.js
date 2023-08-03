@@ -53,7 +53,6 @@ const NavbarMobile = () => {
   }, [closeNavbar]);
 
   const closeNavbarMenu = () => {
-    console.log("jaooo");
     dispatch(setCloseNavbar(true));
     setNavbarClassname((prev) => {
       let newPrev = prev.replace("openNavbar", "closeNavbar");
@@ -69,10 +68,9 @@ const NavbarMobile = () => {
     });
     setTimeout(() => {
       setHamburgerMenu((prev) => prev + " openHamburgerMenu");
-    }, [600]);
+    }, [400]);
   };
 
-  console.log(navbarClassname, "ok", navbarItems);
   return (
     <>
       <main
@@ -107,7 +105,7 @@ const NavbarMobile = () => {
                   dispatch(setShowNavbar(false));
                   setHamburgerMenu((prev) => prev + " openHamburgerMenu");
                   /*setHamMenuBtn((prev) => prev + " openHamMenuBtn");*/
-                }, [600]);
+                }, [400]);
               }}
             >
               <svg
@@ -255,9 +253,7 @@ const NavbarMobile = () => {
                     </Link>{" "}
                     <h1 className="text-gray-500 mt-2">Store settings:</h1>
                     <Link
-                      to={
-                        /*user && `/store/${user.username}/${user.store._id}`*/ ""
-                      }
+                      /*to={user && `/store/${user.username}/${user.store._id}`} */
                       className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">

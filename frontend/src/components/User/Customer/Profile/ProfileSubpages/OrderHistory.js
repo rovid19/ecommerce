@@ -13,6 +13,9 @@ const OrderHistory = () => {
   const [index, setIndex] = useState(null);
   const [indexDva, setIndexDva] = useState(null);
   const [idd, setIdd] = useState(null);
+  const [modalClassname, setModalClassname] = useState(
+    "h-[65%] md:h-[80%] w-full lg:w-[80%] bg-neutral-600 flex items-center justify-center rounded-md relative text-neutral-200"
+  );
 
   const [productId, setProductId] = useState(null);
   const [getOrderHistoryTrigger, setGetOrderHistoryTrigger] = useState(false);
@@ -28,7 +31,7 @@ const OrderHistory = () => {
       setIsFetching(false);
     });
   }, [getOrderHistoryTrigger]);
-
+  console.log(modalClassname);
   return (
     <div className="h-full w-full bg-neutral-800 flex items-center justify-center relative">
       {isVisible && (
@@ -42,6 +45,8 @@ const OrderHistory = () => {
           setGetOrderHistoryTrigger={setGetOrderHistoryTrigger}
           getOrderHistoryTrigger={getOrderHistoryTrigger}
           isFetching={isFetching}
+          modalClassname={modalClassname}
+          setModalClassname={setModalClassname}
         />
       )}
       {isFetching ? (
@@ -60,6 +65,9 @@ const OrderHistory = () => {
                     <div
                       className="h-[20%] w-full bg-neutral-900 text-neutral-400 mt-2 flex cursor-pointer hover:bg-gray-500 hover:text-white transition-all rounded-md "
                       onClick={() => {
+                        setModalClassname(
+                          (prev) => prev + " orderModalAniOpen"
+                        );
                         setIsVisible(true);
                         setIndex(indexMap);
                         setIndexDva(index);
@@ -150,6 +158,9 @@ const OrderHistory = () => {
                     <div
                       className="h-[20%] w-full beforeee relative bg-neutral-900 text-neutral-400 mt-2 flex cursor-pointer hover:bg-gray-500 hover:text-white transition-all rounded-md "
                       onClick={() => {
+                        setModalClassname(
+                          (prev) => prev + " orderModalAniOpen"
+                        );
                         setIsVisible(true);
                         setIndex(indexMap);
                         setIndexDva(index);
