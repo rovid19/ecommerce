@@ -26,10 +26,12 @@ const Reviews = () => {
   const [deleteReview, setDeleteReview] = useState(null);
 
   // REDUX
+  const viewReviewPic = useSelector((state) => state.viewReviewPic.value);
+  const viewImage = useSelector((state) => state.viewImage.value);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const user = useSelector((state) => state.userData.value.user);
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
-  const viewReviewPic = useSelector((state) => state.viewReviewPic.value);
+
   const reviewPic = useSelector((state) => state.reviewPic.value);
   const dispatch = useDispatch();
   const inputRef = useRef();
@@ -102,9 +104,17 @@ const Reviews = () => {
   }, [postTrigger]);
 
   return (
-    <section className="absolute right-0 top-0 h-full w-[25%] border-l-2 border-neutral-600 border-opacity-25 bg-neutral-800   ">
+    <section
+      className={
+        viewImage
+          ? "hidden"
+          : "absolute top:[100%] lg:right-0 lg:top-0 h-full w-full lg:w-[25%] border-l-2 border-neutral-600 border-opacity-25 bg-neutral-800   "
+      }
+    >
       <div className="h-[80%] overflow-scroll scrollbar-hide">
-        {" "}
+        <h1 className="p-3 text-neutral-600">
+          {reviews && reviews.length} Reviews:
+        </h1>{" "}
         {reviews &&
           reviews.map((review, i) => {
             return (
@@ -214,7 +224,7 @@ const Reviews = () => {
             );
           })}
       </div>
-      <div className="h-[20%] pl-4 pr-4">
+      <div className="h-[20%] ">
         {userCommented ? (
           ""
         ) : ratingActive ? (

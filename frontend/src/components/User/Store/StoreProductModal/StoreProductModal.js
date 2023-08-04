@@ -85,7 +85,7 @@ const StoreProductModal = () => {
   return (
     <div className="w-full h-full bg-neutral-700 text-neutral-300 relative">
       {openReviewPic && (
-        <section className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-25 flex items-center justify-center mido">
+        <section className="absolute top-[100%] lg:top-0 left-0 w-full h-full bg-black bg-opacity-25 flex items-center justify-center ze  ">
           <article className="h-[30%] w-[70%] bg-neutral-700 relative grid grid-cols-5 overflow-hidden rounded-md shadow-2xl">
             {reviewPic.map((pic, i) => {
               return (
@@ -147,13 +147,13 @@ const StoreProductModal = () => {
           }
           dispatch(removePic([]));
         }}
-        className=" text-black absolute top-2 left-2 zeze"
+        className=" text-black absolute top-2 right-2 lg:left-2 z-50"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-10 h-10 text-neutral-500 hover:text-neutral-300 transition-all hover:opacity-100"
+          className="w-10 h-10 text-neutral-300 hover:text-neutral-500 transition-all hover:opacity-100"
         >
           <path
             fillRule="evenodd"
@@ -208,25 +208,29 @@ const StoreProductModal = () => {
         setProductPicture={setProductPicture}
       />
       {/* DETAILS ABOUT PRODUCT */}
-      <div className="h-[50%] w-[75%]  p-4 relative">
+      <div className="h-[50%] w-full lg:w-[75%]  p-4 relative">
         {/* PRODUCT TITLE*/}
-        <h1 className="text-6xl">{productTitle}</h1>
+        <h1 className="text-4xl lg:text-6xl">{productTitle}</h1>
         {/* PRODUCT DESCRIPTION */}
         <p className="mt-4"> {productDescription}</p>
-        {/* ADD TO CART BUTTON*/}
-        <button
-          onClick={addProductToCart}
-          className="bottom-4 border-2 border-orange-500 text-orange-500 p-4 rounded-lg left-[30%] w-[15%] text-xl hover:bg-orange-500 hover:text-white transition-all absolute"
-        >
-          Add to cart
-        </button>
-        {/* BUY NOW BUTTON*/}
-        <button className="bottom-4 bg-orange-500 p-4 rounded-lg text-white left-4 w-[25%] text-xl hover:w-[28%] transition-all absolute">
-          Buy now
-        </button>
-        {/* PRODUCT RATING*/}
-        <div className="bottom-4 right-4 absolute">
-          <h2 className="text-xl">4.5</h2>
+
+        <div className="w-full  h-[20%] absolute bottom-0 left-0 flex items-center pl-2 ">
+          {" "}
+          {/* BUY NOW BUTTON*/}
+          <button className=" bg-orange-500 p-4 rounded-lg text-white  w-[35%]  lg:w-[25%]  h-[80%] text-base lg:text-xl lg:hover:w-[28%] transition-all">
+            Buy now
+          </button>{" "}
+          {/* ADD TO CART BUTTON*/}
+          <button
+            onClick={addProductToCart}
+            className=" absolute left-[40%] lg:left-[29%] border-2 border-orange-500 text-orange-500 p-4 rounded-lg h-[80%] w-[30%] lg:w-[15%] text-base lg:text-xl hover:bg-orange-500 hover:text-white transition-all"
+          >
+            Add to cart
+          </button>
+          {/* PRODUCT RATING*/}
+          <div className=" absolute h-full  right-0 flex items-center w-[10%] lg:w-[5%] justify-center">
+            <h2 className="text-xl">4.5</h2>
+          </div>
         </div>
       </div>
       {/* REVIEWS */}

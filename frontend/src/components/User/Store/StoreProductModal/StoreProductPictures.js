@@ -36,17 +36,22 @@ const StoreProductPictures = ({
       setProductPicture(newArray);
     };
   }
+  console.log(productPicture.length);
   return (
     <>
       {/* PRODUCT PICTURES */}
-      <div className={viewImage ? "hidden " : "h-[50%] w-[75%] flex relative "}>
+      <div
+        className={
+          viewImage ? "hidden " : "h-[50%] w-full lg:w-[75%] flex relative "
+        }
+      >
         {storeProducts.length > 0
           ? productPicture.map((item, index) => {
               switch (index) {
                 case 0:
                   return (
-                    <div className="h-full w-[50%] object-cover z-50 flex items-center relative ">
-                      <button className="absolute bottom-4 right-4 z-30">
+                    <div className="h-full w-[70%] z-50 flex items-center relative ">
+                      <button className="absolute bottom-4 right-4 z-30 ">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -68,73 +73,71 @@ const StoreProductPictures = ({
                         className="h-full w-full object-cover"
                       ></img>
                       <button onClick={handleChangePictureNext(index)}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-14 h-14 absolute right-2 text-white cursor-pointer hover:scale-95"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                        <div className=" bg-neutral-900 bg-opacity-40 p-2 rounded-full w-[40px] lg:w-[50px] h-[40px] lg:h-[50px] absolute right-2 flex items-center  justify-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="lg:w-14 lg:h-14 w-10 h-10  text-white cursor-pointer hover:scale-95"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
                       </button>
                       <button onClick={handleChangePicturePrevious(index)}>
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="w-14 h-14 absolute left-2 text-white cursor-pointer hover:scale-95"
-                        >
-                          <path
-                            fillRule="evenodd"
-                            d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
-                            clipRule="evenodd"
-                          />
-                        </svg>
+                        <div className=" bg-neutral-900 bg-opacity-40 p-2 rounded-full w-[40px] lg:w-[50px] h-[40px] lg:h-[50px] absolute left-2 flex items-center  justify-center">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="lg:w-14 h-10 lg:h-14 w-10 text-white cursor-pointer hover:scale-95"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                        </div>
                       </button>
                     </div>
                   );
                 case 1:
                   return (
-                    <img
-                      src={item}
+                    <div
                       className={
-                        storeProducts[productIndex].productPicture.length === 2
+                        productPicture.length === 2
                           ? "h-full w-[50%] object-cover absolute z-40 left-[50%]"
-                          : storeProducts[productIndex].productPicture
-                              .length === 3
-                          ? "h-full w-[50%] object-cover absolute z-40 left-[25%]"
-                          : storeProducts[productIndex].productPicture
-                              .length === 4
-                          ? "h-full w-[50%] object-cover absolute z-40 left-[16.6%]"
-                          : storeProducts[productIndex].productPicture
-                              .length === 5
-                          ? "h-full w-[50%] object-cover absolute z-40 left-[12.5%]"
-                          : storeProducts[productIndex].productPicture
-                              .length === 6
-                          ? "h-full w-[50%] object-cover absolute z-40 left-[10%]"
+                          : productPicture && productPicture.length === 3
+                          ? "h-full w-[25%] object-cover absolute z-40 left-[25%]"
+                          : productPicture && productPicture.length === 4
+                          ? "h-full w-[16.6%] object-cover absolute z-40 left-[16.6%]"
+                          : productPicture && productPicture.length === 5
+                          ? "h-full w-[12.5%] object-cover absolute z-40 left-[12.5%]"
+                          : productPicture && productPicture.length === 6
+                          ? "h-full w-[10%] object-cover absolute z-40 left-[10%]"
                           : ""
                       }
-                    ></img>
+                    >
+                      <img src={item} className="h-full w-full object-cover" />
+                    </div>
                   );
                 case 2:
                   return (
                     <img
                       src={item}
                       className={
-                        storeProducts[productIndex].productPicture.length === 3
+                        productPicture && productPicture.length === 3
                           ? "h-full w-[50%] object-cover absolute z-30 left-[50%]"
-                          : storeProducts[productIndex].productPicture
-                              .length === 4
+                          : productPicture && productPicture.length === 4
                           ? "h-full w-[50%] object-cover absolute z-30 left-[33.2%]"
-                          : storeProducts[productIndex].productPicture
-                              .length === 5
+                          : productPicture && productPicture.length === 5
                           ? "h-full w-[50%] object-cover absolute z-30 left-[25%]"
-                          : storeProducts[productIndex].productPicture
-                              .length === 6
+                          : productPicture && productPicture.length === 6
                           ? "h-full w-[50%] object-cover absolute z-30 left-[20%]"
                           : ""
                       }
@@ -145,13 +148,11 @@ const StoreProductPictures = ({
                     <img
                       src={item}
                       className={
-                        storeProducts[productIndex].productPicture.length === 4
+                        productPicture && productPicture.length === 4
                           ? "h-full w-[50%] object-cover absolute z-20 left-[50%]"
-                          : storeProducts[productIndex].productPicture
-                              .length === 5
+                          : productPicture && productPicture.length === 5
                           ? "h-full w-[50%] object-cover absolute z-20 left-[37.5%]"
-                          : storeProducts[productIndex].productPicture
-                              .length === 6
+                          : productPicture && productPicture.length === 6
                           ? "h-full w-[50%] object-cover absolute z-20 left-[30%]"
                           : ""
                       }
@@ -162,10 +163,9 @@ const StoreProductPictures = ({
                     <img
                       src={item}
                       className={
-                        storeProducts[productIndex].productPicture.length === 5
+                        productPicture && productPicture.length === 5
                           ? "h-full w-[50%] object-cover absolute z-10 left-[50%]"
-                          : storeProducts[productIndex].productPicture
-                              .length === 6
+                          : productPicture && productPicture.length === 6
                           ? "h-full w-[50%] object-cover absolute z-10 left-[40%]"
                           : ""
                       }
@@ -319,7 +319,7 @@ const StoreProductPictures = ({
               }
             })}
         {/* BLACK OVERLAY OVER PICTURES */}
-        <div className="h-full w-[50%] absolute left-[50%] bg-black  bg-opacity-60 z-40"></div>
+        <div className="h-full w-[50%] absolute left-[50%] bg-neutral-900 bg-opacity-80 z-40"></div>
       </div>
     </>
   );
