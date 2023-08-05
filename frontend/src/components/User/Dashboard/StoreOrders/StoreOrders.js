@@ -53,7 +53,7 @@ const StoreOrders = () => {
     <div
       className={
         storeSubPage === "orders"
-          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0 fl2 bg-neutral-800 "
+          ? " store h-full w-full fl2 bg-neutral-800 "
           : "hidden"
       }
     >

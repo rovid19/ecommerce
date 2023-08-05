@@ -77,7 +77,7 @@ const StoreEdit = () => {
     <div
       className={
         storeSubPage === "editStore"
-          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0 bg-neutral-800"
+          ? " h-full w-full store  bg-neutral-800"
           : "hidden"
       }
     >

@@ -89,7 +89,7 @@ const AddProductInputs = ({
 
   return (
     <form onSubmit={handleAddProduct} className="h-[95%] bg-neutral-800">
-      <div className="h-[55%] rounded-lg w-full overflow-hidden bg-neutral-800">
+      <div className="h-[350px] rounded-lg w-full overflow-hidden ">
         <label
           className={
             productPicture
@@ -190,27 +190,30 @@ const AddProductInputs = ({
           )}
         </label>
       </div>
-      <div className="h-[40%] w-full pt-2 pl-2  bg-neutral-800 ">
+      <div className="h-[50%] w-full pt-2 pl-2  bg-neutral-800 rounded-md">
         <input
           type="text"
-          className="text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800  text-white placeholder-neutral-500"
+          className="text-xl w-full border-b-2 border-t-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800  text-white placeholder-neutral-500 h-[15%]"
           placeholder="Name of your product"
           onChange={(e) => setProductTitle(e.target.value)}
         />
-        <input
+        <textarea
+          maxLength={500}
           type="text"
-          className="text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500"
+          className={
+            "text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500 h-[50%] transition-all"
+          }
           placeholder="Description of your product"
           onChange={(e) => setProductDescription(e.target.value)}
         />
         <div className="relative ">
           <input
-            type="text"
-            className="text-xl  w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500"
+            type="number"
+            className="text-xl  w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500 h-[15%]"
             placeholder="Price of your product"
             onChange={(e) => setProductPrice(e.target.value)}
           />
-          <label className="w-full   ">
+          <label className="w-full  h-[15%] ">
             <h1 className="text-neutral-500 pl-2 text-xl mt-1">Collection:</h1>
             <select
               className="w-full pl-1 text-neutral-400 text-xl border-b-2 border-neutral-600 border-opacity-10 bg-neutral-800"
@@ -231,7 +234,7 @@ const AddProductInputs = ({
             </select>
           </label>
         </div>
-        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-5">
+        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-5 absolute bottom-4">
           Save
         </button>
       </div>

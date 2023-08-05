@@ -103,37 +103,41 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
         <h1 className="font-bold text-xl lg:text-4xl absolute top-1 lg:top-2 right-3">
           {storeProducts && storeProducts.productNewPrice}€
         </h1>
-        <div className="w-full   h-[15%] absolute bottom-4  left-0 rounded-b-md grid grid-cols-3 text-neutral-600 ">
-          <div className="flex justify-center items-center border-r-2 border-neutral-600 border-opacity-40">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-              className="w-6 h-6 mr-1 text-yellow-500"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
-                clipRule="evenodd"
-              />
-            </svg>
-            4.8
+        {storeSubPage === "products" ? (
+          ""
+        ) : (
+          <div className="w-full   h-[15%] absolute bottom-4  left-0 rounded-b-md grid grid-cols-3 text-neutral-600 ">
+            <div className="flex justify-center items-center border-r-2 border-neutral-600 border-opacity-40">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-6 h-6 mr-1 text-yellow-500"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                  clipRule="evenodd"
+                />
+              </svg>
+              4.8
+            </div>
+            <div className="flex items-center justify-center">
+              <h1>120 sold</h1>
+            </div>
+            <div className="flex items-center justify-center border-l-2 border-neutral-600 border-opacity-40  ">
+              <button
+                className="  rounded-md p-2 h-[85%] w-[82%] bg-neutral-800 text-neutral-300  transition-all text-sm flex items-center justify-center hover:bg-orange-500 hover:text-white"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  addProductToCart();
+                }}
+              >
+                To cart
+              </button>
+            </div>
           </div>
-          <div className="flex items-center justify-center">
-            <h1>120 sold</h1>
-          </div>
-          <div className="flex items-center justify-center border-l-2 border-neutral-600 border-opacity-40  ">
-            <button
-              className="  rounded-md p-2 h-[85%] w-[82%] bg-neutral-800 text-neutral-300  transition-all text-sm flex items-center justify-center hover:bg-orange-500 hover:text-white"
-              onClick={(e) => {
-                e.stopPropagation();
-                addProductToCart();
-              }}
-            >
-              To cart
-            </button>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );

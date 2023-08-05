@@ -9,11 +9,7 @@ const StoreFinance = () => {
 
   return (
     <div
-      className={
-        storeSubPage === "finance"
-          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0"
-          : "hidden"
-      }
+      className={storeSubPage === "finance" ? "store h-full w-full" : "hidden"}
     >
       <div className="h-[60%] grid grid-cols-2">
         <div className=" fl2 border-b-2 border-r-2 border-neutral-900  ">

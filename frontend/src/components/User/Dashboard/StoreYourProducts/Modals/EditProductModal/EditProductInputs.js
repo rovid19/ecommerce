@@ -91,7 +91,7 @@ const EditProductInputs = ({
 
   return (
     <form onSubmit={handleEditProduct} className="h-[95%]">
-      <div className="h-[55%] rounded-lg w-full overflow-hidden">
+      <div className="h-[350px] rounded-lg w-full overflow-hidden">
         <label
           className={
             productPicture
@@ -193,25 +193,26 @@ const EditProductInputs = ({
           )}
         </label>
       </div>
-      <div className="h-[40%] w-full pt-2 pl-2  ">
+      <div className="h-[50%] w-full pt-2 pl-2  ">
         <input
           type="text"
-          className="text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800  text-white placeholder-neutral-500"
+          className="text-xl w-full border-b-2  border-neutral-600 border-opacity-10 p-2 bg-neutral-800  text-white placeholder-neutral-500 h-[15%]"
           placeholder="Name of your product"
           onChange={(e) => setProductTitle(e.target.value)}
           defaultValue={currentProduct && currentProduct.productName}
         />
-        <input
+        <textarea
+          maxLength={500}
           type="text"
-          className="text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500"
+          className="text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500 h-[50%]"
           placeholder="Description of your product"
           onChange={(e) => setProductDescription(e.target.value)}
           defaultValue={currentProduct && currentProduct.productDescription}
         />{" "}
         <div className="relative ">
           <input
-            type="text"
-            className="text-xl  w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500"
+            type="number"
+            className="text-xl  w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500 h-[15%]"
             placeholder="Price of your product"
             onChange={(e) => setProductPrice(e.target.value)}
             defaultValue={currentProduct && currentProduct.productNewPrice}
@@ -219,7 +220,7 @@ const EditProductInputs = ({
           <label className="w-full   ">
             <h1 className="text-neutral-500 pl-2 text-xl mt-1">Collection:</h1>
             <select
-              className="w-full pl-1 text-white text-xl border-b-2 border-neutral-600 border-opacity-10 bg-neutral-800"
+              className="w-full pl-1 text-white text-xl border-b-2 border-neutral-600 border-opacity-10 bg-neutral-800 h-[15%]"
               onChange={(e) => setCollectionValue(e.target.value)}
               value={collectionValue}
             >
@@ -239,7 +240,7 @@ const EditProductInputs = ({
             </select>
           </label>
         </div>
-        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-5">
+        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-5 absolute bottom-4">
           Save
         </button>
       </div>

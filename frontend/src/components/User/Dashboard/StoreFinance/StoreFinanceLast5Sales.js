@@ -21,7 +21,7 @@ const StoreFinanceLast5Sales = () => {
   return (
     <div className="w-full h-full bg-neutral-800">
       {isFetching && (
-        <div className="h-full w-full flex items-center justify-center bg-neutral-800 absolute top-0 left-0">
+        <div className="h-full w-[calc(100%-12%)] left-[12%] flex items-center justify-center bg-neutral-800 absolute top-0">
           {" "}
           <img src={Loader}></img>{" "}
         </div>

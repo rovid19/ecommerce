@@ -248,11 +248,14 @@ const Store = () => {
             productCollections &&
             productCollections.map((item, index) => {
               return (
-                <article key={index} className="h-full w-full relative fl">
-                  <h1 className="text-2xl h-[40px] bg-neutral-900 text-neutral-400 pl-4 pt-1">
-                    {collection[index]}
-                  </h1>
-                  <div className="flex-grow flex 2xl:grid-cols-6 gap-4 p-2 lg:p-4 bg-neutral-800 overflow-x-auto scrollbar-hide">
+                <article
+                  key={index}
+                  className="h-full w-full relative fl overflow-x-auto "
+                >
+                  <div className="h-[40px] w-full bg-neutral-900 p-4 text-neutral-300 flex items-center">
+                    <h1 className="text-xl lg:text-2xl">{collection[index]}</h1>
+                  </div>
+                  <div className="h-full min-w-min flex gap-2 p-2 lg:p-4 bg-neutral-800 ">
                     {item &&
                       item.map((product, index) => {
                         return (

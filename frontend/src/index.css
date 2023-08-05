@@ -45,11 +45,11 @@ body {
   flex-direction: column;
 }
 
-@media screen and (min-width: 1024px) {
+/*@media screen and (min-width: 1024px) {
   .store {
     width: calc(100vw - 15%);
   }
-}
+}*/
 
 .fl2 {
   display: flex;

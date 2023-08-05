@@ -31,6 +31,7 @@ const StoreAddProducts = () => {
   );
   const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
+  const { store } = user;
   const dispatch = useDispatch();
 
   //other
@@ -83,11 +84,12 @@ const StoreAddProducts = () => {
     });
   }
 
+  console.log(userStoreProducts);
   return (
     <div
       className={
         storeSubPage === "products"
-          ? "absolute top-0 h-screen w-screen lg:absolute lg:left-[15%] store lg:h-full lg:top-0 bg-neutral-800"
+          ? " store h-full w-full bg-neutral-800  "
           : "hidden"
       }
     >
@@ -147,15 +149,9 @@ const StoreAddProducts = () => {
           </button>
         </article>
       </div>
-      <div
-        className={
-          editMode
-            ? "gap-2 h-[55%] lg:h-[65%] w-full grid grid-cols-3 grid-rows-2 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide border-8 border-orange-500 transition-all relative group"
-            : "gap-2 h-[55%] lg:h-[65%] w-full grid grid-cols-3 grid-rows-2 z-30 lg:grid-cols-6 p-2 overflow-scroll scrollbar-hide transition-all relative group"
-        }
-      >
+      <section className="h-[65%] w-full overflow-scroll scrollbar-hide">
         {editMode && (
-          <div className="absolute top-0 right-0 w-[15%] h-[10%] bg-black rounded-l-md rounded-b-md text-white flex justify-center items-center p-2 group-hover:invisible">
+          <div className="absolute top-0 right-0 w-[15%] h-[10%] zeze bg-neutral-900 bg-opacity-80 rounded-l-md rounded-b-md text-white flex justify-center items-center p-2 group-hover:invisible">
             <h1 className="text-sm text-center">
               You can drag and drop your products
             </h1>
@@ -172,31 +168,27 @@ const StoreAddProducts = () => {
             checkEditMode();
           }}
         ></div>
-        {userStoreProducts &&
-          userStoreProducts.map((item, index) => {
-            return (
-              <>
-                <div
-                  key={index}
-                  className="relative"
-                  onDragStart={() => {
-                    dragItem.current = index;
-                  }}
-                  onDragEnter={(e) => {
-                    dragOverItem.current = index;
-                    dragSetClassname(index);
-                  }}
-                  onDragEnd={handleSort}
-                >
-                  <StoreProductCard storeProducts={item} />
-                  {item.productDragged && (
-                    <div className="drag-indicator "></div>
-                  )}
-                </div>
-              </>
-            );
-          })}
-      </div>
+        {store.storeCollections.map((collection, i) => {
+          return (
+            <article className="h-full w-full fl overflow-x-auto bg-neutral-800 ">
+              <div className="h-[10%] p-4 text-xl uppercase font-bold bg-neutral-900 text-neutral-300">
+                <h1>{collection}</h1>
+              </div>
+              <div className="h-[90%] min-w-min bg-neutral-800 gap-2 flex  ">
+                {userStoreProducts.map((product) => {
+                  if (product.productCollection === collection) {
+                    return (
+                      <div className="h-full w-[400px] flex items-center justify-center pt-4 pb-4 flex-shrink-0">
+                        <StoreProductCard />
+                      </div>
+                    );
+                  }
+                })}
+              </div>
+            </article>
+          );
+        })}
+      </section>
     </div>
   );
 };
