@@ -58,7 +58,7 @@ const StoreDashboardNav = () => {
           <li className=" p-2">{user && user.storeName}</li>{" "}
           <Link
             exact
-            to={`/dashboard/${user.storeName}`}
+            to={`/dashboard/${user.username}`}
             onClick={() => {
               dispatch(getStoreSubPage("editStore"));
               dispatch(setEditMode(false));
@@ -83,7 +83,7 @@ const StoreDashboardNav = () => {
           </Link>
           <Link
             exact
-            to={`/dashboard/${user.storeName}/products`}
+            to={`/dashboard/${user.username}/products`}
             onClick={() => dispatch(getStoreSubPage("products"))}
             className={
               productEdit
@@ -107,7 +107,7 @@ const StoreDashboardNav = () => {
           </Link>
           <Link
             exact
-            to={`/dashboard/${user.storeName}/finance`}
+            to={`/dashboard/${user.username}/finance`}
             onClick={() => {
               dispatch(getStoreSubPage("finance"));
               dispatch(setEditMode(false));
@@ -135,7 +135,7 @@ const StoreDashboardNav = () => {
           </Link>
           <Link
             exact
-            to={`/dashboard/${user.storeName}/orders`}
+            to={`/dashboard/${user.username}/orders`}
             onClick={() => {
               dispatch(getStoreSubPage("orders"));
               dispatch(setEditMode(false));

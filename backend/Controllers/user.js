@@ -1,7 +1,8 @@
 import jwt from "jsonwebtoken";
 import User from "../Models/user.js";
-import Store from "../Models/store.js";
+import { Store } from "../Models/store.js";
 import Product from "../Models/product.js";
+import Collection from "../Models/collection.js";
 
 const jwtSecret = "rockjefakatludirock";
 
@@ -15,10 +16,21 @@ export const getUser = async (req, res) => {
 
       if (userData.role === "Customer") {
       } else {
-        const newStore = await User.findById(user.id).populate(
-          "store",
-          "storeName storeDescription storeProfile storeCover storeProducts storeAddress storeCollections"
-        );
+        const newStore = await User.findById(user.id).populate({
+          path: "store",
+          select:
+            "storeName storeDescription storeProfile storeCover storeProducts storeAddress storeCollections",
+          populate: {
+            path: "storeCollections",
+            select: "collectionName collectionProducts",
+
+            populate: {
+              path: "collectionProducts",
+              select:
+                "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold",
+            },
+          },
+        });
 
         res.json(newStore);
       }
@@ -31,10 +43,20 @@ export const getCollections = async (req, res) => {
 
   jwt.verify(token, jwtSecret, {}, async (err, userdata) => {
     if (err) throw err;
-    const user = await User.findById(userdata.id).populate(
-      "store",
-      "storeCollections"
-    );
+    const user = await User.findById(userdata.id).populate({
+      path: "store",
+      select: "storeCollections",
+      populate: {
+        path: "storeCollections",
+        select: "collectionName collectionProducts",
+
+        populate: {
+          path: "collectionProducts",
+          select:
+            "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold",
+        },
+      },
+    });
 
     res.json(user.store.storeCollections);
   });
@@ -45,7 +67,13 @@ export const addCollectionItem = async (req, res) => {
 
   const store = await Store.findById(storeId);
 
-  store.storeCollections.push(collectionInput);
+  const newCollection = await Collection.create({
+    collectionName: collectionInput,
+  });
+  console.log(newCollection);
+  console.log(store);
+
+  store.storeCollections.push(newCollection._id);
 
   await store.save();
 
@@ -53,16 +81,22 @@ export const addCollectionItem = async (req, res) => {
 };
 
 export const deleteCollection = async (req, res) => {
-  const { itemName, storeId, imeKolekcije } = req.body;
+  const { itemName, storeId, imeKolekcije, collectionId } = req.body;
 
   await Product.updateMany(
     { productCollection: imeKolekcije },
     { $set: { productCollection: "" } }
   );
 
+  const kolekcija = await Collection.findByIdAndDelete(collectionId);
   const store = await Store.findById(storeId);
 
-  store.storeCollections.splice(itemName, 1);
+  const newArr = store.storeCollections.filter(
+    (collection) => collection.toString() !== collectionId.toString()
+  );
+  store.set({
+    storeCollections: [...newArr],
+  });
 
   await store.save();
 
@@ -70,9 +104,18 @@ export const deleteCollection = async (req, res) => {
 };
 
 export const collectionChange = async (req, res) => {
-  const { newCollectionName, storeId, index, oldCollectionName } = req.body;
+  const { newCollectionName, storeId, index, oldCollectionName, collectionId } =
+    req.body;
 
-  const store = await Store.findById(storeId);
+  const kolekcija = await Collection.findById(collectionId);
+
+  kolekcija.set({
+    collectionName: newCollectionName,
+  });
+
+  await kolekcija.save();
+
+  /*const store = await Store.findById(storeId);
 
   const { storeCollections } = store;
   const newArray = [...storeCollections];
@@ -84,7 +127,7 @@ export const collectionChange = async (req, res) => {
     storeCollections: [...newArray],
   });
 
-  await store.save();
+  await store.save();*/
 
   await Product.updateMany(
     { productCollection: oldCollectionName },

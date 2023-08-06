@@ -3,6 +3,7 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
+import selectedProduct from "../../../../app/features/Store/selectedProduct";
 
 const StoreEditInfoInputs = ({
   setName,
@@ -20,6 +21,7 @@ const StoreEditInfoInputs = ({
   // redux
   const editMode = useSelector((state) => state.editMode.value);
   const user = useSelector((state) => state.userData.value.user);
+  const selectedProduct = useSelector((state) => state.selectedProduct.value);
 
   // functions
   function handlePhotoUpload(e) {
@@ -47,6 +49,7 @@ const StoreEditInfoInputs = ({
     }
   }, [description]);
 
+  console.log(selectedProduct);
   return (
     <>
       {" "}
@@ -113,7 +116,7 @@ const StoreEditInfoInputs = ({
           </svg>
         </label>
       </div>
-      <div className="text-white h-full w-[60%] 2xl:w-[25%] ml-2 md:w-[35%] lg:w-[35%] bg-black p-4  rounded-xl z-20">
+      <div className="text-white h-full w-[60%] 2xl:w-[25%] ml-2 md:w-[35%] lg:w-[35%] bg-black p-2  rounded-xl z-20">
         <h1 className="text-gray-300 text-base xl:text-base">
           {editMode
             ? "Enter your store details here:"

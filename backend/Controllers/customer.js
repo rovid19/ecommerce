@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
 import User from "../Models/user.js";
-import Store from "../Models/store.js";
+import { Store } from "../Models/store.js";
 import Product from "../Models/product.js";
 import bcrypt from "bcrypt";
 import Sale from "../Models/sale.js";

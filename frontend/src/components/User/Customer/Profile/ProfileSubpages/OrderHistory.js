@@ -60,6 +60,7 @@ const OrderHistory = () => {
             orderHistory.map((item, index) => {
               let indexMap = index;
               return item.productBought.map((item, index) => {
+                console.log(item.productPicture[0]);
                 if (index === 0) {
                   return (
                     <div
@@ -89,7 +90,9 @@ const OrderHistory = () => {
                             {item.productName}
                           </h1>
 
-                          <p>{item.productDescription} </p>
+                          <p className="w-full overflow-hidden">
+                            {item.productDescription}{" "}
+                          </p>
                         </div>
                       </div>
                       <div className="h-full w-[20%] md:w-[20%] md:p-2">
@@ -182,7 +185,9 @@ const OrderHistory = () => {
                             {item.productName}
                           </h1>
 
-                          <p>{item.productDescription} </p>
+                          <p className="w-full overflow-hidden">
+                            {item.productDescription}{" "}
+                          </p>
                         </div>
                       </div>
                       <div className="h-full w-[20%] md:w-[20%] md:p-2">

@@ -4,6 +4,7 @@ import { setStoreDeleteVisible } from "../../../../../app/features/Store/deleteP
 import axios from "axios";
 import { switchValue } from "../../../../../app/features/getUserTrigger";
 import Loader from "../../../../../assets/svg-loaders/three-dots.svg";
+import { fetchUserData } from "../../../../../app/features/User/userSlice";
 
 const StoreDeleteProductModal = () => {
   const [isFetching, setIsFetching] = useState(false);
@@ -19,7 +20,7 @@ const StoreDeleteProductModal = () => {
     axios
       .post("/api/store/delete-store-product", { selectedProduct })
       .then(() => {
-        dispatch(switchValue(!getUserTrigger));
+        dispatch(fetchUserData());
       })
       .then(() => {
         dispatch(setStoreDeleteVisible(!deleteProductModal));
@@ -34,13 +35,13 @@ const StoreDeleteProductModal = () => {
           <img src={Loader}></img>
         </div>
       )}
-      <div className="w-[80%] h-[20%] lg:w-[30%] lg:h-[20%] fl2 bg-white rounded-xl text-black relative">
+      <div className="w-[90%] md:w-[60%] h-[25%] lg:w-[50%] lg:h-[20%] 2xl:w-[35%] fl2 bg-neutral-800 rounded-xl text-neutral-300 relative">
         <h1 className="text-base lg:text-2xl">
           Are you sure you want to delete this product?
         </h1>{" "}
         <div className="flex gap-8 w-full  justify-center mt-8">
           <button
-            className="w-[20%] bg-white border-2 border-orange-500 border-opacity-20 text-black rounded-lg p-2 hover:scale-95 transition-all hover:bg-orange-500 hover:text-white"
+            className="w-[20%] bg-neutral-800 text-neutral-300 border-2 border-orange-500 border-opacity-20  rounded-lg p-2 hover:scale-95 transition-all hover:bg-orange-500 hover:text-white"
             onClick={deleteItem}
           >
             Yes{" "}

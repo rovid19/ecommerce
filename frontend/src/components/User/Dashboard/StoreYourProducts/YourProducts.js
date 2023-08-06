@@ -29,6 +29,7 @@ const StoreAddProducts = () => {
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
   );
+  const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
   const { store } = user;
@@ -84,7 +85,7 @@ const StoreAddProducts = () => {
     });
   }
 
-  console.log(userStoreProducts);
+  console.log(selectedProduct);
   return (
     <div
       className={
@@ -149,45 +150,66 @@ const StoreAddProducts = () => {
           </button>
         </article>
       </div>
-      <section className="h-[65%] w-full overflow-scroll scrollbar-hide">
+      <section
+        className={
+          editMode
+            ? "h-[65%] w-full overflow-scroll scrollbar-hide relative border-[8px] border-orange-500 transition-all"
+            : "h-[65%] w-full overflow-scroll scrollbar-hide relative transition-all"
+        }
+      >
         {editMode && (
-          <div className="absolute top-0 right-0 w-[15%] h-[10%] zeze bg-neutral-900 bg-opacity-80 rounded-l-md rounded-b-md text-white flex justify-center items-center p-2 group-hover:invisible">
-            <h1 className="text-sm text-center">
-              You can drag and drop your products
+          <div className="absolute top-0 right-0 lg:w-[30%] 2xl:w-[25%] h-[9%] zeze bg-neutral-900 bg-opacity-80 rounded-l-md rounded-b-md text-white flex  items-center p-2 group-hover:invisible">
+            <h1 className="text-sm  absolute right-4 text-neutral-500 ">
+              You can drag and drop your products to rearrange their order
             </h1>
           </div>
         )}
-        <div
+        {/*<div
           className={
             editMode
               ? "hidden"
-              : "h-full w-full absolute top-0 bg-black bg-opacity-20 z-20 transition-all cursor-pointer"
+              : "h-full w-full absolute top-0 bg-black bg-opacity-40 z-20 transition-all cursor-pointer"
           }
           onClick={() => {
             dispatch(setEditMode(!editMode));
             checkEditMode();
           }}
-        ></div>
-        {store.storeCollections.map((collection, i) => {
-          return (
-            <article className="h-full w-full fl overflow-x-auto bg-neutral-800 ">
-              <div className="h-[10%] p-4 text-xl uppercase font-bold bg-neutral-900 text-neutral-300">
-                <h1>{collection}</h1>
-              </div>
-              <div className="h-[90%] min-w-min bg-neutral-800 gap-2 flex  ">
-                {userStoreProducts.map((product) => {
-                  if (product.productCollection === collection) {
-                    return (
-                      <div className="h-full w-[400px] flex items-center justify-center pt-4 pb-4 flex-shrink-0">
-                        <StoreProductCard />
-                      </div>
-                    );
-                  }
-                })}
-              </div>
-            </article>
-          );
-        })}
+        ></div>*/}
+        {store.storeCollections &&
+          store.storeCollections.map((collection, i) => {
+            return (
+              <article className="h-full w-full fl overflow-x-auto bg-neutral-800 ">
+                <div className="h-[10%]"></div>
+                <div className="h-full min-w-min bg-neutral-800 gap-4 flex p-4  relative">
+                  <div className="h-[10%] w-full absolute top-[-10%] left-0 p-3 text-xl uppercase font-bold bg-neutral-900 text-neutral-300">
+                    <h1>{collection.collectionName}</h1>
+                  </div>
+                  {collection.collectionProducts &&
+                    collection.collectionProducts.map((product, index) => {
+                      return (
+                        <div
+                          className="h-full w-[300px] flex items-center justify-center pt-4 pb-4 flex-shrink-0 relative"
+                          key={index}
+                          onDragStart={() => {
+                            dragItem.current = index;
+                          }}
+                          onDragEnter={(e) => {
+                            dragOverItem.current = index;
+                            dragSetClassname(index);
+                          }}
+                          onDragEnd={handleSort}
+                        >
+                          <StoreProductCard storeProducts={product} />
+                          {product.productDragged && (
+                            <div className="drag-indicator "></div>
+                          )}
+                        </div>
+                      );
+                    })}
+                </div>
+              </article>
+            );
+          })}
       </section>
     </div>
   );

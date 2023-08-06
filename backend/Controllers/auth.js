@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../Models/user.js";
 import bcrypt from "bcrypt";
-import Store from "../Models/store.js";
+import { Store } from "../Models/store.js";
 
 const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "rockjefakatludirock";

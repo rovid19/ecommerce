@@ -11,6 +11,7 @@ import { setCartItems } from "../../../app/features/User/cartItems";
 import { setProductIndex } from "../../../app/features/User/productIndex";
 import { setCartVisible } from "../../../app/features/User/cartVisible";
 import { getStoreSubPage } from "../../../app/features/storeSubPage";
+import { setEditMode } from "../../../app/features/Store/storeEditMode";
 
 const StoreProductCard = ({ storeProducts, index, storeData }) => {
   // REDUX
@@ -38,17 +39,18 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
       dispatch(setCartVisible(true));
     }
   }
-
+  console.log(storeSubPage, editMode);
   return (
     <div
       className={
         editMode
-          ? "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden  "
-          : "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden "
+          ? "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden "
+          : "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden"
       }
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
         if (storeSubPage === "products") {
+          dispatch(setEditMode(true));
           dispatch(setEditProductModal(true));
         } else if (storeSubPage === "store") {
           navigate(
@@ -61,7 +63,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
       <div className="h-[55%] rounded-t-xl w-full  overflow-hidden ">
         {editMode && storeSubPage === "products" ? (
           <div
-            className="absolute top-0 left-0 bg-orange-500 p-2 group rounded-md"
+            className="absolute top-0 left-0 bg-orange-500 p-2 group rounded-md z-40"
             onClick={(e) => {
               e.stopPropagation();
 
@@ -97,10 +99,10 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
         <h1 className="font-bold text-xl  uppercase">
           {storeProducts && storeProducts.productName}
         </h1>
-        <p className="text-sm text-gray-500">
+        <p className="text-sm text-gray-500 w-full break-words h-[62px] overflow-hidden lg:mt-0 pr-3 ">
           {storeProducts && storeProducts.productDescription}
         </p>{" "}
-        <h1 className="font-bold text-xl lg:text-4xl absolute top-1 lg:top-2 right-3">
+        <h1 className="font-bold text-xl  absolute top-1 lg:top-2 right-3">
           {storeProducts && storeProducts.productNewPrice}€
         </h1>
         {storeSubPage === "products" ? (

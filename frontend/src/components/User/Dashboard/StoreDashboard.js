@@ -36,7 +36,11 @@ const StoreDashboard = () => {
           <StoreDashboardNav />
         </div>
       </div>
-      <div className={mobileActive ? "h-full w-full " : "h-full w-[88%] "}>
+      <div
+        className={
+          mobileActive ? "h-full w-full relative " : "h-full w-[88%]  relative"
+        }
+      >
         {storeSubPage === "editStore" ? <StoreEdit /> : <Outlet />}
       </div>
     </div>

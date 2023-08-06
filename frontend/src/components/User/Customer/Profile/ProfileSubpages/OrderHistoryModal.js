@@ -75,7 +75,7 @@ const OrderHistoryModal = ({
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="md:w-12 h-8 w-8 md:h-12 hover:text-orange-500 text-neutral-800"
+            className="md:w-12 h-8 w-8 md:h-12 hover:text-orange-500 text-neutral-400"
           >
             <path
               fillRule="evenodd"

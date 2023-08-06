@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
 import { setUserFetching } from "../../../../../../app/features/User/isUserFetching";
 import { switchValue } from "../../../../../../app/features/getUserTrigger";
+import { fetchUserData } from "../../../../../../app/features/User/userSlice";
 
 const AddProductInputs = ({
   setProductPicture,
@@ -22,6 +23,7 @@ const AddProductInputs = ({
   const [index, setIndex] = useState();
   const [pictureFetch, setPictureFetch] = useState(null);
   const [collections, setCollections] = useState(null);
+  const [collectionIndex, setCollectionIndex] = useState(0);
   //redux
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const collection = useSelector((state) => state.collection.value);
@@ -64,9 +66,10 @@ const AddProductInputs = ({
         productPrice,
         productStore: user.store._id,
         collection: collections,
+        collectionId: user.store.storeCollections[collectionIndex]._id,
       })
       .then(() => {
-        dispatch(switchValue(!getUserTrigger));
+        dispatch(fetchUserData()).unwrap();
       })
       .then(() => {
         setIsFetching(false);
@@ -84,8 +87,21 @@ const AddProductInputs = ({
   }, [index]);
 
   useEffect(() => {
-    setCollections(user.store.storeCollections[0]);
+    setCollections(user.store.storeCollections[0].collectionName);
   }, []);
+
+  useEffect(() => {
+    if (collections) {
+      let indexC = 0;
+      user.store.storeCollections.forEach((collection, index) => {
+        if (collection.collectionName === collections) {
+          indexC = index;
+        }
+      });
+
+      setCollectionIndex(indexC);
+    }
+  }, [collections]);
 
   return (
     <form onSubmit={handleAddProduct} className="h-[95%] bg-neutral-800">
@@ -217,17 +233,21 @@ const AddProductInputs = ({
             <h1 className="text-neutral-500 pl-2 text-xl mt-1">Collection:</h1>
             <select
               className="w-full pl-1 text-neutral-400 text-xl border-b-2 border-neutral-600 border-opacity-10 bg-neutral-800"
-              onChange={(e) => setCollections(e.target.value)}
+              onChange={(e) => {
+                console.log();
+                setCollections(e.target.value);
+              }}
             >
               {user &&
                 user.store.storeCollections.map((option, index) => {
                   return (
                     <option
-                      value={option}
+                      value={option.collectionName}
                       className=" text-neutral-400 bg-neutral-800"
                       key={index}
+                      onClick={() => console.log(index)}
                     >
-                      {option}
+                      {option.collectionName}
                     </option>
                   );
                 })}

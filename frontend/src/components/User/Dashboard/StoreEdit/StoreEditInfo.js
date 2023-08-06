@@ -29,24 +29,10 @@ const StoreEditInfo = ({
     setHtmlElement(document.querySelector('.toggle input[type="checkbox"]'))
   );
 
-  // object used for setting store cover photo
-  const styles = {
-    backgroundImage: coverPhoto
-      ? `url(${coverPhoto})`
-      : `url(${user.store.storeCover})`,
-  };
-
   return (
-    <div
-      className={
-        editMode
-          ? "h-[35%] relative bg-cover border-8 border-orange-500 transition-all"
-          : "h-[35%] relative bg-cover transition-all"
-      }
-      style={user ? styles : ""}
-    >
+    <>
       <div className="absolute top-0 left-0 h-full w-full bg-neutral-900 bg-opacity-50 z-20"></div>
-      <div className="w-full h-[30%] lg:h-[50%] z-50  "></div>
+      <div className="w-full h-[30%] lg:h-[50%] z-50 bg-neutral-900 bg-opacity-40 "></div>
       <div className=" h-[50px] w-[250px] toggle flex items-center justify-center absolute top-0 left-2 z-40 text-neutral-300">
         <label className="switch transition-all  ">
           <input
@@ -72,7 +58,7 @@ const StoreEditInfo = ({
           <img src={Loader}></img>
         </div>
       )}{" "}
-      <div className="w-full h-[70%] lg:h-[50%] p-4 flex ">
+      <div className="w-full h-[70%] lg:h-[50%] p-2 flex bg-neutral-900 bg-opacity-40">
         <StoreEditInfoInputs
           setName={setName}
           setCoverPhoto={setCoverPhoto}
@@ -87,7 +73,7 @@ const StoreEditInfo = ({
           description={description}
         />
       </div>
-    </div>
+    </>
   );
 };
 

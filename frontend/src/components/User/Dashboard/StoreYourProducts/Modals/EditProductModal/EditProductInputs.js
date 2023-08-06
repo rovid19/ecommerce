@@ -6,6 +6,10 @@ import { setUserFetching } from "../../../../../../app/features/User/isUserFetch
 import { setEditProductModal } from "../../../../../../app/features/Store/Dashboard/editProductModal";
 import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
 import { useEffect, useState } from "react";
+import {
+  fetchStoreProducts,
+  fetchUserData,
+} from "../../../../../../app/features/User/userSlice";
 const EditProductInputs = ({
   setProductPicture,
   setProductTitle,
@@ -23,6 +27,10 @@ const EditProductInputs = ({
   const [collectionValue, setCollectionValue] = useState(null);
   const [picFetch, setPicFetch] = useState(false);
   const [collections, setCollections] = useState(null);
+  const [collectionIndex, setCollectionIndex] = useState(0);
+  const [oldCollection, setOldCollection] = useState(null);
+  const [oldCollectionId, setOldCollectionId] = useState(null);
+
   //redux
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const user = useSelector((state) => state.userData.value.user);
@@ -33,6 +41,7 @@ const EditProductInputs = ({
   useEffect(() => {
     if (currentProduct) {
       setCollectionValue(currentProduct.productCollection);
+      setOldCollection(currentProduct.productCollection);
     }
   }, [currentProduct]);
 
@@ -48,12 +57,16 @@ const EditProductInputs = ({
         productDescription,
         productPrice,
         collection: collectionValue,
+        collectionId: user.store.storeCollections[collectionIndex]._id,
+        oldCollection,
+        oldCollectionId,
       })
       .then(() => {
-        dispatch(switchValue(!getUserTrigger));
+        dispatch(fetchUserData()).unwrap();
       })
       .then(() => {
         setIsFetching(false);
+        dispatch(fetchStoreProducts());
         dispatch(setEditProductModal(false));
       });
   }
@@ -89,6 +102,34 @@ const EditProductInputs = ({
     }
   }, [index]);
 
+  //trazenje indexa nove kolekcije
+  useEffect(() => {
+    if (collectionValue) {
+      let indexC = 0;
+      user.store.storeCollections.forEach((collection, index) => {
+        if (collection.collectionName === collectionValue) {
+          indexC = index;
+        }
+      });
+
+      setCollectionIndex(indexC);
+    }
+  }, [collectionValue]);
+  // trazenje indexa stare kolekcije
+  useEffect(() => {
+    if (oldCollection) {
+      let indexC = 0;
+      user.store.storeCollections.forEach((collection, index) => {
+        if (collection.collectionName === collectionValue) {
+          indexC = index;
+        }
+      });
+
+      setOldCollectionId(user.store.storeCollections[indexC]._id);
+    }
+  }, [oldCollection]);
+
+  console.log(user.store);
   return (
     <form onSubmit={handleEditProduct} className="h-[95%]">
       <div className="h-[350px] rounded-lg w-full overflow-hidden">
@@ -229,11 +270,11 @@ const EditProductInputs = ({
                 user.store.storeCollections.map((option, index) => {
                   return (
                     <option
-                      value={option}
+                      value={option.collectionName}
                       className=" text-gray-400"
                       key={index}
                     >
-                      {option}
+                      {option.collectionName}
                     </option>
                   );
                 })}

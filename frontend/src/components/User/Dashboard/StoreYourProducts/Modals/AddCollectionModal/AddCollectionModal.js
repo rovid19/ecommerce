@@ -33,8 +33,10 @@ const AddCollectionModal = () => {
       storeId: userData.store._id,
       index: placeHolderIndex,
       oldCollectionName,
+      collectionId: collection[placeHolderIndex]._id,
     });
     setEdit(!edit);
+    dispatch(fetchUserData());
     setUseEffectTrigger(!useEffectTrigger);
   }
   async function handleAddCollection(e) {
@@ -55,8 +57,10 @@ const AddCollectionModal = () => {
           itemName: item,
           storeId: userData.store._id,
           imeKolekcije,
+          collectionId: collection[item]._id,
         });
         setUseEffectTrigger(!useEffectTrigger);
+        dispatch(fetchUserData());
         setItem(undefined);
       }
       handleDeleteCollection();
@@ -90,7 +94,7 @@ const AddCollectionModal = () => {
                 </svg>
               </button>{" "}
               <input
-                placeholder={collection[placeHolderIndex]}
+                placeholder={collection[placeHolderIndex].collectionName}
                 className="w-[80%] h-[30%] text-3xl p-4 bg-neutral-600 rounded-md text-white"
                 onChange={(e) => setNewCollectionName(e.target.value)}
               />
@@ -140,14 +144,15 @@ const AddCollectionModal = () => {
                     className="h-[15%] w-full mt-1 relative p-4 flex items-center rounded-md bg-neutral-900"
                     key={index}
                   >
-                    {<h1 className="text-2xl">{item}</h1>}
+                    {<h1 className="text-2xl">{item.collectionName}</h1>}
                     <button
                       className="absolute right-10 top-0 h-full grid place-items-center "
                       onClick={(e) => {
                         e.preventDefault();
                         setEdit(!edit);
+
                         setPlaceHolderIndex(index);
-                        setOldCollectionName(item);
+                        setOldCollectionName(item.collectionName);
                       }}
                     >
                       <svg

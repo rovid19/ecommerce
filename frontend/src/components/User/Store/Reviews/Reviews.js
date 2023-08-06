@@ -112,7 +112,7 @@ const Reviews = () => {
       }
     >
       <div className="h-[80%] overflow-scroll scrollbar-hide">
-        <h1 className="p-3 text-neutral-600">
+        <h1 className="p-3 text-neutral-600 bg-neutral-900 mb-1">
           {reviews && reviews.length} Reviews:
         </h1>{" "}
         {reviews &&

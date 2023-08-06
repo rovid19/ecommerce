@@ -212,7 +212,10 @@ const StoreProductModal = () => {
         {/* PRODUCT TITLE*/}
         <h1 className="text-4xl lg:text-6xl">{productTitle}</h1>
         {/* PRODUCT DESCRIPTION */}
-        <p className="mt-4"> {productDescription}</p>
+        <p className="mt-4 break-words w-full lg:w-[70%]">
+          {" "}
+          {productDescription}
+        </p>
 
         <div className="w-full  h-[20%] absolute bottom-0 left-0 flex items-center pl-2 ">
           {" "}

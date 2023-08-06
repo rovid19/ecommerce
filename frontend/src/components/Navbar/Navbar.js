@@ -165,7 +165,7 @@ const Navbar = () => {
                         </div>
                       </Link>
                       <Link
-                        to={user && `/dashboard/${user.storeName}`}
+                        to={user && `/dashboard/${user.username}`}
                         onClick={() => dispatch(getStoreSubPage("editStore"))}
                         className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
                       >

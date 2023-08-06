@@ -2,9 +2,10 @@ import jwt from "jsonwebtoken";
 import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import fs from "fs";
 import User from "../Models/user.js";
-import Store from "../Models/store.js";
+import { Store } from "../Models/store.js";
 import Product from "../Models/product.js";
 import Sale from "../Models/sale.js";
+import Collection from "../Models/collection.js";
 
 const bucket = "gymtok-photo-video-upload";
 const jwtSecret = "rockjefakatludirock";
@@ -84,6 +85,7 @@ export const addProduct = async (req, res) => {
     productDescription,
     productStore,
     collection,
+    collectionId,
   } = req.body;
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -101,10 +103,14 @@ export const addProduct = async (req, res) => {
       productCollection: collection,
     });
 
+    const kolekcija = await Collection.findById(collectionId);
+    kolekcija.collectionProducts.push(newProduct._id);
+
     const { storeProducts } = userStore;
     storeProducts.push(newProduct._id);
     await userStore.save();
-    res.json(newProduct);
+    await kolekcija.save();
+    res.json(kolekcija);
   });
 };
 
@@ -127,7 +133,7 @@ export const getStoreProducts = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   const { selectedProduct } = req.body;
-
+  console.log(selectedProduct);
   const deleteProduct = await Product.deleteOne({ _id: selectedProduct });
 
   res.json(deleteProduct);
@@ -149,6 +155,9 @@ export const editProduct = async (req, res) => {
     productDescription,
     selectedProduct,
     collection,
+    oldCollection,
+    collectionId,
+    oldCollectionId,
   } = req.body;
 
   const editedProduct = await Product.findById(selectedProduct);
@@ -159,9 +168,31 @@ export const editProduct = async (req, res) => {
   editedProduct.productPicture = productPicture;
   editedProduct.productCollection = collection;
 
-  await editedProduct.save();
+  if (collection === oldCollection) {
+  } else {
+    const oldKolekcija = await Collection.findById(oldCollectionId);
+    const novaKolekcija = await Collection.findById(collectionId);
 
-  res.json(editedProduct);
+    console.log("stara", oldKolekcija, "nova", novaKolekcija);
+
+    const collProdOld = oldKolekcija.collectionProducts.filter(
+      (product) => product.toString() !== selectedProduct.toString()
+    );
+    oldKolekcija.set({
+      collectionProducts: [...collProdOld],
+    });
+
+    novaKolekcija.collectionProducts.push(selectedProduct);
+
+    await novaKolekcija.save();
+    await oldKolekcija.save();
+    await editedProduct.save();
+
+    res.json({
+      stara: oldKolekcija,
+      nova: novaKolekcija,
+    });
+  }
 };
 
 export const newProductArray = async (req, res) => {
