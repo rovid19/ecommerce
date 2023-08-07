@@ -72,11 +72,9 @@ const Store = () => {
       if (containerRef.current.scrollTop > scroll) {
         dispatch(setScrollStop(scroll));
         scroll = containerRef.current.scrollTop;
-        console.log("scroll down");
       } else {
         dispatch(setScrollStop(scroll));
         scroll = containerRef.current.scrollTop;
-        console.log("scroll up");
       }
     };
     containerRef.current.addEventListener("scroll", handleScroll);

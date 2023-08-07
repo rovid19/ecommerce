@@ -561,7 +561,7 @@ export const seenMessage = async (req, res) => {
 
 export const postUpload = async (req, res) => {
   const { text, video, product, userId, date } = req.body;
-  console.log(text, video, product);
+
   const post = await Post.create({
     postText: text,
     postVideo: video,
@@ -632,8 +632,6 @@ export const postComment = async (req, res) => {
     commentText: comment,
   });
   const post = await Post.findById(postId);
-
-  console.log(post);
 
   post.postComments.push(newComment._id);
 

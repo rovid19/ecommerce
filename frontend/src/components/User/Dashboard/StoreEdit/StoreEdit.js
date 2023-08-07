@@ -81,8 +81,6 @@ const StoreEdit = () => {
     dispatch(addStoreProducts(_storeProducts));
   }*/
 
-  console.log(store);
-
   return (
     <div
       className={
@@ -144,7 +142,7 @@ const StoreEdit = () => {
           className={
             editMode
               ? "h-full w-full absolute top-0 left-0 z-20 cursor-pointer group flex items-center justify-center bg-black bg-opacity-50 transition-all"
-              : "h-full w-full absolute top-0 left-0 z-20 cursor-pointer group flex items-center justify-center bg-black bg-opacity-20"
+              : "h-full w-full absolute top-0 left-0 z-20 cursor-pointer group flex items-center justify-center bg-black bg-opacity-50"
           }
         >
           <button
@@ -165,7 +163,7 @@ const StoreEdit = () => {
           store.storeCollections.map((collection, i) => {
             if (i === 0) {
               return (
-                <article className="h-full w-full fl overflow-x-auto bg-neutral-800 ">
+                <article className="h-full w-full fl overflow-x-auto bg-neutral-800 relative ">
                   <div className="h-[10%] p-4 text-xl uppercase font-bold bg-neutral-900 text-neutral-300">
                     <h1>{collection.collectionName}</h1>
                   </div>

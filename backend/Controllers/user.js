@@ -70,8 +70,6 @@ export const addCollectionItem = async (req, res) => {
   const newCollection = await Collection.create({
     collectionName: collectionInput,
   });
-  console.log(newCollection);
-  console.log(store);
 
   store.storeCollections.push(newCollection._id);
 

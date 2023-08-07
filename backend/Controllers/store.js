@@ -133,7 +133,7 @@ export const getStoreProducts = async (req, res) => {
 
 export const deleteProduct = async (req, res) => {
   const { selectedProduct } = req.body;
-  console.log(selectedProduct);
+
   const deleteProduct = await Product.deleteOne({ _id: selectedProduct });
 
   res.json(deleteProduct);
@@ -173,8 +173,6 @@ export const editProduct = async (req, res) => {
     const oldKolekcija = await Collection.findById(oldCollectionId);
     const novaKolekcija = await Collection.findById(collectionId);
 
-    console.log("stara", oldKolekcija, "nova", novaKolekcija);
-
     const collProdOld = oldKolekcija.collectionProducts.filter(
       (product) => product.toString() !== selectedProduct.toString()
     );
@@ -196,7 +194,7 @@ export const editProduct = async (req, res) => {
 };
 
 export const newProductArray = async (req, res) => {
-  const { token } = req.cookies;
+  /* const { token } = req.cookies;
   const { userStoreProducts } = req.body;
   let storeProductArray = [];
   userStoreProducts.forEach((item) => {
@@ -216,7 +214,47 @@ export const newProductArray = async (req, res) => {
     });
 
     await newStore.save();
-  });
+  });*/
+
+  const { collectionId, collectionNewOrder } = req.body;
+  const { token } = req.cookies;
+
+  if ((collectionId, collectionNewOrder)) {
+    const findCollection = await Collection.findById(collectionId);
+
+    if (findCollection) {
+      findCollection.set({
+        collectionProducts: [...collectionNewOrder],
+      });
+
+      await findCollection.save();
+    } else {
+      console.error("findCollection is null");
+    }
+
+    jwt.verify(token, jwtSecret, {}, async (err, userData) => {
+      if (err) throw err;
+      const newKolekcija = await User.findById(userData.id).populate({
+        path: "store",
+        select:
+          "storeName storeDescription storeProfile storeCover storeProducts storeAddress storeCollections",
+        populate: {
+          path: "storeCollections",
+          select: "collectionName collectionProducts",
+
+          populate: {
+            path: "collectionProducts",
+            select:
+              "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold",
+          },
+        },
+      });
+
+      res.json(newKolekcija.store);
+    });
+  } else {
+    console.log(collectionId, collectionNewOrder);
+  }
 };
 
 export const fetchStoreData = async (req, res) => {
@@ -444,7 +482,6 @@ export const unfollowStore = async (req, res) => {
   user.set({
     followings: [...newFollowings],
   });
-  console.log(newFollowings);
 
   const newFollowers = followedStoreUser.followers.filter(
     (userid) => userid.toString() !== unfollowerId.toString()
@@ -481,7 +518,7 @@ export const getFollow = async (req, res) => {
 export const removeFollower = async (req, res) => {
   const { removeFollower, select } = req.body;
   const { token } = req.cookies;
-  console.log(removeFollower);
+
   if (select === "Followers") {
     jwt.verify(token, jwtSecret, {}, async (err, userData) => {
       if (err) throw err;
@@ -490,8 +527,6 @@ export const removeFollower = async (req, res) => {
       const newFollowers = user.followers.filter(
         (follower) => follower.toString() !== removeFollower.toString()
       );
-
-      console.log(newFollowers);
 
       user.set({
         followers: [...newFollowers],

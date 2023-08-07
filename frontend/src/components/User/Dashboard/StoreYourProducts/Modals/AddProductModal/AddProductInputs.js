@@ -234,7 +234,6 @@ const AddProductInputs = ({
             <select
               className="w-full pl-1 text-neutral-400 text-xl border-b-2 border-neutral-600 border-opacity-10 bg-neutral-800"
               onChange={(e) => {
-                console.log();
                 setCollections(e.target.value);
               }}
             >
@@ -245,7 +244,6 @@ const AddProductInputs = ({
                       value={option.collectionName}
                       className=" text-neutral-400 bg-neutral-800"
                       key={index}
-                      onClick={() => console.log(index)}
                     >
                       {option.collectionName}
                     </option>

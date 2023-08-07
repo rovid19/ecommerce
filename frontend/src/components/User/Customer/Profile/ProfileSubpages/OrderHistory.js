@@ -31,7 +31,7 @@ const OrderHistory = () => {
       setIsFetching(false);
     });
   }, [getOrderHistoryTrigger]);
-  console.log(modalClassname);
+
   return (
     <div className="h-full w-full bg-neutral-800 flex items-center justify-center relative">
       {isVisible && (
@@ -60,7 +60,6 @@ const OrderHistory = () => {
             orderHistory.map((item, index) => {
               let indexMap = index;
               return item.productBought.map((item, index) => {
-                console.log(item.productPicture[0]);
                 if (index === 0) {
                   return (
                     <div

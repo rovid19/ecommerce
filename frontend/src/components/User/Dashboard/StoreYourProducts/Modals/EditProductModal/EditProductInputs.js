@@ -129,7 +129,6 @@ const EditProductInputs = ({
     }
   }, [oldCollection]);
 
-  console.log(user.store);
   return (
     <form onSubmit={handleEditProduct} className="h-[95%]">
       <div className="h-[350px] rounded-lg w-full overflow-hidden">

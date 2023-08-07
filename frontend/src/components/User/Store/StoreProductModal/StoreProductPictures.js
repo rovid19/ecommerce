@@ -36,7 +36,7 @@ const StoreProductPictures = ({
       setProductPicture(newArray);
     };
   }
-  console.log(productPicture.length);
+
   return (
     <>
       {/* PRODUCT PICTURES */}

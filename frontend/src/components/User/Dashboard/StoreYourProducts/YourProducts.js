@@ -5,37 +5,34 @@ import StoreProductCard from "../../Store/StoreProductCard.js";
 import StoreDeleteProductModal from "../StoreEdit/Modals/StoreDeleteProductModal";
 import { setEditMode } from "../../../../app/features/Store/storeEditMode";
 import StoreEditProductModal from "./Modals/EditProductModal/EditProductModal";
-import { addStoreProducts } from "../../../../app/features/Store/storeProducts";
 import axios from "axios";
-import { setStoreProducts } from "../../../../app/features/Store/userStoreProducts";
-import { setProducts } from "../../../../app/features/User/userSlice";
+import { fetchUserData } from "../../../../app/features/User/userSlice";
 import AddCollectionModal from "./Modals/AddCollectionModal/AddCollectionModal.js";
 import { collectionVisible } from "../../../../app/features/Store/collections";
+
 const StoreAddProducts = () => {
   // states & ref
   const [isVisible, setIsVisible] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
-  const [items, setItems] = useState(null);
+  const [newCollectionName, setNewCollectionName] = useState(null);
+  const [collectionProd, setCollectionProd] = useState(null);
+  const [collectionId, setCollectionId] = useState(null);
+  const [collectionNewOrder, setCollectionNewOrder] = useState([]);
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
 
   // redux
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const userStoreProducts = useSelector(
-    (state) => state.userData.value.products
-  );
   const editProductModal = useSelector((state) => state.editProductModal.value);
   const collection = useSelector((state) => state.collection.value);
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
   );
-  const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
-  const { store } = user;
   const dispatch = useDispatch();
 
-  //other
+  //postavljanje slike
   const styles = {
     backgroundImage: `url(${user.store.storeCover})`,
   };
@@ -47,51 +44,106 @@ const StoreAddProducts = () => {
       checkbox.checked = true;
     }
   }
+
+  //stavljanje dragged propertije productu preko kojeg trenutno hoveras misem
   function dragSetClassname(index) {
-    let _storeProducts = [...userStoreProducts];
-    let finalArray = [];
-    _storeProducts.forEach((item) => {
-      finalArray.push({ ...item, productDragged: false });
+    //trazenje index kolekcije
+    let indexKolekcije = null;
+    collectionProd.forEach((collection, index) => {
+      if (collection.collectionName === newCollectionName) {
+        indexKolekcije = index;
+      }
     });
-    finalArray[index].productDragged = true;
-    dispatch(setProducts(finalArray));
+
+    let kolekcija = [collectionProd[indexKolekcije]];
+    let newProducts = [];
+
+    // stavljanje propetije isdragged na proizvode odabrane kolekcije
+    kolekcija[0].collectionProducts.forEach((item) => {
+      newProducts.push({ ...item, productDragged: false });
+    });
+    let finalCollectionArray = [];
+    newProducts[index].productDragged = true;
+
+    //postavljanje finalnog arraya s novim propertijima na odabranoj kolekciji
+    collectionProd.forEach((array, index) => {
+      if (index === indexKolekcije) {
+        let newArr = { ...array };
+
+        newArr.collectionProducts = newProducts;
+
+        finalCollectionArray.push(newArr);
+      } else {
+        finalCollectionArray.push(array);
+      }
+    });
+
+    setCollectionProd(finalCollectionArray);
   }
 
   function handleSort() {
-    /*let newArray = [...storeProducts];
-    const slicedItem = storeProducts.splice(dragItem.current, 1)[0];
-    newArray.splice(dragOverItem.current, 0, slicedItem);
+    //trazenje kolekcije
+    let productCollection = null;
+    user.store.storeCollections.forEach((collection) => {
+      if (collection.collectionName === newCollectionName) {
+        return (productCollection = [...collection.collectionProducts]);
+      }
+    });
+
+    //uzimanje producta iz arraya i postavljanje producta na novu poziciju u arrayu
+    const draggedItemContent = productCollection.splice(dragItem.current, 1)[0];
+    console.log(draggedItemContent, dragItem.current);
+    productCollection.splice(dragOverItem.current, 0, draggedItemContent);
 
     dragItem.current = null;
     dragOverItem.current = null;
-
-    dispatch(addStoreProducts(newArray));*/
-    let _storeProducts = [...userStoreProducts];
-    const draggedItemContent = _storeProducts.splice(dragItem.current, 1)[0];
-    _storeProducts.splice(dragOverItem.current, 0, draggedItemContent);
-
-    dragItem.current = null;
-    dragOverItem.current = null;
-    let finalArray = [];
-    _storeProducts.forEach((item) => {
-      finalArray.push({ ...item, productDragged: false });
-    });
-    dispatch(setProducts(finalArray));
+    setCollectionNewOrder(productCollection);
   }
 
-  function handleSortSave() {
-    axios.post("/api/store/save-sorted-products", {
-      userStoreProducts,
+  const findCollectionIndex = () => {
+    collectionProd.forEach((collection) => {
+      if (collection.collectionName === newCollectionName) {
+        setCollectionId(collection._id);
+      }
     });
+  };
+
+  useEffect(() => {
+    if (collectionId) {
+      handleSort();
+    }
+  }, [collectionId]);
+
+  useEffect(() => {
+    if (collectionNewOrder.length > 0) {
+      handleSortSave();
+    }
+  }, [collectionNewOrder]);
+
+  //spremanje novog arraya u backend
+  async function handleSortSave() {
+    let data = await axios.post("/api/store/save-sorted-products", {
+      collectionNewOrder,
+      collectionId,
+    });
+
+    setCollectionProd(data.data.storeCollections);
+    setCollectionNewOrder([]);
+    setCollectionId(null);
+    dispatch(fetchUserData());
   }
 
-  console.log(selectedProduct);
+  //postavljanje kolekcija na state unutar componenta
+  useEffect(() => {
+    setCollectionProd(user.store.storeCollections);
+  }, [user]);
+
   return (
     <div
       className={
-        storeSubPage === "products"
-          ? " store h-full w-full bg-neutral-800  "
-          : "hidden"
+        editMode
+          ? " store h-full w-full bg-neutral-800 overflow-hidden  "
+          : " store h-full w-full bg-neutral-800  "
       }
     >
       {collection && <AddCollectionModal />}
@@ -158,25 +210,31 @@ const StoreAddProducts = () => {
         }
       >
         {editMode && (
-          <div className="absolute top-0 right-0 lg:w-[30%] 2xl:w-[25%] h-[9%] zeze bg-neutral-900 bg-opacity-80 rounded-l-md rounded-b-md text-white flex  items-center p-2 group-hover:invisible">
+          <div className="absolute top-0 right-0 lg:w-[30%] 2xl:w-[25%] h-[9%] z-40 bg-neutral-900 bg-opacity-80 rounded-l-md rounded-b-md text-white flex  items-center p-2 group-hover:invisible">
             <h1 className="text-sm  absolute right-4 text-neutral-500 ">
               You can drag and drop your products to rearrange their order
             </h1>
           </div>
         )}
-        {/*<div
+        <div
           className={
             editMode
               ? "hidden"
-              : "h-full w-full absolute top-0 bg-black bg-opacity-40 z-20 transition-all cursor-pointer"
+              : "h-full w-full absolute top-0 bg-black bg-opacity-50 z-20 transition-all cursor-pointer flex items-center justify-center group"
           }
-          onClick={() => {
-            dispatch(setEditMode(!editMode));
-            checkEditMode();
-          }}
-        ></div>*/}
-        {store.storeCollections &&
-          store.storeCollections.map((collection, i) => {
+        >
+          <button
+            className="w-[30%] h-[20%] bg-orange-500 text-white text-2xl rounded-md opacity-0 hover:scale-95 group-hover:opacity-100 transition-all"
+            onClick={() => {
+              dispatch(setEditMode(!editMode));
+              checkEditMode();
+            }}
+          >
+            Enable edit mode
+          </button>
+        </div>
+        {collectionProd &&
+          collectionProd.map((collection, i) => {
             return (
               <article className="h-full w-full fl overflow-x-auto bg-neutral-800 ">
                 <div className="h-[10%]"></div>
@@ -192,16 +250,19 @@ const StoreAddProducts = () => {
                           key={index}
                           onDragStart={() => {
                             dragItem.current = index;
+                            console.log(index);
+                            setNewCollectionName(product.productCollection);
                           }}
                           onDragEnter={(e) => {
                             dragOverItem.current = index;
+                            console.log(index);
                             dragSetClassname(index);
                           }}
-                          onDragEnd={handleSort}
+                          onDragEnd={findCollectionIndex}
                         >
                           <StoreProductCard storeProducts={product} />
                           {product.productDragged && (
-                            <div className="drag-indicator "></div>
+                            <div className="h-full w-[10%] zeze bg-neutral-600 absolute right-0 top-0 "></div>
                           )}
                         </div>
                       );

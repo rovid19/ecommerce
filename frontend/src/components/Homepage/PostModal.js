@@ -99,7 +99,7 @@ const PostModal = ({
       }
     }
   }, [comIndex]);
-  console.log(postModalClass);
+
   return (
     <div
       className={

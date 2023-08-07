@@ -49,7 +49,6 @@ const StoreEditInfoInputs = ({
     }
   }, [description]);
 
-  console.log(selectedProduct);
   return (
     <>
       {" "}
