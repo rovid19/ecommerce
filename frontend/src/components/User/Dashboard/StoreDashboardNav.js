@@ -42,7 +42,7 @@ const StoreDashboardNav = () => {
       )}
       <div className="h-[15%]  flex justify-center items-center text-neutral-300">
         <h1
-          className="font-bold cursor-pointer"
+          className="font-bold cursor-pointer lg:text-sm 2xl:text-base"
           onClick={() => {
             dispatch(getStoreSubPage("home"));
             dispatch(setEditMode(false));
@@ -54,8 +54,8 @@ const StoreDashboardNav = () => {
       </div>
       <nav className="text-neutral-300">
         {" "}
-        <ul className="p-4 ">
-          <li className=" p-2">{user && user.storeName}</li>{" "}
+        <ul className="p-4 lg:pl-2  lg:pr-2  ">
+          <li className=" p-2 ">{user && user.storeName}</li>{" "}
           <Link
             exact
             to={`/dashboard/${user.username}`}
@@ -65,8 +65,8 @@ const StoreDashboardNav = () => {
             }}
             className={
               storeEdit
-                ? "Navlink hover:bg-orange-500  hover:text-white active"
-                : "Navlink hover:bg-orange-500  hover:text-white "
+                ? "Navlink hover:bg-orange-500  hover:text-white active 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
+                : "Navlink hover:bg-orange-500  hover:text-white  2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
             }
             use
           >
@@ -87,8 +87,8 @@ const StoreDashboardNav = () => {
             onClick={() => dispatch(getStoreSubPage("products"))}
             className={
               productEdit
-                ? "Navlink hover:bg-orange-500 hover:text-white active"
-                : "Navlink hover:bg-orange-500 hover:text-white "
+                ? "Navlink hover:bg-orange-500 hover:text-white active p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
+                : "Navlink hover:bg-orange-500 hover:text-white  p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
             }
           >
             <svg
@@ -114,8 +114,8 @@ const StoreDashboardNav = () => {
             }}
             className={
               storeFinance
-                ? "Navlink hover:bg-orange-500 hover:text-white active"
-                : "Navlink hover:bg-orange-500 hover:text-white "
+                ? "Navlink hover:bg-orange-500 hover:text-white active p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
+                : "Navlink hover:bg-orange-500 hover:text-white  p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
             }
           >
             {" "}
@@ -142,8 +142,8 @@ const StoreDashboardNav = () => {
             }}
             className={
               storeOrders
-                ? "Navlink hover:bg-orange-500 hover:text-white active"
-                : "Navlink hover:bg-orange-500 hover:text-white "
+                ? "Navlink hover:bg-orange-500 hover:text-white active p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
+                : "Navlink hover:bg-orange-500 hover:text-white  p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
             }
           >
             <svg
@@ -163,6 +163,23 @@ const StoreDashboardNav = () => {
             Orders
           </Link>
         </ul>{" "}
+        <button
+          className="absolute lg:right-2 2xl:right-4 bottom-4"
+          onClick={() => navigate("/")}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+            class="w-6 h-6 text-neutral-500 hover:text-white"
+          >
+            <path
+              fill-rule="evenodd"
+              d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z"
+              clip-rule="evenodd"
+            />
+          </svg>
+        </button>
       </nav>
     </div>
   );

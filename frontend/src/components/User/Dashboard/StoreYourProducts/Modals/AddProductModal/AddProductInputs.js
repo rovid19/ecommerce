@@ -105,7 +105,7 @@ const AddProductInputs = ({
 
   return (
     <form onSubmit={handleAddProduct} className="h-[95%] bg-neutral-800">
-      <div className="h-[350px] rounded-lg w-full overflow-hidden ">
+      <div className="lg:h-[350px] h-[300px] rounded-lg w-full overflow-hidden ">
         <label
           className={
             productPicture
@@ -217,7 +217,7 @@ const AddProductInputs = ({
           maxLength={500}
           type="text"
           className={
-            "text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500 h-[50%] transition-all"
+            "text-xl w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500 h-[30%] lg:h-[50%] transition-all"
           }
           placeholder="Description of your product"
           onChange={(e) => setProductDescription(e.target.value)}
@@ -252,7 +252,7 @@ const AddProductInputs = ({
             </select>
           </label>
         </div>
-        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all mt-5 absolute bottom-4">
+        <button className="bg-orange-500 text-white rounded-md w-[20%] h-[40px] hover:w-[30%] transition-all lg:mt-5 absolute bottom-6 lg:bottom-4">
           Save
         </button>
       </div>

@@ -126,7 +126,7 @@ body {
 
   align-items: center;
   @apply rounded-lg;
-  @apply p-2;
+
   @apply mt-1;
 }
 
@@ -141,7 +141,6 @@ body {
 }
 
 .NavlinkMobile {
-  @apply text-gray-500;
   @apply border-opacity-25;
   height: 100%;
   display: flex;

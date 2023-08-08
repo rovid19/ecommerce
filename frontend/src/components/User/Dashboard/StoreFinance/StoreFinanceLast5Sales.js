@@ -38,16 +38,16 @@ const StoreFinanceLast5Sales = () => {
               <div
                 className={
                   index === 0
-                    ? "w-full h-[25%] grid grid-cols-3 bg-neutral-900 p-2  rounded-md"
-                    : "w-full h-[25%]  mt-2 grid grid-cols-3 bg-neutral-900 p-2 rounded-md"
+                    ? "w-full h-[20%] lg:h-[25%] grid grid-cols-3 bg-neutral-900 p-2  rounded-md"
+                    : "w-full h-[20%] lg:h-[25%]  mt-2 grid grid-cols-3 bg-neutral-900 p-2 rounded-md"
                 }
                 key={index}
               >
                 <div className="border-r-2 border-neutral-600 border-opacity-20 text-neutral-500">
-                  <div className="h-[10%] w-full p-1 flex items-center justify-center">
+                  <div className="h-[10%] w-full p-1 flex items-center justify-center text-sm lg:text-base">
                     <h1>Products</h1>
                   </div>
-                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-2xl text-neutral-300 gap-2">
+                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-sm lg:text-2xl text-neutral-300 gap-2">
                     <h1>{item.pro}</h1>
                   </div>
                 </div>
@@ -55,7 +55,7 @@ const StoreFinanceLast5Sales = () => {
                   <div className="h-[10%] w-full p-1 flex items-center justify-center">
                     <h1>Price</h1>
                   </div>
-                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-2xl text-neutral-400">
+                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-sm lg:text-2xl text-neutral-400">
                     {item.total}$
                   </div>
                 </div>
@@ -63,7 +63,7 @@ const StoreFinanceLast5Sales = () => {
                   <div className="h-[10%] w-full p-1 flex items-center justify-center">
                     <h1>Date</h1>
                   </div>
-                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-2xl text-neutral-400">
+                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-[12px] lg:text-2xl text-neutral-400">
                     {item.orderPlacedDate}
                   </div>
                 </div>

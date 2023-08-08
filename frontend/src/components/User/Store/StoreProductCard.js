@@ -76,7 +76,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 24 24"
               fill="currentColor"
-              className="w-6 h-6 text-white group-hover:scale-90 "
+              className="lg:w-6 lg:h-6 h-4 w-4 text-white group-hover:scale-90 "
             >
               <path
                 fillRule="evenodd"
@@ -105,7 +105,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
         <h1 className="font-bold text-xl  absolute top-1 lg:top-2 right-3">
           {storeProducts && storeProducts.productNewPrice}€
         </h1>
-        {storeSubPage === "products" ? (
+        {storeSubPage === "products" || storeSubPage === "editStore" ? (
           ""
         ) : (
           <div className="w-full   h-[15%] absolute bottom-4  left-0 rounded-b-md grid grid-cols-3 text-neutral-600 ">

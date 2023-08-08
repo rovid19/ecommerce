@@ -73,7 +73,7 @@ const StoreFinanceSales = () => {
           className={
             subPage === "sales"
               ? "bg-neutral-700 text-white"
-              : "border-b-2 border-r-2 border-neutral-900 border-opacity-20"
+              : " border-r-2 border-neutral-900 border-opacity-20"
           }
         >
           {subPage === "total"
@@ -104,7 +104,7 @@ const StoreFinanceSales = () => {
               : formattedDate + " " + "Sales"
             : "Total Sales"}
         </h3>
-        <h1 className="text-8xl lg:text-9xl mt-2 text-white">{dailySales}$</h1>
+        <h1 className="text-4xl lg:text-9xl mt-2 text-white">{dailySales}$</h1>
       </div>
     </div>
   );

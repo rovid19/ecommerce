@@ -169,6 +169,8 @@ export const editProduct = async (req, res) => {
   editedProduct.productCollection = collection;
 
   if (collection === oldCollection) {
+    res.json(editedProduct);
+    await editedProduct.save();
   } else {
     const oldKolekcija = await Collection.findById(oldCollectionId);
     const novaKolekcija = await Collection.findById(collectionId);

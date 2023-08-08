@@ -62,7 +62,7 @@ const StoreOrdersModal = ({
   return (
     <div className="h-full w-full absolute top-0 left-0 bg-neutral-800 bg-opacity-50 z-50 flex items-center justify-center">
       <button
-        className="absolute left-2 top-2  z-50"
+        className="absolute left-2 lg:top-2 top-28  z-50"
         onClick={() => {
           setIsVisible(false);
         }}
@@ -71,7 +71,7 @@ const StoreOrdersModal = ({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="w-12 h-12 hover:text-orange-500 text-neutral-300"
+          className="lg:w-12 lg:h-12 w-10 h-10 hover:text-orange-500 lg:text-neutral-300 text-orange-500"
         >
           <path
             fillRule="evenodd"
@@ -80,7 +80,7 @@ const StoreOrdersModal = ({
           />
         </svg>
       </button>
-      <div className="h-[90%] w-[85%] bg-neutral-700 text-neutral-300 flex items-center justify-center rounded-md">
+      <div className="h-[75%] lg:h-[90%] w-full lg:w-[85%] bg-neutral-700 text-neutral-300 flex items-center justify-center rounded-md">
         <div className="w-[30%] h-full">
           <img
             src={orderData.productBought[indexDva].productPicture}
@@ -90,16 +90,16 @@ const StoreOrdersModal = ({
         <div className="w-[70%] h-full flex justify-center items-center">
           <div className="w-[80%] h-[85%]     ">
             <div className="h-[70%] w-full  bg-opacity-25 relative ">
-              <h1 className="text-8xl">
+              <h1 className="text-4xl lg:text-8xl">
                 {orderData.productBought[indexDva].productName}
               </h1>
               <div className=" border-b-2 border-neutral-900 border-opacity-10 p-2">
                 <h2 className="text-gray-400 mt-6">Total price paid:</h2>
-                <h1 className="text-3xl ">
+                <h1 className="text-2xl lg:text-3xl ">
                   {orderData.productBought[indexDva].productNewPrice}$
                 </h1>
               </div>
-              <div className="text-xl font-bold mt-6 text-right absolute top-1 right-0">
+              <div className="text-base lg:text-xl font-bold mt-1 lg:mt-6 text-right absolute top-1 right-0">
                 {orderData.orderPlacedDate.substring(0, 10)}
                 <br />
                 <span className="font-light">Customer:</span>{" "}
@@ -107,13 +107,13 @@ const StoreOrdersModal = ({
               </div>{" "}
               <div className=" border-b-2 border-neutral-900 border-opacity-10 p-2">
                 <h1 className="text-gray-400">Quantity</h1>
-                <h2 className="text-2xl">
+                <h2 className="text-xl lg:text-2xl">
                   {orderData.productQuantity[indexDva]}
                 </h2>
               </div>
               <div className=" border-b-2 border-neutral-900 border-opacity-10 p-2">
                 <h1 className="text-gray-400">Note:</h1>
-                <p className="text-xl">
+                <p className="text-lg lg:text-xl">
                   {orderData.noteToSeller
                     ? orderData.noteToSeller
                     : "Customer didn't leave any note."}

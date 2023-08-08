@@ -12,6 +12,7 @@ const StoreDashboard = () => {
   const mobileActive = useSelector(
     (state) => state.triggeri.value.mobileActive
   );
+  const editMode = useSelector((state) => state.editMode.value);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -27,9 +28,11 @@ const StoreDashboard = () => {
   return (
     <div className="h-screen w-full flex">
       <div
-        className={mobileActive ? "h-full w-0 zeze" : "h-full w-[12%]  zeze"}
+        className={
+          mobileActive ? "h-[10%] w-0 zeze flex" : "h-full w-[12%]  zeze"
+        }
       >
-        <div className="lg:hidden h-full w-full">
+        <div className="lg:hidden h-full w-full self-end">
           <StoreDashboardNavMobile />
         </div>
         <div className="hidden lg:block h-full w-full ">

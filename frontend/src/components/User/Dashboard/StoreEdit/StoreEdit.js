@@ -152,8 +152,8 @@ const StoreEdit = () => {
             }}
             className={
               editMode
-                ? "text-white hidden transition-all text-4xl bg-orange-500 p-10 rounded-xl hover:scale-95"
-                : "text-white hidden group-hover:block transition-all text-4xl bg-orange-500 p-10 rounded-xl hover:scale-95"
+                ? "text-white hidden transition-all text-xl lg:text-2xl 2xl:text-3xl bg-orange-500 p-10 rounded-xl hover:scale-95"
+                : "text-white invisible group-hover:block transition-all text-xl lg:text-2xl 2xl:text-3xl bg-orange-500 p-10 rounded-xl hover:scale-95"
             }
           >
             Click here to add or edit products
@@ -164,14 +164,14 @@ const StoreEdit = () => {
             if (i === 0) {
               return (
                 <article className="h-full w-full fl overflow-x-auto bg-neutral-800 relative ">
-                  <div className="h-[10%] p-4 text-xl uppercase font-bold bg-neutral-900 text-neutral-300">
+                  <div className="h-[13%] lg:h-[10%] p-2 lg:p-4 text-xl uppercase font-bold bg-neutral-900 text-neutral-300">
                     <h1>{collection.collectionName}</h1>
                   </div>
-                  <div className="h-[90%] min-w-min bg-neutral-800 gap-4 flex p-4  ">
+                  <div className="h-[87%] lg:h-[90%] min-w-min bg-neutral-800 gap-4 flex p-4  ">
                     {collection.collectionProducts &&
                       collection.collectionProducts.map((product, index) => {
                         return (
-                          <div className="h-full w-[300px] flex items-center justify-center pt-4 pb-4 flex-shrink-0 relative">
+                          <div className="h-full w-[200px] lg:w-[300px] flex items-center justify-center pt-4 pb-4 flex-shrink-0 relative">
                             <StoreProductCard storeProducts={product} />
                             {product.productDragged && (
                               <div className="drag-indicator "></div>

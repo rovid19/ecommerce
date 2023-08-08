@@ -25,7 +25,7 @@ const RegisterPagePartTwo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [className, setClassName] = useState(
-    "mt-4 bg-gray-300 text-white rounded-2xl p-3 hover:bg-orange-500 transition-all"
+    "mt-4 bg-neutral-600 text-white rounded-2xl p-3 hover:bg-orange-500 transition-all"
   );
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const input = useSelector((state) => state.registrationInput.value);
@@ -65,7 +65,7 @@ const RegisterPagePartTwo = () => {
   }
 
   return (
-    <div className="h-screen flex justify-center items-center">
+    <div className="h-screen flex justify-center items-center bg-neutral-900">
       <motion.div
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
@@ -76,8 +76,10 @@ const RegisterPagePartTwo = () => {
           <RegisterGooglePass email={googleEmail} />
         ) : (
           <>
-            <h1 className="text-center text-5xl">Dear, User </h1>
-            <p className="mt-3 text-center text-gray-400">
+            <h1 className="text-center text-5xl text-neutral-300">
+              Dear, User{" "}
+            </h1>
+            <p className="mt-3 text-center text-neutral-400">
               {input === "Customer"
                 ? "Please fill out this form below"
                 : "Please fill out form below in order to start using our website"}
@@ -91,33 +93,33 @@ const RegisterPagePartTwo = () => {
               <input
                 type="text"
                 placeholder="Email"
-                className="border-2 border-gray-300 border-opacity-25 rounded-xl mt-6 p-2"
+                className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-6 p-2 bg-neutral-800"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="text"
                 placeholder={input === "Customer" ? "Username" : "Username"}
-                className="border-2 border-gray-300 border-opacity-25 rounded-xl mt-1 p-2"
+                className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-1 p-2 bg-neutral-800"
                 onChange={(e) => setStoreName(e.target.value)}
               />
               <input
                 type="password"
                 placeholder="Password"
-                className="border-2 border-gray-300 border-opacity-25 rounded-xl mt-1 p-2"
+                className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-1 p-2 bg-neutral-800"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <input
                 type="password"
                 placeholder="Confirm password"
-                className="border-2 border-gray-300 border-opacity-25 rounded-xl mt-1 p-2"
+                className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-1 p-2 bg-neutral-800"
                 onChange={(e) => setConfirmedPass(e.target.value)}
               />
               <button className={className}>continue</button>
             </form>
             <div className="flex mt-4 relative">
-              <div className="border-t-2 border-gray-300 w-full mt-5 "></div>
-              <h1 className="mt-2 ml-2 mr-2 text-gray-500">or</h1>
-              <div className="border-t-2 border-gray-300 w-full mt-5 "></div>
+              <div className="border-t-2 border-neutral-300 w-full mt-5 "></div>
+              <h1 className="mt-2 ml-2 mr-2 text-neutral-500">or</h1>
+              <div className="border-t-2 border-neutral-300 w-full mt-5 "></div>
             </div>
             <button className="mt-6 flex justify-center">
               <GoogleLogin

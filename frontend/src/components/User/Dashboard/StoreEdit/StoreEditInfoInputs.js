@@ -65,7 +65,7 @@ const StoreEditInfoInputs = ({
           fill="currentColor"
           className={
             editMode
-              ? "w-8 h-8 absolute bottom-4 right-4 cursor-pointer text-neutral-300 shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-20 border-2 border-gray-300 transition-all"
+              ? "w-8 h-8 absolute bottom-2 right-2 cursor-pointer text-neutral-300 shadow-xl hover:scale-105 hover:text-white rounded-md hover:bg-orange hover:border-orange z-20 border-2 border-gray-300 transition-all"
               : "hidden"
           }
         >
@@ -115,8 +115,8 @@ const StoreEditInfoInputs = ({
           </svg>
         </label>
       </div>
-      <div className="text-white h-full w-[60%] 2xl:w-[25%] ml-2 md:w-[35%] lg:w-[35%] bg-black p-2  rounded-xl z-20">
-        <h1 className="text-gray-300 text-base xl:text-base">
+      <div className="text-white h-full w-[60%] 2xl:w-[25%] ml-2 md:w-[35%] lg:w-[35%] bg-black p-4 lg:p-2  rounded-xl z-20">
+        <h1 className="text-neutral-300 text-base xl:text-base">
           {editMode
             ? "Enter your store details here:"
             : "Enable Edit Mode to edit your store details "}

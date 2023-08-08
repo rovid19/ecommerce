@@ -22,11 +22,13 @@ const StoreAddProducts = () => {
   const dragOverItem = useRef(null);
 
   // redux
-  const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const editProductModal = useSelector((state) => state.editProductModal.value);
   const collection = useSelector((state) => state.collection.value);
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
+  );
+  const mobileActive = useSelector(
+    (state) => state.triggeri.value.mobileActive
   );
   const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
@@ -188,14 +190,14 @@ const StoreAddProducts = () => {
         </div>{" "}
         <article className="w-[80%] h-[80%] fl2 z-40 gap-4">
           <button
-            className="h-[25%] w-[50%] bg-orange-500 rounded-md text-white hover:scale-95 transition-all text-2xl "
+            className="h-[25%] w-[60%] lg:w-[50%] bg-orange-500 rounded-md text-white hover:scale-95 transition-all text-xl lg:text-2xl "
             onClick={() => setIsVisible(true)}
           >
             {" "}
             Add Products{" "}
           </button>
           <button
-            className="h-[25%] w-[50%] bg-orange-500 rounded-md text-white hover:scale-95 transition-all text-2xl"
+            className="h-[25%] w-[60%] lg:w-[50%] bg-orange-500 rounded-md text-white hover:scale-95 transition-all text-xl lg:text-2xl"
             onClick={() => dispatch(collectionVisible(true))}
           >
             Edit collection
@@ -205,14 +207,16 @@ const StoreAddProducts = () => {
       <section
         className={
           editMode
-            ? "h-[65%] w-full overflow-scroll scrollbar-hide relative border-[8px] border-orange-500 transition-all"
-            : "h-[65%] w-full overflow-scroll scrollbar-hide relative transition-all"
+            ? "h-[55%] lg:h-[65%] w-full overflow-scroll scrollbar-hide relative border-[8px] border-orange-500 transition-all"
+            : "h-[55%] lg:h-[65%] w-full overflow-hidden relative transition-all "
         }
       >
         {editMode && (
-          <div className="absolute top-0 right-0 lg:w-[30%] 2xl:w-[25%] h-[9%] z-40 bg-neutral-900 bg-opacity-80 rounded-l-md rounded-b-md text-white flex  items-center p-2 group-hover:invisible">
-            <h1 className="text-sm  absolute right-4 text-neutral-500 ">
-              You can drag and drop your products to rearrange their order
+          <div className="absolute top-0 right-0 w-[70%] lg:w-[30%] 2xl:w-[25%] h-[13%] lg:h-[9%] z-40 bg-neutral-900 bg-opacity-80 rounded-l-md rounded-b-md text-white flex  items-center p-2 group-hover:invisible">
+            <h1 className="text-sm  absolute top-0 right-4 text-neutral-500 h-full flex items-center ">
+              {mobileActive
+                ? "You can drag and drop a product"
+                : "You can drag and drop your products to rearrange their order"}
             </h1>
           </div>
         )}
@@ -224,7 +228,7 @@ const StoreAddProducts = () => {
           }
         >
           <button
-            className="w-[30%] h-[20%] bg-orange-500 text-white text-2xl rounded-md opacity-0 hover:scale-95 group-hover:opacity-100 transition-all"
+            className="w-[70%] h-[25%] text-xl lg:w-[25%] lg:h-[20%] bg-orange-500 text-white lg:text-3xl rounded-lg opacity-0 group-hover:opacity-100 hover:scale-95  transition-all"
             onClick={() => {
               dispatch(setEditMode(!editMode));
               checkEditMode();
@@ -237,16 +241,16 @@ const StoreAddProducts = () => {
           collectionProd.map((collection, i) => {
             return (
               <article className="h-full w-full fl overflow-x-auto bg-neutral-800 ">
-                <div className="h-[10%]"></div>
+                <div className="h-[15%] lg:h-[10%]"></div>
                 <div className="h-full min-w-min bg-neutral-800 gap-4 flex p-4  relative">
-                  <div className="h-[10%] w-full absolute top-[-10%] left-0 p-3 text-xl uppercase font-bold bg-neutral-900 text-neutral-300">
+                  <div className="h-[15%] lg:h-[10%] w-full absolute top-[-15%] lg:top-[10%] left-0 p-2 lg:p-3 text-xl uppercase font-bold bg-neutral-900 text-neutral-300">
                     <h1>{collection.collectionName}</h1>
                   </div>
                   {collection.collectionProducts &&
                     collection.collectionProducts.map((product, index) => {
                       return (
                         <div
-                          className="h-full w-[300px] flex items-center justify-center pt-4 pb-4 flex-shrink-0 relative"
+                          className="h-full w-[200px] lg:w-[300px] flex items-center justify-center pt-4 pb-4 flex-shrink-0 relative"
                           key={index}
                           onDragStart={() => {
                             dragItem.current = index;
@@ -262,7 +266,7 @@ const StoreAddProducts = () => {
                         >
                           <StoreProductCard storeProducts={product} />
                           {product.productDragged && (
-                            <div className="h-full w-[10%] zeze bg-neutral-600 absolute right-0 top-0 "></div>
+                            <div className="h-[95%] rounded-md w-[8%]  zeze bg-neutral-300 bg-opacity-80 absolute right-0 top-3 "></div>
                           )}
                         </div>
                       );

@@ -63,29 +63,31 @@ const LoginGooglePass = ({ email }) => {
         {error && (
           <h1 className="text-red-500 mt-2 font-bold text-center">{error}</h1>
         )}
-        <h1 className="text-center text-base">Dear, {email}.</h1>
-        <h1 className="text-center text-gray-500">
+        <h1 className="text-center text-2xl text-neutral-300 ">
+          Dear, {email}.
+        </h1>
+        <h1 className="text-center text-neutral-500">
           Please enter your store name and password to continue
         </h1>{" "}
         <input
           type="text"
           placeholder={input === "Store Owner" ? "Store name" : "Username"}
-          className="border-2 border-gray-300 border-opacity-25 rounded-xl mt-4 p-2"
+          className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-4 p-2 bg-neutral-800"
           onChange={(e) => setName(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
-          className="border-2 border-gray-300 border-opacity-25 rounded-xl mt-1 p-2"
+          className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-1 p-2 bg-neutral-800"
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
           type="password"
           placeholder="Confirm password"
-          className="border-2 border-gray-300 border-opacity-25 rounded-xl mt-1 p-2"
+          className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-1 p-2 bg-neutral-800"
           onChange={(e) => setConfirmedPass(e.target.value)}
         />
-        <button className="mt-4 bg-gray-300 text-white rounded-2xl p-3 hover:bg-orange-500 transition-all">
+        <button className="mt-4 bg-neutral-600 text-white rounded-2xl p-3 hover:bg-orange-500 transition-all">
           continue
         </button>
       </form>

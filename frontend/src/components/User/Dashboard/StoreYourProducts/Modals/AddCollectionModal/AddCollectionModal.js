@@ -69,7 +69,7 @@ const AddCollectionModal = () => {
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-neutral-900 bg-opacity-40 z-50 absolute top-0 left-0">
-      <div className="w-[85%] h-[70%]  lg:w-[35%] lg:h-[70%] bg-neutral-800 text-neutral-300 p-4 rounded-lg relative ">
+      <div className="w-[90%] h-[75%]  lg:w-[35%] lg:h-[70%] bg-neutral-800 text-neutral-300 p-4 rounded-lg relative ">
         {edit && (
           <div className="h-full w-full bg-black bg-opacity-20 z-30 flex justify-center absolute top-0 left-0 rounded-md items-center">
             <form
@@ -125,10 +125,12 @@ const AddCollectionModal = () => {
           className="w-full h-[85%] relative"
           onSubmit={handleAddCollection}
         >
-          <div className="h-[20%] w-full relative mt-6 mb-4">
-            <h1 className="text-xl h-[30%] ">Add a new collection</h1>
+          <div className="h-[20%] w-full relative mt-6 mb-4 lg:mb-4">
+            <h1 className="text-lg lg:text-xl lg:h-[30%] ">
+              Add a new collection
+            </h1>
             <input
-              className=" text-3xl p-2 h-[70%] w-full rounded-md bg-neutral-600 text-white"
+              className="text-xl lg:text-3xl p-2 h-[70%] w-full rounded-md bg-neutral-600 text-white"
               onChange={(e) => setCollectionInput(e.target.value)}
               ref={inputRef}
             />
@@ -144,7 +146,11 @@ const AddCollectionModal = () => {
                     className="h-[15%] w-full mt-1 relative p-4 flex items-center rounded-md bg-neutral-900"
                     key={index}
                   >
-                    {<h1 className="text-2xl">{item.collectionName}</h1>}
+                    {
+                      <h1 className="text-xl lg:text-2xl">
+                        {item.collectionName}
+                      </h1>
+                    }
                     <button
                       className="absolute right-10 top-0 h-full grid place-items-center "
                       onClick={(e) => {
