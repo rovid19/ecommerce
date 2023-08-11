@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setviewImage } from "../../../../app/features/User/viewImage";
 
 const StoreProductPictures = ({
@@ -13,6 +13,7 @@ const StoreProductPictures = ({
   setProductPicture,
 }) => {
   const dispatch = useDispatch();
+
   //functions
 
   function handleChangePictureNext(index) {
@@ -36,7 +37,7 @@ const StoreProductPictures = ({
       setProductPicture(newArray);
     };
   }
-
+  console.log(productPicture.length > 0);
   return (
     <>
       {/* PRODUCT PICTURES */}
@@ -50,7 +51,13 @@ const StoreProductPictures = ({
               switch (index) {
                 case 0:
                   return (
-                    <div className="h-full w-[70%] z-50 flex items-center relative ">
+                    <div
+                      className={
+                        productPicture.length > 0
+                          ? "h-full w-full object-cover z-50 flex items-center relative "
+                          : "h-full w-[70%] object-cover z-50 flex items-center relative "
+                      }
+                    >
                       <button className="absolute bottom-4 right-4 z-30 ">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
@@ -187,7 +194,13 @@ const StoreProductPictures = ({
               switch (index) {
                 case 0:
                   return (
-                    <div className="h-full w-[50%] object-cover z-50 flex items-center relative ">
+                    <div
+                      className={
+                        productPicture.length > 0
+                          ? "h-full w-full object-cover z-50 flex items-center relative "
+                          : "h-full w-[70%] object-cover z-50 flex items-center relative "
+                      }
+                    >
                       <button className="absolute bottom-4 right-4 z-30">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"

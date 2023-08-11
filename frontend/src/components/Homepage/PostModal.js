@@ -99,7 +99,7 @@ const PostModal = ({
       }
     }
   }, [comIndex]);
-
+  console.log(feedPosts[index].postYoutubeVideo !== "");
   return (
     <div
       className={
@@ -179,6 +179,16 @@ const PostModal = ({
                 className="h-full w-full object-cover rounded-md"
                 controls
               ></video>
+            </>
+          ) : feedPosts[index].postYoutueVideo !== "" ? (
+            <>
+              <iframe
+                src={feedPosts[index].postYoutubeVideo}
+                className="h-full w-full object-cover rounded-md"
+                title="YouTube Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
             </>
           ) : (
             <img

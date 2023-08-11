@@ -45,6 +45,8 @@ const Search = () => {
         dispatch(setSearchResults(data));
         dispatch(setSearch(searchValue));
         dispatch(setSearchOption(option));
+        setStores(null);
+        setSortBy(null);
       });
   }
 
@@ -57,14 +59,39 @@ const Search = () => {
   }, []);
   // FILTER OPTIONS FUNCTIONS
   async function sortByAtoZ() {
-    let newArray = [...search.searchResults];
-    newArray.sort((a, b) => {
-      if (a.productName < b.productName) return -1;
-      if (a.productName > b.productName) return 1;
-      return 0;
-    });
+    let newArray = stores === null ? [...search.searchResults] : [...stores];
 
-    dispatch(setSearchResults(newArray));
+    if (stores === null) {
+      if (option === "stores") {
+        newArray.sort((a, b) => {
+          let aProduct = a.storeName.toLowerCase();
+          let bProduct = b.storeName.toLowerCase();
+          if (aProduct < bProduct) return -1;
+          if (aProduct > bProduct) return 1;
+          return 0;
+        });
+        console.log(newArray);
+        dispatch(setSearchResults(newArray));
+      } else {
+        newArray.sort((a, b) => {
+          let aProduct = a.productName.toLowerCase();
+          let bProduct = b.productName.toLowerCase();
+          if (aProduct < bProduct) return -1;
+          if (aProduct > bProduct) return 1;
+          return 0;
+        });
+        dispatch(setSearchResults(newArray));
+      }
+    } else {
+      newArray.sort((a, b) => {
+        let aProduct = a.storeName.toLowerCase();
+        let bProduct = b.storeName.toLowerCase();
+        if (aProduct < bProduct) return -1;
+        if (aProduct > bProduct) return 1;
+        return 0;
+      });
+      setStores(newArray);
+    }
   }
   async function sortByPriceHighest() {
     let newArray = [...search.searchResults];
@@ -110,12 +137,16 @@ const Search = () => {
           break;
       }*/
       if (sortBy === "A-Z") {
+        console.log("da1");
         sortByAtoZ();
-      } else if (sortBy === "Lowest to highest price") {
+      } else if (sortBy === "Lowest To Highest") {
+        console.log("da2");
         sortByPriceLowest();
-      } else if (sortBy === "Highest to lowest price") {
+      } else if (sortBy === "Highest To Lowest") {
+        console.log("da3");
         sortByPriceHighest();
       } else {
+        console.log("da4");
         sortBySold();
       }
     }
@@ -249,13 +280,17 @@ const Search = () => {
               >
                 {option === "products" ? (
                   <>
+                    {!sortBy && <option></option>}
                     <option>A-Z</option>
                     <option>Highest To Lowest</option>
                     <option>Lowest To Highest</option>
                     <option>Most Units Sold</option>
                   </>
                 ) : (
-                  <option>A-Z</option>
+                  <>
+                    {!sortBy && <option></option>}
+                    <option>A-Z</option>
+                  </>
                 )}
               </select>
             </form>

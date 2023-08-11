@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const VideoUploadModal = ({ setVideoModalVisible, setVideo }) => {
+const VideoUploadModal = ({ setVideoModalVisible, setVideo, setYoutubeId }) => {
   const [progress, setProgress] = useState(null);
   const [youtubeVideo, setYoutubeVideo] = useState(null);
   const [message, setMessage] = useState(
@@ -16,6 +16,23 @@ const VideoUploadModal = ({ setVideoModalVisible, setVideo }) => {
     formData.append("video", file[0]);
     setVideoFormData(formData);
   }
+
+  useEffect(() => {
+    if (youtubeVideo) {
+      let youtubeLink = "https://www.youtube.com/embed/";
+      //nadi index = u linku
+      const index = youtubeVideo.indexOf("=");
+
+      if (index === -1) {
+        console.log("index has not been found");
+      }
+      {
+        const videoId = youtubeVideo.substring(index + 1);
+        let finalUrl = youtubeLink + videoId;
+        setYoutubeId(finalUrl);
+      }
+    }
+  }, [youtubeVideo]);
 
   useEffect(() => {
     if (videoFormData) {
@@ -86,9 +103,8 @@ const VideoUploadModal = ({ setVideoModalVisible, setVideo }) => {
             <h1 className=" text-white mb-2">Add video from youtube</h1>
             <div className="w-[80%] h-[60%] relative ">
               <button
-                className="absolute h-full w-[5%] flex items-center top-0 right-0 rounded-md"
+                className="absolute h-full w-[10%] lg:w-[5%] flex items-center top-0 right-0 rounded-md"
                 onClick={() => {
-                  setVideo(youtubeVideo);
                   setVideoModalVisible(false);
                 }}
               >

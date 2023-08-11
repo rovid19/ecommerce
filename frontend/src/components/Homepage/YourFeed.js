@@ -20,6 +20,7 @@ const YourFeed = () => {
   const [postTrigger, setPostTrigger] = useState(false);
   const [comIndex, setComIndex] = useState(null);
   const [comPostDelete, setComPostDelete] = useState(null);
+  const [youtubeId, setYoutubeId] = useState(null);
   const [deleteIndex, setDeleteIndex] = useState(null);
 
   const [videoModalClass, setVideoModalClass] = useState(
@@ -58,7 +59,8 @@ const YourFeed = () => {
     } else {
       await axios.post("/api/customer/post-upload", {
         text,
-        video,
+        videoForm: video ? video : "",
+        youtubeForm: youtubeId ? youtubeId : "",
         product,
         userId: user._id,
         date: formattedDate,
@@ -66,6 +68,7 @@ const YourFeed = () => {
       setText(null);
       setVideo(null);
       setProduct(null);
+      setYoutubeId(null);
       setPostTrigger(!postTrigger);
       textA.current.value = "";
     }
@@ -97,7 +100,7 @@ const YourFeed = () => {
   //vracanje na scrollheight nakon zatvaranje post iz fullscreena
 
   const user = useSelector((state) => state.userData.value.user);
-
+  console.log(video);
   return (
     <section
       className="h-full w-full bg-neutral-800 overflow-scroll scrollbar-hide "
@@ -107,6 +110,7 @@ const YourFeed = () => {
         <VideoUploadModal
           setVideoModalVisible={setVideoModalVisible}
           setVideo={setVideo}
+          setYoutubeId={setYoutubeId}
         />
       )}
       {addProductModalVisible && (
@@ -121,6 +125,7 @@ const YourFeed = () => {
           video={video}
           videoModalClass={videoModalClass}
           setVideoModalClass={setVideoModalClass}
+          youtubeId={youtubeId}
         />
       )}
       {feedPosts && feedPosts[index] && postModalVisible && (
@@ -272,6 +277,59 @@ const YourFeed = () => {
                     src={video}
                     className="h-full w-full object-cover rounded-md"
                   ></video>
+                  <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-40 flex items-center justify-center rounded-md">
+                    <button
+                      onClick={(e) => {
+                        setVideoModalClass((prev) => prev + " postModalOpen");
+                        e.preventDefault();
+                        setVideoPlayerModalVisible(true);
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="w-10 h-10 text-neutral-400 hover:text-white transition-all"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </div>
+                </div>
+              )}
+              {youtubeId && (
+                <div
+                  className={
+                    product
+                      ? " h-[30%] md:h-[40%] w-full absolute top-[42%] md:top-[40%] rounded-md"
+                      : " h-[30%] md:h-[40%] w-full absolute top-2 rounded-md"
+                  }
+                >
+                  <button
+                    className="absolute h-full w-[8%] lg:w-[5%] 2xl:w-[3%] md:w-[6%] right-0 top-0 flex items-center z-50"
+                    onClick={(e) => {
+                      e.preventDefault(e);
+                      setYoutubeId(null);
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="lg:w-8 lg:h-8 w-6 h-6 hover:text-orange-500 lg:text-neutral-400 transition-all text-orange-500"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                  <iframe src={youtubeId} className="h-full w-full"></iframe>
                   <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-40 flex items-center justify-center rounded-md">
                     <button
                       onClick={(e) => {

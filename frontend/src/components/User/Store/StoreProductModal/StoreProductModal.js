@@ -18,6 +18,7 @@ import {
 import { setviewImage } from "../../../../app/features/User/viewImage";
 import { setViewReviewPic } from "../../../../app/features/User/viewReviewPic";
 import { setViewProductModal } from "../../../../app/features/Store/viewProductModal";
+import { setProductPictures } from "../../../../app/features/triggeri";
 
 const StoreProductModal = () => {
   // STATES
@@ -56,6 +57,7 @@ const StoreProductModal = () => {
         setProductTitle(data.productName);
         setProductDescription(data.productDescription);
         setProductPrice(data.productNewPrice);
+        dispatch(setProductPictures(data.productPicture));
       })
       .then(() => {
         setIsFetching(false);
@@ -165,7 +167,7 @@ const StoreProductModal = () => {
       {/* MAIN DIV */}
 
       {isFetching && (
-        <div className="w-full h-full absolute top-0 left-0 z-50 bg-white flex items-center justify-center">
+        <div className="w-full h-full absolute top-0 left-0 z-50 bg- neutral-800 flex items-center justify-center">
           {" "}
           <img src={Loader}></img>{" "}
         </div>

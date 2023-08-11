@@ -66,7 +66,7 @@ const LoginPage = () => {
                 <Link to="/register">click here</Link>
               </span>
             </p>
-            <form className="fl" onSubmit={handleLogin}>
+            <form className="fl text-white" onSubmit={handleLogin}>
               {error && (
                 <h1 className="text-red-500 mt-2 font-bold text-center">
                   {error}
@@ -75,13 +75,13 @@ const LoginPage = () => {
               <input
                 type="text"
                 placeholder="Email"
-                className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-4 p-2 bg-neutral-800"
+                className="border-2 border-neutral-300 border-opacity-10 rounded-xl mt-4 p-2 bg-neutral-800"
                 onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="password"
                 placeholder="password"
-                className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-1 p-2 bg-neutral-800"
+                className="border-2 border-neutral-300 border-opacity-10 rounded-xl mt-1 p-2 bg-neutral-800"
                 onChange={(e) => setPassword(e.target.value)}
               />
               <button className="mt-4 bg-neutral-600 text-white rounded-2xl p-3 hover:bg-orange-500">

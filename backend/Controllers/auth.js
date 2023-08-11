@@ -30,6 +30,8 @@ export const registerUser = async (req, res) => {
           username: username,
           password: bcrypt.hashSync(password, bcryptSalt),
           store: newStore._id,
+          profilePicture:
+            "https://gymtok-photo-video-upload.s3.amazonaws.com/1689844678127.png",
         });
 
         res.json(newUser);

@@ -24,6 +24,7 @@ const Store = () => {
   const [storeDataTrigger, setStoreDataTrigger] = useState(false);
   const [storeUser, setStoreUser] = useState(null);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [followHidden, setFollowHidden] = useState(false);
 
   // REDUX
   const user = useSelector((state) => state.userData.value.user);
@@ -40,11 +41,13 @@ const Store = () => {
   useEffect(() => {
     setIsFetching(true);
     axios.post("/api/store/fetch-store-data", { storeid }).then(({ data }) => {
+      console.log(data);
       setStoreData(data.store);
-      setStoreItems(data.store.storeProducts);
+      // setStoreItems(data.store.storeProducts);
+      setProductCollections(data.user.store.storeCollections);
       setIsFetching(false);
       dispatch(setStoreId(storeid));
-      dispatch(addStoreProducts(data.store.storeProducts));
+      //dispatch(addStoreProducts(data.store.storeProducts));
       dispatch(getStoreSubPage("store"));
       dispatch(setSavedStore(data.store));
       dispatch(addCollectionItems(data.store.storeCollections));
@@ -55,7 +58,7 @@ const Store = () => {
 
   useEffect(() => {
     if (trigger) {
-      handleStoreCollections();
+      // handleStoreCollections();
       if (storeUser.followers.includes(user._id)) {
         setIsFollowing(true);
       } else {
@@ -96,7 +99,7 @@ const Store = () => {
   // FUNCTIONS
 
   // sort out products by their collection
-  function handleStoreCollections() {
+  /* function handleStoreCollections() {
     const newArray = [];
     collection.forEach((collection, index) => {
       const productArray = storeProducts.filter(
@@ -107,7 +110,9 @@ const Store = () => {
     });
     setProductCollections(newArray);
   }
-
+  useEffect(() => {
+    setProductCollections(user.store.storeCollections);
+  }, []);*/
   // follow store
   const followStore = async () => {
     await axios.post("/api/store/follow-store", {
@@ -125,6 +130,14 @@ const Store = () => {
     });
     setStoreDataTrigger(!storeDataTrigger);
   };
+
+  useEffect(() => {
+    if (storeUser) {
+      if (user._id === storeUser._id) {
+        setFollowHidden(true);
+      }
+    }
+  }, [storeUser]);
 
   return (
     <>
@@ -144,7 +157,11 @@ const Store = () => {
                 followStore();
               }
             }}
-            className="lg:w-[120px] h-[10%] bg-transparent absolute top-2 right-0 lg:left-4 flex p-4 rounded-md text-white z-40 justify-center items-center gap-1 hover:bg-orange-500 transition-all "
+            className={
+              followHidden
+                ? "hidden"
+                : "lg:w-[120px] h-[10%] bg-transparent absolute top-2 right-0 lg:left-4 flex p-4 rounded-md text-white z-40 justify-center items-center gap-1 hover:bg-orange-500 transition-all "
+            }
           >
             {isFollowing ? (
               <svg
@@ -193,7 +210,7 @@ const Store = () => {
           <div className="w-[75%] md:w-[50%] lg:h-[170px]   h-[160px] md:h-[35%]  z-40 absolute bottom-0 flex gap-2 md:gap-4 p-4">
             {" "}
             <img
-              src={storeData && storeData.storeProfile}
+              src={storeData ? storeData.storeProfile : user.profilePicture}
               className="h-full w-[30%] md:w-[20%]  rounded-xl shadow-xl object-cover"
             ></img>
             <div className="text-white bg-neutral-900 p-4 rounded-xl z-50 min-w-[40%] md:min-w-[30%] max-w-full  md:max-w-full overflow-hidden">
@@ -251,11 +268,13 @@ const Store = () => {
                   className="h-full w-full relative fl overflow-x-auto "
                 >
                   <div className="h-[40px] w-full bg-neutral-900 p-4 text-neutral-300 flex items-center">
-                    <h1 className="text-xl lg:text-2xl">{collection[index]}</h1>
+                    <h1 className="text-xl lg:text-2xl">
+                      {item.collectionName}
+                    </h1>
                   </div>
                   <div className="h-full min-w-min flex gap-2 p-2 lg:p-4 bg-neutral-800 ">
                     {item &&
-                      item.map((product, index) => {
+                      item.collectionProducts.map((product, index) => {
                         return (
                           <article className="h-full w-[220px] lg:w-[250px]  flex items-center">
                             {" "}

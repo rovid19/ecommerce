@@ -14,6 +14,7 @@ const postSchema = new mongoose.Schema({
   postAuthor: { type: mongoose.Schema.Types.ObjectId, ref: "user" },
   postText: String,
   postVideo: String,
+  postYoutubeVideo: String,
   postProduct: {},
   postLikes: [{ type: String }],
   postComments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comment" }],

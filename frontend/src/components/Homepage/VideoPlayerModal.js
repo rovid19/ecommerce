@@ -5,6 +5,7 @@ const VideoPlayerModal = ({
   video,
   videoModalClass,
   setVideoModalClass,
+  youtubeId,
 }) => {
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
@@ -38,11 +39,18 @@ const VideoPlayerModal = ({
             />
           </svg>
         </button>
-        <video
-          src={video}
-          controls
-          className="h-full w-full object-cover"
-        ></video>
+        {youtubeId ? (
+          <iframe
+            src={youtubeId}
+            className="h-full w-full object-cover"
+          ></iframe>
+        ) : (
+          <video
+            src={video}
+            controls
+            className="h-full w-full object-cover"
+          ></video>
+        )}
       </article>
     </div>
   );

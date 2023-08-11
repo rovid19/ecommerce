@@ -560,17 +560,28 @@ export const seenMessage = async (req, res) => {
 };
 
 export const postUpload = async (req, res) => {
-  const { text, video, product, userId, date } = req.body;
+  const { text, videoForm, youtubeForm, product, userId, date } = req.body;
 
-  const post = await Post.create({
-    postText: text,
-    postVideo: video,
-    postProduct: product,
-    postAuthor: userId,
-    postDate: date,
-  });
-
-  res.json(post);
+  console.log(videoForm, youtubeForm);
+  if (videoForm) {
+    const post = await Post.create({
+      postText: text,
+      postVideo: videoForm,
+      postProduct: product,
+      postAuthor: userId,
+      postDate: date,
+    });
+    res.json(post);
+  } else {
+    const post = await Post.create({
+      postText: text,
+      postYoutubeVideo: youtubeForm,
+      postProduct: product,
+      postAuthor: userId,
+      postDate: date,
+    });
+    res.json(post);
+  }
 };
 
 export const getAllPosts = async (req, res) => {

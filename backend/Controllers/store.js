@@ -267,7 +267,23 @@ export const fetchStoreData = async (req, res) => {
     "productName productPicture productDescription productRating productNewPrice productOldPrice productCollection"
   );
 
-  const user = await User.findOne({ store: storeid });
+  const user = await User.findOne({ store: storeid }).populate({
+    path: "store",
+    select:
+      "storeName storeDescription storeProfile storeCover storeProducts storeAddress storeCollections",
+    populate: {
+      path: "storeCollections",
+      select: "collectionName collectionProducts",
+
+      populate: {
+        path: "collectionProducts",
+        select:
+          "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold",
+      },
+    },
+  });
+
+  console.log(user);
 
   res.json({
     store: store,

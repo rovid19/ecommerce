@@ -139,6 +139,34 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
               </button>
             </div>
           </>
+        ) : post.postYoutubeVideo ? (
+          <>
+            <iframe
+              src={post.postYoutubeVideo}
+              className="h-full w-full object-cover rounded-md"
+            ></iframe>
+            <div className="h-full w-full absolute top-0 bg-neutral flex justify-center items-center bg-neutral-900 bg-opacity-40">
+              <button
+                onClick={() => {
+                  setIndex(index);
+                  dispatch(setPostModalVisible(true));
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-10 h-10 text-neutral-400 hover:text-white transition-all"
+                >
+                  <path
+                    fill-rule="evenodd"
+                    d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                    clip-rule="evenodd"
+                  />
+                </svg>
+              </button>
+            </div>
+          </>
         ) : (
           <img
             src={post.postProduct.productPicture[0]}
