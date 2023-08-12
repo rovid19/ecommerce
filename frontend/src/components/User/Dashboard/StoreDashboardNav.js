@@ -8,7 +8,9 @@ import {
   useMatch,
 } from "react-router-dom";
 import { setEditMode } from "../../../app/features/Store/storeEditMode";
-import { getStoreSubPage } from "../../../app/features/storeSubPage";
+import storeSubPage, {
+  getStoreSubPage,
+} from "../../../app/features/storeSubPage";
 
 const StoreDashboardNav = () => {
   const user = useSelector((state) => state.userData.value.user);
@@ -34,6 +36,8 @@ const StoreDashboardNav = () => {
     path: `/dashboard/${user.storeName}/orders`,
     exact: true,
   });
+
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   return (
     <div className=" w-full h-full shadow-xl relative bg-neutral-900 text-neutral-300">
@@ -64,7 +68,7 @@ const StoreDashboardNav = () => {
               dispatch(setEditMode(false));
             }}
             className={
-              storeEdit
+              storeSubPage === "editStore"
                 ? "Navlink hover:bg-orange-500  hover:text-white active 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
                 : "Navlink hover:bg-orange-500  hover:text-white  2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
             }
@@ -86,7 +90,7 @@ const StoreDashboardNav = () => {
             to={`/dashboard/${user.username}/products`}
             onClick={() => dispatch(getStoreSubPage("products"))}
             className={
-              productEdit
+              storeSubPage === "products"
                 ? "Navlink hover:bg-orange-500 hover:text-white active p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
                 : "Navlink hover:bg-orange-500 hover:text-white  p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
             }
@@ -113,7 +117,7 @@ const StoreDashboardNav = () => {
               dispatch(setEditMode(false));
             }}
             className={
-              storeFinance
+              storeSubPage === "finance"
                 ? "Navlink hover:bg-orange-500 hover:text-white active p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
                 : "Navlink hover:bg-orange-500 hover:text-white  p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
             }
@@ -141,7 +145,7 @@ const StoreDashboardNav = () => {
               dispatch(setEditMode(false));
             }}
             className={
-              storeOrders
+              storeSubPage === "orders"
                 ? "Navlink hover:bg-orange-500 hover:text-white active p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
                 : "Navlink hover:bg-orange-500 hover:text-white  p-2 2xl:p-2 lg:p-0 lg:text-sm xl:text-base lg:pl-2 bg-neutral-800"
             }

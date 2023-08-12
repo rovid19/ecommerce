@@ -26,6 +26,7 @@ const Navbar = () => {
   const inboxMessages = useSelector(
     (state) => state.inboxMessages.value.allChat
   );
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   async function handleLogout() {
     await axios.post("/api/auth/logout-user");
@@ -50,7 +51,11 @@ const Navbar = () => {
                   <Link
                     to={`/`}
                     onClick={() => dispatch(getStoreSubPage("homepage"))}
-                    className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                    className={
+                      storeSubPage === "homepage"
+                        ? "text-center h-[45px] text-xl rounded-md p-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                        : "text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                    }
                   >
                     <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                       <Home />
@@ -62,7 +67,11 @@ const Navbar = () => {
                   <Link
                     to={`/search`}
                     onClick={() => dispatch(getStoreSubPage("search"))}
-                    className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                    className={
+                      storeSubPage === "search"
+                        ? "text-center h-[45px] text-xl rounded-md p-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        : "text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                    }
                   >
                     <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                       <Search />
@@ -77,7 +86,11 @@ const Navbar = () => {
                       <Link
                         to={user && `/inbox`}
                         onClick={() => dispatch(getStoreSubPage("inbox"))}
-                        className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        className={
+                          storeSubPage === "inbox"
+                            ? "text-center h-[45px] text-xl rounded-md p-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                            : "text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        }
                       >
                         <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                           {inboxMessages > 0 ? (
@@ -117,13 +130,17 @@ const Navbar = () => {
                       <Link
                         to="/profile"
                         onClick={() => dispatch(getStoreSubPage("profile"))}
-                        className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        className={
+                          storeSubPage === "profile"
+                            ? "text-center h-[45px] text-xl rounded-md p-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                            : "text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        }
                       >
                         <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                           <ProfileSettings />
                         </div>
                         <div className="w-[80%] h-full flex  items-center">
-                          <h1 className="text-base">Profile settings </h1>
+                          <h1 className="text-base">My profile </h1>
                         </div>
                       </Link>
                       <Link
@@ -131,7 +148,11 @@ const Navbar = () => {
                         onClick={() =>
                           dispatch(getStoreSubPage("shippingdetails"))
                         }
-                        className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        className={
+                          storeSubPage === "shippingdetails"
+                            ? "text-center h-[45px] text-xl rounded-md p-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                            : "text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        }
                       >
                         <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                           <ShippingDetails />
@@ -143,7 +164,11 @@ const Navbar = () => {
                       <Link
                         to="/myorders"
                         onClick={() => dispatch(getStoreSubPage("myorders"))}
-                        className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        className={
+                          storeSubPage === "myorders"
+                            ? "text-center h-[45px] text-xl rounded-md p-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                            : "text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        }
                       >
                         <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                           <MyOrders />
@@ -155,7 +180,11 @@ const Navbar = () => {
                       <h1 className="text-gray-500 mt-2">Store settings:</h1>
                       <Link
                         /*to={user && `/store/${user.username}/${user.store._id}`}*/
-                        className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        className={
+                          storeSubPage === "store"
+                            ? "text-center h-[45px] text-xl rounded-md p-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                            : "text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                        }
                       >
                         <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                           <MyStore />

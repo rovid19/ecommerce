@@ -70,7 +70,8 @@ export const profileChanges = async (req, res) => {
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
     if (err) throw err;
     const user = await User.findById(userData.id);
-
+    const userStore = await Store.findById(user.store._id);
+    console.log(userStore);
     if (newEmail) {
       user.set({
         email: newEmail,
@@ -79,6 +80,9 @@ export const profileChanges = async (req, res) => {
     if (newUsername) {
       user.set({
         username: newUsername,
+      });
+      userStore.set({
+        storeName: newUsername,
       });
     }
     if (newPassword) {
@@ -93,6 +97,7 @@ export const profileChanges = async (req, res) => {
     }
 
     await user.save();
+    await userStore.save();
 
     res.json(user);
   });
@@ -432,10 +437,10 @@ export const sendMessage = async (req, res) => {
       }*/ chat.messages.push(messageSent);
       await chat.save();
       const foundObject = receiverUser.allChat.find(
-        (object) => object.id.toString() === chatId
+        (object) => object.id.toString() === chatId.toString()
       );
       const foundObject2 = user.allChat.find(
-        (object) => object.id.toString() === chatId
+        (object) => object.id.toString() === chatId.toString()
       );
       foundObject.newChatCount = foundObject.newChatCount + 1;
       foundObject2.newChatCount = foundObject2.newChatCount + 1;

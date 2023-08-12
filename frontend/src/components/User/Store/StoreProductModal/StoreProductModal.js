@@ -149,7 +149,7 @@ const StoreProductModal = () => {
           }
           dispatch(removePic([]));
         }}
-        className=" text-black absolute top-2 right-2 lg:left-2 z-50"
+        className=" text-black absolute top-2 right-2 lg:left-2 zeze"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"

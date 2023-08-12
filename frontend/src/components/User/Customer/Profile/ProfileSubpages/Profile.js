@@ -1,5 +1,5 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Img from "../../../../../assets/user.png";
 import Loader from "../../../../../assets/svg-loaders/three-dots.svg";
 import axios from "axios";
@@ -29,6 +29,10 @@ const Profile = () => {
   );
   const dispatch = useDispatch();
 
+  const passInput = useRef();
+  const usernameInput = useRef();
+  const emailInput = useRef();
+
   function handlePhotoUpload(e) {
     setIsLoading(true);
     const file = e.target.files;
@@ -57,9 +61,12 @@ const Profile = () => {
       .then(() => {
         dispatch(fetchUserData());
         dispatch(setUserProfileSavedModal(true));
+        passInput.current.value = "";
+        emailInput.current.value = "";
+        usernameInput.current.value = "";
       });
   }
-
+  console.log(profileSavedModal);
   return (
     <div className="h-full w-full flex items-center bg-neutral-800 justify-center relative ">
       {manageFollowersVisible && (
@@ -100,27 +107,40 @@ const Profile = () => {
             )}
           </label>
         </div>
-        <div className="h-[30%] w-full fl2  mt-2 lg:mt-0 ">
+        <div className="h-[30%] w-full fl2  mt-2  ">
           <h1 className="text-neutral-600">
             You can change your account information here
           </h1>
-          <input
-            type="text"
-            placeholder="New Email"
-            className="h-[20%] w-[80%] md:w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
-            onChange={(e) => setNewEmail(e.target.value)}
-          />
-          <input
-            type="text"
-            placeholder="New Username"
-            className="h-[20%] w-[80%] md:w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
-            onChange={(e) => setNewUsername(e.target.value)}
-          />
+          <div className="h-[20%] w-[80%] md:w-[65%] relative ">
+            <div className="absolute h-full min-w-min right-0 top-0 flex items-center p-2 ">
+              <h3 className="text-neutral-500">{user.email}</h3>
+            </div>
+            <input
+              type="text"
+              placeholder="New Email"
+              className="h-full w-full bg-neutral-900  rounded-md p-2 text-neutral-400"
+              onChange={(e) => setNewEmail(e.target.value)}
+              ref={emailInput}
+            />
+          </div>
+          <div className="h-[20%] w-[80%] md:w-[65%] mt-1 relative">
+            <div className="absolute h-full min-w-min right-0 top-0 flex items-center p-2 ">
+              <h3 className="text-neutral-500">{user.username}</h3>
+            </div>
+            <input
+              type="text"
+              placeholder="New Username"
+              className="h-full w-full bg-neutral-900  rounded-md p-2 text-neutral-400"
+              onChange={(e) => setNewUsername(e.target.value)}
+              ref={usernameInput}
+            />
+          </div>
           <input
             type="text"
             placeholder="New Password"
             className="h-[20%] w-[80%] md:w-[65%] bg-neutral-900 mt-1 rounded-md p-2 text-neutral-400"
             onChange={(e) => setNewPassword(e.target.value)}
+            ref={passInput}
           />
           <button
             className="h-[20%] bg-neutral-700 w-[70%] md:w-[65%] rounded-md text-neutral-200 mt-1 hover:bg-orange-500 hover:text-white"

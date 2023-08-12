@@ -36,6 +36,7 @@ const NavbarMobile = () => {
     (state) => state.inboxMessages.value.allChat
   );
   const closeNavbar = useSelector((state) => state.triggeri.value.closeNavbar);
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   async function handleLogout() {
     await axios.post("/api/auth/logout-user");
@@ -132,7 +133,11 @@ const NavbarMobile = () => {
                     closeNavbarMenu();
                     dispatch(getStoreSubPage("homepage"));
                   }}
-                  className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group rounded-r-md"
+                  className={
+                    storeSubPage === "homepage"
+                      ? "text-center h-[45px] text-xl rounded-md p-1 gap-2  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                      : "text-center h-[45px] text-xl rounded-md p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                  }
                 >
                   <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                     <Home />
@@ -147,7 +152,11 @@ const NavbarMobile = () => {
                     closeNavbarMenu();
                     dispatch(getStoreSubPage("search"));
                   }}
-                  className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                  className={
+                    storeSubPage === "search"
+                      ? "text-center h-[45px] text-xl rounded-md p-1 gap-2 mt-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                      : "text-center h-[45px] text-xl rounded-md p-1 gap-2 mt-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                  }
                 >
                   <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                     <Search />
@@ -165,7 +174,11 @@ const NavbarMobile = () => {
                         closeNavbarMenu();
                         dispatch(getStoreSubPage("inbox"));
                       }}
-                      className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                      className={
+                        storeSubPage === "inbox"
+                          ? "text-center h-[45px] text-xl  p-1 gap-2  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                          : "text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                      }
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                         {inboxMessages > 0 ? (
@@ -208,7 +221,11 @@ const NavbarMobile = () => {
                         closeNavbarMenu();
                         dispatch(getStoreSubPage("profile"));
                       }}
-                      className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                      className={
+                        storeSubPage === "profile"
+                          ? "text-center h-[45px] text-xl  p-1 gap-2  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                          : "text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                      }
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                         <ProfileSettings />
@@ -225,7 +242,11 @@ const NavbarMobile = () => {
                         closeNavbarMenu();
                         dispatch(getStoreSubPage("shippingdetails"));
                       }}
-                      className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                      className={
+                        storeSubPage === "shippingdetails"
+                          ? "text-center h-[45px] text-xl  p-1 gap-2  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                          : "text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                      }
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                         <ShippingDetails />
@@ -242,7 +263,11 @@ const NavbarMobile = () => {
                         closeNavbarMenu();
                         dispatch(getStoreSubPage("myorders"));
                       }}
-                      className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                      className={
+                        storeSubPage === "myorders"
+                          ? "text-center h-[45px] text-xl  p-1 gap-2  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                          : "text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                      }
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                         <MyOrders />
@@ -254,7 +279,11 @@ const NavbarMobile = () => {
                     <h1 className="text-gray-500 mt-2">Store settings:</h1>
                     <Link
                       /*to={user && `/store/${user.username}/${user.store._id}`} */
-                      className="text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                      className={
+                        storeSubPage === "store"
+                          ? "text-center h-[45px] text-xl  p-1 gap-2  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                          : "text-center h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                      }
                     >
                       <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
                         <MyStore />

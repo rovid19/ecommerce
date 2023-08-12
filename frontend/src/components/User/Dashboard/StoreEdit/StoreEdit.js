@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import { getStoreSubPage } from "../../../../app/features/storeSubPage";
 import { setEditMode } from "../../../../app/features/Store/storeEditMode";
 import StoreEditInfo from "./StoreEditInfo.js";
+import { fetchUserData } from "../../../../app/features/User/userSlice";
 
 const StoreEdit = () => {
   // states
@@ -47,7 +48,7 @@ const StoreEdit = () => {
         description: description ? description : user.store.storeDescription,
       })
       .then(() => {
-        dispatch(switchValue(!getUserTrigger));
+        dispatch(fetchUserData());
         setIsVisible(!isVisible);
         setIsLoading(false);
       });

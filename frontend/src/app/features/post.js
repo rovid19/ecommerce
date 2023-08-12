@@ -5,6 +5,8 @@ const initialState = {
     postModalVisible: false,
     postModalClass:
       "h-[100%] w-[90%] lg:w-[70%] bg-neutral-900  relative rounded-md p-4 overflow-scroll scrollbar-hide",
+    comPostDelete: "",
+    postTrigger: false,
   },
 };
 
@@ -30,6 +32,12 @@ export const postSlice = createSlice({
         action
       );
     },
+    setComPostDelete: (state, action) => {
+      state.value.comPostDelete = action.payload;
+    },
+    setPostTrigger: (state, action) => {
+      state.value.postTrigger = action.payload;
+    },
   },
 });
 
@@ -38,5 +46,7 @@ export const {
   setPostModalClass,
   setPostModalClose,
   setPostModalReset,
+  setComPostDelete,
+  setPostTrigger,
 } = postSlice.actions;
 export default postSlice.reducer;

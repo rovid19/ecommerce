@@ -102,6 +102,7 @@ const App = () => {
   useEffect(() => {
     if (socket.connected === true) {
       socket.on("newChat", async () => {
+        console.log("nova poruka");
         await dispatch(fetchUserData()).unwrap();
         dispatch(setRunUseEffect(true));
       });

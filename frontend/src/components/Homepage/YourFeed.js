@@ -100,7 +100,7 @@ const YourFeed = () => {
   //vracanje na scrollheight nakon zatvaranje post iz fullscreena
 
   const user = useSelector((state) => state.userData.value.user);
-  console.log(video);
+  console.log(postTrigger);
   return (
     <section
       className="h-full w-full bg-neutral-800 overflow-scroll scrollbar-hide "

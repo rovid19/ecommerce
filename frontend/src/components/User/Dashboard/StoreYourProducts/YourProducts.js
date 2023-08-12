@@ -243,7 +243,7 @@ const StoreAddProducts = () => {
               <article className="h-full w-full fl overflow-x-auto bg-neutral-800 ">
                 <div className="h-[15%] lg:h-[10%]"></div>
                 <div className="h-full min-w-min bg-neutral-800 gap-4 flex p-4  relative">
-                  <div className="h-[15%] lg:h-[10%] w-full absolute top-[-15%] lg:top-[10%] left-0 p-2 lg:p-3 text-xl uppercase font-bold bg-neutral-900 text-neutral-300">
+                  <div className="h-[15%] lg:h-[10%] w-full absolute top-[-15%] lg:top-[-10%] left-0 p-2 lg:p-3 text-xl uppercase font-bold bg-neutral-900 text-neutral-300">
                     <h1>{collection.collectionName}</h1>
                   </div>
                   {collection.collectionProducts &&

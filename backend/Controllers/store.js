@@ -52,15 +52,22 @@ export const editStore = async (req, res) => {
       storeCover: coverPhoto,
       storeAddress: address,
     });
-
-    user.set({
-      profilePicture: profilePhoto,
-    });
+    console.log(name);
+    if (name) {
+      user.set({
+        username: name,
+      });
+    }
+    if (profilePhoto) {
+      user.set({
+        profilePicture: profilePhoto,
+      });
+    }
 
     await findStore.save();
     await user.save();
 
-    res.json(findStore);
+    res.json({ store: findStore, user: user });
   });
 };
 

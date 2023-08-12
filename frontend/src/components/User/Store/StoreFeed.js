@@ -31,19 +31,7 @@ const StoreFeed = ({ storeUser }) => {
   };
   console.log(userPosts);
   return (
-    <div className=" w-full min-h-full flex justify-center bg-neutral-800 relative">
-      {userPosts && userPosts.length === 0 && (
-        <div className="h-full w-full flex items-center justify-center absolute top-0">
-          <h1 className="text-2xl text-neutral-500">
-            This store has made no posts yet!
-          </h1>
-        </div>
-      )}
-      {isLoading && (
-        <div className="h-[50vh] w-full flex items-center justify-center  absolute top-[0] left-0 z-50 bg-neutral-800 ">
-          <img src={Loader}></img>{" "}
-        </div>
-      )}
+    <>
       {postModalVisible && (
         <PostModal
           feedPosts={userPosts}
@@ -52,22 +40,37 @@ const StoreFeed = ({ storeUser }) => {
           setPostTrigger={setPostTrigger}
         />
       )}
-      <div className="h-full w-[90%] md:w-[80%] relative">
-        {userPosts &&
-          userPosts.length > 0 &&
-          userPosts.map((post, i) => (
-            <div className="">
-              <Post
-                post={post}
-                setIndex={setIndex}
-                index={i}
-                postTrigger={postTrigger}
-                setPostTrigger={setPostTrigger}
-              />
-            </div>
-          ))}
+      <div className=" w-full min-h-full flex justify-center bg-neutral-800 relative">
+        {userPosts && userPosts.length === 0 && (
+          <div className="h-full w-full flex items-center justify-center absolute top-0">
+            <h1 className="text-2xl text-neutral-500">
+              This store has made no posts yet!
+            </h1>
+          </div>
+        )}
+        {isLoading && (
+          <div className="h-[50vh] w-full flex items-center justify-center  absolute top-[0] left-0 z-50 bg-neutral-800 ">
+            <img src={Loader}></img>{" "}
+          </div>
+        )}
+
+        <div className="h-full w-[90%] md:w-[80%] relative">
+          {userPosts &&
+            userPosts.length > 0 &&
+            userPosts.map((post, i) => (
+              <div className="">
+                <Post
+                  post={post}
+                  setIndex={setIndex}
+                  index={i}
+                  postTrigger={postTrigger}
+                  setPostTrigger={setPostTrigger}
+                />
+              </div>
+            ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

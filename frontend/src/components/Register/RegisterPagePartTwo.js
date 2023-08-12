@@ -65,7 +65,7 @@ const RegisterPagePartTwo = () => {
   }
 
   return (
-    <div className="h-screen flex justify-center items-center bg-neutral-900">
+    <div className="h-screen flex justify-center items-center bg-neutral-900 text-white">
       <motion.div
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}

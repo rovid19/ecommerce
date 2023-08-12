@@ -8,6 +8,7 @@ const StoreSavedModal = ({ setIsVisible }) => {
   const profileSavedModal = useSelector(
     (state) => state.profileSavedModal.value
   );
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   function handleDisableEditModeToggle() {
     htmlElement.checked = false;
@@ -17,10 +18,13 @@ const StoreSavedModal = ({ setIsVisible }) => {
     <div
       className="w-full h-full  flex items-center justify-center bg-black bg-opacity-40 z-50 absolute top-0 left-0 cursor-pointer"
       onClick={() => {
-        setIsVisible(false);
-        dispatch(setEditMode(false));
-        dispatch(setUserProfileSavedModal(false));
-        handleDisableEditModeToggle();
+        if (storeSubPage === "editStore") {
+          setIsVisible(false);
+          dispatch(setEditMode(false));
+          handleDisableEditModeToggle();
+        } else {
+          dispatch(setUserProfileSavedModal(false));
+        }
       }}
     >
       <div

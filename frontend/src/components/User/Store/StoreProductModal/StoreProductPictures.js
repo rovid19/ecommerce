@@ -53,7 +53,7 @@ const StoreProductPictures = ({
                   return (
                     <div
                       className={
-                        productPicture.length > 0
+                        productPicture.length === 0
                           ? "h-full w-full object-cover z-50 flex items-center relative "
                           : "h-full w-[70%] object-cover z-50 flex items-center relative "
                       }
@@ -196,7 +196,7 @@ const StoreProductPictures = ({
                   return (
                     <div
                       className={
-                        productPicture.length > 0
+                        productPicture.length === 0
                           ? "h-full w-full object-cover z-50 flex items-center relative "
                           : "h-full w-[70%] object-cover z-50 flex items-center relative "
                       }

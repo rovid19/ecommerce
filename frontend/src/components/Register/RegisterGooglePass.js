@@ -59,7 +59,7 @@ const LoginGooglePass = ({ email }) => {
       transition={{ type: "tween", duration: 0.3 }}
       className="w-full h-full flex items-center justify-center"
     >
-      <form className="h-full w-full  fl" onSubmit={handleRegister}>
+      <form className="h-full w-full  fl text-white" onSubmit={handleRegister}>
         {error && (
           <h1 className="text-red-500 mt-2 font-bold text-center">{error}</h1>
         )}
@@ -72,19 +72,19 @@ const LoginGooglePass = ({ email }) => {
         <input
           type="text"
           placeholder={input === "Store Owner" ? "Store name" : "Username"}
-          className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-4 p-2 bg-neutral-800"
+          className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-4 p-2 bg-neutral-800 text-white"
           onChange={(e) => setName(e.target.value)}
         />
         <input
           type="password"
           placeholder="Password"
-          className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-1 p-2 bg-neutral-800"
+          className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-1 p-2 bg-neutral-800 text-white"
           onChange={(e) => setPassword(e.target.value)}
         />
         <input
           type="password"
           placeholder="Confirm password"
-          className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-1 p-2 bg-neutral-800"
+          className="border-2 border-neutral-300 border-opacity-25 rounded-xl mt-1 p-2 bg-neutral-800 text-white"
           onChange={(e) => setConfirmedPass(e.target.value)}
         />
         <button className="mt-4 bg-neutral-600 text-white rounded-2xl p-3 hover:bg-orange-500 transition-all">
