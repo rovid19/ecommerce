@@ -9,10 +9,7 @@ export const cartItemsSlice = createSlice({
   initialState,
   reducers: {
     setCartItems: (state, action) => {
-      return {
-        ...state,
-        value: [...state.value, action.payload],
-      };
+      state.value.push(action.payload);
     },
     removeCartItem: (state, action) => {
       let newArray = [...state.value];

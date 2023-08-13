@@ -71,7 +71,7 @@ export const profileChanges = async (req, res) => {
     if (err) throw err;
     const user = await User.findById(userData.id);
     const userStore = await Store.findById(user.store._id);
-    console.log(userStore);
+
     if (newEmail) {
       user.set({
         email: newEmail,
@@ -93,6 +93,9 @@ export const profileChanges = async (req, res) => {
     if (profilePhoto) {
       user.set({
         profilePicture: profilePhoto,
+      });
+      userStore.set({
+        storeProfile: profilePhoto,
       });
     }
 
@@ -567,7 +570,6 @@ export const seenMessage = async (req, res) => {
 export const postUpload = async (req, res) => {
   const { text, videoForm, youtubeForm, product, userId, date } = req.body;
 
-  console.log(videoForm, youtubeForm);
   if (videoForm) {
     const post = await Post.create({
       postText: text,

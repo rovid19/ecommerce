@@ -52,7 +52,7 @@ export const editStore = async (req, res) => {
       storeCover: coverPhoto,
       storeAddress: address,
     });
-    console.log(name);
+
     if (name) {
       user.set({
         username: name,
@@ -290,8 +290,6 @@ export const fetchStoreData = async (req, res) => {
     },
   });
 
-  console.log(user);
-
   res.json({
     store: store,
     user: user,
@@ -442,13 +440,32 @@ export const getTrendingStore = async (req, res) => {
       array.push(store);
     }
   });
+  console.log(array);
 
   const lengt = array.map((item) => item.storeSales.length);
+  console.log(lengt);
   const mostSales = Math.max(...lengt);
 
   const index = lengt.findIndex((item) => item === mostSales);
 
-  res.json(array[index]);
+  const storeId = array[index]._id;
+
+  const userStore = await User.findOne({ store: storeId }).populate({
+    path: "store",
+    select:
+      "storeName storeDescription storeProfile storeCover storeProducts storeAddress storeCollections",
+    populate: {
+      path: "storeCollections",
+      select: "collectionName collectionProducts",
+
+      populate: {
+        path: "collectionProducts",
+        select:
+          "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold",
+      },
+    },
+  });
+  res.json(userStore.store);
 };
 
 export const getAllProducts = async (req, res) => {

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { switchValue } from "../../../app/features/getUserTrigger";
 import { removeCartItem } from "../../../app/features/User/cartItems";
+import { fetchUserData } from "../../../app/features/User/userSlice";
 
 const AddToCart = () => {
   const [date, setDate] = useState(new Date());
@@ -82,18 +83,22 @@ const AddToCart = () => {
   }
 
   function handleBuyNow() {
-    axios
-      .post("/api/customer/buy-product", {
-        boughtItems,
-        quantity,
-        formattedDate,
-        storeId,
-        username,
-        total,
-      })
-      .then(() => {
-        dispatch(switchValue(!getUserTrigger));
-      });
+    if (user && Object.keys(user).length > 0) {
+      axios
+        .post("/api/customer/buy-product", {
+          boughtItems,
+          quantity,
+          formattedDate,
+          storeId,
+          username,
+          total,
+        })
+        .then(() => {
+          dispatch(fetchUserData());
+        });
+    } else {
+      alert("you must make an account in order to buy this product");
+    }
   }
 
   useEffect(() => {
@@ -106,7 +111,7 @@ const AddToCart = () => {
       setIndex(null);
     }
   }, [index]);
-
+  console.log(cartItems);
   return (
     <div
       className={

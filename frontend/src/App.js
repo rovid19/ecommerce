@@ -63,8 +63,10 @@ const App = () => {
     (state) => state.triggeri.value.runUseEffect
   );
   const dispatch = useDispatch();
+
+  //konektaj socket ak ne postoji
   useEffect(() => {
-    if (Object.keys(socket).length === 0) {
+    if (userData && Object.keys(socket).length === 0) {
       const sockett = io.connect("http://localhost:4005");
       dispatch(setSocket(sockett));
 
@@ -76,7 +78,7 @@ const App = () => {
 
   useEffect(() => {
     async function da() {
-      if (Object.keys(userData).length === 0) {
+      if (userData && Object.keys(userData).length === 0) {
         await dispatch(fetchUserData()).unwrap();
         dispatch(fetchStoreProducts());
         dispatch(setRunUseEffect(true));
@@ -102,12 +104,12 @@ const App = () => {
   useEffect(() => {
     if (socket.connected === true) {
       socket.on("newChat", async () => {
-        console.log("nova poruka");
         await dispatch(fetchUserData()).unwrap();
         dispatch(setRunUseEffect(true));
       });
     }
   }, [inboxMessages]);
+
   console.log(userData);
   return (
     <div>

@@ -41,7 +41,6 @@ const Store = () => {
   useEffect(() => {
     setIsFetching(true);
     axios.post("/api/store/fetch-store-data", { storeid }).then(({ data }) => {
-      console.log(data);
       setStoreData(data.store);
       // setStoreItems(data.store.storeProducts);
       setProductCollections(data.user.store.storeCollections);
@@ -59,7 +58,7 @@ const Store = () => {
   useEffect(() => {
     if (trigger) {
       // handleStoreCollections();
-      if (storeUser.followers.includes(user._id)) {
+      if (storeUser.followers.includes(user && user._id)) {
         setIsFollowing(true);
       } else {
         setIsFollowing(false);
@@ -133,12 +132,13 @@ const Store = () => {
 
   useEffect(() => {
     if (storeUser) {
-      if (user._id === storeUser._id) {
+      if (user && user._id === storeUser._id) {
         setFollowHidden(true);
       }
     }
   }, [storeUser]);
 
+  console.log(storeData);
   return (
     <>
       <main className="w-[100%]  h-full  relative  ">
@@ -149,53 +149,55 @@ const Store = () => {
         )}
 
         <div className="h-[50%] relative bg-cover">
-          <button
-            onClick={() => {
-              if (isFollowing) {
-                unfollowStore();
-              } else {
-                followStore();
+          {user && Object.keys(user).length > 0 && (
+            <button
+              onClick={() => {
+                if (isFollowing) {
+                  unfollowStore();
+                } else {
+                  followStore();
+                }
+              }}
+              className={
+                followHidden
+                  ? "hidden"
+                  : "lg:w-[120px] h-[10%] bg-transparent absolute top-2 right-0 lg:left-4 flex p-4 rounded-md text-white z-40 justify-center items-center gap-1 hover:bg-orange-500 transition-all "
               }
-            }}
-            className={
-              followHidden
-                ? "hidden"
-                : "lg:w-[120px] h-[10%] bg-transparent absolute top-2 right-0 lg:left-4 flex p-4 rounded-md text-white z-40 justify-center items-center gap-1 hover:bg-orange-500 transition-all "
-            }
-          >
-            {isFollowing ? (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-4 h-4 md:w-6 md:h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
-                />
-              </svg>
-            ) : (
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                class="w-6 h-6"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
-                />
-              </svg>
-            )}
-            {isFollowing ? "Unfollow" : "Follow"}
-          </button>
+            >
+              {isFollowing ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-4 h-4 md:w-6 md:h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M22 10.5h-6m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+                  />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="1.5"
+                  stroke="currentColor"
+                  class="w-6 h-6"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z"
+                  />
+                </svg>
+              )}
+              {isFollowing ? "Unfollow" : "Follow"}
+            </button>
+          )}
           <img
             src={storeData && storeData.storeCover}
             className=" h-full w-full object-cover"
@@ -210,7 +212,11 @@ const Store = () => {
           <div className="w-[75%] md:w-[50%] lg:h-[170px]   h-[160px] md:h-[35%]  z-40 absolute bottom-0 flex gap-2 md:gap-4 p-4">
             {" "}
             <img
-              src={storeData ? storeData.storeProfile : user.profilePicture}
+              src={
+                storeData && storeData.storeProfile.length > 0
+                  ? storeData.storeProfile
+                  : user && user.profilePicture
+              }
               className="h-full w-[30%] md:w-[20%]  rounded-xl shadow-xl object-cover"
             ></img>
             <div className="text-white bg-neutral-900 p-4 rounded-xl z-50 min-w-[40%] md:min-w-[30%] max-w-full  md:max-w-full overflow-hidden">
@@ -276,7 +282,10 @@ const Store = () => {
                     {item &&
                       item.collectionProducts.map((product, index) => {
                         return (
-                          <article className="h-full w-[220px] lg:w-[250px]  flex items-center">
+                          <article
+                            className="h-full w-[220px] lg:w-[250px]  flex items-center"
+                            onClick={() => dispatch(addStoreProducts(product))}
+                          >
                             {" "}
                             <StoreProductCard
                               storeProducts={product}

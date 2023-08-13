@@ -278,7 +278,14 @@ const NavbarMobile = () => {
                     </Link>{" "}
                     <h1 className="text-gray-500 mt-2">Store settings:</h1>
                     <Link
-                      /*to={user && `/store/${user.username}/${user.store._id}`} */
+                      to={
+                        Object.keys(user).length > 0 &&
+                        `/store/${user.username}/${user.store._id}`
+                      }
+                      onClick={() => {
+                        closeNavbarMenu();
+                        dispatch(getStoreSubPage("store"));
+                      }}
                       className={
                         storeSubPage === "store"
                           ? "text-center h-[45px] text-xl  p-1 gap-2  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"

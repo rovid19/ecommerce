@@ -30,6 +30,7 @@ const StoreProductModal = () => {
   const [productPicture, setProductPicture] = useState([]);
 
   // REDUX
+  const user = useSelector((state) => state.userData.value.user);
   const openReviewPic = useSelector((state) => state.openReviewPic.value);
   const search = useSelector((state) => state.search.value);
   const reviewPic = useSelector((state) => state.reviewPic.value);
@@ -66,14 +67,20 @@ const StoreProductModal = () => {
 
   // FUNCTIONS
   function addProductToCart() {
-    const isItemInCart = cartItems.find(
-      (cartItem) => cartItem._id === storeProducts[productIndex]._id
-    );
+    let isItemInCart = false;
+    if (cartItems.length > 0) {
+      isItemInCart = cartItems.find(
+        (cartItem) => cartItem._id === storeProducts._id
+      );
+    } else {
+      console.log("hahahahahha");
+    }
 
+    console.log("ok");
     if (isItemInCart) {
       alert("item already in cart");
     } else {
-      dispatch(setCartItems(storeProducts[productIndex]));
+      dispatch(setCartItems(storeProducts));
       dispatch(setCartVisible(true));
     }
   }
@@ -222,12 +229,28 @@ const StoreProductModal = () => {
         <div className="w-full  h-[20%] absolute bottom-0 left-0 flex items-center pl-2 ">
           {" "}
           {/* BUY NOW BUTTON*/}
-          <button className=" bg-orange-500 p-4 rounded-lg text-white  w-[35%]  lg:w-[25%]  h-[80%] text-base lg:text-xl lg:hover:w-[28%] transition-all">
+          <button
+            className=" bg-orange-500 p-4 rounded-lg text-white  w-[35%]  lg:w-[25%]  h-[80%] text-base lg:text-xl lg:hover:w-[28%] transition-all"
+            onClick={() => {
+              if (user && Object.keys(user).length > 0) {
+              } else {
+                alert("You must make an account in order to buy a product");
+              }
+            }}
+          >
             Buy now
           </button>{" "}
           {/* ADD TO CART BUTTON*/}
           <button
-            onClick={addProductToCart}
+            onClick={() => {
+              if (user && Object.keys(user).length > 0) {
+                addProductToCart();
+              } else {
+                alert(
+                  "You must make an account in order to add a product to your cart"
+                );
+              }
+            }}
             className=" absolute left-[40%] lg:left-[29%] border-2 border-orange-500 text-orange-500 p-4 rounded-lg h-[80%] w-[30%] lg:w-[15%] text-base lg:text-xl hover:bg-orange-500 hover:text-white transition-all"
           >
             Add to cart

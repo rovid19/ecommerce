@@ -66,7 +66,7 @@ const Profile = () => {
         usernameInput.current.value = "";
       });
   }
-  console.log(profileSavedModal);
+
   return (
     <div className="h-full w-full flex items-center bg-neutral-800 justify-center relative ">
       {manageFollowersVisible && (

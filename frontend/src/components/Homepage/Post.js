@@ -19,11 +19,15 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
   );
 
   async function likePost() {
-    await axios.post("/api/customer/like-post", {
-      postId: post._id,
-      userId: user._id,
-    });
-    setPostTrigger(!postTrigger);
+    if (user && Object.keys(user).length > 0) {
+      await axios.post("/api/customer/like-post", {
+        postId: post._id,
+        userId: user._id,
+      });
+      setPostTrigger(!postTrigger);
+    } else {
+      alert("You must create an account in order to like this post!");
+    }
   }
   async function unlikePost() {
     await axios.post("/api/customer/unlike-post", {
@@ -39,8 +43,10 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
   };
 
   useEffect(() => {
-    const isLiked = post.postLikes.includes(user._id);
-    setLiked(isLiked);
+    if (user) {
+      const isLiked = post.postLikes.includes(user._id);
+      setLiked(isLiked);
+    }
   }, [post]);
 
   return (

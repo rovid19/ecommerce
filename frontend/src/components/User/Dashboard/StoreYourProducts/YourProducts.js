@@ -94,7 +94,6 @@ const StoreAddProducts = () => {
 
     //uzimanje producta iz arraya i postavljanje producta na novu poziciju u arrayu
     const draggedItemContent = productCollection.splice(dragItem.current, 1)[0];
-    console.log(draggedItemContent, dragItem.current);
     productCollection.splice(dragOverItem.current, 0, draggedItemContent);
 
     dragItem.current = null;
@@ -254,12 +253,10 @@ const StoreAddProducts = () => {
                           key={index}
                           onDragStart={() => {
                             dragItem.current = index;
-                            console.log(index);
                             setNewCollectionName(product.productCollection);
                           }}
                           onDragEnter={(e) => {
                             dragOverItem.current = index;
-                            console.log(index);
                             dragSetClassname(index);
                           }}
                           onDragEnd={findCollectionIndex}

@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import { getStoreSubPage } from "../../app/features/storeSubPage";
 import {
   Dashboard,
@@ -11,6 +11,8 @@ import {
   ProfileSettings,
   ShippingDetails,
   Logout,
+  Login,
+  Register,
 } from "./Icons/IconsExport";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -19,6 +21,7 @@ import NavbarMobile from "./NavbarMobile.js";
 
 const Navbar = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const user = useSelector((state) => state.userData.value.user);
   const mobileActive = useSelector(
     (state) => state.triggeri.value.mobileActive
@@ -30,9 +33,9 @@ const Navbar = () => {
 
   async function handleLogout() {
     await axios.post("/api/auth/logout-user");
+    navigate("/");
     dispatch(addUser(null));
   }
-
   return (
     <>
       {!mobileActive && (
@@ -46,8 +49,8 @@ const Navbar = () => {
             </div>
             <div className="h-[85%] w-full ">
               <nav className="h-full  w-full">
-                <ul className="w-full h-[90%] p-2 relative">
-                  <li className="text-gray-500">General:</li>
+                <ul className={"w-full h-[90%] p-2 relative"}>
+                  <li className="text-neutral-500">General:</li>
                   <Link
                     to={`/`}
                     onClick={() => dispatch(getStoreSubPage("homepage"))}
@@ -80,7 +83,7 @@ const Navbar = () => {
                       <h1 className="text-base">Search </h1>
                     </div>
                   </Link>
-                  {user && (
+                  {user && Object.keys(user).length > 0 && (
                     <>
                       {" "}
                       <Link
@@ -179,7 +182,7 @@ const Navbar = () => {
                       </Link>{" "}
                       <h1 className="text-gray-500 mt-2">Store settings:</h1>
                       <Link
-                        /*to={user && `/store/${user.username}/${user.store._id}`}*/
+                        to={user && `/store/${user.username}/${user.store._id}`}
                         className={
                           storeSubPage === "store"
                             ? "text-center h-[45px] text-xl rounded-md p-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
@@ -209,8 +212,8 @@ const Navbar = () => {
                   )}
                 </ul>
 
-                <ul className="h-[10%] w-full p-2 ">
-                  {user ? (
+                <ul className={"h-[10%] w-full p-2 "}>
+                  {user && Object.keys(user).length > 0 ? (
                     <li
                       onClick={handleLogout}
                       className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
@@ -223,17 +226,20 @@ const Navbar = () => {
                       </div>
                     </li>
                   ) : (
-                    <Link
-                      to="/login"
-                      className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
-                    >
-                      <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
-                        <Logout />
-                      </div>
-                      <div className="w-[80%] h-full flex  items-center">
-                        <h1 className="text-base">Log in</h1>
-                      </div>
-                    </Link>
+                    <>
+                      <Link
+                        to="/login"
+                        className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"
+                      >
+                        <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
+                          <Login />
+                        </div>
+
+                        <div className="w-[80%] h-full flex  items-center">
+                          <h1 className="text-base">Log in</h1>
+                        </div>
+                      </Link>
+                    </>
                   )}
                 </ul>
               </nav>

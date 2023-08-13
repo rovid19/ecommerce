@@ -70,7 +70,7 @@ const Search = () => {
           if (aProduct > bProduct) return 1;
           return 0;
         });
-        console.log(newArray);
+
         dispatch(setSearchResults(newArray));
       } else {
         newArray.sort((a, b) => {
@@ -137,16 +137,12 @@ const Search = () => {
           break;
       }*/
       if (sortBy === "A-Z") {
-        console.log("da1");
         sortByAtoZ();
       } else if (sortBy === "Lowest To Highest") {
-        console.log("da2");
         sortByPriceLowest();
       } else if (sortBy === "Highest To Lowest") {
-        console.log("da3");
         sortByPriceHighest();
       } else {
-        console.log("da4");
         sortBySold();
       }
     }

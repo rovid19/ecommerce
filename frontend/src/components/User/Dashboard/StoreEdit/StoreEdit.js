@@ -81,7 +81,7 @@ const StoreEdit = () => {
     dragOverItem.current = null;
     dispatch(addStoreProducts(_storeProducts));
   }*/
-  console.log(user);
+
   return (
     <div
       className={

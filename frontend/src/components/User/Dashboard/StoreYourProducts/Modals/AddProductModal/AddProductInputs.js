@@ -91,7 +91,6 @@ const AddProductInputs = ({
   // stavi prvu kolekcija usera ko pocetni value za input
   useEffect(() => {
     if (user.store.storeCollections.length > 0) {
-      console.log("dadadada");
       setCollections(user.store.storeCollections[0].collectionName);
       setCollectionTrigger(false);
     } else {
@@ -111,7 +110,7 @@ const AddProductInputs = ({
       setCollectionIndex(indexC);
     }
   }, [collections]);
-  console.log(collectionTrigger);
+
   return (
     <>
       {collectionTrigger ? (

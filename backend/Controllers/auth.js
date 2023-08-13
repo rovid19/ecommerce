@@ -20,7 +20,8 @@ export const registerUser = async (req, res) => {
       const newStore = await Store.create({
         storeName: username,
         storeDescription: "",
-        storeProfile: "",
+        storeProfile:
+          "https://gymtok-photo-video-upload.s3.amazonaws.com/1689844678127.png",
         storeCover: "",
         storeAddress: "",
       });

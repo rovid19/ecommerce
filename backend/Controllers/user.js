@@ -8,9 +8,10 @@ const jwtSecret = "rockjefakatludirock";
 
 export const getUser = async (req, res) => {
   const { token } = req.cookies;
+  console.log(token);
 
   if (token) {
-    jwt.verify(token, jwtSecret, {}, async (err, user) => {
+    /*jwt.verify(token, jwtSecret, {}, async (err, user) => {
       if (err) throw err;
       const userData = await User.findById(user.id);
 
@@ -34,6 +35,27 @@ export const getUser = async (req, res) => {
 
         res.json(newStore);
       }
+    });
+  }*/
+    jwt.verify(token, jwtSecret, {}, async (err, user) => {
+      if (err) throw err;
+      const userData = await User.findById(user.id).populate({
+        path: "store",
+        select:
+          "storeName storeDescription storeProfile storeCover storeProducts storeAddress storeCollections",
+        populate: {
+          path: "storeCollections",
+          select: "collectionName collectionProducts",
+
+          populate: {
+            path: "collectionProducts",
+            select:
+              "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold",
+          },
+        },
+      });
+
+      res.json(userData);
     });
   }
 };

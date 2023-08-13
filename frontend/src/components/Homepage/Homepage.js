@@ -32,13 +32,13 @@ const Homepage = () => {
 
   // ak je user ulogiran stavi mu your feed odmah, a ak nije onda ga prebaci na homepage
   useEffect(() => {
-    if (user) {
+    if (user && Object.keys(user).length > 0) {
       dispatch(setActive("Your Feed"));
     } else {
       dispatch(setActive("Home"));
     }
-  }, []);
-
+  }, [user]);
+  console.log(active);
   return (
     <>
       <main className="h-full w-full overflow-scroll  scrollbar-hide griddd bg-neutral-900 relative">
@@ -47,7 +47,7 @@ const Homepage = () => {
         ) : (
           <div
             className={
-              "absolute top-0 right-0 lg:w-[8%] w-[50px] h-[4%] bg-black z-50 rounded-l-md"
+              "absolute top-0 right-0 lg:w-[8%] w-[50px] h-[50px] bg-black z-50 rounded-l-md"
             }
           >
             <select
@@ -59,8 +59,12 @@ const Homepage = () => {
               onChange={(e) => dispatch(setActive(e.target.value))}
               defaultValue={active}
             >
-              <option className="text-sm text-center">Your Feed</option>
               <option className="text-sm text-center">Home</option>
+              <option className="text-sm text-center" value="Your Feed">
+                {user && Object.keys(user).length > 0
+                  ? "Your Feed"
+                  : "Trending Feed"}
+              </option>
             </select>
           </div>
         )}
@@ -70,7 +74,7 @@ const Homepage = () => {
           <>
             <div className="h-full w-full grid grid-rows-2">
               <section className=" h-full w-full relative group">
-                <h1 className="absolute bottom-0 rounded-r-md text-white left-0 z-20 text-4xl bg-neutral-900 p-4 group-hover:invisible transition-all">
+                <h1 className="absolute bottom-0 rounded-r-md text-white left-0 z-20 text-2xl bg-neutral-800 p-4 group-hover:invisible transition-all">
                   Trending store this week{" "}
                 </h1>
                 <HomepageTrending />
@@ -86,7 +90,7 @@ const Homepage = () => {
                       />
                     ))}
                 </div>
-                <h1 className="absolute right-0 bottom-0 bg-neutral-900 text-white p-2 text-xl rounded-l-md  ">
+                <h1 className="absolute right-0 bottom-0 bg-neutral-800 text-white p-2 text-xl rounded-l-md  ">
                   Other popular stores
                 </h1>
               </section>

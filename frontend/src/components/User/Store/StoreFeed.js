@@ -29,7 +29,6 @@ const StoreFeed = ({ storeUser }) => {
     setUserPosts(response.data.reverse());
     setIsLoading(false);
   };
-  console.log(userPosts);
   return (
     <>
       {postModalVisible && (

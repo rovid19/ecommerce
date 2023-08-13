@@ -36,8 +36,10 @@ const PostModal = ({
     (state) => state.post.value.postModalClass
   );
   useEffect(() => {
-    const isLiked = feedPosts[index].postLikes.includes(user._id);
-    setLiked(isLiked);
+    if (user) {
+      const isLiked = feedPosts[index].postLikes.includes(user._id);
+      setLiked(isLiked);
+    }
     // setLikeTrigger(false);
   }, [feedPosts[index]]);
 
@@ -58,11 +60,15 @@ const PostModal = ({
   }, [commentId]);
 
   async function likePost() {
-    await axios.post("/api/customer/like-post", {
-      postId: feedPosts[index]._id,
-      userId: user._id,
-    });
-    setPostTrigger(!postTrigger);
+    if (user && Object.keys(user).length > 0) {
+      await axios.post("/api/customer/like-post", {
+        postId: feedPosts[index]._id,
+        userId: user._id,
+      });
+      setPostTrigger(!postTrigger);
+    } else {
+      alert("You must create an account in order to like this post!");
+    }
   }
   async function unlikePost() {
     await axios.post("/api/customer/unlike-post", {
@@ -79,7 +85,7 @@ const PostModal = ({
       comment: commentText,
       postId: feedPosts[index]._id,
     });
-    console.log("okej");
+
     if (storeSubPage === "store") {
     } else {
       setComPostDelete("Post");
@@ -108,7 +114,7 @@ const PostModal = ({
       }
     }
   }, [comIndex]);
-  console.log(feedPosts[index].postYoutubeVideo !== "");
+
   return (
     <div
       className={
@@ -275,7 +281,6 @@ const PostModal = ({
           </button>
           <div className={showLess ? "h-full w-full  p-2" : "w-full  p-2"}>
             {feedPosts[index].postComments.map((comment, i) => {
-              console.log(comment);
               return (
                 <article
                   className={comIndex === i ? commentAni : " mt-4 flex "}
@@ -288,7 +293,7 @@ const PostModal = ({
                   </div>
                   <div className=" w-auto bg-neutral-800 text-neutral-300 p-4 max-w-[80%] break-words rounded-lg relative">
                     {comment.commentText}
-                    {comment.commentAuthor._id === user._id && (
+                    {comment.commentAuthor._id === user && user._id && (
                       <button
                         className="absolute bottom-1 right-1"
                         onClick={() => {
@@ -318,37 +323,39 @@ const PostModal = ({
               );
             })}
           </div>
-          <form
-            className={
-              showLess
-                ? "h-[40%] flex p-2 absolute bottom-0 w-full bg-neutral-900"
-                : "h-[40%] flex p-2  relative "
-            }
-            onSubmit={sumbitComment}
-          >
-            <div className="lg:w-[6%] md:w-[60px] xl:w-[50px] w-[10%] md:[4%]   p-1 pr-2 ">
-              <img
-                className="h-[70%] w-full  rounded-full object-cover "
-                src={user.profilePicture}
-              ></img>
-            </div>
-            <textarea
-              ref={textRef}
-              placeholder="Type in your comment..."
-              className="h-full w-[90%] lg:[94%] xl:w-[96%] md:w-[94%] align-top p-2 bg-neutral-800 text-white outline-none rounded-md"
-              onChange={(e) => setCommentText(e.target.value)}
-            />
-            <button className="absolute bottom-4 right-4">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                class="w-8 h-8 text-neutral-500 hover:text-white transition-all "
-              >
-                <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
-              </svg>
-            </button>
-          </form>
+          {user && Object.keys(user).length > 0 && (
+            <form
+              className={
+                showLess
+                  ? "h-[40%] flex p-2 absolute bottom-0 w-full bg-neutral-900"
+                  : "h-[40%] flex p-2  relative "
+              }
+              onSubmit={sumbitComment}
+            >
+              <div className="lg:w-[6%] md:w-[60px] xl:w-[50px] w-[10%] md:[4%]   p-1 pr-2 ">
+                <img
+                  className="h-[70%] w-full  rounded-full object-cover "
+                  src={user && user.profilePicture}
+                ></img>
+              </div>
+              <textarea
+                ref={textRef}
+                placeholder="Type in your comment..."
+                className="h-full w-[90%] lg:[94%] xl:w-[96%] md:w-[94%] align-top p-2 bg-neutral-800 text-white outline-none rounded-md"
+                onChange={(e) => setCommentText(e.target.value)}
+              />
+              <button className="absolute bottom-4 right-4">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                  class="w-8 h-8 text-neutral-500 hover:text-white transition-all "
+                >
+                  <path d="M3.478 2.405a.75.75 0 00-.926.94l2.432 7.905H13.5a.75.75 0 010 1.5H4.984l-2.432 7.905a.75.75 0 00.926.94 60.519 60.519 0 0018.445-8.986.75.75 0 000-1.218A60.517 60.517 0 003.478 2.405z" />
+                </svg>
+              </button>
+            </form>
+          )}
         </div>
       </article>
     </div>

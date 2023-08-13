@@ -80,7 +80,7 @@ const StoreOrdersModal = ({
           />
         </svg>
       </button>
-      <div className="h-[75%] lg:h-[90%] w-full lg:w-[85%] bg-neutral-700 text-neutral-300 flex items-center justify-center rounded-md">
+      <div className="h-[75%] lg:h-[85%] w-full lg:w-[75%] bg-neutral-700 text-neutral-300 flex items-center justify-center rounded-md">
         <div className="w-[30%] h-full">
           <img
             src={orderData.productBought[indexDva].productPicture}
@@ -126,13 +126,14 @@ const StoreOrdersModal = ({
                     readOnly={orderData.productShipped ? true : false}
                     type="number"
                     value={orderData.arrivalDate}
-                    className="w-full h-full rounded-md bg-neutral-700 "
+                    className="w-full h-full rounded-md bg-neutral-700 z-50"
                     onChange={(e) => setShippingDate(e.target.value)}
                   />
                   <span className="absolute right-5 top-0">Days</span>
                 </div>
               </div>
             </div>
+            <input className="bg-neutral-700" />
             <div className="h-[30%] w-full flex relative   ">
               <div className="h-[33%] w-full flex absolute bottom-0 left-0 items-center">
                 {" "}

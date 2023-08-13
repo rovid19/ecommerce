@@ -51,7 +51,7 @@ const StoreOrders = () => {
   useEffect(() => {
     setCalendar(false);
   }, [value]);
-  console.log(orders);
+
   return (
     <div
       className={
@@ -60,6 +60,23 @@ const StoreOrders = () => {
           : "hidden"
       }
     >
+      {isVisible && !mobileActive && (
+        <StoreOrdersModal
+          setIsVisible={setIsVisible}
+          index={index}
+          indexDva={indexDva}
+          orders={orders}
+          idd={idd}
+          productId={productId}
+          setGetOrdersTrigger={setGetOrdersTrigger}
+          getOrdersTrigger={getOrdersTrigger}
+          setOrders={setOrders}
+          orderData={orderData}
+          setOrderData={setOrderData}
+          trigger={trigger}
+          setTrigger={setTrigger}
+        />
+      )}
       {isVisible && mobileActive && (
         <StoreOrdersModal
           setIsVisible={setIsVisible}
@@ -87,25 +104,8 @@ const StoreOrders = () => {
           {date}
         </h3>
       </div>
-      <div className="w-[80%] h-[80%] bg-neutral-800 mt-2 shadow-xl relative">
+      <div className="w-[80%] h-[80%] bg-neutral-800 mt-2 shadow-xl relative overflow-scroll scrollbar-hide">
         {/* EXTRA DETAILS ABOUT ORDER POPUP */}
-        {isVisible && !mobileActive && (
-          <StoreOrdersModal
-            setIsVisible={setIsVisible}
-            index={index}
-            indexDva={indexDva}
-            orders={orders}
-            idd={idd}
-            productId={productId}
-            setGetOrdersTrigger={setGetOrdersTrigger}
-            getOrdersTrigger={getOrdersTrigger}
-            setOrders={setOrders}
-            orderData={orderData}
-            setOrderData={setOrderData}
-            trigger={trigger}
-            setTrigger={setTrigger}
-          />
-        )}
         {/* CALENDAR POPUP */}
         {calendar && (
           <div className="absolute top-0 bg-neutral-800 w-full h-full z-50 flex items-center justify-center bg-opacity-70">

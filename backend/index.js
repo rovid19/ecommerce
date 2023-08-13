@@ -54,7 +54,6 @@ io.on("connection", (socket) => {
   console.log(`A user connected with socket id ${socket.id}`);
   const handleChange = () => {
     socket.emit("newChat");
-    console.log("nova poruka");
   };
   const chatChange = Chat.watch();
 

@@ -24,7 +24,7 @@ const StoreDashboard = () => {
       dispatch(setMobileActive(false));
     }
   }, []);
-  console.log(storeSubPage);
+
   return (
     <div className="h-screen w-full flex">
       <div

@@ -12,26 +12,7 @@ const StoreDashboardNav = () => {
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
 
-  const storeEdit = useMatch({
-    path: `/dashboard/${user.storeName}`,
-    exact: true,
-  });
-  const productEdit = useMatch({
-    path: `/dashboard/${user.storeName}/products`,
-    exact: true,
-  });
-  const storeFinance = useMatch({
-    path: `/dashboard/${user.storeName}/finance`,
-    exact: true,
-  });
-
-  const storeOrders = useMatch({
-    path: `/dashboard/${user.storeName}/orders`,
-    exact: true,
-  });
-  console.log(storeSubPage);
   return (
     <div className="absolute bottom-0 left-0 h-[10%] w-full flex items-center z-40 bg-neutral-900 text-neutral-300">
       {editMode && (
