@@ -57,6 +57,10 @@ body {
   justify-content: center;
   align-items: center;
 }
+.fl3 {
+  display: flex;
+  flex-direction: column;
+}
 
 .slider {
   position: absolute;
@@ -538,4 +542,38 @@ input[type="radio"] {
 }
 .zeze {
   z-index: 250;
+}
+
+/* OPEN/CLOSE CART ANIMACIJA */
+
+.cartOpen {
+  animation: cartOpenn 0.5s ease-in-out;
+  overflow-x: hidden;
+}
+
+.cartClose {
+  animation: cartClosee 0.5s ease-in-out;
+  overflow-x: hidden;
+}
+
+@keyframes cartOpenn {
+  from {
+    width: 0%;
+    opacity: 0;
+  }
+  to {
+    width: 100%;
+    opacity: 1;
+  }
+}
+
+@keyframes cartClosee {
+  from {
+    width: 100%;
+    opacity: 1;
+  }
+  to {
+    width: 0%;
+    opacity: 0;
+  }
 }

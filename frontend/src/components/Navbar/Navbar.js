@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addUser } from "../../app/features/User/userSlice";
 import NavbarMobile from "./NavbarMobile.js";
+import Logo from "../../assets/logo.png";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,7 @@ const Navbar = () => {
   async function handleLogout() {
     await axios.post("/api/auth/logout-user");
     navigate("/");
+
     dispatch(addUser(null));
   }
   return (
@@ -42,10 +44,12 @@ const Navbar = () => {
         <main className=" h-full w-full justify-center z-50  items-center shadow-md md:hidden lg:flex ">
           {/* FIRST PART OF HEADER */}
           <header className="h-full w-[100%] bg-neutral-900">
-            <div className="h-[15%] w-full grid place-items-center">
-              <h1 className="font-bold text-gray-300 cursor-pointer">
-                Rock's market
-              </h1>
+            <div
+              className="h-[15%] w-full  flex items-center justify-center gap-2 cursor-pointer"
+              onClick={() => navigate("/")}
+            >
+              <img src={Logo} className="rounded-md h-[35px] " />
+              <h1 className="text-neutral-200 text-lg">Rocks </h1>
             </div>
             <div className="h-[85%] w-full ">
               <nav className="h-full  w-full">

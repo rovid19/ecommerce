@@ -11,31 +11,13 @@ import { setEditMode } from "../../../app/features/Store/storeEditMode";
 import storeSubPage, {
   getStoreSubPage,
 } from "../../../app/features/storeSubPage";
+import Logo from "../../../assets/logo.png";
 
 const StoreDashboardNav = () => {
   const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const storeEdit = useMatch({
-    path: `/dashboard/${user.storeName}`,
-    exact: true,
-  });
-  const productEdit = useMatch({
-    path: `/dashboard/${user.storeName}/products`,
-    exact: true,
-  });
-  const storeFinance = useMatch({
-    path: `/dashboard/${user.storeName}/finance`,
-    exact: true,
-  });
-
-  const storeOrders = useMatch({
-    path: `/dashboard/${user.storeName}/orders`,
-    exact: true,
-  });
 
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
@@ -44,17 +26,15 @@ const StoreDashboardNav = () => {
       {editMode && (
         <div className="w-full h-full bg-black bg-opacity-50 absolute top-0 left-0 z-20"></div>
       )}
-      <div className="h-[15%]  flex justify-center items-center text-neutral-300">
-        <h1
-          className="font-bold cursor-pointer lg:text-sm 2xl:text-base"
-          onClick={() => {
-            dispatch(getStoreSubPage("home"));
-            dispatch(setEditMode(false));
-            navigate("/");
-          }}
-        >
-          Rock's market
-        </h1>
+      <div
+        className="h-[15%] w-full  flex items-center justify-center gap-2 cursor-pointer"
+        onClick={() => {
+          dispatch(getStoreSubPage("homepage"));
+          navigate("/");
+        }}
+      >
+        <img src={Logo} className="rounded-md h-[35px] " />
+        <h1 className="text-neutral-200 text-lg">Rocks</h1>
       </div>
       <nav className="text-neutral-300">
         {" "}
@@ -169,7 +149,10 @@ const StoreDashboardNav = () => {
         </ul>{" "}
         <button
           className="absolute lg:right-2 2xl:right-4 bottom-4"
-          onClick={() => navigate("/")}
+          onClick={() => {
+            dispatch(getStoreSubPage("homepage"));
+            navigate("/");
+          }}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

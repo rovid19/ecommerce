@@ -254,7 +254,7 @@ export const newProductArray = async (req, res) => {
           populate: {
             path: "collectionProducts",
             select:
-              "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold",
+              "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold productRating productScore",
           },
         },
       });
@@ -285,7 +285,7 @@ export const fetchStoreData = async (req, res) => {
       populate: {
         path: "collectionProducts",
         select:
-          "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold",
+          "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold productRating productScore",
       },
     },
   });
@@ -311,7 +311,7 @@ export const getOrders = async (req, res) => {
       populate: {
         path: "productBought",
         select:
-          "productName productPicture productDescription productNewPrice ",
+          "productName productPicture productDescription productNewPrice productRating productScore ",
       },
     });
     const salesByDate = store.storeSales.filter(
@@ -411,7 +411,8 @@ export const getLast5 = async (req, res) => {
       "productBought productShipped total productQuantity orderPlacedDate noteToSeller buyerUsername arrivalDate",
     populate: {
       path: "productBought",
-      select: "productName productPicture productDescription productNewPrice ",
+      select:
+        "productName productPicture productDescription productNewPrice productRating  productScore",
     },
   });
   const arrayLength = store.storeSales.length - 5;
@@ -423,7 +424,7 @@ export const getLast5 = async (req, res) => {
 export const getAllStores = async (req, res) => {
   const allStores = await Store.find().populate(
     "storeProducts",
-    "productName productPicture productDescription productNewPrice "
+    "productName productPicture productDescription productNewPrice productRating productScore "
   );
 
   res.json(allStores);
@@ -440,10 +441,9 @@ export const getTrendingStore = async (req, res) => {
       array.push(store);
     }
   });
-  console.log(array);
 
   const lengt = array.map((item) => item.storeSales.length);
-  console.log(lengt);
+
   const mostSales = Math.max(...lengt);
 
   const index = lengt.findIndex((item) => item === mostSales);
@@ -461,7 +461,7 @@ export const getTrendingStore = async (req, res) => {
       populate: {
         path: "collectionProducts",
         select:
-          "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold",
+          "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold productRating productScore",
       },
     },
   });

@@ -8,7 +8,6 @@ const jwtSecret = "rockjefakatludirock";
 
 export const getUser = async (req, res) => {
   const { token } = req.cookies;
-  console.log(token);
 
   if (token) {
     /*jwt.verify(token, jwtSecret, {}, async (err, user) => {

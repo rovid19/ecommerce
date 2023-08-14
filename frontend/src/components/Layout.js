@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCartVisible } from "../app/features/User/cartVisible";
 import { setMobileActive, setShowNavbar } from "../app/features/triggeri";
 import NavbarMobile from "./Navbar/NavbarMobile";
+import AddToCart from "./User/Customer/AddToCart";
 
 const Layout = () => {
   const dispatch = useDispatch();
@@ -46,7 +47,7 @@ const Layout = () => {
   return (
     <main className="h-screen w-screen flex relative">
       {cartItems.length > 0 && cartVisible === false ? (
-        <article className="h-full w-[1.5%] flex items-center absolute z-40 right-4 ">
+        <article className="h-[50px] lg:h-[50px] w-[40px] lg:w-[40px]  flex items-center absolute z-40 right-0 bottom-0 lg:right-1   ">
           <button
             className="rounded-full bg-neutral-600 p-2 opacity-50 hover:opacity-100  transition-all"
             onClick={() => dispatch(setCartVisible(true))}

@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 import { switchValue } from "../../../app/features/getUserTrigger";
 import { removeCartItem } from "../../../app/features/User/cartItems";
 import { fetchUserData } from "../../../app/features/User/userSlice";
+import { setCartClassname } from "../../../app/features/triggeri";
 
 const AddToCart = () => {
   const [date, setDate] = useState(new Date());
@@ -19,11 +20,13 @@ const AddToCart = () => {
   const [username, setUsername] = useState(null);
   const [boughtItems, setBoughtItems] = useState([]);
   const dispatch = useDispatch();
-  const cartVisible = useSelector((state) => state.cartVisible.value);
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+
   const user = useSelector((state) => state.userData.value.user);
   const storeId = useSelector((state) => state.storeId.value);
   const cartItems = useSelector((state) => state.cartItems.value);
+  const cartClassname = useSelector(
+    (state) => state.triggeri.value.cartClassname
+  );
 
   // date
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -111,18 +114,22 @@ const AddToCart = () => {
       setIndex(null);
     }
   }, [index]);
-  console.log(cartItems);
+
   return (
-    <div
-      className={
-        cartVisible
-          ? "animacija  bg-neutral-900  text-neutral-300 shadow-xl p-3 z-50 fixed top-0 right-0  h-full"
-          : "closingAnimacija bg-neutral-900  text-neutral-300 shadow-xl p-3 z-50 fixed top-0 right-0 h-full"
-      }
-    >
+    <div className={cartClassname}>
       <div className="flex border-b-2 border-neutral-600 border-opacity-20 h-[5%] p-1">
         <button
-          onClick={() => dispatch(setCartVisible(false))}
+          onClick={() => {
+            dispatch(
+              setCartClassname(cartClassname.replace("cartOpen", "cartClose"))
+            );
+            setTimeout(() => {
+              dispatch(
+                setCartClassname(cartClassname.replace("cartClose", ""))
+              );
+              dispatch(setCartVisible(false));
+            }, [500]);
+          }}
           className="bg-neutral-700 rounded-md text-neutral-400 hover:text-white transition-all"
         >
           <svg
@@ -138,7 +145,7 @@ const AddToCart = () => {
             />
           </svg>
         </button>
-        <h1 className="ml-4 text-2xl">Cart</h1>
+        <h1 className="ml-4 text-xl 2xl:text-2xl">Cart</h1>
       </div>
       <div className="h-[85%] scrollbar-hide border-b-2 border-neutral-600 border-opacity-20 pb-2 overflow-scroll  ">
         {cartItems.map((item, index) => {
@@ -148,7 +155,7 @@ const AddToCart = () => {
               key={index}
             >
               <button
-                className="absolute left-2 top-2 text-white invisible group-hover:visible "
+                className="absolute left-2 top-2 text-white lg:invisible visible lg:group-hover:visible "
                 onClick={() => {
                   setIndex(index);
                   setDeleteItem(true);
@@ -174,7 +181,9 @@ const AddToCart = () => {
                 className="w-[35%] h-full object-cover rounded-sm"
               ></img>
               <div className="ml-2 h-full w-[50%]">
-                <h1 className="text-2xl ">{item.productName}</h1>
+                <h1 className="text-base lg:text-xl 2xl:text-2xl ">
+                  {item.productName}
+                </h1>
                 <h2 className="">{item.productNewPrice}$</h2>
               </div>
               <div className="h-full absolute right-2 ">
@@ -239,12 +248,12 @@ const AddToCart = () => {
           );
         })}
       </div>
-      <div className=" h-[10%] flex relative p-4 ">
+      <div className=" h-[10%] flex relative p-4 items-center ">
         {" "}
-        <h1 className="text-xl text-neutral-400">Total: {total}$</h1>
+        <h1 className="text-lg xl:text-xl text-neutral-400">Total: {total}$</h1>
         <button
           onClick={handleBoughtProducts}
-          className="absolute right-0 bg-orange-500 text-white h-[40%] rounded-md w-[30%] hover:w-[40%] transition-all "
+          className="absolute right-0 bg-orange-500 text-white  h-[50%] lg:h-[40%] rounded-md w-[40%] lg:w-[40%]  hover:w-[50%] transition-all "
         >
           Checkout
         </button>

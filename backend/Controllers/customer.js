@@ -216,7 +216,7 @@ export const getOrderHistory = async (req, res) => {
       populate: {
         path: "productBought",
         select:
-          "productName productPicture productDescription productNewPrice ",
+          "productName productPicture productDescription productNewPrice productRating productScore ",
       },
     });
 
@@ -343,14 +343,25 @@ export const submitReview = async (req, res) => {
 
   const findProduct = await Product.findById(productId);
 
+  findProduct.productRating.push(rating);
   findProduct.productReview.push(newReview._id);
 
+  //kalkulacija prosjecne ocjene proizvoda
+  const numbers = [...findProduct.productRating];
+  let sum = numbers.reduce((acc, num) => acc + num, 0);
+  const average = sum / numbers.length;
+  const roundedNumber = Math.floor(average * 100) / 100;
+
+  findProduct.set({
+    productScore: roundedNumber,
+  });
+
   await findProduct.save();
-  res.json(newReview);
+  res.json(findProduct);
 };
 
 export const deleteReview = async (req, res) => {
-  const { deleteReview, productId } = req.body;
+  const { deleteReview, productId, rating } = req.body;
   const { token } = req.cookies;
 
   jwt.verify(token, jwtSecret, {}, async (err, data) => {
@@ -368,8 +379,24 @@ export const deleteReview = async (req, res) => {
     await userCommented.save();
   });
 
+  const findProduct = await Product.findById(productId);
+
+  const removeIndex = findProduct.productRating.indexOf(rating);
+  findProduct.productRating.splice(removeIndex, 1);
+
+  //kalkulacija prosjecne ocjene proizvoda
+  const numbers = [...findProduct.productRating];
+  let sum = numbers.reduce((acc, num) => acc + num, 0);
+  const average = sum / numbers.length;
+  const roundedNumber = Math.floor(average * 100) / 100;
+
+  findProduct.set({
+    productScore: roundedNumber,
+  });
+
+  await findProduct.save();
   const findReview = await Review.findByIdAndDelete(deleteReview);
-  res.json("ok");
+  res.json(findProduct);
 };
 
 export const getHomePage = async (req, res) => {

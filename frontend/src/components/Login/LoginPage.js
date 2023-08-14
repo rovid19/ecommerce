@@ -1,12 +1,10 @@
-import React from "react";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
-import { useNavigate } from "react-router-dom";
 import { switchValue } from "../../app/features/getUserTrigger";
 import {
   addUserDva,
@@ -14,6 +12,8 @@ import {
   fetchUserData,
 } from "../../app/features/User/userSlice";
 import LoginGooglePass from "./LoginGooglePass";
+import { getStoreSubPage } from "../../app/features/storeSubPage";
+import { setRunUseEffect } from "../../app/features/triggeri";
 
 const LoginPage = () => {
   const [email, setEmail] = useState(null);
@@ -26,25 +26,25 @@ const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleLogin(e) {
+  async function handleLogin(e) {
     e.preventDefault();
-
-    axios
-      .post("/api/auth/login-user", {
+    try {
+      await axios.post("/api/auth/login-user", {
         email,
         password,
-      })
-      .then(() => {
-        dispatch(fetchUserData());
-        dispatch(fetchStoreProducts());
-
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.response.status === 400) {
-          setError("Incorrect email or password");
-        }
       });
+
+      await dispatch(fetchUserData()).unwrap();
+
+      dispatch(fetchStoreProducts());
+      dispatch(getStoreSubPage("homepage"));
+      dispatch(setRunUseEffect(true));
+      navigate("/");
+    } catch (err) {
+      if (err.response && err.response.status === 400) {
+        setError("Incorrect email or password");
+      }
+    }
   }
 
   return (
@@ -86,18 +86,17 @@ const LoginPage = () => {
               />
               <button className="mt-4 bg-neutral-600 text-white rounded-2xl p-3 hover:bg-orange-500">
                 continue
-              </button>{" "}
+              </button>
             </form>
             <div className="flex mt-4 relative">
-              <div className="border-t-2 border-neutral-300 w-full mt-5 "></div>
+              <div className="border-t-2 border-neutral-300 w-full mt-5"></div>
               <h1 className="mt-2 ml-2 mr-2 text-neutral-500">or</h1>
-              <div className="border-t-2 border-neutral-300 w-full mt-5 "></div>
+              <div className="border-t-2 border-neutral-300 w-full mt-5"></div>
             </div>
             <button className="mt-6 flex justify-center">
               <GoogleLogin
                 onSuccess={(credentialResponse) => {
                   var decoded = jwt_decode(credentialResponse.credential);
-
                   setGoogleMail(decoded.email);
                   setGooglePass(true);
                 }}

@@ -5,6 +5,7 @@ import { setEditMode } from "../../../app/features/Store/storeEditMode";
 import storeSubPage, {
   getStoreSubPage,
 } from "../../../app/features/storeSubPage";
+import Logo from "../../../assets/logo.png";
 
 const StoreDashboardNav = () => {
   const user = useSelector((state) => state.userData.value.user);
@@ -18,17 +19,16 @@ const StoreDashboardNav = () => {
       {editMode && (
         <div className="w-full h-full bg-black bg-opacity-50 absolute top-0 left-0 z-20"></div>
       )}
-      <div className="h-full w-[15%]  text-[10px]   flex justify-center items-center ">
-        <h1
-          className="cursor-pointer"
+      <div className="h-full w-[15%]   flex justify-center items-center ">
+        <img
           onClick={() => {
             dispatch(getStoreSubPage("home"));
             dispatch(setEditMode(false));
             navigate("/");
           }}
-        >
-          Rock's <br /> market
-        </h1>
+          src={Logo}
+          className="rounded-md h-[35%] "
+        />
       </div>
       <nav className="h-full w-[85%]  ">
         {" "}

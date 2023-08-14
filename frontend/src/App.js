@@ -48,6 +48,9 @@ axios.defaults.withCredentials = true;
 const App = () => {
   const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
+  const cartClassname = useSelector(
+    (state) => state.triggeri.value.cartClassname
+  );
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const inboxMessages = useSelector(
     (state) => state.inboxMessages.value.allChat
@@ -76,23 +79,25 @@ const App = () => {
     }
   }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     async function da() {
-      if (userData && Object.keys(userData).length === 0) {
-        await dispatch(fetchUserData()).unwrap();
-        dispatch(fetchStoreProducts());
-        dispatch(setRunUseEffect(true));
-      }
+      console.log("okay");
+      await dispatch(fetchUserData()).unwrap();
+      dispatch(fetchStoreProducts());
+      dispatch(setRunUseEffect(true));
     }
     da();
-  }, [getUserTrigger, fetchUserTrigger]);
+  }, []);*/
   useEffect(() => {
     if (runUseEffect) {
+      console.log("da pokrenulo se je");
       let totalCount = 0;
       userData.allChat.forEach((item) => {
         const zbroj = item.newChatCount - item.oldChatCount;
 
         totalCount += zbroj;
+
+        console.log(zbroj);
       });
 
       dispatch(setInboxMessages(totalCount));
@@ -109,11 +114,16 @@ const App = () => {
       });
     }
   }, [inboxMessages]);
-
-  console.log(userData);
+  console.log(runUseEffect);
   return (
     <div>
-      {cartVisible && <AddToCart />}
+      {cartVisible && (
+        <div className="w-[50%] lg:w-[18%] absolute h-[100%] right-0">
+          {" "}
+          <AddToCart />
+        </div>
+      )}
+
       <Routes>
         <Route path="/" element={<Layout />}>
           <Route path="/" element={<Homepage />} />

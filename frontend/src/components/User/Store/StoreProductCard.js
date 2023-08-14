@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Img from "../../../assets/testslika.png";
 import { setStoreDeleteVisible } from "../../../app/features/Store/deleteProductModal";
@@ -12,12 +12,16 @@ import { setProductIndex } from "../../../app/features/User/productIndex";
 import { setCartVisible } from "../../../app/features/User/cartVisible";
 import { getStoreSubPage } from "../../../app/features/storeSubPage";
 import { setEditMode } from "../../../app/features/Store/storeEditMode";
+import { setCartClassname } from "../../../app/features/triggeri";
 
 const StoreProductCard = ({ storeProducts, index, storeData }) => {
   // REDUX
   const editMode = useSelector((state) => state.editMode.value);
   const cartItems = useSelector((state) => state.cartItems.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
+  const cartClassname = useSelector(
+    (state) => state.triggeri.value.cartClassname
+  );
 
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
@@ -44,8 +48,8 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
     <div
       className={
         editMode
-          ? "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden "
-          : "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer group transition-all relative overflow-hidden"
+          ? "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer transition-all relative overflow-hidden "
+          : "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer transition-all relative overflow-hidden"
       }
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
@@ -122,16 +126,17 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
                   clipRule="evenodd"
                 />
               </svg>
-              4.8
+              {storeProducts.productScore}
             </div>
             <div className="flex items-center justify-center">
-              <h1>120 sold</h1>
+              <h1>{storeProducts.productSold} sold</h1>
             </div>
             <div className="flex items-center justify-center border-l-2 border-neutral-600 border-opacity-40  ">
               <button
                 className="  rounded-md p-2 h-[85%] w-[82%] bg-neutral-800 text-neutral-300  transition-all text-sm flex items-center justify-center hover:bg-orange-500 hover:text-white"
                 onClick={(e) => {
                   e.stopPropagation();
+                  dispatch(setCartClassname(cartClassname + " cartOpen"));
                   addProductToCart();
                 }}
               >

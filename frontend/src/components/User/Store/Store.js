@@ -138,7 +138,6 @@ const Store = () => {
     }
   }, [storeUser]);
 
-  console.log(storeData);
   return (
     <>
       <main className="w-[100%]  h-full  relative  ">
@@ -273,12 +272,13 @@ const Store = () => {
                   key={index}
                   className="h-full w-full relative fl overflow-x-auto "
                 >
-                  <div className="h-[40px] w-full bg-neutral-900 p-4 text-neutral-300 flex items-center">
-                    <h1 className="text-xl lg:text-2xl">
-                      {item.collectionName}
-                    </h1>
-                  </div>
-                  <div className="h-full min-w-min flex gap-2 p-2 lg:p-4 bg-neutral-800 ">
+                  <div className="h-[10%]"></div>
+                  <div className="h-[90%] min-w-min flex gap-2 p-2 lg:p-4 bg-neutral-800 relative">
+                    <div className="h-[11%] w-full bg-neutral-900 p-4 text-neutral-300 flex items-center absolute top-[-11%] left-0">
+                      <h1 className="text-xl lg:text-2xl">
+                        {item.collectionName}
+                      </h1>
+                    </div>
                     {item &&
                       item.collectionProducts.map((product, index) => {
                         return (

@@ -85,6 +85,7 @@ const Reviews = () => {
         await axios.post("/api/customer/delete-review", {
           deleteReview,
           productId,
+          rating,
         });
 
         await dispatch(fetchUserData()).unwrap();
@@ -133,7 +134,10 @@ const Reviews = () => {
                 {user.username === review.commentBy[0].username && (
                   <button
                     className="absolute top-2 right-2"
-                    onClick={() => setDeleteReview(review._id)}
+                    onClick={() => {
+                      setRating(review.rating);
+                      setDeleteReview(review._id);
+                    }}
                   >
                     <svg
                       xmlns="http://www.w3.org/2000/svg"

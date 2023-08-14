@@ -11,6 +11,7 @@ import {
   ProfileSettings,
   ShippingDetails,
   Logout,
+  Login,
 } from "./Icons/IconsExport";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -135,8 +136,8 @@ const NavbarMobile = () => {
                   }}
                   className={
                     storeSubPage === "homepage"
-                      ? "text-center h-[45px] text-xl rounded-md p-1 gap-2  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
-                      : "text-center h-[45px] text-xl rounded-md p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                      ? "text-center h-[45px] text-xl rounded-r-md p-1 gap-2  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                      : "text-center h-[45px] text-xl rounded-r-md p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
                   }
                 >
                   <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
@@ -154,8 +155,8 @@ const NavbarMobile = () => {
                   }}
                   className={
                     storeSubPage === "search"
-                      ? "text-center h-[45px] text-xl rounded-md p-1 gap-2 mt-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
-                      : "text-center h-[45px] text-xl rounded-md p-1 gap-2 mt-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                      ? "text-center h-[45px] text-xl rounded-r-md p-1 gap-2 mt-1  text-white hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
+                      : "text-center h-[45px] text-xl rounded-r-md p-1 gap-2 mt-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group"
                   }
                 >
                   <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
@@ -334,10 +335,10 @@ const NavbarMobile = () => {
                 ) : (
                   <Link
                     to="/login"
-                    className="text-center self-end w-full h-[45px] text-xl  p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
+                    className="text-center self-end w-full h-[45px] text-xl  p-1 gap-2 mb-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
                   >
                     <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">
-                      <Logout />
+                      <Login />
                     </div>
                     <div className="w-[80%] h-full flex  items-center">
                       <h1 className="text-sm md:text-base">Log in</h1>

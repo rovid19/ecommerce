@@ -72,11 +72,8 @@ const StoreProductModal = () => {
       isItemInCart = cartItems.find(
         (cartItem) => cartItem._id === storeProducts._id
       );
-    } else {
-      console.log("hahahahahha");
     }
 
-    console.log("ok");
     if (isItemInCart) {
       alert("item already in cart");
     } else {
@@ -243,13 +240,7 @@ const StoreProductModal = () => {
           {/* ADD TO CART BUTTON*/}
           <button
             onClick={() => {
-              if (user && Object.keys(user).length > 0) {
-                addProductToCart();
-              } else {
-                alert(
-                  "You must make an account in order to add a product to your cart"
-                );
-              }
+              addProductToCart();
             }}
             className=" absolute left-[40%] lg:left-[29%] border-2 border-orange-500 text-orange-500 p-4 rounded-lg h-[80%] w-[30%] lg:w-[15%] text-base lg:text-xl hover:bg-orange-500 hover:text-white transition-all"
           >
@@ -257,7 +248,7 @@ const StoreProductModal = () => {
           </button>
           {/* PRODUCT RATING*/}
           <div className=" absolute h-full  right-0 flex items-center w-[10%] lg:w-[5%] justify-center">
-            <h2 className="text-xl">4.5</h2>
+            <h2 className="text-xl">{storeProducts.productScore}</h2>
           </div>
         </div>
       </div>

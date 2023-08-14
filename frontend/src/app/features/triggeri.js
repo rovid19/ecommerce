@@ -11,6 +11,8 @@ const initialState = {
     active: "",
     closeNavbar: false,
     productPicture: [],
+    cartClassname:
+      " bg-neutral-900  text-neutral-300 shadow-xl p-3 z-50 h-full w-full absolute right-0 top-0 ",
   },
 };
 
@@ -45,6 +47,9 @@ export const triggeriSlice = createSlice({
     setProductPictures: (state, action) => {
       state.value.productPicture = action.payload;
     },
+    setCartClassname: (state, action) => {
+      state.value.cartClassname = action.payload;
+    },
   },
 });
 
@@ -58,6 +63,7 @@ export const {
   setActive,
   setCloseNavbar,
   setProductPictures,
+  setCartClassname,
 } = triggeriSlice.actions;
 
 export default triggeriSlice.reducer;
