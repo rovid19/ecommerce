@@ -24,6 +24,7 @@ import {
   unfollowStore,
   getFollow,
   removeFollower,
+  weeklySales,
 } from "../Controllers/store.js";
 import multer from "multer";
 import path from "path";
@@ -93,4 +94,6 @@ router.post("/unfollow-store", unfollowStore);
 
 router.post("/get-follow", getFollow);
 router.post("/remove-follower", removeFollower);
+
+router.post("/get-last-week-sales", weeklySales);
 export default router;

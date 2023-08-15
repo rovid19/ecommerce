@@ -627,3 +627,58 @@ export const removeFollower = async (req, res) => {
     });
   }
 };
+
+export const weeklySales = async (req, res) => {
+  const { userId, formattedDate } = req.body;
+
+  // formiranje arraya sedam dana unazad od danasnjeg datuma
+  const oldDay = Number(formattedDate.substring(3, 5));
+  let newArray = [];
+  for (let i = 0; i < 7; i++) {
+    let newDay = oldDay - i;
+    let noviDatum = formattedDate.replace(`${oldDay}`, `${newDay}`);
+    newArray.push(noviDatum);
+  }
+
+  const user = await User.findById(userId).populate({
+    path: "store",
+    select: "storeSales",
+    populate: {
+      path: "storeSales",
+      select: "total orderPlacedDate",
+    },
+  });
+  const lastWeekSales = user.store.storeSales.filter((sale) =>
+    newArray.includes(sale.orderPlacedDate)
+  );
+
+  // formiranje arraya sa samo jednim datumom (prodaje s istim datumom zbrajaju se skupa u jedan datum)
+  let newSalesArray = [];
+
+  newArray.forEach((item) =>
+    newSalesArray.push({ orderPlacedDate: item, total: 0 })
+  );
+  lastWeekSales.forEach((sale) => {
+    newSalesArray.forEach((item) => {
+      if (item.orderPlacedDate === sale.orderPlacedDate) {
+        item.total += sale.total;
+      }
+    });
+  });
+
+  // finalni objekt za chartJS
+  const chartData = {
+    labels: newSalesArray.map((sale) => sale.orderPlacedDate),
+    datasets: [
+      {
+        label: "Sales per day in $",
+        data: newSalesArray.map((sale) => sale.total),
+        backgroundColor: "#F97316",
+      },
+    ],
+  };
+
+  console.log(chartData.datasets[0].data);
+
+  res.json(chartData);
+};

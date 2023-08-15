@@ -1,14 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-
+import Loader from "../../assets/svg-loaders/spinning-circles.svg";
 const VideoUploadModal = ({ setVideoModalVisible, setVideo, setYoutubeId }) => {
-  const [progress, setProgress] = useState(null);
+  const [progress, setProgress] = useState(0);
   const [youtubeVideo, setYoutubeVideo] = useState(null);
   const [message, setMessage] = useState(
     "this window will automatically close as soon as your video is uploaded"
   );
   const [videoFormData, setVideoFormData] = useState(null);
+  const [isFetching, setIsFetching] = useState(false);
 
   function setVideoo(e) {
     const file = e.target.files;
@@ -36,6 +37,7 @@ const VideoUploadModal = ({ setVideoModalVisible, setVideo, setYoutubeId }) => {
 
   useEffect(() => {
     if (videoFormData) {
+      setIsFetching(true);
       async function handleUploadVideo() {
         const data = await axios.post(
           "/api/store/upload-video",
@@ -43,23 +45,24 @@ const VideoUploadModal = ({ setVideoModalVisible, setVideo, setYoutubeId }) => {
           {
             headers: { "Content-Type": "multipart/form-data" },
             onUploadProgress: (progressEvent) => {
-              const { loaded, total } = progressEvent;
-              let percent = Math.floor((loaded * 100) / total);
-              console.log(`${loaded}kb of ${total}kb / ${percent}%`);
-              if (percent < 100) {
-                setProgress("started");
-              }
+              const progress = Math.floor(
+                (progressEvent.loaded / progressEvent.total) * 100
+              );
+              setTimeout(() => {
+                setProgress(progress);
+              }, [500]);
             },
           }
         );
         setVideo(data.data);
         setVideoModalVisible(false);
+        setIsFetching(false);
         //
       }
       handleUploadVideo();
     }
   }, [videoFormData]);
-
+  console.log(progress);
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
       <motion.article
@@ -86,7 +89,25 @@ const VideoUploadModal = ({ setVideoModalVisible, setVideo, setYoutubeId }) => {
           </svg>
         </button>
         <div className=" w-full h-[80%] fl2">
-          <h1 className="text-white mb-1">{progress ? message : ""}</h1>
+          {progress > 0 && (
+            <>
+              <div className="h-[10%] w-[30%] mb-2">
+                <img src={Loader} className="h-full w-full" />
+              </div>
+              <div className="w-[40%] h-[5%] bg-neutral-800 mb-4 rounded-md relative">
+                <span
+                  className="absolute top-0 left-0 h-full  bg-orange-500 rounded-md flex items-center justify-center"
+                  style={{ width: `${progress}%` }}
+                >
+                  {progress > 0 && (
+                    <h1 className="text-center text-neutral-200  w-full">
+                      {progress}%
+                    </h1>
+                  )}
+                </span>
+              </div>
+            </>
+          )}
           <label className="bg-neutral-700 text-white p-4 rounded-md hover:bg-orange-500 transition-all cursor-pointer">
             Upload video
             <input
