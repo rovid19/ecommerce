@@ -41,8 +41,8 @@ import Chat from "./components/User/Inbox/Chat";
 import { setSocket } from "./app/features/socket";
 import YourFeed from "./components/Homepage/YourFeed";
 
-//axios.defaults.baseURL = "http://localhost:4000";
-axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
+axios.defaults.baseURL = "http://localhost:4000";
+//axios.defaults.baseURL = "https://ecommerce-api-px36.onrender.com";
 axios.defaults.withCredentials = true;
 
 const App = () => {
@@ -82,10 +82,9 @@ const App = () => {
   useEffect(() => {
     async function da() {
       await dispatch(fetchUserData()).unwrap();
-      if (userData && Object.keys(userData).length > 0) {
-        dispatch(fetchStoreProducts());
-        dispatch(setRunUseEffect(true));
-      }
+
+      dispatch(fetchStoreProducts());
+      dispatch(setRunUseEffect(true));
     }
     da();
   }, []);
@@ -110,6 +109,7 @@ const App = () => {
   useEffect(() => {
     if (socket.connected === true) {
       socket.on("newChat", async () => {
+        console.log("dada");
         await dispatch(fetchUserData()).unwrap();
         dispatch(setRunUseEffect(true));
       });

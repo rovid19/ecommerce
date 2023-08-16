@@ -596,7 +596,7 @@ export const seenMessage = async (req, res) => {
 
 export const postUpload = async (req, res) => {
   const { text, videoForm, youtubeForm, product, userId, date } = req.body;
-
+  console.log(product);
   if (videoForm) {
     const post = await Post.create({
       postText: text,
@@ -605,6 +605,7 @@ export const postUpload = async (req, res) => {
       postAuthor: userId,
       postDate: date,
     });
+
     res.json(post);
   } else {
     const post = await Post.create({
@@ -614,6 +615,7 @@ export const postUpload = async (req, res) => {
       postAuthor: userId,
       postDate: date,
     });
+
     res.json(post);
   }
 };
@@ -622,18 +624,24 @@ export const getAllPosts = async (req, res) => {
   const allPosts = await Post.find().populate([
     {
       path: "postAuthor",
-      select: " username profilePicture store",
-      populate: { path: "store", select: "_id" },
+      select: "username profilePicture store",
+      populate: {
+        path: "store",
+        select: "_id",
+      },
     },
-
     {
       path: "postComments",
       select: "commentText commentAuthor",
-
       populate: {
         path: "commentAuthor",
         select: "username profilePicture",
       },
+    },
+    {
+      path: "postProduct",
+      select:
+        "productName productPicture productDescription productNewPrice productRating productScore",
     },
   ]);
 
@@ -709,6 +717,11 @@ export const specificUserPosts = async (req, res) => {
         select: "username profilePicture",
       },
     },
+    {
+      path: "postProduct",
+      select:
+        "productName productPicture productDescription productNewPrice productRating productScore",
+    },
   ]);
 
   res.json(post);
@@ -718,12 +731,33 @@ export const followingsFeed = async (req, res) => {
   const { userId } = req.body;
 
   const user = await User.findById(userId);
-  const allPosts = await Post.find();
+  const allPosts = await Post.find().populate([
+    {
+      path: "postAuthor",
+      select: " username profilePicture store",
+      populate: { path: "store", select: "_id" },
+    },
+
+    {
+      path: "postComments",
+      select: "commentText commentAuthor",
+
+      populate: {
+        path: "commentAuthor",
+        select: "username profilePicture",
+      },
+    },
+    {
+      path: "postProduct",
+      select:
+        "productName productPicture productDescription productNewPrice productRating productScore ",
+    },
+  ]);
 
   let postsArray = [];
   user.followings.forEach((following) => {
     allPosts.forEach((post) => {
-      if (post.postAuthor.toString() === following.toString()) {
+      if (post.postAuthor._id.toString() === following.toString()) {
         postsArray.push(post);
       }
     });

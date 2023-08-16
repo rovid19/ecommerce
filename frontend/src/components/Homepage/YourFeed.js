@@ -31,7 +31,6 @@ const YourFeed = () => {
   const [date, setDate] = useState(new Date());
   const [index, setIndex] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
-  //const [likeTrigger, setLikeTrigger] = useState(false);
 
   const textA = useRef();
   const feedContainer = useRef(null);
@@ -40,7 +39,6 @@ const YourFeed = () => {
   );
   const active = useSelector((state) => state.triggeri.value.active);
   const user = useSelector((state) => state.userData.value.user);
-  const products = useSelector((state) => state.userData.value.products);
 
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "2-digit",
@@ -57,7 +55,7 @@ const YourFeed = () => {
         text,
         videoForm: video ? video : "",
         youtubeForm: youtubeId ? youtubeId : "",
-        product,
+        product: product ? product._id : null,
         userId: user._id,
         date: formattedDate,
       });
@@ -71,8 +69,9 @@ const YourFeed = () => {
   }
 
   useEffect(() => {
-    setFeedPosts(null);
-    setIsLoading(true);
+    if (!feedPosts) {
+      setIsLoading(true);
+    }
 
     if (comPostDelete === "Delete") {
       setComIndex(deleteIndex);
@@ -109,7 +108,7 @@ const YourFeed = () => {
       });
     }
   }, [postTrigger, active]);
-  console.log(active);
+
   return (
     <section
       className="h-full w-full bg-neutral-800 overflow-scroll scrollbar-hide "
@@ -194,7 +193,7 @@ const YourFeed = () => {
             >
               <select
                 className={
-                  active === "Following"
+                  active === "Following" || active === "Trending"
                     ? "h-full w-full text-center bg-neutral-700 text-white rounded-l-md"
                     : "h-full w-full text-center bg-neutral-900 text-white rounded-l-md"
                 }

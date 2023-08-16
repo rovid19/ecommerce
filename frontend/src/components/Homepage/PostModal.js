@@ -26,6 +26,7 @@ const PostModal = ({
   const [showLess, setShowLess] = useState(true);
   const [commentId, setCommentId] = useState(null);
   const [commentAni, setCommentAni] = useState(" mt-4 flex ");
+  const [pictureIndex, setPictureIndex] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -112,7 +113,7 @@ const PostModal = ({
       }
     }
   }, [comIndex]);
-  console.log(feedPosts[index]);
+
   return (
     <div
       className={
@@ -183,47 +184,117 @@ const PostModal = ({
           </div>
           <p className="text-neutral-300 p-4">{feedPosts[index].postText}</p>
         </div>
-        <div className="h-[450px] w-ful relative group overflow-hidden">
-          {" "}
-          {feedPosts[index].postVideo ? (
-            <>
-              <video
-                src={feedPosts[index].postVideo}
-                className="h-full w-full object-cover rounded-md"
-                controls
-              ></video>
-            </>
-          ) : feedPosts[index].postYoutubeVideo ? (
-            <>
-              <iframe
-                src={feedPosts[index].postYoutubeVideo}
-                className="h-full w-full object-cover rounded-md"
-                title="YouTube Video"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </>
-          ) : (
-            <>
-              <img
-                src={feedPosts[index].postProduct.productPicture[0]}
-                className="h-full w-full object-cover rounded-md group-hover:blur-sm"
-              ></img>
-              <div
-                onClick={() =>
-                  navigate(
-                    `store/${feedPosts[index].postAuthor.username}/product/${feedPosts[index].postProduct._id}`
-                  )
-                }
-                className="cursor-pointer absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-neutral-900 bg-opacity-50 flex items-center justify-center transition-all"
-              >
-                <h1 className="text-neutral-300 text-2xl">
-                  Open this product in store
-                </h1>
-              </div>
-            </>
-          )}
-        </div>
+        {!feedPosts[index].postVideo &&
+        !feedPosts[index].postYoutubeVideo &&
+        !feedPosts[index].postProduct ? (
+          ""
+        ) : (
+          <div className="h-[450px] w-ful relative group overflow-hidden">
+            {" "}
+            {feedPosts[index].postVideo ? (
+              <>
+                <video
+                  src={feedPosts[index].postVideo}
+                  className="h-full w-full object-cover rounded-md"
+                  controls
+                ></video>
+              </>
+            ) : feedPosts[index].postYoutubeVideo ? (
+              <>
+                <iframe
+                  src={feedPosts[index].postYoutubeVideo}
+                  className="h-full w-full object-cover rounded-md"
+                  title="YouTube Video"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              </>
+            ) : (
+              <>
+                <div className="absolute top-0 left-0 h-full w-full flex items-center">
+                  <h1 className="absolute left-2 top-2 bg-neutral-900 p-2 text-neutral-300 rounded-md text-sm">
+                    {pictureIndex + 1}/
+                    {feedPosts[index] &&
+                      feedPosts[index].postProduct.productPicture.length}
+                  </h1>
+                  {feedPosts[index].postProduct.productPicture.length > 1 && (
+                    <>
+                      <button
+                        className="absolute left-2 z-50 bg-neutral-900 rounded-full p-2"
+                        onClick={() => {
+                          if (pictureIndex === 0) {
+                          } else {
+                            setPictureIndex((prev) => prev - 1);
+                          }
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-8 h-8 text-neutral-300 "
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </button>
+                      <button
+                        className="absolute right-2 z-50 bg-neutral-900 rounded-full p-2"
+                        onClick={() => {
+                          if (
+                            pictureIndex ===
+                            feedPosts[index].postProduct.productPicture.length -
+                              1
+                          ) {
+                          } else {
+                            setPictureIndex((prev) => prev + 1);
+                          }
+                        }}
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          class="w-8 h-8 text-neutral-300"
+                        >
+                          <path
+                            fill-rule="evenodd"
+                            d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
+                            clip-rule="evenodd"
+                          />
+                        </svg>
+                      </button>{" "}
+                    </>
+                  )}
+                </div>
+                <img
+                  src={
+                    feedPosts[index] &&
+                    feedPosts[index].postProduct.productPicture[pictureIndex]
+                  }
+                  className="h-full w-full object-cover rounded-md  "
+                ></img>
+                <div
+                  onClick={() =>
+                    navigate(
+                      `/store/${feedPosts[index].postAuthor.username}/product/${feedPosts[index].postProduct._id}`
+                    )
+                  }
+                  className="absolute top-0 left-0 h-full w-full opacity-100  flex items-center justify-center transition-all"
+                >
+                  <div className="p-4 flex items-center justify-center bg-neutral-900 rounded-md bg-opacity-50 cursor-pointer opacity-0 hover:opacity-100 transition-all">
+                    <h1 className="text-neutral-100 text-2xl">
+                      Open this product in store
+                    </h1>
+                  </div>
+                </div>
+              </>
+            )}
+          </div>
+        )}
         <div className="h-[10%] w-full p-2 border-b-2 border-neutral-700  border-opacity-25">
           <div className="h-[50%] border-b-2 border-neutral-900 border-opacity-25 grid grid-cols-2 text-neutral-500">
             <div className="h-full flex items-center justify-center">
@@ -305,31 +376,33 @@ const PostModal = ({
                   </div>
                   <div className=" w-auto bg-neutral-800 text-neutral-300 p-4 max-w-[80%] break-words rounded-lg relative">
                     {comment.commentText}
-                    {comment.commentAuthor._id === user && user._id && (
-                      <button
-                        className="absolute bottom-1 right-1"
-                        onClick={() => {
-                          if (storeSubPage === "store") {
-                          } else {
-                            setDeleteIndex(i);
-                          }
-                          setCommentId(comment._id);
-                        }}
-                      >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          class="w-4 h-4 text-neutral-600 hover:text-orange-500 "
+                    {user &&
+                      Object.keys(user).length > 0 &&
+                      comment.commentAuthor._id === user._id && (
+                        <button
+                          className="absolute bottom-1 right-1"
+                          onClick={() => {
+                            if (storeSubPage === "store") {
+                            } else {
+                              setDeleteIndex(i);
+                            }
+                            setCommentId(comment._id);
+                          }}
                         >
-                          <path
-                            fill-rule="evenodd"
-                            d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
-                            clip-rule="evenodd"
-                          />
-                        </svg>
-                      </button>
-                    )}
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            class="w-4 h-4 text-neutral-600 hover:text-orange-500 "
+                          >
+                            <path
+                              fill-rule="evenodd"
+                              d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                              clip-rule="evenodd"
+                            />
+                          </svg>
+                        </button>
+                      )}
                   </div>
                 </article>
               );

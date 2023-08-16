@@ -15,7 +15,7 @@ const postSchema = new mongoose.Schema({
   postText: String,
   postVideo: String,
   postYoutubeVideo: String,
-  postProduct: {},
+  postProduct: { type: mongoose.Schema.Types.ObjectId, ref: "product" },
   postLikes: [{ type: String }],
   postComments: [{ type: mongoose.Schema.Types.ObjectId, ref: "comment" }],
 });

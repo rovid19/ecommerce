@@ -58,7 +58,7 @@ const Homepage = () => {
           >
             <select
               className={
-                active === "Following"
+                active === "Following" || active === "Trending"
                   ? "h-full w-full text-center bg-neutral-700 text-white rounded-l-md"
                   : "h-full w-full text-center bg-neutral-900 text-white rounded-l-md"
               }

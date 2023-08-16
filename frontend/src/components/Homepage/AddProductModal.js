@@ -51,8 +51,8 @@ const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
                   <article
                     className={
                       i === 0
-                        ? "w-full h-[25%] bg-neutral-800 cursor-pointer  grid grid-cols-3 hover:bg-neutral-700 transition-all rounded-r-md rounded-l-md"
-                        : "w-full h-[25%] bg-neutral-800 mt-1 cursor-pointer grid grid-cols-3 hover:bg-neutral-700 transition-all  rounded-r-md rounded-l-md"
+                        ? "w-full h-[35%] bg-neutral-800 cursor-pointer  grid grid-cols-3 hover:bg-neutral-700 transition-all rounded-r-md rounded-l-md"
+                        : "w-full h-[35%] bg-neutral-800 mt-1 cursor-pointer grid grid-cols-3 hover:bg-neutral-700 transition-all  rounded-r-md rounded-l-md"
                     }
                     onClick={() => {
                       setProduct(product);

@@ -1,0 +1,187 @@
+Date : 2023-08-17 00:58:29
+Directory : c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend
+Total : 111 files,  42271 codes, 230 comments, 814 blanks, all 43315 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          2 |     31,272 |          0 |          2 |     31,274 |
+| JavaScript |         94 |     10,035 |        181 |        679 |     10,895 |
+| CSS        |          1 |        472 |         16 |         92 |        580 |
+| XML        |         12 |        428 |         10 |          6 |        444 |
+| Markdown   |          1 |         38 |          0 |         33 |         71 |
+| HTML       |          1 |         26 |         23 |          2 |         51 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++----------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                                                               | files      | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                                                  |        111 |     42,271 |        230 |        814 |     43,315 |
+| . (Files)                                                                                                                                          |          5 |     31,325 |          1 |         40 |     31,366 |
+| public                                                                                                                                             |          1 |         26 |         23 |          2 |         51 |
+| src                                                                                                                                                |        105 |     10,920 |        206 |        772 |     11,898 |
+| src (Files)                                                                                                                                        |          3 |        652 |         19 |        112 |        783 |
+| src\app                                                                                                                                            |         34 |        739 |          3 |        170 |        912 |
+| src\app (Files)                                                                                                                                    |          1 |         71 |          0 |          1 |         72 |
+| src\app\features                                                                                                                                   |         33 |        668 |          3 |        169 |        840 |
+| src\app\features (Files)                                                                                                                           |          7 |        189 |          0 |         31 |        220 |
+| src\app\features\Store                                                                                                                             |         12 |        185 |          0 |         60 |        245 |
+| src\app\features\Store (Files)                                                                                                                     |         11 |        170 |          0 |         55 |        225 |
+| src\app\features\Store\Dashboard                                                                                                                   |          1 |         15 |          0 |          5 |         20 |
+| src\app\features\User                                                                                                                              |         14 |        294 |          3 |         78 |        375 |
+| src\assets                                                                                                                                         |         12 |        428 |         10 |          6 |        444 |
+| src\assets\svg-loaders                                                                                                                             |         12 |        428 |         10 |          6 |        444 |
+| src\components                                                                                                                                     |         56 |      9,101 |        174 |        484 |      9,759 |
+| src\components (Files)                                                                                                                             |          1 |         86 |          0 |         10 |         96 |
+| src\components\Homepage                                                                                                                            |          9 |      1,689 |         27 |         64 |      1,780 |
+| src\components\Login                                                                                                                               |          2 |        173 |          0 |         17 |        190 |
+| src\components\Navbar                                                                                                                              |          3 |        857 |          5 |         29 |        891 |
+| src\components\Navbar (Files)                                                                                                                      |          2 |        667 |          5 |         18 |        690 |
+| src\components\Navbar\Icons                                                                                                                        |          1 |        190 |          0 |         11 |        201 |
+| src\components\Register                                                                                                                            |          2 |        229 |          0 |         16 |        245 |
+| src\components\Search                                                                                                                              |          2 |        357 |         16 |         19 |        392 |
+| src\components\User                                                                                                                                |         37 |      5,710 |        126 |        329 |      6,165 |
+| src\components\User\Customer                                                                                                                       |          7 |      1,198 |         21 |         60 |      1,279 |
+| src\components\User\Customer (Files)                                                                                                               |          1 |        229 |         21 |         16 |        266 |
+| src\components\User\Customer\Profile                                                                                                               |          6 |        969 |          0 |         44 |      1,013 |
+| src\components\User\Customer\Profile (Files)                                                                                                       |          1 |        131 |          0 |          2 |        133 |
+| src\components\User\Customer\Profile\ProfileSubpages                                                                                               |          5 |        838 |          0 |         42 |        880 |
+| src\components\User\Dashboard                                                                                                                      |         20 |      2,637 |         53 |        157 |      2,847 |
+| src\components\User\Dashboard (Files)                                                                                                              |          3 |        364 |          0 |         14 |        378 |
+| src\components\User\Dashboard\StoreEdit                                                                                                            |          5 |        483 |         21 |         33 |        537 |
+| src\components\User\Dashboard\StoreEdit (Files)                                                                                                    |          3 |        388 |         21 |         24 |        433 |
+| src\components\User\Dashboard\StoreEdit\Modals                                                                                                     |          2 |         95 |          0 |          9 |        104 |
+| src\components\User\Dashboard\StoreFinance                                                                                                         |          3 |        234 |          2 |         20 |        256 |
+| src\components\User\Dashboard\StoreOrders                                                                                                          |          2 |        404 |          5 |         18 |        427 |
+| src\components\User\Dashboard\StoreYourProducts                                                                                                    |          7 |      1,152 |         25 |         72 |      1,249 |
+| src\components\User\Dashboard\StoreYourProducts (Files)                                                                                            |          1 |        245 |         12 |         24 |        281 |
+| src\components\User\Dashboard\StoreYourProducts\Modals                                                                                             |          6 |        907 |         13 |         48 |        968 |
+| src\components\User\Dashboard\StoreYourProducts\Modals\AddCollectionModal                                                                          |          2 |        233 |          1 |         11 |        245 |
+| src\components\User\Dashboard\StoreYourProducts\Modals\AddProductModal                                                                             |          2 |        328 |          5 |         17 |        350 |
+| src\components\User\Dashboard\StoreYourProducts\Modals\EditProductModal                                                                            |          2 |        346 |          7 |         20 |        373 |
+| src\components\User\Inbox                                                                                                                          |          3 |        475 |         12 |         35 |        522 |
+| src\components\User\Store                                                                                                                          |          7 |      1,400 |         40 |         77 |      1,517 |
+| src\components\User\Store (Files)                                                                                                                  |          3 |        483 |         28 |         31 |        542 |
+| src\components\User\Store\Reviews                                                                                                                  |          2 |        328 |          8 |         25 |        361 |
+| src\components\User\Store\StoreProductModal                                                                                                        |          2 |        589 |          4 |         21 |        614 |
++----------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++----------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                                                                                           | language   | code       | comment    | blank      | total      |
++----------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\README.md                                                                                       | Markdown   |         38 |          0 |         33 |         71 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\package-lock.json                                                                               | JSON       |     31,210 |          0 |          1 |     31,211 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\package.json                                                                                    | JSON       |         62 |          0 |          1 |         63 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\public\index.html                                                                               | HTML       |         26 |         23 |          2 |         51 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\socket.js                                                                                       | JavaScript |          3 |          0 |          3 |          6 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\App.js                                                                                      | JavaScript |        162 |          3 |         18 |        183 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\Dashboard\editProductModal.js                                            | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\collections.js                                                           | JavaScript |         20 |          0 |          5 |         25 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\deleteProductModal.js                                                    | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\htmlElement.js                                                           | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\savedStore.js                                                            | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\scrollStop.js                                                            | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\selectedProduct.js                                                       | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\storeEditMode.js                                                         | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\storeId.js                                                               | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\storeProducts.js                                                         | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\userStoreProducts.js                                                     | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\Store\viewProductModal.js                                                      | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\cartItems.js                                                              | JavaScript |         23 |          0 |          7 |         30 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\cartVisible.js                                                            | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\inboxMessages.js                                                          | JavaScript |         21 |          0 |          5 |         26 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\isReview.js                                                               | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\isUserFetching.js                                                         | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\openReviewPic.js                                                          | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\productIndex.js                                                           | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\profileSavedModal.js                                                      | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\reviewPic.js                                                              | JavaScript |         22 |          0 |          5 |         27 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\search.js                                                                 | JavaScript |         26 |          0 |          5 |         31 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\trendingStore.js                                                          | JavaScript |         28 |          1 |          7 |         36 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\userSlice.js                                                              | JavaScript |         54 |          2 |          9 |         65 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\viewImage.js                                                              | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\User\viewReviewPic.js                                                          | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\getUserTrigger.js                                                              | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\post.js                                                                        | JavaScript |         49 |          0 |          4 |         53 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\registrationInput.js                                                           | JavaScript |         15 |          0 |          4 |         19 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\socket.js                                                                      | JavaScript |         15 |          0 |          4 |         19 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\storeSlice.js                                                                  | JavaScript |         15 |          0 |          4 |         19 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\storeSubPage.js                                                                | JavaScript |         15 |          0 |          5 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\features\triggeri.js                                                                    | JavaScript |         65 |          0 |          5 |         70 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\app\store.js                                                                                | JavaScript |         71 |          0 |          1 |         72 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\audio.svg                                                                | XML        |         28 |          1 |          0 |         29 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\ball-triangle.svg                                                        | XML        |         45 |          2 |          0 |         47 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\bars.svg                                                                 | XML        |         52 |          0 |          1 |         53 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\circles.svg                                                              | XML        |         20 |          0 |          1 |         21 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\grid.svg                                                                 | XML        |         56 |          0 |          1 |         57 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\hearts.svg                                                               | XML        |         17 |          1 |          1 |         19 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\oval.svg                                                                 | XML        |         16 |          1 |          0 |         17 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\puff.svg                                                                 | XML        |         36 |          1 |          0 |         37 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\rings.svg                                                                | XML        |         41 |          1 |          0 |         42 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\spinning-circles.svg                                                     | XML        |         54 |          1 |          0 |         55 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\tail-spin.svg                                                            | XML        |         31 |          1 |          1 |         33 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\assets\svg-loaders\three-dots.svg                                                           | XML        |         32 |          1 |          1 |         34 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Homepage\AddProductModal.js                                                      | JavaScript |         89 |          0 |          3 |         92 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Homepage\Homepage.js                                                             | JavaScript |        104 |          1 |          8 |        113 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Homepage\HomepageStoreCard.js                                                    | JavaScript |         26 |         24 |          3 |         53 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Homepage\HomepageTrending.js                                                     | JavaScript |         73 |          0 |          5 |         78 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Homepage\Post.js                                                                 | JavaScript |        318 |          0 |          8 |        326 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Homepage\PostModal.js                                                            | JavaScript |        437 |          0 |         14 |        451 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Homepage\VideoPlayerModal.js                                                     | JavaScript |         57 |          0 |          3 |         60 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Homepage\VideoUploadModal.js                                                     | JavaScript |        146 |          2 |          6 |        154 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Homepage\YourFeed.js                                                             | JavaScript |        439 |          0 |         14 |        453 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Layout.js                                                                        | JavaScript |         86 |          0 |         10 |         96 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Login\LoginGooglePass.js                                                         | JavaScript |         63 |          0 |         10 |         73 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Login\LoginPage.js                                                               | JavaScript |        110 |          0 |          7 |        117 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Navbar\Icons\IconsExport.js                                                      | JavaScript |        190 |          0 |         11 |        201 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Navbar\Navbar.js                                                                 | JavaScript |        261 |          0 |          7 |        268 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Navbar\NavbarMobile.js                                                           | JavaScript |        406 |          5 |         11 |        422 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Register\RegisterGooglePass.js                                                   | JavaScript |         92 |          0 |          8 |        100 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Register\RegisterPagePartTwo.js                                                  | JavaScript |        137 |          0 |          8 |        145 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Search\Search.js                                                                 | JavaScript |        305 |         16 |         16 |        337 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\Search\SearchResults.js                                                          | JavaScript |         52 |          0 |          3 |         55 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Customer\AddToCart.js                                                       | JavaScript |        229 |         21 |         16 |        266 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Customer\Profile\ProfileSubpages\ManageFollowers.js                         | JavaScript |        130 |          0 |          8 |        138 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Customer\Profile\ProfileSubpages\OrderHistory.js                            | JavaScript |        268 |          0 |         10 |        278 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Customer\Profile\ProfileSubpages\OrderHistoryModal.js                       | JavaScript |        175 |          0 |          7 |        182 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Customer\Profile\ProfileSubpages\Profile.js                                 | JavaScript |        157 |          0 |         10 |        167 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Customer\Profile\ProfileSubpages\ShippingDetails.js                         | JavaScript |        108 |          0 |          7 |        115 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Customer\Profile\UserMenu.js                                                | JavaScript |        131 |          0 |          2 |        133 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreDasboardNavMobile.js                                         | JavaScript |        144 |          0 |          4 |        148 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreDashboard.js                                                 | JavaScript |         49 |          0 |          5 |         54 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreDashboardNav.js                                              | JavaScript |        171 |          0 |          5 |        176 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreEdit\Modals\StoreDeleteProductModal.js                       | JavaScript |         57 |          0 |          5 |         62 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreEdit\Modals\StoreSavedModal.js                               | JavaScript |         38 |          0 |          4 |         42 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreEdit\StoreEdit.js                                            | JavaScript |        164 |         18 |         12 |        194 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreEdit\StoreEditInfo.js                                        | JavaScript |         75 |          1 |          5 |         81 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreEdit\StoreEditInfoInputs.js                                  | JavaScript |        149 |          2 |          7 |        158 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreFinance\StoreFinance.js                                      | JavaScript |         54 |          1 |          6 |         61 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreFinance\StoreFinanceLast5Sales.js                            | JavaScript |         74 |          0 |          5 |         79 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreFinance\StoreFinanceSales.js                                 | JavaScript |        106 |          1 |          9 |        116 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreOrders\StoreOrders.js                                        | JavaScript |        243 |          5 |         10 |        258 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreOrders\StoreOrdersModal.js                                   | JavaScript |        161 |          0 |          8 |        169 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreYourProducts\Modals\AddCollectionModal\Add.js                | JavaScript |         34 |          0 |          4 |         38 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreYourProducts\Modals\AddCollectionModal\AddCollectionModal.js | JavaScript |        199 |          1 |          7 |        207 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreYourProducts\Modals\AddProductModal\AddProductInputs.js      | JavaScript |        277 |          4 |         13 |        294 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreYourProducts\Modals\AddProductModal\AddProductModal.js       | JavaScript |         51 |          1 |          4 |         56 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreYourProducts\Modals\EditProductModal\EditProductInputs.js    | JavaScript |        273 |          5 |         14 |        292 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreYourProducts\Modals\EditProductModal\EditProductModal.js     | JavaScript |         73 |          2 |          6 |         81 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Dashboard\StoreYourProducts\YourProducts.js                                 | JavaScript |        245 |         12 |         24 |        281 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Inbox\Chat.js                                                               | JavaScript |        107 |          1 |          8 |        116 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Inbox\Inbox.js                                                              | JavaScript |        196 |          8 |         20 |        224 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Inbox\SendMessage.js                                                        | JavaScript |        172 |          3 |          7 |        182 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Store\Reviews\ReviewStarRating.js                                           | JavaScript |         47 |          0 |          5 |         52 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Store\Reviews\Reviews.js                                                    | JavaScript |        281 |          8 |         20 |        309 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Store\Store.js                                                              | JavaScript |        270 |         26 |         15 |        311 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Store\StoreFeed.js                                                          | JavaScript |         70 |          0 |          7 |         77 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Store\StoreProductCard.js                                                   | JavaScript |        143 |          2 |          9 |        154 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Store\StoreProductModal\StoreProductModal.js                                | JavaScript |        257 |          3 |         12 |        272 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\components\User\Store\StoreProductModal\StoreProductPictures.js                             | JavaScript |        332 |          1 |          9 |        342 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\index.css                                                                                   | CSS        |        472 |         16 |         92 |        580 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\src\index.js                                                                                    | JavaScript |         18 |          0 |          2 |         20 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\frontend\tailwind.config.js                                                                              | JavaScript |         12 |          1 |          2 |         15 |
+| Total                                                                                                                                              |            |     42,271 |        230 |        814 |     43,315 |
++----------------------------------------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

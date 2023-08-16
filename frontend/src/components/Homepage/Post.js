@@ -6,9 +6,11 @@ import {
   setPostModalClass,
   setPostModalVisible,
 } from "../../app/features/post";
+import productIndex from "../../app/features/User/productIndex";
 
 const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
   const [liked, setLiked] = useState(false);
+  const [pictureIndex, setPictureIndex] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -49,6 +51,7 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
     }
   }, [post]);
 
+  console.log(pictureIndex);
   return (
     <article
       className={
@@ -115,85 +118,149 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
         </div>
         <p className="text-neutral-300 p-4">{post.postText}</p>
       </div>
-      <div className="h-[350px] w-ful relative group overflow-hidden">
-        {" "}
-        {post.postVideo ? (
-          <>
-            <video
-              src={post.postVideo}
-              className="h-full w-full object-cover rounded-md"
-            ></video>
-            <div className="h-full w-full absolute top-0 bg-neutral flex justify-center items-center bg-neutral-900 bg-opacity-40">
-              <button
-                onClick={() => {
-                  setIndex(index);
-                  dispatch(setPostModalVisible(true));
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-10 h-10 text-neutral-400 hover:text-white transition-all"
+      {!post.postVideo && !post.postYoutubeVideo && !post.postProduct ? (
+        ""
+      ) : (
+        <div className="h-[350px] w-full  relative group overflow-hidden">
+          {" "}
+          {post.postVideo ? (
+            <>
+              <video
+                src={post.postVideo}
+                className="h-full w-full object-cover rounded-md"
+              ></video>
+              <div className="h-full w-full absolute top-0 bg-neutral flex justify-center items-center bg-neutral-900 bg-opacity-40">
+                <button
+                  onClick={() => {
+                    setIndex(index);
+                    dispatch(setPostModalVisible(true));
+                  }}
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
-          </>
-        ) : post.postYoutubeVideo ? (
-          <>
-            <iframe
-              src={post.postYoutubeVideo}
-              className="h-full w-full object-cover rounded-md"
-            ></iframe>
-            <div className="h-full w-full absolute top-0 bg-neutral flex justify-center items-center bg-neutral-900 bg-opacity-40">
-              <button
-                onClick={() => {
-                  setIndex(index);
-                  dispatch(setPostModalVisible(true));
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  viewBox="0 0 24 24"
-                  fill="currentColor"
-                  class="w-10 h-10 text-neutral-400 hover:text-white transition-all"
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-10 h-10 text-neutral-400 hover:text-white transition-all"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </>
+          ) : post.postYoutubeVideo ? (
+            <>
+              <iframe
+                src={post.postYoutubeVideo}
+                className="h-full w-full object-cover rounded-md"
+              ></iframe>
+              <div className="h-full w-full absolute top-0 bg-neutral flex justify-center items-center bg-neutral-900 bg-opacity-40">
+                <button
+                  onClick={() => {
+                    setIndex(index);
+                    dispatch(setPostModalVisible(true));
+                  }}
                 >
-                  <path
-                    fill-rule="evenodd"
-                    d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
-                    clip-rule="evenodd"
-                  />
-                </svg>
-              </button>
-            </div>
-          </>
-        ) : (
-          <>
-            <img
-              src={post.postProduct.productPicture[0]}
-              className="h-full w-full object-cover rounded-md group-hover:blur-sm "
-            ></img>
-            <div
-              onClick={() =>
-                navigate(
-                  `store/${post.postAuthor.username}/product/${post.postProduct._id}`
-                )
-              }
-              className="cursor-pointer absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-neutral-900 bg-opacity-50 flex items-center justify-center transition-all"
-            >
-              <h1 className="text-neutral-300 text-2xl">
-                Open this product in store
-              </h1>
-            </div>
-          </>
-        )}
-      </div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    class="w-10 h-10 text-neutral-400 hover:text-white transition-all"
+                  >
+                    <path
+                      fill-rule="evenodd"
+                      d="M4.5 5.653c0-1.426 1.529-2.33 2.779-1.643l11.54 6.348c1.295.712 1.295 2.573 0 3.285L7.28 19.991c-1.25.687-2.779-.217-2.779-1.643V5.653z"
+                      clip-rule="evenodd"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </>
+          ) : (
+            <>
+              <div className="absolute top-0 left-0 h-full w-full flex items-center">
+                <h1 className="absolute left-2 top-2 bg-neutral-900 p-2 text-neutral-300 rounded-md text-sm">
+                  {pictureIndex + 1}/
+                  {post && post.postProduct.productPicture.length}
+                </h1>
+                {post.postProduct.productPicture.length > 1 && (
+                  <>
+                    {" "}
+                    <button
+                      className="absolute left-2 z-50 bg-neutral-900 rounded-full p-2"
+                      onClick={() => {
+                        if (pictureIndex === 0) {
+                        } else {
+                          setPictureIndex((prev) => prev - 1);
+                        }
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="w-8 h-8 text-neutral-300 "
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M7.72 12.53a.75.75 0 010-1.06l7.5-7.5a.75.75 0 111.06 1.06L9.31 12l6.97 6.97a.75.75 0 11-1.06 1.06l-7.5-7.5z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                    <button
+                      className="absolute right-2 z-50 bg-neutral-900 rounded-full p-2"
+                      onClick={() => {
+                        if (
+                          pictureIndex ===
+                          post.postProduct.productPicture.length - 1
+                        ) {
+                        } else {
+                          setPictureIndex((prev) => prev + 1);
+                        }
+                      }}
+                    >
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                        fill="currentColor"
+                        class="w-8 h-8 text-neutral-300"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M16.28 11.47a.75.75 0 010 1.06l-7.5 7.5a.75.75 0 01-1.06-1.06L14.69 12 7.72 5.03a.75.75 0 011.06-1.06l7.5 7.5z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                    </button>
+                  </>
+                )}
+              </div>
+              <img
+                src={post && post.postProduct.productPicture[pictureIndex]}
+                className="h-full w-full object-cover rounded-md  "
+              ></img>
+              <div
+                onClick={() =>
+                  navigate(
+                    `/store/${post.postAuthor.username}/product/${post.postProduct._id}`
+                  )
+                }
+                className="absolute top-0 left-0 h-full w-full opacity-100  flex items-center justify-center transition-all"
+              >
+                <div className="p-4 flex items-center justify-center bg-neutral-900 rounded-md bg-opacity-50 cursor-pointer opacity-0 hover:opacity-100 transition-all">
+                  <h1 className="text-neutral-100 text-2xl">
+                    Open this product in store
+                  </h1>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      )}
       <div className="h-[20%] w-full p-2">
         <div className="h-[50%] border-b-2 border-neutral-900 border-opacity-25 grid grid-cols-2 text-neutral-500">
           <div className="h-full flex items-center justify-center">
