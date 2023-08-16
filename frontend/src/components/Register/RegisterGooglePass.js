@@ -8,6 +8,7 @@ import {
   fetchUserData,
 } from "../../app/features/User/userSlice";
 import axios from "axios";
+import { setActive } from "../../app/features/triggeri";
 
 const LoginGooglePass = ({ email }) => {
   const [password, setPassword] = useState(null);
@@ -37,7 +38,7 @@ const LoginGooglePass = ({ email }) => {
           });
 
           await dispatch(fetchUserData()).unwrap();
-
+          dispatch(setActive("Trending"));
           navigate("/");
         } catch (err) {
           setError(err.response.data);

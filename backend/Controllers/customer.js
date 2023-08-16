@@ -713,3 +713,21 @@ export const specificUserPosts = async (req, res) => {
 
   res.json(post);
 };
+
+export const followingsFeed = async (req, res) => {
+  const { userId } = req.body;
+
+  const user = await User.findById(userId);
+  const allPosts = await Post.find();
+
+  let postsArray = [];
+  user.followings.forEach((following) => {
+    allPosts.forEach((post) => {
+      if (post.postAuthor.toString() === following.toString()) {
+        postsArray.push(post);
+      }
+    });
+  });
+
+  res.json(postsArray);
+};

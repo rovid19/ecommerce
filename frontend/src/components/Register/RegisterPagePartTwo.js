@@ -13,6 +13,7 @@ import {
 } from "../../app/features/User/userSlice";
 
 import { switchValue } from "../../app/features/getUserTrigger";
+import { setActive } from "../../app/features/triggeri";
 
 const RegisterPagePartTwo = () => {
   const [googlePass, setGooglePass] = useState(false);
@@ -49,7 +50,7 @@ const RegisterPagePartTwo = () => {
           });
 
           await dispatch(fetchUserData()).unwrap();
-
+          dispatch(setActive("Trending"));
           navigate("/");
         } catch (err) {
           setError(err.response.data);

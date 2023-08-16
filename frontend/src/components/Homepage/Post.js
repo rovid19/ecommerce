@@ -115,7 +115,7 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
         </div>
         <p className="text-neutral-300 p-4">{post.postText}</p>
       </div>
-      <div className="h-[350px] w-ful relative">
+      <div className="h-[350px] w-ful relative group overflow-hidden">
         {" "}
         {post.postVideo ? (
           <>
@@ -174,15 +174,24 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
             </div>
           </>
         ) : (
-          <img
-            src={post.postProduct.productPicture[0]}
-            className="h-full w-full object-cover rounded-md cursor-pointer"
-            onClick={() =>
-              navigate(
-                `store/${post.postAuthor.username}/product/${post.postProduct._id}`
-              )
-            }
-          ></img>
+          <>
+            <img
+              src={post.postProduct.productPicture[0]}
+              className="h-full w-full object-cover rounded-md group-hover:blur-sm "
+            ></img>
+            <div
+              onClick={() =>
+                navigate(
+                  `store/${post.postAuthor.username}/product/${post.postProduct._id}`
+                )
+              }
+              className="cursor-pointer absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-neutral-900 bg-opacity-50 flex items-center justify-center transition-all"
+            >
+              <h1 className="text-neutral-300 text-2xl">
+                Open this product in store
+              </h1>
+            </div>
+          </>
         )}
       </div>
       <div className="h-[20%] w-full p-2">

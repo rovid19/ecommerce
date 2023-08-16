@@ -1,10 +1,19 @@
-import React from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { motion } from "framer-motion";
+import { fetchStoreProducts } from "../../app/features/User/userSlice";
 
 const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
   const products = useSelector((state) => state.userData.value.products);
-
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const isProduct = async () => {
+      if (products && Object.keys(products === 0)) {
+        await dispatch(fetchStoreProducts()).unwrap();
+      }
+    };
+    isProduct();
+  }, []);
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
       <motion.article
@@ -36,6 +45,7 @@ const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
           </h1>
           <div className="w-full h-[90%]  overflow-scroll scrollbar-hide">
             {products &&
+              Object.keys(products).length > 0 &&
               products.map((product, i) => {
                 return (
                   <article

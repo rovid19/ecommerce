@@ -52,7 +52,7 @@ const StoreFinanceSales = () => {
   }, [value]);
 
   return (
-    <div className="w-full h-full fl2 relative bg-neutral-800">
+    <div className="w-full h-full fl2  bg-neutral-800">
       {isFetching && (
         <div className="h-full w-full flex items-center justify-center bg-neutral-800 absolute top-0 left-0">
           {" "}
@@ -64,7 +64,7 @@ const StoreFinanceSales = () => {
           <Calendar value={value} onChange={onChange} />{" "}
         </div>
       )}
-      <div className="w-full h-[10%] grid grid-cols-2 bg-neutral-700 text-neutral-500">
+      <div className="w-full h-[50px] lg:h-[10%] grid grid-cols-2 bg-neutral-700 text-neutral-500">
         <button
           onClick={() => {
             setSubPage("sales");
@@ -97,14 +97,16 @@ const StoreFinanceSales = () => {
         </button>
       </div>
       <div className="w-full h-[90%] fl2">
-        <h3 className="text-xl lg:text-2xl text-neutral-400">
+        <h3 className="text-lg lg:text-2xl text-neutral-400">
           {subPage === "sales"
             ? formattedDate === todayDate
               ? "Today Sales"
               : formattedDate + " " + "Sales"
             : "Total Sales"}
         </h3>
-        <h1 className="text-4xl lg:text-9xl mt-2 text-white">{dailySales}$</h1>
+        <h1 className="text-2xl lg:text-9xl lg:mt-2 text-white">
+          {dailySales}$
+        </h1>
       </div>
     </div>
   );

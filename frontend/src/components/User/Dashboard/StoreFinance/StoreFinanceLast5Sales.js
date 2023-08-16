@@ -13,7 +13,7 @@ const StoreFinanceLast5Sales = () => {
     axios
       .post("/api/store/get-last-5-sales", { storeId: user.store._id })
       .then(({ data }) => {
-        setLast5(data);
+        setLast5(data.reverse());
         setIsFetching(false);
       });
   }, []);
@@ -26,48 +26,48 @@ const StoreFinanceLast5Sales = () => {
           <img src={Loader}></img>{" "}
         </div>
       )}
-      <div className="h-[10%] p-4 border-b-2 border-neutral-900 border-opacity-20">
-        <h2 className="text-xl lg:text-2xl uppercase text-neutral-400">
+      <div className="h-[50px] lg:h-[10%] pl-2 pt-2  border-b-2 border-neutral-900 border-opacity-20 ">
+        <h2 className="text-xl lg:text-xl uppercase text-neutral-400">
           Last 5 sales:
         </h2>
       </div>
-      <div className="w-full h-[90%]  overflow-scroll scrollbar-hide">
+      <div className="w-full h-[calc(98%-50px)] lg:h-[90%] overflow-y-scroll scrollbar-hide ">
         {last5 &&
           last5.map((item, index) => {
+            console.log(item.productBought);
             return (
-              <div
+              <article
                 className={
                   index === 0
-                    ? "w-full h-[20%] lg:h-[25%] grid grid-cols-3 bg-neutral-900 p-2  rounded-md"
-                    : "w-full h-[20%] lg:h-[25%]  mt-2 grid grid-cols-3 bg-neutral-900 p-2 rounded-md"
+                    ? "bg-neutral-900 w-full lg:h-[25%] grid grid-cols-3 h-[40%]"
+                    : "bg-neutral-900 mt-1 w-full lg:h-[25%] grid grid-cols-3 h-[40%]"
                 }
-                key={index}
               >
-                <div className="border-r-2 border-neutral-600 border-opacity-20 text-neutral-500">
-                  <div className="h-[10%] w-full p-1 flex items-center justify-center text-sm lg:text-base">
+                <div className="h-full w-full border-r-2 border-neutral-600 border-opacity-20">
+                  <div className="h-[10%] flex justify-center items-center text-neutral-500 pt-4 ">
                     <h1>Products</h1>
                   </div>
-                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-sm lg:text-2xl text-neutral-300 gap-2">
-                    <h1>{item.pro}</h1>
+                  <div className="h-[90%] flex justify-center items-center text-neutral-300">
+                    <h2>{item.productBought[0].productName}</h2>
                   </div>
                 </div>
-                <div className="border-r-2 border-neutral-600 border-opacity-20 text-neutral-500">
-                  <div className="h-[10%] w-full p-1 flex items-center justify-center">
+                <div className="h-full w-full border-r-2 border-neutral-600 border-opacity-20">
+                  <div className="h-[10%] flex justify-center items-center text-neutral-500 pt-4 ">
                     <h1>Price</h1>
                   </div>
-                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-sm lg:text-2xl text-neutral-400">
-                    {item.total}$
+                  <div className="h-[90%] flex justify-center items-center text-neutral-300">
+                    <h2>{item.total}$</h2>
                   </div>
                 </div>
-                <div className=" text-neutral-500">
-                  <div className="h-[10%] w-full p-1 flex items-center justify-center">
+                <div className="h-full w-full border-r-2 border-neutral-600 border-opacity-20">
+                  <div className="h-[10%] flex justify-center items-center text-neutral-500 pt-4 ">
                     <h1>Date</h1>
                   </div>
-                  <div className="h-[90%] w-full p-1 flex items-center justify-center text-[12px] lg:text-2xl text-neutral-400">
-                    {item.orderPlacedDate}
+                  <div className="h-[90%] flex justify-center items-center text-neutral-300">
+                    <h2>{item.orderPlacedDate}</h2>
                   </div>
                 </div>
-              </div>
+              </article>
             );
           })}
       </div>

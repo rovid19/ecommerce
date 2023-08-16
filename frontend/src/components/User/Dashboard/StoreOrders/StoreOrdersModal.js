@@ -62,7 +62,7 @@ const StoreOrdersModal = ({
   return (
     <div className="h-full w-full absolute top-0 left-0 bg-neutral-800 bg-opacity-50 z-50 flex items-center justify-center">
       <button
-        className="absolute left-2 lg:top-2 top-28  z-50"
+        className="absolute left-2 lg:top-2 top-2  z-50"
         onClick={() => {
           setIsVisible(false);
         }}
@@ -71,7 +71,7 @@ const StoreOrdersModal = ({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="currentColor"
-          className="lg:w-12 lg:h-12 w-10 h-10 hover:text-orange-500 lg:text-neutral-300 text-orange-500"
+          className="lg:w-12 lg:h-12 w-10 h-10 hover:text-orange-500 lg:text-neutral-300 text-neutral-300"
         >
           <path
             fillRule="evenodd"

@@ -26,7 +26,6 @@ const PostModal = ({
   const [showLess, setShowLess] = useState(true);
   const [commentId, setCommentId] = useState(null);
   const [commentAni, setCommentAni] = useState(" mt-4 flex ");
-  const [deleteTrigger, setDeleteTrigger] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -40,7 +39,6 @@ const PostModal = ({
       const isLiked = feedPosts[index].postLikes.includes(user._id);
       setLiked(isLiked);
     }
-    // setLikeTrigger(false);
   }, [feedPosts[index]]);
 
   const handleDeleteComment = async () => {
@@ -114,7 +112,7 @@ const PostModal = ({
       }
     }
   }, [comIndex]);
-
+  console.log(feedPosts[index]);
   return (
     <div
       className={
@@ -185,7 +183,7 @@ const PostModal = ({
           </div>
           <p className="text-neutral-300 p-4">{feedPosts[index].postText}</p>
         </div>
-        <div className="h-[450px] w-ful relative">
+        <div className="h-[450px] w-ful relative group overflow-hidden">
           {" "}
           {feedPosts[index].postVideo ? (
             <>
@@ -195,7 +193,7 @@ const PostModal = ({
                 controls
               ></video>
             </>
-          ) : feedPosts[index].postYoutueVideo !== "" ? (
+          ) : feedPosts[index].postYoutubeVideo ? (
             <>
               <iframe
                 src={feedPosts[index].postYoutubeVideo}
@@ -206,10 +204,24 @@ const PostModal = ({
               ></iframe>
             </>
           ) : (
-            <img
-              src={feedPosts[index].postProduct.productPicture[0]}
-              className="h-full w-full object-cover rounded-md"
-            ></img>
+            <>
+              <img
+                src={feedPosts[index].postProduct.productPicture[0]}
+                className="h-full w-full object-cover rounded-md group-hover:blur-sm"
+              ></img>
+              <div
+                onClick={() =>
+                  navigate(
+                    `store/${feedPosts[index].postAuthor.username}/product/${feedPosts[index].postProduct._id}`
+                  )
+                }
+                className="cursor-pointer absolute top-0 left-0 h-full w-full opacity-0 group-hover:opacity-100 bg-neutral-900 bg-opacity-50 flex items-center justify-center transition-all"
+              >
+                <h1 className="text-neutral-300 text-2xl">
+                  Open this product in store
+                </h1>
+              </div>
+            </>
           )}
         </div>
         <div className="h-[10%] w-full p-2 border-b-2 border-neutral-700  border-opacity-25">

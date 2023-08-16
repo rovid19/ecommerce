@@ -33,16 +33,22 @@ const Homepage = () => {
   // ak je user ulogiran stavi mu your feed odmah, a ak nije onda ga prebaci na homepage
   useEffect(() => {
     if (user && Object.keys(user).length > 0) {
-      dispatch(setActive("Your Feed"));
+      if (active) {
+      } else {
+        dispatch(setActive("Following"));
+      }
     } else {
-      dispatch(setActive("Home"));
+      if (active) {
+      } else {
+        dispatch(setActive("Home"));
+      }
     }
   }, [user]);
 
   return (
     <>
       <main className="h-full w-full overflow-scroll  scrollbar-hide griddd bg-neutral-900 relative">
-        {active === "Your Feed" ? (
+        {active === "Following" ? (
           ""
         ) : (
           <div
@@ -52,7 +58,7 @@ const Homepage = () => {
           >
             <select
               className={
-                active === "Your Feed"
+                active === "Following"
                   ? "h-full w-full text-center bg-neutral-700 text-white rounded-l-md"
                   : "h-full w-full text-center bg-neutral-900 text-white rounded-l-md"
               }
@@ -60,15 +66,16 @@ const Homepage = () => {
               defaultValue={active}
             >
               <option className="text-sm text-center">Home</option>
-              <option className="text-sm text-center" value="Your Feed">
-                {user && Object.keys(user).length > 0
-                  ? "Your Feed"
-                  : "Trending Feed"}
-              </option>
+              {user && Object.keys(user).length > 0 && (
+                <option className="text-sm text-center" value="Following">
+                  Following
+                </option>
+              )}
+              <option className="text-sm text-center">Trending</option>
             </select>
           </div>
         )}
-        {active === "Your Feed" ? (
+        {active === "Following" || active === "Trending" ? (
           <YourFeed />
         ) : (
           <>

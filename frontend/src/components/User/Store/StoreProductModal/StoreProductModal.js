@@ -18,7 +18,10 @@ import {
 import { setviewImage } from "../../../../app/features/User/viewImage";
 import { setViewReviewPic } from "../../../../app/features/User/viewReviewPic";
 import { setViewProductModal } from "../../../../app/features/Store/viewProductModal";
-import { setProductPictures } from "../../../../app/features/triggeri";
+import {
+  setCartClassname,
+  setProductPictures,
+} from "../../../../app/features/triggeri";
 
 const StoreProductModal = () => {
   // STATES
@@ -43,6 +46,9 @@ const StoreProductModal = () => {
   const viewReviewPic = useSelector((state) => state.viewReviewPic.value);
   const viewImage = useSelector((state) => state.viewImage.value);
   const viewProductModal = useSelector((state) => state.viewProductModal.value);
+  const cartClassname = useSelector(
+    (state) => state.triggeri.value.cartClassname
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -146,14 +152,16 @@ const StoreProductModal = () => {
           if (storeSubPage === "Search") {
             navigate(`/search/${search.searchOption}/${search.search}`);
           } else if (storeSubPage === "homepage") {
+            dispatch(addSelectedProduct(null));
             navigate("/");
           } else {
+            dispatch(addSelectedProduct(null));
             navigate(`/store/${savedStore.storeName}/${storeId}`);
             dispatch(setViewProductModal(!viewProductModal));
           }
           dispatch(removePic([]));
         }}
-        className=" text-black absolute top-2 right-2 lg:left-2 zeze"
+        className=" text-black absolute top-2 right-2 lg:left-2 zeze  w-[10%]  lg:w-[5%] xl:w-[2%]"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -241,6 +249,7 @@ const StoreProductModal = () => {
           <button
             onClick={() => {
               addProductToCart();
+              dispatch(setCartClassname(cartClassname + " cartOpen"));
             }}
             className=" absolute left-[40%] lg:left-[29%] border-2 border-orange-500 text-orange-500 p-4 rounded-lg h-[80%] w-[30%] lg:w-[15%] text-base lg:text-xl hover:bg-orange-500 hover:text-white transition-all"
           >

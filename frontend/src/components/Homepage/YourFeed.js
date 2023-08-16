@@ -38,13 +38,9 @@ const YourFeed = () => {
   const postModalVisible = useSelector(
     (state) => state.post.value.postModalVisible
   );
-  const postModalClass = useSelector(
-    (state) => state.post.value.postModalClass
-  );
   const active = useSelector((state) => state.triggeri.value.active);
-  const mobileActive = useSelector(
-    (state) => state.triggeri.value.mobileActive
-  );
+  const user = useSelector((state) => state.userData.value.user);
+  const products = useSelector((state) => state.userData.value.products);
 
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "2-digit",
@@ -75,32 +71,44 @@ const YourFeed = () => {
   }
 
   useEffect(() => {
-    if (!feedPosts) {
-      setIsLoading(true);
-    }
+    setFeedPosts(null);
+    setIsLoading(true);
+
     if (comPostDelete === "Delete") {
       setComIndex(deleteIndex);
     }
 
-    axios.get("/api/customer/get-all-posts").then(({ data }) => {
-      let reverseArray = data.reverse();
-      setFeedPosts(reverseArray);
-      setIsLoading(false);
-      //setLikeTrigger(true);
-      if (comPostDelete === "Post") {
-        if (data[index].postComments.length === 0) {
-          setComIndex(data[index].postComments.length);
-        } else {
-          setComIndex(data[index].postComments.length - 1);
+    if (active === "Following") {
+      axios
+        .post("/api/customer/get-followings-post", { userId: user._id })
+        .then(({ data }) => {
+          setFeedPosts(data.reverse());
+          setIsLoading(false);
+          if (comPostDelete === "Post") {
+            if (data[index].postComments.length === 0) {
+              setComIndex(data[index].postComments.length);
+            } else {
+              setComIndex(data[index].postComments.length - 1);
+            }
+          }
+        });
+    } else if (active === "Trending") {
+      axios.get("/api/customer/get-all-posts").then(({ data }) => {
+        let reverseArray = data.reverse();
+        setFeedPosts(reverseArray);
+        setIsLoading(false);
+
+        if (comPostDelete === "Post") {
+          if (data[index].postComments.length === 0) {
+            setComIndex(data[index].postComments.length);
+          } else {
+            setComIndex(data[index].postComments.length - 1);
+          }
         }
-      }
-    });
-  }, [postTrigger]);
-
-  //vracanje na scrollheight nakon zatvaranje post iz fullscreena
-
-  const user = useSelector((state) => state.userData.value.user);
-
+      });
+    }
+  }, [postTrigger, active]);
+  console.log(active);
   return (
     <section
       className="h-full w-full bg-neutral-800 overflow-scroll scrollbar-hide "
@@ -111,7 +119,7 @@ const YourFeed = () => {
       ) : (
         <div
           className={
-            "absolute bottom-0 left-0 lg:top-0 lg:left-[92%] lg:w-[8%] w-[45px] h-[50px]  z-30 lg:rounded-l-md"
+            "absolute top-0 right-0 lg:top-0 lg:left-[92%] lg:w-[8%] w-[45px] h-[50px]  z-30 lg:rounded-l-md"
           }
         >
           <select
@@ -185,14 +193,21 @@ const YourFeed = () => {
             >
               <select
                 className={
-                  active === "Your Feed"
+                  active === "Following"
                     ? "h-full w-full text-center bg-neutral-700 text-white rounded-l-md"
                     : "h-full w-full text-center bg-neutral-900 text-white rounded-l-md"
                 }
                 onChange={(e) => dispatch(setActive(e.target.value))}
               >
-                <option className="text-sm text-center">Your Feed</option>
-                <option className="text-sm text-center">Home</option>
+                <option value="Following" className="text-sm text-center">
+                  Following
+                </option>
+                <option value="Trending" className="text-sm text-center">
+                  Trending
+                </option>
+                <option value="Home" className="text-sm text-center">
+                  Home
+                </option>
               </select>
             </div>
           )}

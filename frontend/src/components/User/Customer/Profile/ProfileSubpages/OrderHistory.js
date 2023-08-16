@@ -33,7 +33,10 @@ const OrderHistory = () => {
   }, [getOrderHistoryTrigger]);
 
   return (
-    <div className="h-full w-full bg-neutral-800 flex items-center justify-center relative">
+    <div className="h-full w-full bg-neutral-800 fl2 relative">
+      <div className="h-[10%] w-full flex justify-center items-center">
+        <h1 className="text-2xl text-neutral-300">Your order history:</h1>
+      </div>
       {isVisible && (
         <OrderHistoryModal
           setIsVisible={setIsVisible}
@@ -50,12 +53,12 @@ const OrderHistory = () => {
         />
       )}
       {isFetching ? (
-        <div className="h-[90%] w-[80%] shadow-lg overflow-scroll scrollbar-hide flex items-center justify-center">
+        <div className="h-[90%] lg:h-[80%] w-[80%] shadow-lg overflow-scroll scrollbar-hide flex items-center justify-center">
           {" "}
           <img src={Loader} className="w-[15%] h-[15%] "></img>
         </div>
       ) : (
-        <div className="h-[80%] w-[90%] md:h-[90%] md:w-[80%] shadow-lg overflow-scroll scrollbar-hide">
+        <div className="h-[90%] w-full md:h-[90%] md:w-[80%] lg:h-[80%] shadow-lg overflow-scroll scrollbar-hide">
           {orderHistory && orderHistory.length > 0 ? (
             orderHistory.map((item, index) => {
               let indexMap = index;

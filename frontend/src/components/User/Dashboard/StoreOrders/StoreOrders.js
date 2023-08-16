@@ -56,7 +56,7 @@ const StoreOrders = () => {
     <div
       className={
         storeSubPage === "orders"
-          ? " store h-full w-full fl2 bg-neutral-800 "
+          ? " store h-full w-full fl2 bg-neutral-800  relative"
           : "hidden"
       }
     >
@@ -94,7 +94,7 @@ const StoreOrders = () => {
           setTrigger={setTrigger}
         />
       )}
-      <div className="fl2">
+      <div className="fl2 h-[20%]">
         {" "}
         <h1 className="text-4xl lg:text-6xl 2xl:text-7xl text-white">Orders</h1>
         <h3
@@ -104,7 +104,7 @@ const StoreOrders = () => {
           {date}
         </h3>
       </div>
-      <div className="w-[80%] h-[80%] bg-neutral-800 mt-2 shadow-xl relative overflow-scroll scrollbar-hide">
+      <div className="w-full h-[80%] bg-neutral-800 mt-2 shadow-xl  overflow-scroll scrollbar-hide">
         {/* EXTRA DETAILS ABOUT ORDER POPUP */}
         {/* CALENDAR POPUP */}
         {calendar && (
@@ -138,7 +138,11 @@ const StoreOrders = () => {
             return item.productBought.map((item, index) => {
               return (
                 <div
-                  className="h-[20%] w-full bg-neutral-900 flex cursor-pointer hover:bg-neutral-700 hover:text-white transition-all rounded-md text-neutral-300"
+                  className={
+                    index === 0
+                      ? "h-[20%] w-full bg-neutral-900 flex cursor-pointer hover:bg-neutral-700 hover:text-white transition-all rounded-md text-neutral-300"
+                      : "h-[20%] mt-1 w-full bg-neutral-900 flex cursor-pointer hover:bg-neutral-700 hover:text-white transition-all rounded-md text-neutral-300"
+                  }
                   onClick={() => {
                     setIsVisible(true);
                     setIndexDva(index);

@@ -29,6 +29,7 @@ import {
   postComment,
   deleteComment,
   specificUserPosts,
+  followingsFeed,
 } from "../Controllers/customer.js";
 import { getAllStores } from "../Controllers/store.js";
 
@@ -64,5 +65,6 @@ router.post("/remove-post", removePost);
 router.post("/post-comment", postComment);
 router.post("/delete-comment", deleteComment);
 router.post("/get-user-posts", specificUserPosts);
+router.post("/get-followings-post", followingsFeed);
 
 export default router;

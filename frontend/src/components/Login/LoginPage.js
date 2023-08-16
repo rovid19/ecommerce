@@ -13,7 +13,7 @@ import {
 } from "../../app/features/User/userSlice";
 import LoginGooglePass from "./LoginGooglePass";
 import { getStoreSubPage } from "../../app/features/storeSubPage";
-import { setRunUseEffect } from "../../app/features/triggeri";
+import { setActive, setRunUseEffect } from "../../app/features/triggeri";
 
 const LoginPage = () => {
   const [email, setEmail] = useState(null);
@@ -39,6 +39,7 @@ const LoginPage = () => {
       dispatch(fetchStoreProducts());
       dispatch(getStoreSubPage("homepage"));
       dispatch(setRunUseEffect(true));
+      dispatch(setActive(null));
       navigate("/");
     } catch (err) {
       if (err.response && err.response.status === 400) {

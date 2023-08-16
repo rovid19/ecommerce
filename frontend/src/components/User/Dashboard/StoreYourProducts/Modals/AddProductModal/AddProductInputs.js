@@ -110,7 +110,7 @@ const AddProductInputs = ({
       setCollectionIndex(indexC);
     }
   }, [collections]);
-
+  console.log(productPicture);
   return (
     <>
       {collectionTrigger ? (
@@ -142,7 +142,7 @@ const AddProductInputs = ({
             >
               {pictureFetch ? (
                 <div className="h-full w-full absolute top-0 left-0 bg-black bg-opacity-0 flex items-center justify-center">
-                  <img src={Loader} alt="Loading" />
+                  <img src={Loader} />
                 </div>
               ) : (
                 <>
@@ -151,25 +151,85 @@ const AddProductInputs = ({
                     type="file"
                     className="hidden"
                   />
-
                   {productPicture.length > 0 ? (
-                    productPicture.map((item, index) =>
-                      index === 0 ? (
-                        <div
-                          className="relative h-full w-full group"
-                          key={index}
-                        >
-                          {productPicture.length < 6 && (
-                            <div className="absolute h-full w-full flex items-center justify-center bg-black bg-opacity-40 text-white">
-                              <h1>Add more</h1>
+                    <>
+                      {productPicture.map((item, index) => {
+                        if (index === 0) {
+                          return (
+                            <div
+                              className="relative h-full w-full group "
+                              key={index}
+                            >
+                              {productPicture.length < 6 && (
+                                <div className="absolute h-full w-full flex items-center justify-center bg-black bg-opacity-20 text-white group">
+                                  {" "}
+                                  <h1 className="group-hover:text-2xl transition-all">
+                                    {" "}
+                                    Add more{" "}
+                                  </h1>
+                                </div>
+                              )}
+
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                className="w-8 h-8 text-white hover:bg-orange-500    absolute bg-neutral-600 rounded-l-md rounded-b-md top-0 p-1 right-0 invisible group-hover:visible"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  setIndex(index);
+                                }}
+                              >
+                                <path
+                                  fillRule="evenodd"
+                                  d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                  clipRule="evenodd"
+                                />
+                              </svg>
+                              <img
+                                src={item}
+                                className="w-full h-full object-cover"
+                              ></img>
                             </div>
-                          )}
-                          {/* SVG and other code here */}
-                        </div>
-                      ) : null
-                    )
+                          );
+                        }
+                      })}
+                      <div className="absolute w-full h-[30%] flex bottom-0 z-50 group">
+                        {productPicture.map((item, index) => {
+                          if (index > 0) {
+                            return (
+                              <div
+                                className="relative w-[20%] h-full"
+                                key={index}
+                              >
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  viewBox="0 0 24 24"
+                                  fill="currentColor"
+                                  className="w-6 h-6 text-white hover:bg-orange-500 absolute bg-neutral-600 rounded-t-md rounded-r-md bottom-0 p-1 left-0 invisible group-hover:visible"
+                                  onClick={(e) => {
+                                    setIndex(index);
+                                  }}
+                                >
+                                  <path
+                                    fillRule="evenodd"
+                                    d="M16.5 4.478v.227a48.816 48.816 0 013.878.512.75.75 0 11-.256 1.478l-.209-.035-1.005 13.07a3 3 0 01-2.991 2.77H8.084a3 3 0 01-2.991-2.77L4.087 6.66l-.209.035a.75.75 0 01-.256-1.478A48.567 48.567 0 017.5 4.705v-.227c0-1.564 1.213-2.9 2.816-2.951a52.662 52.662 0 013.369 0c1.603.051 2.815 1.387 2.815 2.951zm-6.136-1.452a51.196 51.196 0 013.273 0C14.39 3.05 15 3.684 15 4.478v.113a49.488 49.488 0 00-6 0v-.113c0-.794.609-1.428 1.364-1.452zm-.355 5.945a.75.75 0 10-1.5.058l.347 9a.75.75 0 101.499-.058l-.346-9zm5.48.058a.75.75 0 10-1.498-.058l-.347 9a.75.75 0 001.5.058l.345-9z"
+                                    clipRule="evenodd"
+                                  />
+                                </svg>
+                                <img
+                                  src={item}
+                                  className="w-full h-full object-cover rounded-md"
+                                ></img>{" "}
+                              </div>
+                            );
+                          }
+                        })}
+                      </div>
+                      ;
+                    </>
                   ) : (
-                    <h1 className="text-3xl text-neutral-300 group-hover:text-white">
+                    <h1 className="text-3xl text-gray-300 group-hover:text-gray-500">
                       Insert Product Picture Here
                     </h1>
                   )}

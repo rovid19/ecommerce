@@ -79,15 +79,16 @@ const App = () => {
     }
   }, []);
 
-  /*useEffect(() => {
+  useEffect(() => {
     async function da() {
-      console.log("okay");
       await dispatch(fetchUserData()).unwrap();
-      dispatch(fetchStoreProducts());
-      dispatch(setRunUseEffect(true));
+      if (userData && Object.keys(userData).length > 0) {
+        dispatch(fetchStoreProducts());
+        dispatch(setRunUseEffect(true));
+      }
     }
     da();
-  }, []);*/
+  }, []);
   useEffect(() => {
     if (runUseEffect) {
       console.log("da pokrenulo se je");
@@ -114,7 +115,7 @@ const App = () => {
       });
     }
   }, [inboxMessages]);
-  console.log(runUseEffect);
+  console.log(userData);
   return (
     <div>
       {cartVisible && (

@@ -16,7 +16,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { addUser } from "../../app/features/User/userSlice";
-import { setCloseNavbar, setShowNavbar } from "../../app/features/triggeri";
+import {
+  setActive,
+  setCloseNavbar,
+  setShowNavbar,
+} from "../../app/features/triggeri";
 
 const NavbarMobile = () => {
   const [navbarClassname, setNavbarClassname] = useState(
@@ -322,7 +326,10 @@ const NavbarMobile = () => {
               <ul className="h-[10%] w-full pr-1 flex flex-row">
                 {user ? (
                   <li
-                    onClick={handleLogout}
+                    onClick={() => {
+                      dispatch(setActive("Home"));
+                      handleLogout();
+                    }}
                     className="self-end text-center h-[45px] text-xl w-full p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
                   >
                     <div className="w-[20%] h-full flex justify-center items-center group-hover:text-gray-400 transition-all ">

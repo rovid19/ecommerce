@@ -153,8 +153,8 @@ const StoreEdit = () => {
             }}
             className={
               editMode
-                ? "text-white hidden transition-all text-xl lg:text-2xl 2xl:text-3xl bg-orange-500 p-10 rounded-xl hover:scale-95"
-                : "text-white invisible group-hover:block transition-all text-xl lg:text-2xl 2xl:text-3xl bg-orange-500 p-10 rounded-xl hover:scale-95"
+                ? "text-white hidden transition-all text-xl lg:text-2xl 2xl:text-3xl bg-orange-500 p-10 rounded-xl hover:scale-95 "
+                : "text-white invisible group-hover:visible transition-all text-xl lg:text-2xl 2xl:text-3xl bg-orange-500 p-10 rounded-xl hover:scale-95"
             }
           >
             Click here to add or edit products

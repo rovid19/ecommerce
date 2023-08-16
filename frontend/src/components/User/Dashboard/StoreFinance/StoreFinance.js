@@ -32,22 +32,24 @@ const StoreFinance = () => {
   console.log(salesData);
   return (
     <div
-      className={storeSubPage === "finance" ? "store h-full w-full" : "hidden"}
+      className={
+        storeSubPage === "finance" ? "store h-full w-full relative" : "hidden"
+      }
     >
-      <div className="h-[60%] grid grid-cols-2">
-        <div className=" fl2 border-b-2 border-r-2 border-neutral-900  ">
+      <div className="h-[50%] fl lg:grid lg:grid-cols-2 ">
+        <div className=" fl2 border-b-2 lg:border-r-2 border-neutral-900  h-[40%] lg:h-auto  ">
           <StoreFinanceSales />
         </div>
 
-        <div className=" border-b-2  border-neutral-900   ">
+        <div className=" border-b-2  border-neutral-900   h-[60%] lg:h-auto ">
           <StoreFinanceLast5Sales />
         </div>
       </div>
-      <div className="h-[40%] flex items-center flex-col bg-neutral-800 pt-8">
-        <h1 className="text-neutral-500 text-base lg:text-xl mb-2">
+      <div className="h-[40%] lg:h-[50%] flex items-center flex-col bg-neutral-800 overflow-hidden">
+        <h1 className="text-neutral-500 text-lg lg:text-xl lg:mb-2 lg:mt-5 mt-4">
           Last week sales:
         </h1>{" "}
-        <div className="h-[80%] w-[80%] flex items-center justify-center">
+        <div className="h-[80%] w-full lg:w-[80%] flex items-center justify-center object-cover">
           {Object.keys(salesData).length > 0 && <Bar data={salesData}></Bar>}
         </div>
       </div>
