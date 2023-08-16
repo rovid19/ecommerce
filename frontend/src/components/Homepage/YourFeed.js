@@ -82,7 +82,8 @@ const YourFeed = () => {
       axios
         .post("/api/customer/get-followings-post", { userId: user._id })
         .then(({ data }) => {
-          setFeedPosts(data.reverse());
+          let reverseArray = data.reverse();
+          setFeedPosts(reverseArray);
           setIsLoading(false);
           if (comPostDelete === "Post") {
             if (data[index].postComments.length === 0) {
