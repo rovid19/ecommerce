@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -6,16 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
 import RegisterGooglePass from "../Register/RegisterGooglePass";
-import {
-  addUserDva,
-  fetchStoreProducts,
-  fetchUserData,
-} from "../../app/features/User/userSlice";
-
-import { switchValue } from "../../app/features/getUserTrigger";
+import { fetchUserData } from "../../app/features/User/userSlice";
 import { setActive } from "../../app/features/triggeri";
 
 const RegisterPagePartTwo = () => {
+  // STATES
   const [googlePass, setGooglePass] = useState(false);
   const [confirmedPass, setConfirmedPass] = useState(null);
   const [email, setEmail] = useState(null);
@@ -23,15 +18,17 @@ const RegisterPagePartTwo = () => {
   const [password, setPassword] = useState(null);
   const [storeName, setStoreName] = useState(null);
   const [error, setError] = useState(null);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [className, setClassName] = useState(
     "mt-4 bg-neutral-600 text-white rounded-2xl p-3 hover:bg-orange-500 transition-all"
   );
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  // REDUX
   const input = useSelector((state) => state.registrationInput.value);
-  const user = useSelector((state) => state.userData.value.user);
 
+  // OTHER
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // FUNCTIONS
   async function handleRegister(e) {
     if (password === confirmedPass) {
       if ((email, storeName, password)) {

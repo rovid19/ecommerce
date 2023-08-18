@@ -90,10 +90,13 @@ router.get("/get-products", getAllProducts);
 router.get("/most-sold-product", getMostSoldProduct);
 
 router.post("/follow-store", followStore);
+
 router.post("/unfollow-store", unfollowStore);
 
 router.post("/get-follow", getFollow);
+
 router.post("/remove-follower", removeFollower);
 
 router.post("/get-last-week-sales", weeklySales);
+
 export default router;

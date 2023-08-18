@@ -3,17 +3,15 @@ import axios from "axios";
 import { setCartVisible } from "../../../app/features/User/cartVisible";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { switchValue } from "../../../app/features/getUserTrigger";
 import { removeCartItem } from "../../../app/features/User/cartItems";
 import { fetchUserData } from "../../../app/features/User/userSlice";
 import { setCartClassname } from "../../../app/features/triggeri";
 
 const AddToCart = () => {
+  // STATES
   const [date, setDate] = useState(new Date());
-  // const [cartItems, setCartItems] = useState(null);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [quantity, setQuantity] = useState([]);
-  const [trigger, setTrigger] = useState(false);
   const [total, setTotal] = useState(0);
   const [index, setIndex] = useState(null);
   const [deleteItem, setDeleteItem] = useState(false);
@@ -21,6 +19,7 @@ const AddToCart = () => {
   const [boughtItems, setBoughtItems] = useState([]);
   const dispatch = useDispatch();
 
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
   const storeId = useSelector((state) => state.storeId.value);
   const cartItems = useSelector((state) => state.cartItems.value);
@@ -28,20 +27,14 @@ const AddToCart = () => {
     (state) => state.triggeri.value.cartClassname
   );
 
-  // date
+  // OTHER
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "numeric",
   });
 
-  /* useEffect(() => {
-    axios.get("/api/customer/get-products-from-cart", {}).then(({ data }) => {
-      //setCartItems(data);
-      setUsername(user.username);
-    });
-  }, [getUserTrigger]); */
-
+  // USEEFFECTS
   useEffect(() => {
     if (deleteItem) {
     } else {
@@ -50,22 +43,22 @@ const AddToCart = () => {
     }
   }, [cartItems]);
 
-  /*useEffect(() => {
-    if (selectedProduct) {
-      axios
-        .post("/api/customer/remove-product-from-cart", { selectedProduct })
-        .then(() => {
-          dispatch(switchValue(!getUserTrigger));
-          setTrigger(!trigger);
-        });
-    }
-  }, [selectedProduct]);*/
-
   useEffect(() => {
     if (boughtItems.length > 0) {
       handleBuyNow();
     }
   }, [boughtItems]);
+
+  useEffect(() => {
+    if (deleteItem) {
+      let newArray = [...quantity];
+      newArray.splice(index, 1);
+      setQuantity(newArray);
+      dispatch(removeCartItem(index));
+      setDeleteItem(false);
+      setIndex(null);
+    }
+  }, [index]);
 
   useEffect(() => {
     let total = 0;
@@ -78,6 +71,7 @@ const AddToCart = () => {
     setTotal(total);
   }, [cartItems]);
 
+  // FUNCTIONS
   function handleBoughtProducts() {
     const newArray = cartItems.map((item) => {
       return item._id;
@@ -103,17 +97,6 @@ const AddToCart = () => {
       alert("you must make an account in order to buy this product");
     }
   }
-
-  useEffect(() => {
-    if (deleteItem) {
-      let newArray = [...quantity];
-      newArray.splice(index, 1);
-      setQuantity(newArray);
-      dispatch(removeCartItem(index));
-      setDeleteItem(false);
-      setIndex(null);
-    }
-  }, [index]);
 
   return (
     <div className={cartClassname}>

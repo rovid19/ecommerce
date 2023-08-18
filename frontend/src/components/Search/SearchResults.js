@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import StoreProductCard from "../User/Store/StoreProductCard";
-import axios from "axios";
+
 const SearchResults = () => {
+  // REDUX
   const search = useSelector((state) => state.search.value);
+
+  // OTHER
   const navigate = useNavigate();
 
   return (

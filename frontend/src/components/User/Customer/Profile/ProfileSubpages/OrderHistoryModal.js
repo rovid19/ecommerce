@@ -17,9 +17,18 @@ const OrderHistoryModal = ({
   modalClassname,
   setModalClassname,
 }) => {
+  // STATES
   const [note, setNote] = useState(null);
   const [store, setStore] = useState(null);
 
+  // USEEFFECT
+  useEffect(() => {
+    axios
+      .post("/api/customer/get-store", { storeId: orderHistory[index].seller })
+      .then(({ data }) => setStore(data));
+  }, []);
+
+  // FUNCTIONS
   function handlePostNote() {
     axios
       .post("/api/customer/note-to-seller", {
@@ -42,12 +51,6 @@ const OrderHistoryModal = ({
         setIsVisible(false);
       });
   }
-
-  useEffect(() => {
-    axios
-      .post("/api/customer/get-store", { storeId: orderHistory[index].seller })
-      .then(({ data }) => setStore(data));
-  }, []);
 
   return (
     <div className="h-full w-full absolute top-0 left-0 bg-black bg-opacity-20 0 z-40 flex items-center justify-center">

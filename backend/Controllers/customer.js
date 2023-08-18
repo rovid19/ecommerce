@@ -175,34 +175,6 @@ export const buyProduct = async (req, res) => {
 };
 
 export const getOrderHistory = async (req, res) => {
-  /*const { token } = req.cookies;
-
-  const sale = await Sale.find();
-
-  const saleFilter = sale.filter((item) => item.productBought.length > 0);
-  const saleId = saleFilter.map((item) => item._id);
-
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-    if (err) throw err;
-    const user = await User.findById(userData.id);
-    user.set({
-      orderHistory: saleId,
-    });
-    await user.save();
-    const userDva = await User.findById(userData.id).populate({
-      path: "orderHistory",
-      select:
-        "productBought productShipped productQuantity orderPlacedDate noteToSeller seller arrivalDate",
-
-      populate: {
-        path: "productBought",
-        select:
-          "productName productPicture productDescription productNewPrice ",
-      },
-    });
-
-    res.json(userDva.orderHistory);
-  });*/
   const { token } = req.cookies;
 
   jwt.verify(token, jwtSecret, {}, async (err, userData) => {
@@ -447,24 +419,7 @@ export const sendMessage = async (req, res) => {
     if (chatId) {
       const chat = await Chat.findById(chatId);
       // UPDEJTANJE USER PROPERTIJA NA TEMELJU CEGA RADIM NOTIFIKACIJE O PORUKAMA
-      /*   const isChatInUser = receiverUser.allChat.some(
-       (property) => property === chatId
-      );
-      if (isChatInUser) {
-        const foundObject = receiverUser.allChat(
-          (object) => object.id === chatId
-        );
-        foundObject.oldChatCount = chat.messages.length - 1;
-        foundObject.newChatCount = chat.messages.length;
-      } else {
-        const receiverUserChat = {
-          id: chatId,
-          oldChatCount: chat.messages.length - 1,
-          newChatCount: chat.messages.length,
-        }; 
-        receiverUser.allChat.push(receiverUserChat);
-        await receiverUser.save();
-      }*/ chat.messages.push(messageSent);
+      chat.messages.push(messageSent);
       await chat.save();
       const foundObject = receiverUser.allChat.find(
         (object) => object.id.toString() === chatId.toString()
@@ -507,58 +462,8 @@ export const sendMessage = async (req, res) => {
 
       res.json(user);
     }
-
-    // AK USER NEMA NI JEDAN AKTIVAN CHAT i TE DVIJE OSOBE JOS NISU CHATALE ONDA SE RADI NOVI CHAT NA OBA PROFILA
-    /*if (!user.chat.participants) {
-      const newMessage = await Chat.create({
-        participants: [senderId, receiverId],
-        messages: [messageSent],
-      });
-      const receivingUser = await User.findById(receiverId);
-      receivingUser.chat.push(newMessage._id);
-      user.chat.push(newMessage._id);
-      await user.save();
-      await receivingUser.save();
-      res.json(newMessage);
-    } else {
-      // AK CHAT IZMEDU TA DVA USERA POSTOJI
-      if (user.chat.participants.includes(receiverId)) {
-   
-        const chat = await Chat.findById(chatId);
-        chat.messages.push(messageSent);
-
-        await chat.save();
-      } else {
-        // AK TE DVIJE OSOBE JOS NISU CHATALE ONDA SE RADI NOVI CHAT NA OBA PROFILA
-        const newMessage = await Chat.create({
-          participants: [senderId, receiverId],
-          messages: [messageSent],
-        });
-        const receivingUser = await User.findById(receiverId);
-        receivingUser.chat.push(newMessage._id);
-        user.chat.push(newMessage._id);
-        await user.save();
-        await receivingUser.save();
-        res.json(newMessage);
-      }
-    }*/
   });
 };
-
-/*export const seenMessage = async (req, res) => {
-  const { chatId, userId } = req.body;
-  let user = await User.findById(userId);
-
-  const found = user.allChat.find((object) => object.id.toString() === chatId);
-  const newValue = found.newChatCount;
-
-  await user.updateOne(
-    { _id: userId, "allChat.id": chatId },
-    { $set: { "allChat.$.oldChatCount": newValue } }
-  );
-
-  res.json("ok");
-};*/
 
 export const seenMessage = async (req, res) => {
   const { chatId, userId } = req.body;

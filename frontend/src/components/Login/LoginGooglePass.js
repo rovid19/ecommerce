@@ -3,19 +3,21 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import {
-  addUserDva,
   fetchStoreProducts,
   fetchUserData,
 } from "../../app/features/User/userSlice";
 import axios from "axios";
 
 const LoginGooglePass = ({ email }) => {
+  // STATES
   const [password, setPassword] = useState(null);
   const [error, setError] = useState(null);
 
+  // OTHER
   const navigate = useNavigate();
-
   const dispatch = useDispatch();
+
+  // FUNCTIONS
   function handleLogin(e) {
     e.preventDefault();
 

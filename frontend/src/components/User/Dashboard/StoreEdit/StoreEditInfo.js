@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import StoreEditInfoInputs from "./StoreEditInfoInputs";
 import { useSelector, useDispatch } from "react-redux";
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
@@ -19,12 +19,11 @@ const StoreEditInfo = ({
   profilePhoto,
   description,
 }) => {
-  // redux
-  const user = useSelector((state) => state.userData.value.user);
+  // REDUX
   const editMode = useSelector((state) => state.editMode.value);
-  const htmlElement = useSelector((state) => state.htmlElement.value);
   const dispatch = useDispatch();
 
+  // OTHER
   dispatch(
     setHtmlElement(document.querySelector('.toggle input[type="checkbox"]'))
   );

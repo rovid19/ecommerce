@@ -9,8 +9,6 @@ import {
 
 const router = express.Router();
 
-// router.get("/get-user-store", getStore);
-
 router.get("/get-logged-user", getUser);
 
 router.get("/get-collections", getCollections);

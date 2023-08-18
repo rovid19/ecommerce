@@ -3,25 +3,16 @@ import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Loader from "../../assets/svg-loaders/spinning-circles.svg";
 const VideoUploadModal = ({ setVideoModalVisible, setVideo, setYoutubeId }) => {
+  // STATES
   const [progress, setProgress] = useState(0);
   const [youtubeVideo, setYoutubeVideo] = useState(null);
-  const [message, setMessage] = useState(
-    "this window will automatically close as soon as your video is uploaded"
-  );
   const [videoFormData, setVideoFormData] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
 
-  function setVideoo(e) {
-    const file = e.target.files;
-    const formData = new FormData();
-    formData.append("video", file[0]);
-    setVideoFormData(formData);
-  }
-
+  // USEEFFECTS
   useEffect(() => {
     if (youtubeVideo) {
       let youtubeLink = "https://www.youtube.com/embed/";
-      //nadi index = u linku
       const index = youtubeVideo.indexOf("=");
 
       if (index === -1) {
@@ -62,7 +53,15 @@ const VideoUploadModal = ({ setVideoModalVisible, setVideo, setYoutubeId }) => {
       handleUploadVideo();
     }
   }, [videoFormData]);
-  console.log(progress);
+
+  // FUNCTIONS
+  function setVideoo(e) {
+    const file = e.target.files;
+    const formData = new FormData();
+    formData.append("video", file[0]);
+    setVideoFormData(formData);
+  }
+
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
       <motion.article

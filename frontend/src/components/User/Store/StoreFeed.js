@@ -6,23 +6,27 @@ import Loader from "../../../assets/svg-loaders/three-dots.svg";
 import { useSelector } from "react-redux";
 
 const StoreFeed = ({ storeUser }) => {
+  // STATES
   const [userPosts, setUserPosts] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [index, setIndex] = useState(null);
   const [postTrigger, setPostTrigger] = useState(false);
 
+  // REDUX
   const postModalVisible = useSelector(
     (state) => state.post.value.postModalVisible
   );
+
+  // USEEFFECTS
   useEffect(() => {
     getAllPostsFromUser();
   }, [postTrigger]);
 
+  // FUNCTIONS
   const getAllPostsFromUser = async () => {
     if (!userPosts) {
       setIsLoading(true);
     }
-
     const response = await axios.post("/api/customer/get-user-posts", {
       userId: storeUser._id,
     });

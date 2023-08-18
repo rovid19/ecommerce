@@ -1,8 +1,6 @@
 import React from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { switchValue } from "../../../../../../app/features/getUserTrigger";
-import { setUserFetching } from "../../../../../../app/features/User/isUserFetching";
 import { setEditProductModal } from "../../../../../../app/features/Store/Dashboard/editProductModal";
 import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
 import { useEffect, useState } from "react";
@@ -22,30 +20,65 @@ const EditProductInputs = ({
   setIsFetching,
   currentProduct,
 }) => {
-  //states
+  // STATES
   const [index, setIndex] = useState();
   const [collectionValue, setCollectionValue] = useState(null);
   const [picFetch, setPicFetch] = useState(false);
-  const [collections, setCollections] = useState(null);
   const [collectionIndex, setCollectionIndex] = useState(0);
   const [oldCollection, setOldCollection] = useState(null);
   const [oldCollectionId, setOldCollectionId] = useState(null);
 
-  //redux
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
-
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
+
+  // OTHER
   const dispatch = useDispatch();
 
+  // USEEFFECTS
   useEffect(() => {
     if (currentProduct) {
       setCollectionValue(currentProduct.productCollection);
       setOldCollection(currentProduct.productCollection);
     }
   }, [currentProduct]);
+  useEffect(() => {
+    if (index !== null && index !== undefined) {
+      const newArray = productPicture;
+      newArray.splice(index, 1);
+      setProductPicture(newArray);
+      setIndex(null);
+    }
+  }, [index]);
 
-  //functions
+  //trazenje indexa nove kolekcije
+  useEffect(() => {
+    if (collectionValue) {
+      let indexC = 0;
+      user.store.storeCollections.forEach((collection, index) => {
+        if (collection.collectionName === collectionValue) {
+          indexC = index;
+        }
+      });
+
+      setCollectionIndex(indexC);
+    }
+  }, [collectionValue]);
+  // trazenje indexa stare kolekcije
+  useEffect(() => {
+    if (oldCollection) {
+      let indexC = 0;
+      user.store.storeCollections.forEach((collection, index) => {
+        if (collection.collectionName === collectionValue) {
+          indexC = index;
+        }
+      });
+
+      setOldCollectionId(user.store.storeCollections[indexC]._id);
+    }
+  }, [oldCollection]);
+
+  // FUNCTIONS
   function handleEditProduct(e) {
     setIsFetching(true);
     e.preventDefault();
@@ -92,42 +125,6 @@ const EditProductInputs = ({
       alert("you can only upload 6 pictures");
     }
   }
-
-  useEffect(() => {
-    if (index !== null && index !== undefined) {
-      const newArray = productPicture;
-      newArray.splice(index, 1);
-      setProductPicture(newArray);
-      setIndex(null);
-    }
-  }, [index]);
-
-  //trazenje indexa nove kolekcije
-  useEffect(() => {
-    if (collectionValue) {
-      let indexC = 0;
-      user.store.storeCollections.forEach((collection, index) => {
-        if (collection.collectionName === collectionValue) {
-          indexC = index;
-        }
-      });
-
-      setCollectionIndex(indexC);
-    }
-  }, [collectionValue]);
-  // trazenje indexa stare kolekcije
-  useEffect(() => {
-    if (oldCollection) {
-      let indexC = 0;
-      user.store.storeCollections.forEach((collection, index) => {
-        if (collection.collectionName === collectionValue) {
-          indexC = index;
-        }
-      });
-
-      setOldCollectionId(user.store.storeCollections[indexC]._id);
-    }
-  }, [oldCollection]);
 
   return (
     <form onSubmit={handleEditProduct} className="h-[95%]">

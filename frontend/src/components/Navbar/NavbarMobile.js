@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, Outlet } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { getStoreSubPage } from "../../app/features/storeSubPage";
 import {
   Dashboard,
@@ -23,6 +23,7 @@ import {
 } from "../../app/features/triggeri";
 
 const NavbarMobile = () => {
+  // STATES
   const [navbarClassname, setNavbarClassname] = useState(
     "h-full w-[100%] bg-neutral-900 rounded-r-md origin-top self-start navbar"
   );
@@ -34,7 +35,8 @@ const NavbarMobile = () => {
     "w-full h-full  flex items-center justify-center bg-neutral-900 rounded-r-md"
   );
   const [hamMenuBtn, setHamMenuBtn] = useState("w-6 h-6 text-white");
-  const dispatch = useDispatch();
+
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
   const showNavbar = useSelector((state) => state.triggeri.value.showNavbar);
   const inboxMessages = useSelector(
@@ -43,11 +45,10 @@ const NavbarMobile = () => {
   const closeNavbar = useSelector((state) => state.triggeri.value.closeNavbar);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
-  async function handleLogout() {
-    await axios.post("/api/auth/logout-user");
-    dispatch(addUser(null));
-  }
+  // OTHER
+  const dispatch = useDispatch();
 
+  // USEEFFECTS
   useEffect(() => {
     if (closeNavbar) {
       setTimeout(() => {
@@ -57,6 +58,12 @@ const NavbarMobile = () => {
       dispatch(setCloseNavbar(false));
     }
   }, [closeNavbar]);
+
+  // FUNCTIONS
+  async function handleLogout() {
+    await axios.post("/api/auth/logout-user");
+    dispatch(addUser(null));
+  }
 
   const closeNavbarMenu = () => {
     dispatch(setCloseNavbar(true));

@@ -1,27 +1,29 @@
 import axios from "axios";
 import React, { useEffect } from "react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
 
 const StoreOrdersModal = ({
   setIsVisible,
-  index,
   indexDva,
-  orders,
   idd,
-  setGetOrdersTrigger,
-  getOrdersTrigger,
-  setOrders,
   orderData,
   setOrderData,
   trigger,
   setTrigger,
   productId,
 }) => {
+  // STATES
   const [shippingDate, setShippingDate] = useState(null);
-
   const [store, setStore] = useState(null);
 
+  // USEEFFECTS
+  useEffect(() => {
+    axios
+      .post("/api/customer/get-store", { storeId: orderData.seller })
+      .then(({ data }) => setStore(data));
+  }, []);
+
+  // FUNCTIONS
   function handleShipOrder() {
     if (!shippingDate) {
       alert("you must set shipping date");
@@ -52,12 +54,6 @@ const StoreOrdersModal = ({
         setIsVisible(false);
       });
   }
-
-  useEffect(() => {
-    axios
-      .post("/api/customer/get-store", { storeId: orderData.seller })
-      .then(({ data }) => setStore(data));
-  }, []);
 
   return (
     <div className="h-full w-full absolute top-0 left-0 bg-neutral-800 bg-opacity-50 z-50 flex items-center justify-center">

@@ -1,9 +1,7 @@
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
-import selectedProduct from "../../../../app/features/Store/selectedProduct";
 
 const StoreEditInfoInputs = ({
   setName,
@@ -18,12 +16,18 @@ const StoreEditInfoInputs = ({
   profilePhoto,
   description,
 }) => {
-  // redux
+  // REDUX
   const editMode = useSelector((state) => state.editMode.value);
   const user = useSelector((state) => state.userData.value.user);
-  const selectedProduct = useSelector((state) => state.selectedProduct.value);
 
-  // functions
+  // USEEFFECTS
+  useEffect(() => {
+    if (description && description.length === 35) {
+      alert("you cant add any more characters than this");
+    }
+  }, [description]);
+
+  // FUNCTIONS
   function handlePhotoUpload(e) {
     setIsLoading(true);
     const file = e.target.files;
@@ -43,11 +47,6 @@ const StoreEditInfoInputs = ({
         setIsLoading(false);
       });
   }
-  useEffect(() => {
-    if (description && description.length === 35) {
-      alert("you cant add any more characters than this");
-    }
-  }, [description]);
 
   return (
     <>

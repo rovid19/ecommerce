@@ -50,10 +50,12 @@ const StoreProductModal = () => {
     (state) => state.triggeri.value.cartClassname
   );
 
+  // OTHER
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { productId } = useParams();
 
+  // USEEFFECTS
   useEffect(() => {
     dispatch(addSelectedProduct(productId));
     setIsFetching(true);

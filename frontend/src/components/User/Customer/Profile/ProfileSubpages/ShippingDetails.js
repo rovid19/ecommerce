@@ -1,12 +1,9 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import Img from "../../../../../assets/user.png";
-import Loader from "../../../../../assets/svg-loaders/three-dots.svg";
-import { useSelector } from "react-redux";
-import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 const ShippingDetails = () => {
+  // STATES
   const [address, setAddress] = useState(null);
   const [region, setRegion] = useState(null);
   const [addressDva, setAddressDva] = useState(null);
@@ -14,11 +11,7 @@ const ShippingDetails = () => {
   const [phoneNumber, setPhoneNumber] = useState(null);
   const [postalCode, setPostalCode] = useState(null);
 
-  const user = useSelector((state) => state.userData.value.user);
-  const params = useParams();
-  const navigate = useNavigate();
-  const { id } = params;
-
+  // USEEFFECTS
   useEffect(() => {
     axios.get("/api/customer/get-shipping-details").then(({ data }) => {
       setAddress(data[0].address);
@@ -30,6 +23,7 @@ const ShippingDetails = () => {
     });
   }, []);
 
+  // FUNCTIONS
   function handleShippingInfoChange(e) {
     e.preventDefault();
     axios.post("/api/customer/update-shipping-details", {

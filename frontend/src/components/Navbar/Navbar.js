@@ -12,7 +12,6 @@ import {
   ShippingDetails,
   Logout,
   Login,
-  Register,
 } from "./Icons/IconsExport";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
@@ -22,8 +21,11 @@ import Logo from "../../assets/logo.png";
 import { setActive } from "../../app/features/triggeri";
 
 const Navbar = () => {
+  // REDUX
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // OTHER
   const user = useSelector((state) => state.userData.value.user);
   const mobileActive = useSelector(
     (state) => state.triggeri.value.mobileActive
@@ -33,6 +35,7 @@ const Navbar = () => {
   );
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
+  // FUNCTIONS
   async function handleLogout() {
     await axios.post("/api/auth/logout-user");
     navigate("/");

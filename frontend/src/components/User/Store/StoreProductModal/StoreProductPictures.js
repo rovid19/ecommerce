@@ -1,21 +1,18 @@
 import React from "react";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { setviewImage } from "../../../../app/features/User/viewImage";
 
 const StoreProductPictures = ({
   storeProducts,
-  productIndex,
   viewImage,
-  setViewImage,
   isFetching,
   productPicture,
   setProductPicture,
 }) => {
+  // OTHER
   const dispatch = useDispatch();
 
-  //functions
-
+  // FUNCTIONS
   function handleChangePictureNext(index) {
     return function () {
       let newArray = [...productPicture];

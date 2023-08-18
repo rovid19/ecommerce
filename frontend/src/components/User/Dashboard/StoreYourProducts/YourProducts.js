@@ -11,17 +11,15 @@ import AddCollectionModal from "./Modals/AddCollectionModal/AddCollectionModal.j
 import { collectionVisible } from "../../../../app/features/Store/collections";
 
 const StoreAddProducts = () => {
-  // states & ref
+  // STATES
   const [isVisible, setIsVisible] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
   const [newCollectionName, setNewCollectionName] = useState(null);
   const [collectionProd, setCollectionProd] = useState(null);
   const [collectionId, setCollectionId] = useState(null);
   const [collectionNewOrder, setCollectionNewOrder] = useState([]);
-  const dragItem = useRef(null);
-  const dragOverItem = useRef(null);
 
-  // redux
+  // REDUX
   const editProductModal = useSelector((state) => state.editProductModal.value);
   const collection = useSelector((state) => state.collection.value);
   const deleteProductModal = useSelector(
@@ -32,21 +30,42 @@ const StoreAddProducts = () => {
   );
   const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
-  const dispatch = useDispatch();
 
+  // OTHER
+  const dispatch = useDispatch();
+  const dragItem = useRef(null);
+  const dragOverItem = useRef(null);
   //postavljanje slike
   const styles = {
     backgroundImage: `url(${user.store.storeCover})`,
   };
 
-  // functions
+  // USEEFFECTS
+
+  //postavljanje kolekcija na state unutar componenta
+  useEffect(() => {
+    setCollectionProd(user.store.storeCollections);
+  }, [user]);
+
+  useEffect(() => {
+    if (collectionId) {
+      handleSort();
+    }
+  }, [collectionId]);
+
+  useEffect(() => {
+    if (collectionNewOrder.length > 0) {
+      handleSortSave();
+    }
+  }, [collectionNewOrder]);
+
+  // FUNCTIONS
   function checkEditMode() {
     const checkbox = document.querySelector('.toggle input[type="checkbox"]');
     if (checkbox.checked === false) {
       checkbox.checked = true;
     }
   }
-
   //stavljanje dragged propertije productu preko kojeg trenutno hoveras misem
   function dragSetClassname(index) {
     //trazenje index kolekcije
@@ -109,18 +128,6 @@ const StoreAddProducts = () => {
     });
   };
 
-  useEffect(() => {
-    if (collectionId) {
-      handleSort();
-    }
-  }, [collectionId]);
-
-  useEffect(() => {
-    if (collectionNewOrder.length > 0) {
-      handleSortSave();
-    }
-  }, [collectionNewOrder]);
-
   //spremanje novog arraya u backend
   async function handleSortSave() {
     let data = await axios.post("/api/store/save-sorted-products", {
@@ -133,11 +140,6 @@ const StoreAddProducts = () => {
     setCollectionId(null);
     dispatch(fetchUserData());
   }
-
-  //postavljanje kolekcija na state unutar componenta
-  useEffect(() => {
-    setCollectionProd(user.store.storeCollections);
-  }, [user]);
 
   return (
     <div

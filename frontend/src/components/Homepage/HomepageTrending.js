@@ -1,17 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTrendingStore } from "../../app/features/User/trendingStore";
 import { useNavigate } from "react-router-dom";
 import StoreProductCard from "../User/Store/StoreProductCard";
 
 const HomepageTrending = () => {
+  // REDUX
   const trendingStore = useSelector((state) => state.trendingStore.store);
   const mobileActive = useSelector(
     (state) => state.triggeri.value.mobileActive
   );
-  const navigate = useNavigate();
 
+  // OTHER
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  // USEEFFECTS
   useEffect(() => {
     dispatch(fetchTrendingStore());
   }, []);

@@ -3,12 +3,16 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const ManageFollowers = ({ setManageFollowersVisible }) => {
+  // STATES
   const [activeSelect, setActiveSelect] = useState("Followers");
   const [follow, setFollow] = useState(null);
   const [removeTrigger, setRemoveTrigger] = useState(false);
   const [removeFollower, setRemoveFollower] = useState(null);
+
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
 
+  // USEEFFECT
   useEffect(() => {
     axios
       .post("/api/store/get-follow", { userId: user._id })
@@ -16,14 +20,6 @@ const ManageFollowers = ({ setManageFollowersVisible }) => {
         setFollow(data);
       });
   }, [removeTrigger]);
-
-  const handleRemoveFollower = async () => {
-    await axios.post("/api/store/remove-follower", {
-      removeFollower,
-      select: activeSelect,
-    });
-    setRemoveTrigger(!removeTrigger);
-  };
 
   const handleRemoveFollowing = async () => {
     await axios.post("/api/store/remove-follower", {
@@ -42,6 +38,16 @@ const ManageFollowers = ({ setManageFollowersVisible }) => {
       }
     }
   }, [removeFollower]);
+
+  // FUNCTIONS
+  const handleRemoveFollower = async () => {
+    await axios.post("/api/store/remove-follower", {
+      removeFollower,
+      select: activeSelect,
+    });
+    setRemoveTrigger(!removeTrigger);
+  };
+
   return (
     <div className="absolute top-0 h-full w-full bg-neutral-900 bg-opacity-40 z-50 flex justify-center items-center">
       <article className="h-[60%] w-[50%] bg-neutral-900 fl2 relative rounded-md p-4">

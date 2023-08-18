@@ -6,7 +6,7 @@ import EditProductInputs from "./EditProductInputs";
 import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
 
 const EditProductModal = () => {
-  //states
+  // STATES
   const [productPicture, setProductPicture] = useState([]);
   const [productTitle, setProductTitle] = useState(null);
   const [productDescription, setProductDescription] = useState(null);
@@ -15,10 +15,13 @@ const EditProductModal = () => {
   const [currentProduct, setCurrentProduct] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
 
-  //redux
+  // REDUX
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
+
+  // OTHER
   const dispatch = useDispatch();
 
+  // USEEFFECTS
   useEffect(() => {
     setIsFetching(true);
     axios

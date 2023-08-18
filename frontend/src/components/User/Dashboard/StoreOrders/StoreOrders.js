@@ -13,7 +13,6 @@ const StoreOrders = () => {
   const [value, onChange] = useState(new Date());
   const [date, setDate] = useState(null);
   const [calendar, setCalendar] = useState(false);
-  const [calendarDate, setCalendarDate] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
   const [orders, setOrders] = useState(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -30,13 +29,14 @@ const StoreOrders = () => {
     (state) => state.triggeri.value.mobileActive
   );
 
-  // DEFAULT DATE
+  // OTHER
   const formattedDate = value.toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "numeric",
   });
 
+  // USEEFFECTS
   // FETCHING DATA FOR ORDERED PRODUCTS
   useEffect(() => {
     setDate(formattedDate);
@@ -46,7 +46,6 @@ const StoreOrders = () => {
       setIsFetching(false);
     });
   }, [value, trigger]);
-
   // CLOSING CALENDAR AFTER CLICKING ON ANY DATE
   useEffect(() => {
     setCalendar(false);

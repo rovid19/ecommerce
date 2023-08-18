@@ -1,4 +1,4 @@
-import React, { useDebugValue } from "react";
+import React from "react";
 import { Outlet } from "react-router-dom";
 import StoreDashboardNav from "./StoreDashboardNav";
 import StoreDashboardNavMobile from "./StoreDasboardNavMobile.js";
@@ -8,13 +8,16 @@ import { setMobileActive, setShowNavbar } from "../../../app/features/triggeri";
 import { useEffect } from "react";
 
 const StoreDashboard = () => {
+  // REDUX
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const mobileActive = useSelector(
     (state) => state.triggeri.value.mobileActive
   );
-  const editMode = useSelector((state) => state.editMode.value);
+
+  // OTHER
   const dispatch = useDispatch();
 
+  // USEEFFECTS
   useEffect(() => {
     if (window.innerWidth <= 1024) {
       dispatch(setShowNavbar(false));

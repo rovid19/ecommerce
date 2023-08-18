@@ -2,19 +2,23 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { setStoreDeleteVisible } from "../../../../../app/features/Store/deleteProductModal";
 import axios from "axios";
-import { switchValue } from "../../../../../app/features/getUserTrigger";
 import Loader from "../../../../../assets/svg-loaders/three-dots.svg";
 import { fetchUserData } from "../../../../../app/features/User/userSlice";
 
 const StoreDeleteProductModal = () => {
+  // STATES
   const [isFetching, setIsFetching] = useState(false);
+
+  // REDUX
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
   );
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
+
+  // OTHER
   const dispatch = useDispatch();
 
+  // FUNCTIONS
   function deleteItem() {
     setIsFetching(true);
     axios

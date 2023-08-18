@@ -1,16 +1,17 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate, useLocation, useMatch } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setEditMode } from "../../../app/features/Store/storeEditMode";
-import storeSubPage, {
-  getStoreSubPage,
-} from "../../../app/features/storeSubPage";
+import { getStoreSubPage } from "../../../app/features/storeSubPage";
 import Logo from "../../../assets/logo.png";
 
 const StoreDashboardNav = () => {
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
+
+  // OTHER
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

@@ -3,11 +3,11 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 const SendMessage = ({
-  SendMessage,
   setSendMessage,
   fetchMessagesTrigger,
   setFetchMessagesTrigger,
 }) => {
+  // STATES
   const [allUsers, setAllUsers] = useState(null);
   const [allUsersC, setAllUsersC] = useState(null);
   const [inputUser, setInputUser] = useState(null);
@@ -15,8 +15,10 @@ const SendMessage = ({
   const [selectedUser, setSelectedUser] = useState(null);
   const [message, setMessage] = useState(null);
 
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
 
+  // USEEFFECTS
   // loadanje svih usera na stranici
   useEffect(() => {
     axios.get("/api/customer/all-users").then(({ data }) => {
@@ -44,6 +46,7 @@ const SendMessage = ({
     }
   }, [inputUser]);
 
+  // FUNCTIONS
   // slanje poruke
   async function handleSendMessage(e) {
     e.preventDefault();

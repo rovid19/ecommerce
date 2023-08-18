@@ -4,13 +4,10 @@ import SendMessage from "./SendMessage";
 import Chat from "./Chat";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUserData } from "../../../app/features/User/userSlice";
-import getUserTrigger from "../../../app/features/getUserTrigger";
-import { setInboxTrigger } from "../../../app/features/triggeri";
 import { useNavigate } from "react-router-dom";
-import { setSocket } from "../../../app/features/socket";
 
 const Inbox = () => {
-  //States
+  // STATES
   const [allChat, setAllChat] = useState([]);
   const [sendMessage, setSendMessage] = useState(false);
   const [fetchMessagesTrigger, setFetchMessagesTrigger] = useState(false);
@@ -25,6 +22,15 @@ const Inbox = () => {
   const [seenTrigger, setSeenTrigger] = useState(false);
   const [date, setDate] = useState(new Date());
 
+  // REDUX
+  const user = useSelector((state) => state.userData.value.user);
+  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+  const inboxMessages = useSelector(
+    (state) => state.inboxMessages.value.allChat
+  );
+  const socket = useSelector((state) => state.socket.value);
+
+  // OTHER
   //date
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "2-digit",
@@ -37,19 +43,11 @@ const Inbox = () => {
     minute: "2-digit",
     second: "2-digit",
   });
-
-  //Redux
-  const user = useSelector((state) => state.userData.value.user);
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
-  const inboxMessages = useSelector(
-    (state) => state.inboxMessages.value.allChat
-  );
-  const socket = useSelector((state) => state.socket.value);
-
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const inputRef = useRef();
 
+  // USEEFFECTS
   useEffect(() => {
     if (runUseEffect) {
       let newArray = [...sviRazgovori];
@@ -62,6 +60,19 @@ const Inbox = () => {
       dispatch(fetchUserData());
     }
   }, [runUseEffect]);
+
+  // socket za autorefresh allChata
+  useEffect(() => {
+    const handler = () => {
+      setFetchMessagesTrigger((prevState) => !prevState);
+    };
+
+    socket.on("newChat", handler);
+
+    return () => {
+      socket.off("newChat", handler);
+    };
+  }, []);
 
   // ucitaj sve chatove korisnika
   useEffect(() => {
@@ -87,6 +98,7 @@ const Inbox = () => {
     }
   }, [allChat]);
 
+  // FUNCTIONS
   //posalji poruku
   async function handleSendMessage(e) {
     e.preventDefault();
@@ -101,19 +113,6 @@ const Inbox = () => {
 
     inputRef.current.value = "";
   }
-
-  // socket za autorefresh allChata
-  useEffect(() => {
-    const handler = () => {
-      setFetchMessagesTrigger((prevState) => !prevState);
-    };
-
-    socket.on("newChat", handler);
-
-    return () => {
-      socket.off("newChat", handler);
-    };
-  }, []);
 
   return (
     <main className="h-full w-full bg-neutral-800 relative">

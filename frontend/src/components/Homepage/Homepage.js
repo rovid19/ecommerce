@@ -2,20 +2,23 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import HomepageTrending from "./HomepageTrending";
 import HomepageStoreCard from "./HomepageStoreCard";
-
-import StoreProductCard from "../User/Store/StoreProductCard";
-import Navbar from "../Navbar/Navbar";
 import YourFeed from "./YourFeed";
 import { useDispatch, useSelector } from "react-redux";
 import { setActive } from "../../app/features/triggeri";
 
 const Homepage = () => {
+  // STATES
   const [stores, setStores] = useState(null);
   const [products, setProducts] = useState(null);
 
+  // REDUX
   const active = useSelector((state) => state.triggeri.value.active);
-  const dispatch = useDispatch();
   const user = useSelector((state) => state.userData.value.user);
+
+  // OTHER
+  const dispatch = useDispatch();
+
+  // USEEFFECTS
   useEffect(() => {
     axios.get("/api/store/get-homepage").then(({ data }) => {
       const newData = data.slice(0, 8);

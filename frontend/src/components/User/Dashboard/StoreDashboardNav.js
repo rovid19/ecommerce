@@ -14,12 +14,14 @@ import storeSubPage, {
 import Logo from "../../../assets/logo.png";
 
 const StoreDashboardNav = () => {
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
+
+  // OTHER
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   return (
     <div className=" w-full h-full shadow-xl relative bg-neutral-900 text-neutral-300">

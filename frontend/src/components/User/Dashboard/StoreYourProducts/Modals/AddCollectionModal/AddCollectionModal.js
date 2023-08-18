@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { collectionVisible } from "../../../../../../app/features/Store/collections";
@@ -7,6 +6,7 @@ import axios from "axios";
 import { fetchUserData } from "../../../../../../app/features/User/userSlice";
 
 const AddCollectionModal = () => {
+  // STATES
   const [collection, setCollection] = useState(null);
   const [collectionInput, setCollectionInput] = useState(null);
   const [oldCollectionName, setOldCollectionName] = useState(null);
@@ -17,15 +17,37 @@ const AddCollectionModal = () => {
   const [placeHolderIndex, setPlaceHolderIndex] = useState(null);
   const [newCollectionName, setNewCollectionName] = useState(null);
 
-  //states
-  const inputRef = useRef(null);
+  // REDUX
   const userData = useSelector((state) => state.userData.value.user);
+
+  // OTHER
+  const inputRef = useRef(null);
   const dispatch = useDispatch();
+
+  // USEEFFECTS
   useEffect(() => {
     axios
       .get("/api/user/get-collections")
       .then(({ data }) => setCollection(data));
   }, [useEffectTrigger]);
+  useEffect(() => {
+    if (item >= 0) {
+      async function handleDeleteCollection() {
+        await axios.post("/api/user/delete-collection", {
+          itemName: item,
+          storeId: userData.store._id,
+          imeKolekcije,
+          collectionId: collection[item]._id,
+        });
+        setUseEffectTrigger(!useEffectTrigger);
+        dispatch(fetchUserData());
+        setItem(undefined);
+      }
+      handleDeleteCollection();
+    }
+  }, [item]);
+
+  // FUNCTIONS
   async function handleCollectionNameChange(e) {
     e.preventDefault();
     await axios.post("/api/user/collection-name-change", {
@@ -49,23 +71,6 @@ const AddCollectionModal = () => {
     dispatch(fetchUserData());
     setUseEffectTrigger(!useEffectTrigger);
   }
-
-  useEffect(() => {
-    if (item >= 0) {
-      async function handleDeleteCollection() {
-        await axios.post("/api/user/delete-collection", {
-          itemName: item,
-          storeId: userData.store._id,
-          imeKolekcije,
-          collectionId: collection[item]._id,
-        });
-        setUseEffectTrigger(!useEffectTrigger);
-        dispatch(fetchUserData());
-        setItem(undefined);
-      }
-      handleDeleteCollection();
-    }
-  }, [item]);
 
   return (
     <div className="w-full h-full flex items-center justify-center bg-neutral-900 bg-opacity-40 z-50 absolute top-0 left-0">

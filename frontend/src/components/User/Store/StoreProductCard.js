@@ -1,16 +1,12 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Img from "../../../assets/testslika.png";
 import { setStoreDeleteVisible } from "../../../app/features/Store/deleteProductModal";
 import { addSelectedProduct } from "../../../app/features/Store/selectedProduct";
 import { setEditProductModal } from "../../../app/features/Store/Dashboard/editProductModal";
-import { setViewProductModal } from "../../../app/features/Store/viewProductModal";
 import { useNavigate } from "react-router-dom";
-import { setStoreId } from "../../../app/features/Store/storeId";
 import { setCartItems } from "../../../app/features/User/cartItems";
 import { setProductIndex } from "../../../app/features/User/productIndex";
 import { setCartVisible } from "../../../app/features/User/cartVisible";
-import { getStoreSubPage } from "../../../app/features/storeSubPage";
 import { setEditMode } from "../../../app/features/Store/storeEditMode";
 import { setCartClassname } from "../../../app/features/triggeri";
 
@@ -22,11 +18,11 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
   const cartClassname = useSelector(
     (state) => state.triggeri.value.cartClassname
   );
-
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
   );
 
+  // OTHER
   const dispatch = useDispatch();
   const navigate = useNavigate();
 

@@ -10,6 +10,7 @@ import Loader from "../../assets/svg-loaders/three-dots.svg";
 import { setActive } from "../../app/features/triggeri";
 
 const YourFeed = () => {
+  // STATES
   const [text, setText] = useState(null);
   const [video, setVideo] = useState(null);
   const [videoModalVisible, setVideoModalVisible] = useState(false);
@@ -22,52 +23,31 @@ const YourFeed = () => {
   const [comPostDelete, setComPostDelete] = useState(null);
   const [youtubeId, setYoutubeId] = useState(null);
   const [deleteIndex, setDeleteIndex] = useState(null);
-
+  const [date, setDate] = useState(new Date());
+  const [index, setIndex] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const [videoModalClass, setVideoModalClass] = useState(
     "h-[80%] md:h-[70%] lg:w-[70%] w-full  md:w-[80%] bg-neutral-900 fl2 relative rounded-md p-4"
   );
 
-  const dispatch = useDispatch();
-  const [date, setDate] = useState(new Date());
-  const [index, setIndex] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-
-  const textA = useRef();
-  const feedContainer = useRef(null);
+  // REDUX
   const postModalVisible = useSelector(
     (state) => state.post.value.postModalVisible
   );
   const active = useSelector((state) => state.triggeri.value.active);
   const user = useSelector((state) => state.userData.value.user);
 
+  // OTHER
+  const dispatch = useDispatch();
+  const textA = useRef();
+  const feedContainer = useRef(null);
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "numeric",
   });
 
-  async function handlePostUpload(e) {
-    e.preventDefault();
-    if (!text && !video && !product) {
-      alert("You cant post empty post");
-    } else {
-      await axios.post("/api/customer/post-upload", {
-        text,
-        videoForm: video ? video : "",
-        youtubeForm: youtubeId ? youtubeId : "",
-        product: product ? product._id : null,
-        userId: user._id,
-        date: formattedDate,
-      });
-      setText(null);
-      setVideo(null);
-      setProduct(null);
-      setYoutubeId(null);
-      setPostTrigger(!postTrigger);
-      textA.current.value = "";
-    }
-  }
-
+  // USEEFFECTS
   useEffect(() => {
     if (!feedPosts) {
       setIsLoading(true);
@@ -108,6 +88,29 @@ const YourFeed = () => {
       });
     }
   }, [postTrigger, active]);
+
+  // FUNCTIONS
+  async function handlePostUpload(e) {
+    e.preventDefault();
+    if (!text && !video && !product) {
+      alert("You cant post empty post");
+    } else {
+      await axios.post("/api/customer/post-upload", {
+        text,
+        videoForm: video ? video : "",
+        youtubeForm: youtubeId ? youtubeId : "",
+        product: product ? product._id : null,
+        userId: user._id,
+        date: formattedDate,
+      });
+      setText(null);
+      setVideo(null);
+      setProduct(null);
+      setYoutubeId(null);
+      setPostTrigger(!postTrigger);
+      textA.current.value = "";
+    }
+  }
 
   return (
     <section

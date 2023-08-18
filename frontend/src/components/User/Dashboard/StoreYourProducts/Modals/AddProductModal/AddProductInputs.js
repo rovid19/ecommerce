@@ -20,20 +20,52 @@ const AddProductInputs = ({
   isFetching,
   setIsVisible,
 }) => {
-  //states
+  // STATES
   const [index, setIndex] = useState();
   const [pictureFetch, setPictureFetch] = useState(null);
   const [collections, setCollections] = useState(null);
   const [collectionIndex, setCollectionIndex] = useState(0);
   const [collectionTrigger, setCollectionTrigger] = useState(false);
-  //redux
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
-  const collection = useSelector((state) => state.collection.value);
-  const isUserFetching = useSelector((state) => state.isUserFetching.value);
+
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
+
+  // OTHER
   const dispatch = useDispatch();
 
-  //functions
+  // USEEFFECTS
+  useEffect(() => {
+    if (index !== null && index !== undefined) {
+      const newArray = productPicture;
+      newArray.splice(index, 1);
+      setProductPicture(newArray);
+      setIndex(null);
+    }
+  }, [index]);
+
+  // stavi prvu kolekcija usera ko pocetni value za input
+  useEffect(() => {
+    if (user.store.storeCollections.length > 0) {
+      setCollections(user.store.storeCollections[0].collectionName);
+      setCollectionTrigger(false);
+    } else {
+      setCollectionTrigger(true);
+    }
+  }, []);
+  useEffect(() => {
+    if (collections) {
+      let indexC = 0;
+      user.store.storeCollections.forEach((collection, index) => {
+        if (collection.collectionName === collections) {
+          indexC = index;
+        }
+      });
+
+      setCollectionIndex(indexC);
+    }
+  }, [collections]);
+
+  // FUNCTIONS
   function handleUploadProductPicture(e) {
     if (productPicture.length < 6) {
       setPictureFetch(true);
@@ -79,38 +111,6 @@ const AddProductInputs = ({
       });
   }
 
-  useEffect(() => {
-    if (index !== null && index !== undefined) {
-      const newArray = productPicture;
-      newArray.splice(index, 1);
-      setProductPicture(newArray);
-      setIndex(null);
-    }
-  }, [index]);
-
-  // stavi prvu kolekcija usera ko pocetni value za input
-  useEffect(() => {
-    if (user.store.storeCollections.length > 0) {
-      setCollections(user.store.storeCollections[0].collectionName);
-      setCollectionTrigger(false);
-    } else {
-      setCollectionTrigger(true);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (collections) {
-      let indexC = 0;
-      user.store.storeCollections.forEach((collection, index) => {
-        if (collection.collectionName === collections) {
-          indexC = index;
-        }
-      });
-
-      setCollectionIndex(indexC);
-    }
-  }, [collections]);
-  console.log(productPicture);
   return (
     <>
       {collectionTrigger ? (

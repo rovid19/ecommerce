@@ -2,24 +2,25 @@ import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  addUserDva,
-  fetchStoreProducts,
-  fetchUserData,
-} from "../../app/features/User/userSlice";
+import { fetchUserData } from "../../app/features/User/userSlice";
 import axios from "axios";
 import { setActive } from "../../app/features/triggeri";
 
 const LoginGooglePass = ({ email }) => {
+  // STATES
   const [password, setPassword] = useState(null);
   const [confirmedPass, setConfirmedPass] = useState(null);
-
   const [name, setName] = useState(null);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
 
-  const dispatch = useDispatch();
+  // REDUX
   const input = useSelector((state) => state.registrationInput.value);
+
+  // OTHER
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  // FUNCTIONS
   async function handleRegister(e) {
     if (password === confirmedPass) {
       if ((email, name, password)) {

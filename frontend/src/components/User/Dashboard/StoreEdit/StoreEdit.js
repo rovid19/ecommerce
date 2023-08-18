@@ -13,7 +13,7 @@ import StoreEditInfo from "./StoreEditInfo.js";
 import { fetchUserData } from "../../../../app/features/User/userSlice";
 
 const StoreEdit = () => {
-  // states
+  // STATES
   const [name, setName] = useState(null);
   const [coverPhoto, setCoverPhoto] = useState(null);
   const [profilePhoto, setProfilePhoto] = useState(null);
@@ -23,19 +23,31 @@ const StoreEdit = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
-  // redux
+  // REDUX
   const navigate = useNavigate();
   const user = useSelector((state) => state.userData.value.user);
   const editMode = useSelector((state) => state.editMode.value);
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
-  const userStoreProducts = useSelector(
-    (state) => state.userData.value.products
-  );
+
+  // OTHER
   const { store } = user;
-
   const dispatch = useDispatch();
+  // object used for setting store cover photo
+  const styles = {
+    backgroundImage: coverPhoto
+      ? `url(${coverPhoto})`
+      : `url(${user.store.storeCover})`,
+  };
 
+  // USEEFFECTS
+  // if user isn't logged in, redirect him to homepage
+  useEffect(() => {
+    if (!user) {
+      navigate("/");
+    }
+  }, []);
+
+  // FUNCTIONS
   // applying changes made on your store // functions
   function handleSaveStore() {
     setIsLoading(true);
@@ -53,34 +65,6 @@ const StoreEdit = () => {
         setIsLoading(false);
       });
   }
-
-  // if user isn't logged in, redirect him to homepage
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/");
-    }
-  }, []);
-
-  // object used for setting store cover photo
-  const styles = {
-    backgroundImage: coverPhoto
-      ? `url(${coverPhoto})`
-      : `url(${user.store.storeCover})`,
-  };
-
-  /*const dragItem = useRef(null);
-  const dragOverItem = useRef(null);
-
-  function handleProductSort() {
-    let _storeProducts = [...storeProducts];
-    const draggedItemContent = _storeProducts.splice(dragItem.current, 1)[0];
-    _storeProducts.splice(dragOverItem.current, 0, draggedItemContent);
-
-    dragItem.current = null;
-    dragOverItem.current = null;
-    dispatch(addStoreProducts(_storeProducts));
-  }*/
 
   return (
     <div

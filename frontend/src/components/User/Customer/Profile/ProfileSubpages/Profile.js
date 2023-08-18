@@ -1,17 +1,16 @@
 import React from "react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import Img from "../../../../../assets/user.png";
 import Loader from "../../../../../assets/svg-loaders/three-dots.svg";
 import axios from "axios";
 import StoreSavedModal from "../../../Dashboard/StoreEdit/Modals/StoreSavedModal";
 import { useDispatch, useSelector } from "react-redux";
-import { switchValue } from "../../../../../app/features/getUserTrigger";
 import { setUserProfileSavedModal } from "../../../../../app/features/User/profileSavedModal.js";
-import { useNavigate, useParams } from "react-router-dom";
 import { fetchUserData } from "../../../../../app/features/User/userSlice";
 import ManageFollowers from "./ManageFollowers";
 
 const Profile = () => {
+  // STATES
   const [isLoading, setIsLoading] = useState(false);
   const [profilePhoto, setProfilePhoto] = useState(null);
   const [newEmail, setNewEmail] = useState(null);
@@ -19,20 +18,19 @@ const Profile = () => {
   const [newUsername, setNewUsername] = useState(null);
   const [manageFollowersVisible, setManageFollowersVisible] = useState(false);
 
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
-  const params = useParams();
-  const navigate = useNavigate();
-  const { id } = params;
   const profileSavedModal = useSelector(
     (state) => state.profileSavedModal.value
   );
-  const dispatch = useDispatch();
 
+  // OTHER
+  const dispatch = useDispatch();
   const passInput = useRef();
   const usernameInput = useRef();
   const emailInput = useRef();
 
+  // FUNCTIONS
   function handlePhotoUpload(e) {
     setIsLoading(true);
     const file = e.target.files;
@@ -48,7 +46,6 @@ const Profile = () => {
         setIsLoading(false);
       });
   }
-
   function handleProfileChanges(e) {
     e.preventDefault();
     axios

@@ -6,20 +6,32 @@ import {
   setPostModalClass,
   setPostModalVisible,
 } from "../../app/features/post";
-import productIndex from "../../app/features/User/productIndex";
 
 const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
+  // STATES
   const [liked, setLiked] = useState(false);
   const [pictureIndex, setPictureIndex] = useState(0);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const postModalClass = useSelector(
     (state) => state.post.value.postModalClass
   );
 
+  // OTHER
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // USEEFFECTS
+  useEffect(() => {
+    if (user) {
+      const isLiked = post.postLikes.includes(user._id);
+      setLiked(isLiked);
+    }
+  }, [post]);
+
+  //FUNCTIONS
   async function likePost() {
     if (user && Object.keys(user).length > 0) {
       await axios.post("/api/customer/like-post", {
@@ -44,14 +56,6 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
     setPostTrigger(!postTrigger);
   };
 
-  useEffect(() => {
-    if (user) {
-      const isLiked = post.postLikes.includes(user._id);
-      setLiked(isLiked);
-    }
-  }, [post]);
-
-  console.log(pictureIndex);
   return (
     <article
       className={

@@ -203,28 +203,6 @@ export const editProduct = async (req, res) => {
 };
 
 export const newProductArray = async (req, res) => {
-  /* const { token } = req.cookies;
-  const { userStoreProducts } = req.body;
-  let storeProductArray = [];
-  userStoreProducts.forEach((item) => {
-    const id = item._id;
-    storeProductArray.push(id);
-  });
-
-  jwt.verify(token, jwtSecret, {}, async (err, userData) => {
-    if (err) throw err;
-    const user = await User.findById(userData.id);
-    const { store } = user;
-
-    const newStore = await Store.findById(store._id);
-
-    newStore.set({
-      storeProducts: storeProductArray,
-    });
-
-    await newStore.save();
-  });*/
-
   const { collectionId, collectionNewOrder } = req.body;
   const { token } = req.cookies;
 
@@ -470,14 +448,6 @@ export const getTrendingStore = async (req, res) => {
 
 export const getAllProducts = async (req, res) => {
   const allProducts = await Product.find().populate("store", "storeName _id");
-  /*function shuffleArray(array) {
-    const newArray = [...array];
-    newArray.forEach((_, i) => {
-      const j = Math.floor(Math.random() * (i + 1));
-      [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
-    });
-    return newArray;
-  }*/
 
   res.json(allProducts);
 };

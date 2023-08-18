@@ -3,7 +3,7 @@ import Loader from "../../../../../../assets/svg-loaders/three-dots.svg";
 import AddProductInputs from "./AddProductInputs";
 
 const StoreAddProductModal = ({ setIsVisible }) => {
-  //states
+  // STATES
   const [productPicture, setProductPicture] = useState([]);
   const [productTitle, setProductTitle] = useState(null);
   const [productDescription, setProductDescription] = useState(null);

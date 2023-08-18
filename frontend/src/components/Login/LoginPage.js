@@ -5,9 +5,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { GoogleLogin } from "@react-oauth/google";
 import jwt_decode from "jwt-decode";
-import { switchValue } from "../../app/features/getUserTrigger";
 import {
-  addUserDva,
   fetchStoreProducts,
   fetchUserData,
 } from "../../app/features/User/userSlice";
@@ -16,16 +14,18 @@ import { getStoreSubPage } from "../../app/features/storeSubPage";
 import { setActive, setRunUseEffect } from "../../app/features/triggeri";
 
 const LoginPage = () => {
+  // STATES
   const [email, setEmail] = useState(null);
   const [password, setPassword] = useState(null);
   const [googlePass, setGooglePass] = useState(false);
   const [googleMail, setGoogleMail] = useState(null);
   const [error, setError] = useState(null);
-  const user = useSelector((state) => state.userData.value.user);
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
+
+  // OTHER
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // FUNCTIONS
   async function handleLogin(e) {
     e.preventDefault();
     try {

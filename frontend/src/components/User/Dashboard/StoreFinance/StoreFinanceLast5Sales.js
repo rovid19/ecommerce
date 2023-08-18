@@ -4,10 +4,14 @@ import { useSelector } from "react-redux";
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
 
 const StoreFinanceLast5Sales = () => {
+  // STATES
   const [last5, setLast5] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
 
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
+
+  // USEEFFECT
   useEffect(() => {
     setIsFetching(true);
     axios

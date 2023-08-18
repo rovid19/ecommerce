@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import Loader from "../../../../assets/svg-loaders/three-dots.svg";
 
 const StoreFinanceSales = () => {
+  // STATES
   const [subPage, setSubPage] = useState("total");
   const [isFetching, setIsFetching] = useState(false);
   const [value, onChange] = useState(new Date());
@@ -14,26 +15,22 @@ const StoreFinanceSales = () => {
   const [calendar, setCalendar] = useState(false);
   const [dailySales, setDailySales] = useState(null);
 
+  // REDUX
   const user = useSelector((state) => state.userData.value.user);
 
-  // DEFAULT DATE
+  // OTHER
   const formattedDate = value.toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "numeric",
   });
-
   const todayDate = today.toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "numeric",
   });
 
-  function handleTotalSales() {
-    axios
-      .post("/api/store/get-total-sales", { storeId: user.store._id })
-      .then(({ data }) => setDailySales(data));
-  }
+  // USEEFFECTS
   useEffect(() => {
     setIsFetching(true);
     axios
@@ -50,6 +47,13 @@ const StoreFinanceSales = () => {
   useEffect(() => {
     setCalendar(false);
   }, [value]);
+
+  // FUNCTIONS
+  function handleTotalSales() {
+    axios
+      .post("/api/store/get-total-sales", { storeId: user.store._id })
+      .then(({ data }) => setDailySales(data));
+  }
 
   return (
     <div className="w-full h-full fl2  bg-neutral-800">

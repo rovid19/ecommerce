@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, useState, useLayoutEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import StoreProductCard from "../Store/StoreProductCard.js";
 import { useDispatch, useSelector } from "react-redux";
-import StoreProductModal from "./StoreProductModal/StoreProductModal";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Loader from "../../../assets/svg-loaders/three-dots.svg";
@@ -28,12 +27,11 @@ const Store = () => {
 
   // REDUX
   const user = useSelector((state) => state.userData.value.user);
-  const storeProducts = useSelector((state) => state.storeProducts.value);
   const viewProductModal = useSelector((state) => state.viewProductModal.value);
   const scrollStop = useSelector((state) => state.scrollStop.value);
-  const collection = useSelector((state) => state.collection.collectionItems);
-  const dispatch = useDispatch();
 
+  // OTHER
+  const dispatch = useDispatch();
   const { storeid } = useParams();
   const containerRef = useRef(null);
 
@@ -42,11 +40,9 @@ const Store = () => {
     setIsFetching(true);
     axios.post("/api/store/fetch-store-data", { storeid }).then(({ data }) => {
       setStoreData(data.store);
-      // setStoreItems(data.store.storeProducts);
       setProductCollections(data.user.store.storeCollections);
       setIsFetching(false);
       dispatch(setStoreId(storeid));
-      //dispatch(addStoreProducts(data.store.storeProducts));
       dispatch(getStoreSubPage("store"));
       dispatch(setSavedStore(data.store));
       dispatch(addCollectionItems(data.store.storeCollections));
@@ -96,22 +92,6 @@ const Store = () => {
   }, [viewProductModal]);
 
   // FUNCTIONS
-
-  // sort out products by their collection
-  /* function handleStoreCollections() {
-    const newArray = [];
-    collection.forEach((collection, index) => {
-      const productArray = storeProducts.filter(
-        (product) => product.productCollection === collection
-      );
-
-      newArray.push(productArray);
-    });
-    setProductCollections(newArray);
-  }
-  useEffect(() => {
-    setProductCollections(user.store.storeCollections);
-  }, []);*/
   // follow store
   const followStore = async () => {
     await axios.post("/api/store/follow-store", {

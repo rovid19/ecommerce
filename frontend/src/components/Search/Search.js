@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Outlet, useNavigate } from "react-router-dom";
 import Loader from "../../assets/svg-loaders/three-dots.svg";
-
 import {
   setSearch,
   setSearchOption,
@@ -13,11 +12,11 @@ import axios from "axios";
 import { useSelector } from "react-redux";
 
 const Search = () => {
+  // STATES
   const [searchValue, setSearchValue] = useState(null);
   const [option, setOption] = useState("stores");
   const [filterVisible, setFilterVisible] = useState(false);
   const [sortBy, setSortBy] = useState(null);
-  const [filterOptions, setFilterOptions] = useState([]);
   const [stores, setStores] = useState(null);
   const [outletOn, setOutletOn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -30,11 +29,36 @@ const Search = () => {
     "absolute left-2 top-2  z-50"
   );
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const user = useSelector((state) => state.userData.value.user);
+  // REDUX
   const search = useSelector((state) => state.search.value);
 
+  // OTHER
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  // USEEFFECT
+  useEffect(() => {
+    setIsLoading(true);
+    axios.get("/api/customer/get-all-stores").then(({ data }) => {
+      setStores(data);
+      setIsLoading(false);
+    });
+  }, []);
+  useEffect(() => {
+    if (sortBy) {
+      if (sortBy === "A-Z") {
+        sortByAtoZ();
+      } else if (sortBy === "Lowest To Highest") {
+        sortByPriceLowest();
+      } else if (sortBy === "Highest To Lowest") {
+        sortByPriceHighest();
+      } else {
+        sortBySold();
+      }
+    }
+  }, [sortBy]);
+
+  // FUNCTIONS
   function handleSearch(e) {
     e.preventDefault();
     axios
@@ -50,14 +74,7 @@ const Search = () => {
       });
   }
 
-  useEffect(() => {
-    setIsLoading(true);
-    axios.get("/api/customer/get-all-stores").then(({ data }) => {
-      setStores(data);
-      setIsLoading(false);
-    });
-  }, []);
-  // FILTER OPTIONS FUNCTIONS
+  // Filter options
   async function sortByAtoZ() {
     let newArray = stores === null ? [...search.searchResults] : [...stores];
 
@@ -117,36 +134,6 @@ const Search = () => {
 
     dispatch(setSearchResults(newArray));
   }
-
-  // USEEFFECT
-
-  useEffect(() => {
-    if (sortBy) {
-      /* switch (sortBy) {
-        case "A-Z":
-          sortByAtoZ;
-          break;
-        case "Lowest to highest price":
-          sortByPriceLowest();
-          break;
-        case "Highest to lowest price":
-          sortByPriceHighest;
-          break;
-        case "Most units sold":
-          sortBySold();
-          break;
-      }*/
-      if (sortBy === "A-Z") {
-        sortByAtoZ();
-      } else if (sortBy === "Lowest To Highest") {
-        sortByPriceLowest();
-      } else if (sortBy === "Highest To Lowest") {
-        sortByPriceHighest();
-      } else {
-        sortBySold();
-      }
-    }
-  }, [sortBy]);
 
   return (
     <main className="h-full w-full bg-neutral-800 relative">

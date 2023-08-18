@@ -7,23 +7,20 @@ import Loader from "../../../../../assets/svg-loaders/three-dots.svg";
 import OrderHistoryModal from "./OrderHistoryModal";
 
 const OrderHistory = () => {
+  // STATES
   const [orderHistory, setOrderHistory] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const [index, setIndex] = useState(null);
   const [indexDva, setIndexDva] = useState(null);
   const [idd, setIdd] = useState(null);
+  const [productId, setProductId] = useState(null);
+  const [getOrderHistoryTrigger, setGetOrderHistoryTrigger] = useState(false);
   const [modalClassname, setModalClassname] = useState(
     "h-[65%] md:h-[80%] w-full lg:w-[80%] bg-neutral-600 flex items-center justify-center rounded-md relative text-neutral-200"
   );
 
-  const [productId, setProductId] = useState(null);
-  const [getOrderHistoryTrigger, setGetOrderHistoryTrigger] = useState(false);
-  const user = useSelector((state) => state.userData.value.user);
-  const params = useParams();
-  const navigate = useNavigate();
-  const { id } = params;
-
+  // USEEFFECT
   useEffect(() => {
     setIsFetching(true);
     axios.get("/api/customer/get-order-history").then(({ data }) => {

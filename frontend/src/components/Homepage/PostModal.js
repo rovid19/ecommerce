@@ -5,8 +5,6 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import {
   setPostModalClass,
-  setPostModalClose,
-  setPostModalReset,
   setPostModalVisible,
 } from "../../app/features/post";
 
@@ -21,6 +19,7 @@ const PostModal = ({
   comPostDelete,
   setComPostDelete,
 }) => {
+  // STATES
   const [commentText, setCommentText] = useState(null);
   const [liked, setLiked] = useState(false);
   const [showLess, setShowLess] = useState(true);
@@ -28,13 +27,19 @@ const PostModal = ({
   const [commentAni, setCommentAni] = useState(" mt-4 flex ");
   const [pictureIndex, setPictureIndex] = useState(0);
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const textRef = useRef();
+  // REDUX
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const postModalClass = useSelector(
     (state) => state.post.value.postModalClass
   );
+  const user = useSelector((state) => state.userData.value.user);
+
+  // OTHER
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const textRef = useRef();
+
+  // USEEFFECTS
   useEffect(() => {
     if (user) {
       const isLiked = feedPosts[index].postLikes.includes(user._id);
@@ -42,6 +47,31 @@ const PostModal = ({
     }
   }, [feedPosts[index]]);
 
+  useEffect(() => {
+    if (commentId) {
+      handleDeleteComment();
+    }
+  }, [commentId]);
+
+  useEffect(() => {
+    if (comIndex >= 0) {
+      if (comPostDelete === "Post") {
+        setCommentAni((prev) => prev + " commentAniPost");
+        setTimeout(() => {
+          setCommentAni(" mt-4 flex ");
+          setComIndex(undefined);
+        }, [400]);
+      } else {
+        setCommentAni((prev) => prev + " commentAniDelete");
+        setTimeout(() => {
+          setCommentAni(" mt-4 flex ");
+          setComIndex(undefined);
+        }, [600]);
+      }
+    }
+  }, [comIndex]);
+
+  // FUNCTIONS
   const handleDeleteComment = async () => {
     await axios.post("/api/customer/delete-comment", { commentId });
     if (storeSubPage === "store") {
@@ -52,11 +82,6 @@ const PostModal = ({
 
     setPostTrigger(!postTrigger);
   };
-  useEffect(() => {
-    if (commentId) {
-      handleDeleteComment();
-    }
-  }, [commentId]);
 
   async function likePost() {
     if (user && Object.keys(user).length > 0) {
@@ -94,25 +119,6 @@ const PostModal = ({
     setPostTrigger(!postTrigger);
     textRef.current.value = "";
   };
-  const user = useSelector((state) => state.userData.value.user);
-
-  useEffect(() => {
-    if (comIndex >= 0) {
-      if (comPostDelete === "Post") {
-        setCommentAni((prev) => prev + " commentAniPost");
-        setTimeout(() => {
-          setCommentAni(" mt-4 flex ");
-          setComIndex(undefined);
-        }, [400]);
-      } else {
-        setCommentAni((prev) => prev + " commentAniDelete");
-        setTimeout(() => {
-          setCommentAni(" mt-4 flex ");
-          setComIndex(undefined);
-        }, [600]);
-      }
-    }
-  }, [comIndex]);
 
   return (
     <div

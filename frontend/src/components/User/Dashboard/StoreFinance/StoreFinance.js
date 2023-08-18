@@ -6,20 +6,22 @@ import { Chart as ChartJS } from "chart.js/auto";
 import { Bar } from "react-chartjs-2";
 import axios from "axios";
 const StoreFinance = () => {
+  // STATES
   const [salesData, setSalesData] = useState({});
-  const [options, setOptions] = useState(null);
   const [date, setDate] = useState(new Date());
+
+  // REDUX
   const storeSubPage = useSelector((state) => state.storeSubPage.value);
   const user = useSelector((state) => state.userData.value.user);
-  const { store } = user;
 
-  // DEFAULT DATE
+  // OTHER
   const formattedDate = date.toLocaleDateString("en-US", {
     month: "2-digit",
     day: "2-digit",
     year: "numeric",
   });
 
+  // USEEFFECTS
   useEffect(() => {
     axios
       .post("/api/store/get-last-week-sales", {
@@ -29,7 +31,6 @@ const StoreFinance = () => {
       .then(({ data }) => setSalesData(data));
   }, []);
 
-  console.log(salesData);
   return (
     <div
       className={

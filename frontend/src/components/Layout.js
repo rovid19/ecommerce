@@ -8,7 +8,7 @@ import NavbarMobile from "./Navbar/NavbarMobile";
 import AddToCart from "./User/Customer/AddToCart";
 
 const Layout = () => {
-  const dispatch = useDispatch();
+  // REDUX
   const showNavbar = useSelector((state) => state.triggeri.value.showNavbar);
   const mobileActive = useSelector(
     (state) => state.triggeri.value.mobileActive
@@ -16,6 +16,10 @@ const Layout = () => {
   const cartItems = useSelector((state) => state.cartItems.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
 
+  // OTHER
+  const dispatch = useDispatch();
+
+  // USEEFFECTS
   useEffect(() => {
     const resizeFunc = () => {
       if (window.innerWidth <= 1024) {

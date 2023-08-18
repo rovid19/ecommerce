@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { FaStar } from "react-icons/fa";
-import { useDispatch } from "react-redux";
 
 const ReviewStarRating = ({
   setRatingActive,
@@ -8,8 +7,7 @@ const ReviewStarRating = ({
   rating,
   setRating,
 }) => {
-  const dispatch = useDispatch();
-
+  // STATES
   const [hover, setHover] = useState(null);
 
   return (

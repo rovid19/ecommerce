@@ -9,9 +9,6 @@ import { setviewImage } from "../../../../app/features/User/viewImage";
 import ReviewStarRating from "./ReviewStarRating";
 import { useParams } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
-import getUserTrigger, {
-  switchValue,
-} from "../../../../app/features/getUserTrigger";
 import { fetchUserData } from "../../../../app/features/User/userSlice";
 
 const Reviews = () => {
@@ -26,52 +23,17 @@ const Reviews = () => {
   const [deleteReview, setDeleteReview] = useState(null);
 
   // REDUX
-  const viewReviewPic = useSelector((state) => state.viewReviewPic.value);
   const viewImage = useSelector((state) => state.viewImage.value);
   const selectedProduct = useSelector((state) => state.selectedProduct.value);
   const user = useSelector((state) => state.userData.value.user);
-  const getUserTrigger = useSelector((state) => state.getUserTrigger.value);
-
   const reviewPic = useSelector((state) => state.reviewPic.value);
+
+  // OTHER
   const dispatch = useDispatch();
   const inputRef = useRef();
   const { productId } = useParams();
 
-  // FUNCTIONS
-  function pictureUpload(e) {
-    const file = e.target.files;
-    const data = new FormData();
-    data.append("photo", file[0]);
-    axios
-      .post("/api/store/upload-image", data, {
-        headers: { "Content-Type": "multipart/form-data" },
-      })
-      .then(({ data }) => {
-        dispatch(setReviewPic(data));
-      });
-  }
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    await axios.post("/api/customer/submit-review", {
-      id: user._id,
-      reviewPic,
-      comment,
-      productId: selectedProduct,
-      rating,
-    });
-
-    await dispatch(fetchUserData()).unwrap();
-
-    setTrigger(!trigger);
-    inputRef.current.value = "";
-  }
-
-  /* USEEFFECT
-  useEffect(() => {
-    if (!user.status) {
-    }
-  }, [user.status]);*/
+  // USEEFFECTS
   useEffect(() => {
     if (selectedProduct) {
       axios
@@ -107,6 +69,36 @@ const Reviews = () => {
       }
     }
   }, [postTrigger]);
+
+  // FUNCTIONS
+  function pictureUpload(e) {
+    const file = e.target.files;
+    const data = new FormData();
+    data.append("photo", file[0]);
+    axios
+      .post("/api/store/upload-image", data, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then(({ data }) => {
+        dispatch(setReviewPic(data));
+      });
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault();
+    await axios.post("/api/customer/submit-review", {
+      id: user._id,
+      reviewPic,
+      comment,
+      productId: selectedProduct,
+      rating,
+    });
+
+    await dispatch(fetchUserData()).unwrap();
+
+    setTrigger(!trigger);
+    inputRef.current.value = "";
+  }
 
   return (
     <section
