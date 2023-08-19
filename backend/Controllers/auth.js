@@ -1,9 +1,9 @@
 import jwt from "jsonwebtoken";
 import User from "../Models/user.js";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import { Store } from "../Models/store.js";
 
-const bcryptSalt = bcrypt.genSaltSync(10);
+const bcryptSalt = bcryptjs.genSaltSync(10);
 const jwtSecret = "rockjefakatludirock";
 
 export const registerUser = async (req, res) => {
@@ -29,7 +29,7 @@ export const registerUser = async (req, res) => {
         const newUser = await User.create({
           email,
           username: username,
-          password: bcrypt.hashSync(password, bcryptSalt),
+          password: bcryptjs.hashSync(password, bcryptSalt),
           store: newStore._id,
           profilePicture:
             "https://gymtok-photo-video-upload.s3.amazonaws.com/1689844678127.png",
@@ -47,7 +47,7 @@ export const loginUser = async (req, res) => {
   const user = await User.findOne({ email });
 
   if (user) {
-    const checkPass = bcrypt.compareSync(password, user.password);
+    const checkPass = bcryptjs.compareSync(password, user.password);
 
     if (checkPass) {
       jwt.sign(

@@ -2,14 +2,14 @@ import jwt from "jsonwebtoken";
 import User from "../Models/user.js";
 import { Store } from "../Models/store.js";
 import Product from "../Models/product.js";
-import bcrypt from "bcrypt";
+import bcryptjs from "bcryptjs";
 import Sale from "../Models/sale.js";
 import Review from "../Models/review.js";
 import Chat from "../Models/chat.js";
 import { Post, Comment } from "../Models/post.js";
 
 const jwtSecret = "rockjefakatludirock";
-const bcryptSalt = bcrypt.genSaltSync(10);
+const bcryptSalt = bcryptjs.genSaltSync(10);
 
 export const setProductToCart = async (req, res) => {
   const { token } = req.cookies;
@@ -87,7 +87,7 @@ export const profileChanges = async (req, res) => {
     }
     if (newPassword) {
       user.set({
-        password: bcrypt.hashSync(newPassword, bcryptSalt),
+        password: bcryptjs.hashSync(newPassword, bcryptSalt),
       });
     }
     if (profilePhoto) {
