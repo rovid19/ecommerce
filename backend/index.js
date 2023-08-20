@@ -27,7 +27,7 @@ app.use(
     credentials: true,
     origin: [
       "http://localhost:3000",
-      "https://ecommerce-frontend-i3h3.onrender.com",
+      "https://swift-bubble-production.up.railway.app",
     ],
   })
 );
