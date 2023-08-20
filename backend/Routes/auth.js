@@ -9,4 +9,8 @@ router.post("/login-user", loginUser);
 
 router.post("/logout-user", logoutUser);
 
+router.get("/test", async (req, res) => {
+  res.json("0kokok");
+});
+
 export default router;
