@@ -25,10 +25,7 @@ app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: [
-      "http://localhost:3000",
-      "https://swift-bubble-production.up.railway.app",
-    ],
+    origin: ["http://localhost:3000", "https://rocks-market.up.railway.app"],
   })
 );
 app.use(express.json());
