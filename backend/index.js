@@ -13,7 +13,7 @@ import { Server } from "socket.io";
 import Chat from "./Models/chat.js";
 
 const app = express();
-const PORT = 5000;
+//const PORT = 5000;
 const port = process.env.PORT || 3000;
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,8 +28,8 @@ app.use(
   })
 );
 app.use(express.json());
-//app.listen(port, "0.0.0.0");
-app.listen(PORT);
+app.listen(port, "0.0.0.0");
+//app.listen(PORT);
 
 app.use("/api/auth", authRoute);
 app.use("/api/user", userRoute);
