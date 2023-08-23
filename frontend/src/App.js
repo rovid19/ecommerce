@@ -29,8 +29,8 @@ import { setRunUseEffect } from "./app/features/triggeri";
 import Chat from "./components/User/Inbox/Chat";
 import { setSocket } from "./app/features/socket";
 
-axios.defaults.baseURL = "http://localhost:5000";
-//axios.defaults.baseURL = "https://ecommerce-production.up.railway.app";
+//axios.defaults.baseURL = "http://localhost:5000";
+axios.defaults.baseURL = "https://ecommerce-production.up.railway.app";
 axios.defaults.withCredentials = true;
 
 const App = () => {

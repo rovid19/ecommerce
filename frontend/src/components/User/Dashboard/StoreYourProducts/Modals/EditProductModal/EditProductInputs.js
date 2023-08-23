@@ -91,7 +91,7 @@ const EditProductInputs = ({
       const oduzmi = (oldPrice * discountInput) / 100;
       const newPrice = oldPrice - oduzmi;
       setProductNewPrice(newPrice);
-    } else if (discountInput === 0) {
+    } else if (discountInput && discountInput.length === 0) {
       setProductNewPrice(productPrice);
     }
   }, [discountInput]);
@@ -155,7 +155,7 @@ const EditProductInputs = ({
     setProductPrice(newPrice);
     setDiscountInput(0);
   };
-  console.log(discountInput, productPrice);
+
   return (
     <form onSubmit={handleEditProduct} className="h-[95%]">
       {saleVisible && (
@@ -183,8 +183,8 @@ const EditProductInputs = ({
               </svg>
             </button>
             <div className="h-[80%] w-[80%] fl2 text-neutral-300 relative ">
-              <h1 className="text-4xl mb-2">Enter discount</h1>
-              <div className="relative w-[50%] h-[50px] ">
+              <h1 className="text-2xl lg:text-4xl mb-2">Enter discount</h1>
+              <div className="relative w-full lg:w-[50%] h-[50px] ">
                 <input
                   value={discountInput}
                   min="0"
@@ -205,8 +205,8 @@ const EditProductInputs = ({
                 </h1>
               </div>
               <div className="flex items-center gap-2 justify-center h-[50px] mt-2 ">
-                <h2 className="text-2xl ">New price:</h2>
-                <h1 className="bg-orange-500 text-white  p-2 rounded-md text-xl ">
+                <h2 className="text-xl lg:text-2xl ">New price:</h2>
+                <h1 className="bg-orange-500 text-white p-1 lg:p-2 rounded-md text-xl ">
                   {Math.floor(productNewPrice)}$
                 </h1>
               </div>
@@ -215,7 +215,7 @@ const EditProductInputs = ({
                   setProductPrice(productNewPrice);
                   setSaleVisible(false);
                 }}
-                className="absolute bottom-2 text-white rounded-md border-2 border-orange-500 w-[20%] h-[10%] hover:bg-orange-500 transition-all "
+                className="absolute bottom-2 bg-orange-500 lg:bg-transparent text-white rounded-md lg:border-2 lg:border-orange-500 w-[50%] h-[12%] lg:w-[30%] lg:h-[15%] hover:bg-orange-500 transition-all "
               >
                 Save
               </button>
