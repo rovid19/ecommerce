@@ -3,7 +3,7 @@ import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3";
 import fs from "fs";
 import User from "../Models/user.js";
 import { Store } from "../Models/store.js";
-import Product from "../Models/product.js";
+import { Product, onSale } from "../Models/product.js";
 import Sale from "../Models/sale.js";
 import Collection from "../Models/collection.js";
 
@@ -131,7 +131,7 @@ export const getStoreProducts = async (req, res) => {
 
     const userStore = await Store.findById(store).populate(
       "storeProducts",
-      "productName productPicture productDescription productRating productNewPrice productOldPrice productCollection"
+      "productName productPicture productDescription productRating productNewPrice productOldPrice productCollection productOnSale"
     );
 
     res.json(userStore.storeProducts);
@@ -164,6 +164,7 @@ export const editProduct = async (req, res) => {
     collection,
     oldCollection,
     collectionId,
+    salePercentage,
     oldCollectionId,
   } = req.body;
 
@@ -175,6 +176,10 @@ export const editProduct = async (req, res) => {
   editedProduct.productPicture = productPicture;
   editedProduct.productCollection = collection;
 
+  // ako je na proizvodu omgucen sale, tj ako postoji nova cijena proizvoda
+  editedProduct.productOnSale = salePercentage;
+
+  // ako se na proizvodu mijenja kolekcija
   if (collection === oldCollection) {
     res.json(editedProduct);
     await editedProduct.save();
@@ -232,7 +237,7 @@ export const newProductArray = async (req, res) => {
           populate: {
             path: "collectionProducts",
             select:
-              "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold productRating productScore",
+              "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold productRating productScore productOnSale",
           },
         },
       });
@@ -263,7 +268,7 @@ export const fetchStoreData = async (req, res) => {
       populate: {
         path: "collectionProducts",
         select:
-          "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold productRating productScore",
+          "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold productRating productScore productOnSale",
       },
     },
   });
@@ -390,7 +395,7 @@ export const getLast5 = async (req, res) => {
     populate: {
       path: "productBought",
       select:
-        "productName productPicture productDescription productNewPrice productRating  productScore",
+        "productName productPicture productDescription productNewPrice productRating  productScore productOnSale",
     },
   });
   const arrayLength = store.storeSales.length - 5;
@@ -420,30 +425,32 @@ export const getTrendingStore = async (req, res) => {
     }
   });
 
-  const lengt = array.map((item) => item.storeSales.length);
+  if (array.length > 0) {
+    const lengt = array.map((item) => item.storeSales.length);
 
-  const mostSales = Math.max(...lengt);
+    const mostSales = Math.max(...lengt);
 
-  const index = lengt.findIndex((item) => item === mostSales);
+    const index = lengt.findIndex((item) => item === mostSales);
 
-  const storeId = array[index]._id;
+    const storeId = array[index]._id;
 
-  const userStore = await User.findOne({ store: storeId }).populate({
-    path: "store",
-    select:
-      "storeName storeDescription storeProfile storeCover storeProducts storeAddress storeCollections",
-    populate: {
-      path: "storeCollections",
-      select: "collectionName collectionProducts",
-
+    const userStore = await User.findOne({ store: storeId }).populate({
+      path: "store",
+      select:
+        "storeName storeDescription storeProfile storeCover storeProducts storeAddress storeCollections",
       populate: {
-        path: "collectionProducts",
-        select:
-          "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold productRating productScore",
+        path: "storeCollections",
+        select: "collectionName collectionProducts",
+
+        populate: {
+          path: "collectionProducts",
+          select:
+            "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold productRating productScore",
+        },
       },
-    },
-  });
-  res.json(userStore.store);
+    });
+    res.json(userStore.store);
+  }
 };
 
 export const getAllProducts = async (req, res) => {

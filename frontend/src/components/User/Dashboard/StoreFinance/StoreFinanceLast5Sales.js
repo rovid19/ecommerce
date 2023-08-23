@@ -52,7 +52,11 @@ const StoreFinanceLast5Sales = () => {
                     <h1>Products</h1>
                   </div>
                   <div className="h-[90%] flex justify-center items-center text-neutral-300">
-                    <h2>{item.productBought[0].productName}</h2>
+                    <h2>
+                      {item.productBought[0].productName.length > 10
+                        ? item.productBought[0].productName.slice(0, 10)
+                        : item.productBought[0].productName}
+                    </h2>
                   </div>
                 </div>
                 <div className="h-full w-full border-r-2 border-neutral-600 border-opacity-20">

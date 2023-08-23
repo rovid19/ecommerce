@@ -21,6 +21,9 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
   const deleteProductModal = useSelector(
     (state) => state.deleteProductModal.value
   );
+  const mobileActive = useSelector(
+    (state) => state.triggeri.value.mobileActive
+  );
 
   // OTHER
   const dispatch = useDispatch();
@@ -39,13 +42,13 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
       dispatch(setCartVisible(true));
     }
   }
-
+  console.log(storeProducts);
   return (
     <div
       className={
         editMode
-          ? "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer transition-all relative overflow-hidden "
-          : "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer transition-all relative overflow-hidden"
+          ? "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer transition-all relative overflow-hidden group "
+          : "h-[95%] lg:h-[100%] w-full bg-neutral-900 text-neutral-300 rounded-xl shadow-md cursor-pointer transition-all relative overflow-hidden group"
       }
       onClick={() => {
         dispatch(addSelectedProduct(storeProducts._id));
@@ -89,19 +92,38 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
           ""
         )}
         <div className="h-full w-full overflow-hidden relative">
+          {storeProducts.productOnSale > 0 && (
+            <div className="h-[50px] w-[50px] bg-orange-500 rounded-full absolute top-2 right-2 z-10 flex items-center justify-center ">
+              <h1 className="text-white ">
+                <span className="text-xl">{storeProducts.productOnSale}</span>%
+              </h1>
+            </div>
+          )}
           <img
             src={storeProducts && storeProducts.productPicture[0]}
-            className="h-full w-full object-cover absolute rounded-md group-hover:scale-125 transition-all"
+            className="h-full w-full bg-white object-scale-down absolute rounded-md group-hover:scale-125 transition-all"
           ></img>
         </div>
       </div>
-      <div className="h-[45%]  w-full pl-2 pt-1 lg:pt-2 relative ">
-        <h1 className="font-bold text-xl  uppercase">
-          {storeProducts && storeProducts.productName}
-        </h1>
-        <p className="text-sm text-gray-500 w-full break-words h-[62px] overflow-hidden lg:mt-0 pr-3 ">
-          {storeProducts && storeProducts.productDescription}
-        </p>{" "}
+      <div className="h-[45%]   w-full pl-2 pt-1 lg:pt-2 relative ">
+        <div className="w-[70%]  md:w-[75%] h-[35%] pt-1 md:pt-0   ">
+          <h1 className="font-bold text-sm md:text-lg lg:text-xl  uppercase  ">
+            {storeProducts && storeProducts.productName.length > 25
+              ? storeProducts.productName.slice(0, 24) + ".."
+              : storeProducts.productName}
+          </h1>
+        </div>
+        <div className="h-[35%] w-full ">
+          <p className="text-sm text-gray-500 w-full break-words h-[44px]  lg:mt-0 pr-3 ">
+            {storeProducts &&
+            storeProducts.productDescription.length > 100 &&
+            !mobileActive
+              ? storeProducts.productDescription.slice(0, 100) + ".."
+              : storeProducts.productDescription.length > 40 && mobileActive
+              ? storeProducts.productDescription.slice(0, 40) + ".."
+              : storeProducts.productDescription}
+          </p>{" "}
+        </div>
         <h1 className="font-bold text-xl  absolute top-1 lg:top-2 right-3">
           {storeProducts && storeProducts.productNewPrice}€
         </h1>

@@ -29,8 +29,8 @@ import { setRunUseEffect } from "./app/features/triggeri";
 import Chat from "./components/User/Inbox/Chat";
 import { setSocket } from "./app/features/socket";
 
-//axios.defaults.baseURL = "http://localhost:5000";
-axios.defaults.baseURL = "https://ecommerce-production.up.railway.app";
+axios.defaults.baseURL = "http://localhost:5000";
+//axios.defaults.baseURL = "https://ecommerce-production.up.railway.app";
 axios.defaults.withCredentials = true;
 
 const App = () => {
@@ -101,7 +101,7 @@ const App = () => {
   return (
     <div>
       {cartVisible && (
-        <div className="w-[50%] lg:w-[18%] absolute h-[100%] right-0">
+        <div className="w-[50%] lg:w-[22%] xl:w-[20%] 2xl:w-[18%] absolute h-[100%] right-0">
           {" "}
           <AddToCart />
         </div>

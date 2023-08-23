@@ -36,6 +36,9 @@ const YourFeed = () => {
   );
   const active = useSelector((state) => state.triggeri.value.active);
   const user = useSelector((state) => state.userData.value.user);
+  const mobileActive = useSelector(
+    (state) => state.triggeri.value.mobileActive
+  );
 
   // OTHER
   const dispatch = useDispatch();
@@ -74,8 +77,7 @@ const YourFeed = () => {
         });
     } else if (active === "Trending") {
       axios.get("/api/customer/get-all-posts").then(({ data }) => {
-        let reverseArray = data.reverse();
-        setFeedPosts(reverseArray);
+        setFeedPosts(data);
         setIsLoading(false);
 
         if (comPostDelete === "Post") {
@@ -181,7 +183,7 @@ const YourFeed = () => {
       {user && Object.keys(user).length > 0 && (
         <fieldset
           className={
-            text || product || video
+            text || product || video || youtubeId
               ? "h-[50%] lg:h-[60%] w-full bg-neutral-700 rounded-r-md p-2 transition-all relative"
               : "h-[15%] w-full bg-neutral-700 rounded-r-md p-1 lg:p-2 transition-all relative"
           }
@@ -221,7 +223,7 @@ const YourFeed = () => {
             <div className="h-full lg:w-[6%] w-[50px] pr-2 pl-2 ">
               <img
                 className={
-                  text || product || video
+                  text || product || video || youtubeId
                     ? "lg:h-[15%] h-0 object-cover w-0 lg:w-full rounded-full transition-all"
                     : "lg:h-[70%] h-0 w-0 object-cover lg:w-full rounded-full transition-all"
                 }
@@ -276,10 +278,20 @@ const YourFeed = () => {
                       </div>
                       <div className="  border-r-2 border-neutral-900 border-opacity-20 h-full lg:p-4 p-1 ">
                         <h1 className="text-xl text-neutral-400">
-                          {product.productName}
+                          {product.productName.length > 15 && !mobileActive
+                            ? product.productName.slice(0, 15) + ".."
+                            : product.productName.length > 10 && mobileActive
+                            ? product.productName.slice(0, 10) + ".."
+                            : product.productName}
                         </h1>
                         <h3 className="text-neutral-400 text-sm">
-                          {product.productDescription}
+                          {product.productDescription.length > 75 &&
+                          !mobileActive
+                            ? product.productDescription.slice(0, 75) + ".."
+                            : product.productDescription.length > 25 &&
+                              mobileActive
+                            ? product.productDescription.slice(0, 25) + ".."
+                            : product.productDescription}
                         </h3>
                       </div>
                       <div className="flex items-center justify-center">

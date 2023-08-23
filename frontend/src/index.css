@@ -122,6 +122,10 @@ body {
   transform: translateX(30px);
 }
 
+.zIn {
+  z-index: 200;
+}
+
 .Navlink {
   @apply text-neutral-400;
   @apply border-opacity-25;

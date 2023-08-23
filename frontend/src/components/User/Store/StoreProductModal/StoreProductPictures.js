@@ -34,7 +34,7 @@ const StoreProductPictures = ({
       setProductPicture(newArray);
     };
   }
-
+  console.log(storeProducts);
   return (
     <>
       {/* PRODUCT PICTURES */}
@@ -43,6 +43,13 @@ const StoreProductPictures = ({
           viewImage ? "hidden " : "h-[50%] w-full lg:w-[75%] flex relative "
         }
       >
+        {storeProducts.productOnSale > 0 && (
+          <div className="h-[50px] w-[50px] bg-orange-500 rounded-full absolute bottom-2 lg:top-2 right-2 z-50 flex items-center justify-center ">
+            <h1 className="text-white ">
+              <span className="text-xl">{storeProducts.productOnSale}</span>%
+            </h1>
+          </div>
+        )}
         {storeProducts.length > 0
           ? productPicture.map((item, index) => {
               switch (index) {
@@ -55,7 +62,7 @@ const StoreProductPictures = ({
                           : "h-full w-[70%] object-cover z-50 flex items-center relative "
                       }
                     >
-                      <button className="absolute bottom-4 right-4 z-30 ">
+                      <button className="absolute bottom-4 right-4 z-30 bg-neutral-900 p-1 rounded-md bg-opacity-50 hover:bg-opacity-100 transition-all">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -194,11 +201,11 @@ const StoreProductPictures = ({
                     <div
                       className={
                         productPicture.length === 0
-                          ? "h-full w-full object-cover z-50 flex items-center relative "
-                          : "h-full w-[70%] object-cover z-50 flex items-center relative "
+                          ? "h-full w-full object-cover z-50 flex items-center relative bg-white"
+                          : "h-full w-[70%] object-cover z-50 flex items-center relative bg-white"
                       }
                     >
-                      <button className="absolute bottom-4 right-4 z-30">
+                      <button className="absolute bottom-4 right-4 z-30 bg-neutral-900 p-1 rounded-md bg-opacity-50 hover:bg-opacity-100 transition-all">
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           fill="none"
@@ -217,14 +224,18 @@ const StoreProductPictures = ({
                       </button>
                       <img
                         src={item}
-                        className="h-full w-full object-cover"
+                        className="h-full w-full object-scale-down  "
                       ></img>
-                      <button onClick={handleChangePictureNext(index)}>
+                      <button
+                        onClick={handleChangePictureNext(index)}
+                        className="bg-neutral-900 flex items-center justify-center h-[50px] w-[50px] absolute right-2 rounded-full bg-opacity-50 p-1 hover:bg-opacity-100 transition-all"
+                      >
+                        {" "}
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          className="w-14 h-14 absolute right-2 text-white cursor-pointer hover:scale-95"
+                          className="w-14 h-14 text-white  cursor-pointer hover:scale-95 opacity-100"
                         >
                           <path
                             fillRule="evenodd"
@@ -233,12 +244,15 @@ const StoreProductPictures = ({
                           />
                         </svg>
                       </button>
-                      <button onClick={handleChangePicturePrevious(index)}>
+                      <button
+                        onClick={handleChangePicturePrevious(index)}
+                        className="bg-neutral-900 flex items-center justify-center h-[50px] w-[50px] absolute left-2 rounded-full bg-opacity-50 p-1 hover:bg-opacity-100 transition-all"
+                      >
                         <svg
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
-                          className="w-14 h-14 absolute left-2 text-white cursor-pointer hover:scale-95"
+                          className="w-14 h-14 text-white   cursor-pointer hover:scale-95 opacity-100"
                         >
                           <path
                             fillRule="evenodd"

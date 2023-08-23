@@ -79,15 +79,18 @@ const StoreOrdersModal = ({
       <div className="h-[75%] lg:h-[85%] w-full lg:w-[75%] bg-neutral-700 text-neutral-300 flex items-center justify-center rounded-md">
         <div className="w-[30%] h-full">
           <img
-            src={orderData.productBought[indexDva].productPicture}
+            src={orderData.productBought[indexDva].productPicture[0]}
             className="w-full h-full object-cover rounded-r-md rounded-l-md"
           ></img>
         </div>
         <div className="w-[70%] h-full flex justify-center items-center">
           <div className="w-[80%] h-[85%]     ">
             <div className="h-[70%] w-full  bg-opacity-25 relative ">
-              <h1 className="text-4xl lg:text-8xl">
-                {orderData.productBought[indexDva].productName}
+              <h1 className="text-xl lg:text-5xl 2xl:text-8xl">
+                {orderData.productBought[indexDva].productName.length > 10
+                  ? orderData.productBought[indexDva].productName.slice(0, 10) +
+                    ".."
+                  : orderData.productBought[indexDva].productName}
               </h1>
               <div className=" border-b-2 border-neutral-900 border-opacity-10 p-2">
                 <h2 className="text-gray-400 mt-6">Total price paid:</h2>
@@ -95,7 +98,7 @@ const StoreOrdersModal = ({
                   {orderData.productBought[indexDva].productNewPrice}$
                 </h1>
               </div>
-              <div className="text-base lg:text-xl font-bold mt-1 lg:mt-6 text-right absolute top-1 right-0">
+              <div className="text-base lg:text-xl font-bold mt-1 lg:mt-6 text-right absolute top-0 lg:top-1 right-0">
                 {orderData.orderPlacedDate.substring(0, 10)}
                 <br />
                 <span className="font-light">Customer:</span>{" "}

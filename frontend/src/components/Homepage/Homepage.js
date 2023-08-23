@@ -51,7 +51,7 @@ const Homepage = () => {
   return (
     <>
       <main className="h-full w-full overflow-scroll  scrollbar-hide griddd bg-neutral-900 relative">
-        {active === "Following" ? (
+        {active === "Following" || active === "Trending" ? (
           ""
         ) : (
           <div

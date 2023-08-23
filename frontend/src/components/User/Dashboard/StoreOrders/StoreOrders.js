@@ -151,20 +151,25 @@ const StoreOrders = () => {
                   }}
                   key={index}
                 >
-                  <div className="w-[50%]  h-full flex p-2">
-                    <div className="h-full w-[50%] ">
+                  <div className="w-[50%]  h-full flex p-2 ">
+                    <div className="h-full w-[50%]  ">
                       {" "}
                       <img
-                        src={item.productPicture}
+                        src={item.productPicture[0]}
                         className="h-full object-cover rounded-md w-full"
                       />
                     </div>
-                    <div className="h-full w-[70%] fl3 ml-4">
-                      <h1 className="text-sm lg:text-3xl">
-                        {item.productName}
-                      </h1>
-
-                      <p>{item.productDescription} </p>
+                    <div className="h-full w-[50%] lg:w-[70%] fl3 ml-4">
+                      <div className="h-[30%]">
+                        <h1 className="text-sm lg:text-3xl">
+                          {item.productName.length > 10 && mobileActive
+                            ? item.productName.slice(0, 10)
+                            : item.productName}
+                        </h1>
+                      </div>
+                      <div className="h-[70%] overflow-hidden">
+                        <p>{item.productDescription} </p>
+                      </div>
                     </div>
                   </div>
                   <div className="h-full w-[40%] lg:w-[20%] p-2">

@@ -1,4 +1,11 @@
 import mongoose from "mongoose";
+const onSaleSchema = new mongoose.Schema({
+  productNewPrice: Number,
+  productOldPrice: Number,
+  productSalePrecentage: Number,
+});
+
+const onSale = mongoose.model("onSale", onSaleSchema);
 
 const productSchema = new mongoose.Schema({
   productName: String,
@@ -7,7 +14,7 @@ const productSchema = new mongoose.Schema({
   productDescription: String,
   productRating: Number,
   productNewPrice: Number,
-  productOldPrice: Number,
+  productOnSale: Number,
   productSold: { type: Number, default: 0 },
   productCurrency: String,
   productReview: [{ type: mongoose.Schema.Types.ObjectId, ref: "review" }],
@@ -18,6 +25,6 @@ const productSchema = new mongoose.Schema({
   store: [{ type: mongoose.Schema.Types.ObjectId, ref: "store" }],
 });
 
-const productModel = mongoose.model("product", productSchema);
+const Product = mongoose.model("product", productSchema);
 
-export default productModel;
+export { onSale, Product };

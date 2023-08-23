@@ -254,7 +254,7 @@ const Store = () => {
                 >
                   <div className="h-[10%]"></div>
                   <div className="h-[90%] min-w-min flex gap-2 p-2 lg:p-4 bg-neutral-800 relative">
-                    <div className="h-[11%] w-full bg-neutral-900 p-4 text-neutral-300 flex items-center absolute top-[-11%] left-0">
+                    <div className="h-[13%] w-full bg-neutral-900 p-4 text-neutral-300 flex items-center absolute top-[-11%] left-0">
                       <h1 className="text-xl lg:text-2xl">
                         {item.collectionName}
                       </h1>

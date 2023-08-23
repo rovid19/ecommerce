@@ -13,6 +13,7 @@ const EditProductModal = () => {
   const [productPrice, setProductPrice] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(null);
+  const [discountInput, setDiscountInput] = useState(0);
   const [isVisible, setIsVisible] = useState(false);
 
   // REDUX
@@ -32,6 +33,7 @@ const EditProductModal = () => {
         setProductTitle(data.productName);
         setProductDescription(data.productDescription);
         setProductPrice(data.productNewPrice);
+        setDiscountInput(data.productOnSale);
       })
       .then(() => {
         setIsFetching(false);
@@ -45,7 +47,7 @@ const EditProductModal = () => {
           <img src={Loader}></img>
         </div>
       )}
-      <div className="w-full h-[92%]  lg:w-[50%] lg:h-[95%] bg-neutral-800 p-4 rounded-lg lg:relative absolute top-0  ">
+      <div className="w-full h-[92%]  lg:w-[50%] lg:h-[95%] bg-neutral-800 p-4 rounded-lg lg:relative absolute top-0  z-50">
         <div className="h-[30px] ">
           <button onClick={() => dispatch(setEditProductModal(false))}>
             <svg
@@ -74,6 +76,8 @@ const EditProductModal = () => {
           productDescription={productDescription}
           setIsVisible={setIsVisible}
           currentProduct={currentProduct}
+          discountInput={discountInput}
+          setDiscountInput={setDiscountInput}
         />
       </div>
     </div>

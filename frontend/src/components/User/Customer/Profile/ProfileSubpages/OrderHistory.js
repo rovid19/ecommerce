@@ -20,6 +20,12 @@ const OrderHistory = () => {
     "h-[65%] md:h-[80%] w-full lg:w-[80%] bg-neutral-600 flex items-center justify-center rounded-md relative text-neutral-200"
   );
 
+  // REDUX
+
+  const mobileActive = useSelector(
+    (state) => state.triggeri.value.mobileActive
+  );
+
   // USEEFFECT
   useEffect(() => {
     setIsFetching(true);
@@ -29,6 +35,7 @@ const OrderHistory = () => {
     });
   }, [getOrderHistoryTrigger]);
 
+  console.log(orderHistory);
   return (
     <div className="h-full w-full bg-neutral-800 fl2 relative">
       <div className="h-[10%] w-full flex justify-center items-center">
@@ -80,13 +87,15 @@ const OrderHistory = () => {
                         <div className="h-full w-[80%] md:w-[50%] p-4 ">
                           {" "}
                           <img
-                            src={item.productPicture}
+                            src={item.productPicture[0]}
                             className="h-full object-cover rounded-md w-full"
                           />
                         </div>
-                        <div className="h-full w-[70%] fl3 ml-4">
+                        <div className="h-full w-[40%] lg:w-[70%] fl3 ml-4">
                           <h1 className="text-base md:text-xl lg:text-3xl text-white">
-                            {item.productName}
+                            {item.productName.length > 15 && mobileActive
+                              ? item.productName.slice(0, 15)
+                              : item.productName}
                           </h1>
 
                           <p className="w-full overflow-hidden">
@@ -175,13 +184,16 @@ const OrderHistory = () => {
                         <div className="h-full w-[80%] md:w-[50%] p-4 ">
                           {" "}
                           <img
-                            src={item.productPicture}
+                            src={item.productPicture[0]}
                             className="h-full object-cover rounded-md w-full"
                           />
                         </div>
-                        <div className="h-full w-[70%] fl3 ml-4">
+
+                        <div className="h-full w-[40%] lg:w-[70%] fl3 ml-4">
                           <h1 className="text-base md:text-xl lg:text-3xl text-white">
-                            {item.productName}
+                            {item.productName.length > 15 && mobileActive
+                              ? item.productName.slice(0, 15)
+                              : item.productName}
                           </h1>
 
                           <p className="w-full overflow-hidden">

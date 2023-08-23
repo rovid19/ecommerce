@@ -163,7 +163,7 @@ const StoreProductModal = () => {
           }
           dispatch(removePic([]));
         }}
-        className=" text-black absolute top-2 right-2 lg:left-2 zeze  w-[10%]  lg:w-[5%] xl:w-[2%]"
+        className=" text-black absolute top-2 right-2 lg:left-2 zIn  w-[10%]  lg:w-[5%] xl:w-[2%]"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -201,7 +201,7 @@ const StoreProductModal = () => {
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
             fill="currentColor"
-            className="w-16 h-16 absolute right-2 bottom-2 text-white cursor-pointer hover:scale-95"
+            className="w-16 h-16 absolute right-2 bottom-2 text-neutral-900 cursor-pointer hover:scale-95"
             onClick={() => {
               dispatch(setviewImage(false));
               dispatch(setViewReviewPic(null));
@@ -224,9 +224,16 @@ const StoreProductModal = () => {
         setProductPicture={setProductPicture}
       />
       {/* DETAILS ABOUT PRODUCT */}
-      <div className="h-[50%] w-full lg:w-[75%]  p-4 relative">
+      <div className="h-[50%] w-full lg:w-[75%]  p-4 relative ">
+        <div className=" h-[15%] w-[30%] lg:w-[100px]  absolute top-2 right-0 lg:right-4 flex items-center justify-center">
+          <h1 className="text-neutral-300 text-4xl lg:text-4xl font-bold">
+            {productPrice}€
+          </h1>
+        </div>
         {/* PRODUCT TITLE*/}
-        <h1 className="text-4xl lg:text-6xl">{productTitle}</h1>
+        <div className="w-[70%]">
+          <h1 className="text-4xl lg:text-6xl">{productTitle}</h1>
+        </div>
         {/* PRODUCT DESCRIPTION */}
         <p className="mt-4 break-words w-full lg:w-[70%]">
           {" "}
@@ -260,6 +267,18 @@ const StoreProductModal = () => {
           {/* PRODUCT RATING*/}
           <div className=" absolute h-full  right-0 flex items-center w-[10%] lg:w-[5%] justify-center">
             <h2 className="text-xl">{storeProducts.productScore}</h2>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              class="w-4 h-4 ml-1"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.007 5.404.433c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.433 2.082-5.006z"
+                clip-rule="evenodd"
+              />
+            </svg>
           </div>
         </div>
       </div>

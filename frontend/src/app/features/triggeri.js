@@ -12,7 +12,7 @@ const initialState = {
     closeNavbar: false,
     productPicture: [],
     cartClassname:
-      " bg-neutral-900  text-neutral-300 shadow-xl p-3 z-50 h-full w-full absolute right-0 top-0 ",
+      " bg-neutral-900  text-neutral-300 shadow-xl p-3 z-50 h-full w-full absolute right-0 top-0 zeze",
   },
 };
 

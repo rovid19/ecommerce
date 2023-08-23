@@ -4,8 +4,16 @@ import { motion } from "framer-motion";
 import { fetchStoreProducts } from "../../app/features/User/userSlice";
 
 const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
+  // REDUX
   const products = useSelector((state) => state.userData.value.products);
+  const mobileActive = useSelector(
+    (state) => state.triggeri.value.mobileActive
+  );
+
+  // OTHER
   const dispatch = useDispatch();
+
+  // USEEFFECTS
   useEffect(() => {
     const isProduct = async () => {
       if (products && Object.keys(products === 0)) {
@@ -20,7 +28,7 @@ const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
         initial={{ x: 100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ type: "tween", duration: 0.2 }}
-        className="lg:h-[50%] h-[80%] w-full lg:w-[50%] bg-neutral-900 fl2 relative rounded-md p-4"
+        className="lg:h-[70%] 2xl:h-[50%] 2xl:w-[50%] h-[80%] w-full lg:w-[70%] bg-neutral-900 fl2 relative rounded-md p-4"
       >
         <button
           className="absolute top-2 left-2"
@@ -67,10 +75,19 @@ const AddProductModal = ({ setAddProductModalVisible, setProduct }) => {
                     </div>
                     <div className="p-4  border-r-2 border-neutral-900 border-opacity-20">
                       <h1 className="text-xl text-white">
-                        {product.productName}
+                        {product.productName.length > 25 && !mobileActive
+                          ? product.productName.slice(0, 25) + ".."
+                          : product.productName.length > 9 && mobileActive
+                          ? product.productName.slice(0, 9) + ".."
+                          : product.productName}
                       </h1>
                       <h3 className="text-white text-sm">
-                        {product.productDescription}
+                        {product.productDescription.length > 50 && !mobileActive
+                          ? product.productDescription.slice(0, 50)
+                          : product.productDescription.length > 30 &&
+                            mobileActive
+                          ? product.productDescription.slice(0, 30)
+                          : product.productDescription}
                       </h3>
                     </div>
                     <div className="flex items-center justify-center">

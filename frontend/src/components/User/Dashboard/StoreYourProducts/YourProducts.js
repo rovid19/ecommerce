@@ -18,6 +18,8 @@ const StoreAddProducts = () => {
   const [collectionProd, setCollectionProd] = useState(null);
   const [collectionId, setCollectionId] = useState(null);
   const [collectionNewOrder, setCollectionNewOrder] = useState([]);
+  const [scrollBack, setScrollBack] = useState(null);
+  const [timeoutScroll, setTimeoutScroll] = useState(100);
 
   // REDUX
   const editProductModal = useSelector((state) => state.editProductModal.value);
@@ -35,6 +37,7 @@ const StoreAddProducts = () => {
   const dispatch = useDispatch();
   const dragItem = useRef(null);
   const dragOverItem = useRef(null);
+  const sectionRef = useRef();
   //postavljanje slike
   const styles = {
     backgroundImage: `url(${user.store.storeCover})`,
@@ -128,7 +131,7 @@ const StoreAddProducts = () => {
     });
   };
 
-  //spremanje novog arraya u backend
+  //spremanje novog arraya u backendu
   async function handleSortSave() {
     let data = await axios.post("/api/store/save-sorted-products", {
       collectionNewOrder,
@@ -140,6 +143,19 @@ const StoreAddProducts = () => {
     setCollectionId(null);
     dispatch(fetchUserData());
   }
+
+  useEffect(() => {
+    const scroll = () => {
+      setScrollBack(sectionRef.current.scrollTop);
+      setTimeoutScroll();
+    };
+
+    sectionRef.current.addEventListener("scroll", scroll);
+
+    /*return () => {
+      sectionRef.current.removeEventListener("scroll", scroll);
+    };*/
+  }, []);
 
   return (
     <div
@@ -165,7 +181,7 @@ const StoreAddProducts = () => {
       >
         <div className="h-full w-full bg-neutral-900 bg-opacity-50 absolute top-0 left-0"></div>
         {editMode && (
-          <div className="w-full h-full bgneutral-900k bg-opacity-50 absolute top-0 left-0 z-20">
+          <div className="w-full h-full bg-neutral-900 bg-opacity-50 absolute top-0 left-0 z-20">
             {" "}
           </div>
         )}
@@ -175,6 +191,11 @@ const StoreAddProducts = () => {
               type="checkbox"
               className="hidden"
               onChange={() => {
+                sectionRef.current.scrollTo({
+                  top: scrollBack - scrollBack,
+                  left: 0,
+                });
+
                 dispatch(setEditMode(!editMode));
                 handleSortSave();
               }}
@@ -206,6 +227,7 @@ const StoreAddProducts = () => {
         </article>
       </div>
       <section
+        ref={sectionRef}
         className={
           editMode
             ? "h-[55%] lg:h-[65%] w-full overflow-scroll scrollbar-hide relative border-[8px] border-orange-500 transition-all"

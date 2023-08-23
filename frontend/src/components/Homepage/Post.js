@@ -185,7 +185,17 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
             </>
           ) : (
             <>
-              <div className="absolute top-0 left-0 h-full w-full flex items-center">
+              <div className="absolute top-0 left-0 h-full w-full flex items-center ">
+                {post.postProduct.productOnSale > 0 && (
+                  <div className="h-[50px] w-[50px] bg-orange-500 rounded-full absolute top-2 right-2 z-10 flex items-center justify-center ">
+                    <h1 className="text-white ">
+                      <span className="text-xl">
+                        {post.postProduct.productOnSale}
+                      </span>
+                      %
+                    </h1>
+                  </div>
+                )}
                 <h1 className="absolute left-2 top-2 bg-neutral-900 p-2 text-neutral-300 rounded-md text-sm">
                   {pictureIndex + 1}/
                   {post && post.postProduct.productPicture.length}
@@ -245,7 +255,7 @@ const Post = ({ post, setIndex, index, setPostTrigger, postTrigger }) => {
               </div>
               <img
                 src={post && post.postProduct.productPicture[pictureIndex]}
-                className="h-full w-full object-cover rounded-md  "
+                className="h-full w-full object-scale-down rounded-md bg-white  "
               ></img>
               <div
                 onClick={() =>

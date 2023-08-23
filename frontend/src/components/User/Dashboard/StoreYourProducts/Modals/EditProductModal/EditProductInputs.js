@@ -19,6 +19,8 @@ const EditProductInputs = ({
   productDescription,
   setIsFetching,
   currentProduct,
+  discountInput,
+  setDiscountInput,
 }) => {
   // STATES
   const [index, setIndex] = useState();
@@ -27,6 +29,8 @@ const EditProductInputs = ({
   const [collectionIndex, setCollectionIndex] = useState(0);
   const [oldCollection, setOldCollection] = useState(null);
   const [oldCollectionId, setOldCollectionId] = useState(null);
+  const [productNewPrice, setProductNewPrice] = useState(null);
+  const [saleVisible, setSaleVisible] = useState(false);
 
   // REDUX
   const user = useSelector((state) => state.userData.value.user);
@@ -78,6 +82,20 @@ const EditProductInputs = ({
     }
   }, [oldCollection]);
 
+  // Izracun cijene popusta na proizvod
+  useEffect(() => {
+    if (discountInput > 0) {
+      if (productNewPrice > 0) {
+      }
+      const oldPrice = productPrice;
+      const oduzmi = (oldPrice * discountInput) / 100;
+      const newPrice = oldPrice - oduzmi;
+      setProductNewPrice(newPrice);
+    } else if (discountInput === 0) {
+      setProductNewPrice(productPrice);
+    }
+  }, [discountInput]);
+
   // FUNCTIONS
   function handleEditProduct(e) {
     setIsFetching(true);
@@ -89,6 +107,7 @@ const EditProductInputs = ({
         productTitle,
         productDescription,
         productPrice,
+        salePercentage: discountInput,
         collection: collectionValue,
         collectionId: user.store.storeCollections[collectionIndex]._id,
         oldCollection,
@@ -126,9 +145,92 @@ const EditProductInputs = ({
     }
   }
 
+  // Izracun cijene proizvoda ako popust vec postoji
+  const calculateOriginalPrice = () => {
+    const popustDecimal = discountInput / 100;
+    const oldPrice = productPrice;
+    const newPrice = oldPrice / (1 - popustDecimal);
+
+    setProductNewPrice(newPrice);
+    setProductPrice(newPrice);
+    setDiscountInput(0);
+  };
+  console.log(discountInput, productPrice);
   return (
     <form onSubmit={handleEditProduct} className="h-[95%]">
-      <div className="lg:h-[350px] h-[300px] rounded-lg w-full overflow-hidden">
+      {saleVisible && (
+        <div className="h-full w-full bg-neutral-900 bg-opacity-50  absolute top-0 left-0 zeze flex items-center justify-center rounded-md">
+          <div className="h-[50%] w-[80%] bg-neutral-800 relative flex items-center justify-center rounded-md">
+            {" "}
+            <button
+              className="absolute top-2 left-2"
+              onClick={(e) => {
+                e.preventDefault();
+                setSaleVisible(false);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                class="w-8 h-8 text-neutral-300 hover:bg-orange-500 hover:text-white rounded-md p-1"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M9.53 2.47a.75.75 0 010 1.06L4.81 8.25H15a6.75 6.75 0 010 13.5h-3a.75.75 0 010-1.5h3a5.25 5.25 0 100-10.5H4.81l4.72 4.72a.75.75 0 11-1.06 1.06l-6-6a.75.75 0 010-1.06l6-6a.75.75 0 011.06 0z"
+                  clip-rule="evenodd"
+                />
+              </svg>
+            </button>
+            <div className="h-[80%] w-[80%] fl2 text-neutral-300 relative ">
+              <h1 className="text-4xl mb-2">Enter discount</h1>
+              <div className="relative w-[50%] h-[50px] ">
+                <input
+                  value={discountInput}
+                  min="0"
+                  max="100"
+                  type="number"
+                  className=" h-full w-full text-2xl text-neutral-900 text-center rounded-md"
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    if (e.target.value > 100) {
+                      alert("you can only use numbers from 0 to 100");
+                    } else {
+                      setDiscountInput(e.target.value);
+                    }
+                  }}
+                />
+                <h1 className="absolute right-2 top-0 h-full flex items-center text-xl text-neutral-800">
+                  %
+                </h1>
+              </div>
+              <div className="flex items-center gap-2 justify-center h-[50px] mt-2 ">
+                <h2 className="text-2xl ">New price:</h2>
+                <h1 className="bg-orange-500 text-white  p-2 rounded-md text-xl ">
+                  {Math.floor(productNewPrice)}$
+                </h1>
+              </div>
+              <button
+                onClick={() => {
+                  setProductPrice(productNewPrice);
+                  setSaleVisible(false);
+                }}
+                className="absolute bottom-2 text-white rounded-md border-2 border-orange-500 w-[20%] h-[10%] hover:bg-orange-500 transition-all "
+              >
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="lg:h-[350px] h-[300px] rounded-lg w-full overflow-hidden relative">
+        {discountInput > 0 && (
+          <div className="h-[50px] w-[50px] bg-orange-500 rounded-full absolute top-2 left-2 zeze flex items-center justify-center ">
+            <h1 className="text-white ">
+              <span className="text-xl">{discountInput}</span>%
+            </h1>
+          </div>
+        )}
         <label
           className={
             productPicture
@@ -247,13 +349,31 @@ const EditProductInputs = ({
           defaultValue={currentProduct && currentProduct.productDescription}
         />{" "}
         <div className="relative ">
-          <input
-            type="number"
-            className="text-xl  w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500 h-[15%]"
-            placeholder="Price of your product"
-            onChange={(e) => setProductPrice(e.target.value)}
-            defaultValue={currentProduct && currentProduct.productNewPrice}
-          />
+          <div className="w-full relative">
+            <input
+              type="number"
+              className="text-xl  w-full border-b-2 border-neutral-600 border-opacity-10 p-2 bg-neutral-800 text-white placeholder-neutral-500 h-[15%]"
+              placeholder="Price of your product"
+              onChange={(e) => setProductPrice(Number(e.target.value))}
+              defaultValue={productPrice ? Math.floor(productPrice) : ""}
+            />
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                if (discountInput > 0) {
+                  calculateOriginalPrice();
+                } else {
+                  setSaleVisible(true);
+                  setProductNewPrice(productPrice);
+                }
+              }}
+              className="absolute right-0 top-0 h-full border-2 border-orange-500 bg-nuetral-800 z-50 p-1 text-neutral-300 rounded-md hover:bg-orange-500 hover:text-white"
+            >
+              {discountInput > 0
+                ? "Remove product from sale"
+                : "Add product on sale"}
+            </button>
+          </div>
           <label className="w-full   ">
             <h1 className="text-neutral-500 pl-2 text-xl mt-1">Collection:</h1>
             <select

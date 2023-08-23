@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../Models/user.js";
 import { Store } from "../Models/store.js";
-import Product from "../Models/product.js";
+import { Product } from "../Models/product.js";
 import Collection from "../Models/collection.js";
 
 const jwtSecret = "rockjefakatludirock";
@@ -23,7 +23,7 @@ export const getUser = async (req, res) => {
           populate: {
             path: "collectionProducts",
             select:
-              "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold",
+              "productName productCollection productPicture productDescription productRating productNewPrice productOldPrice productSold productOnSale",
           },
         },
       });

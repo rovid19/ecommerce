@@ -89,7 +89,7 @@ const OrderHistoryModal = ({
         </button>
         <div className="w-[30%] h-full">
           <img
-            src={orderHistory[index].productBought[indexDva].productPicture}
+            src={orderHistory[index].productBought[indexDva].productPicture[0]}
             className="w-full h-full object-cover rounded-r-md rounded-l-md"
           ></img>
         </div>
@@ -102,8 +102,13 @@ const OrderHistoryModal = ({
           )}
           <div className="w-[80%] h-[85%]     ">
             <div className="h-[70%] w-full  bg-opacity-25 relative ">
-              <h1 className="text-xl md:text-4xl lg:text-6xl 2xl:text-8xl">
-                {orderHistory[index].productBought[indexDva].productName}
+              <h1 className="text-xl md:text-4xl lg:text-5xl 2xl:text-8xl">
+                {orderHistory[index].productBought[indexDva].productName
+                  .length > 15
+                  ? orderHistory[index].productBought[
+                      indexDva
+                    ].productName.slice(0, 15) + ".."
+                  : orderHistory[index].productBought[indexDva].productName}
               </h1>
               {orderHistory[index].productShipped ? (
                 ""

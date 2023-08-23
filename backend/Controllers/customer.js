@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import User from "../Models/user.js";
 import { Store } from "../Models/store.js";
-import Product from "../Models/product.js";
+import { Product } from "../Models/product.js";
 import bcryptjs from "bcryptjs";
 import Sale from "../Models/sale.js";
 import Review from "../Models/review.js";
@@ -33,7 +33,7 @@ export const getProductsFromCart = async (req, res) => {
     if (err) throw err;
     const user = await User.findById(userData.id).populate(
       "addToCart",
-      "productName productPicture productDescription productRating productNewPrice productOldPrice quantity"
+      "productName productPicture productDescription productRating productNewPrice productOldPrice quantity productOnSale"
     );
 
     res.json(user.addToCart);
@@ -188,7 +188,7 @@ export const getOrderHistory = async (req, res) => {
       populate: {
         path: "productBought",
         select:
-          "productName productPicture productDescription productNewPrice productRating productScore ",
+          "productName productPicture productDescription productNewPrice productRating productScore productOnSale ",
       },
     });
 
@@ -546,11 +546,17 @@ export const getAllPosts = async (req, res) => {
     {
       path: "postProduct",
       select:
-        "productName productPicture productDescription productNewPrice productRating productScore",
+        "productName productPicture productDescription productNewPrice productRating productScore productOnSale",
     },
   ]);
 
-  res.json(allPosts);
+  let sortFromMostLikes = allPosts.sort(
+    (a, b) => b.postLikes.length - a.postLikes.length
+  );
+
+  console.log(sortFromMostLikes);
+
+  res.json(sortFromMostLikes);
 };
 
 export const likePost = async (req, res) => {
@@ -625,7 +631,7 @@ export const specificUserPosts = async (req, res) => {
     {
       path: "postProduct",
       select:
-        "productName productPicture productDescription productNewPrice productRating productScore",
+        "productName productPicture productDescription productNewPrice productRating productScore productOnSale",
     },
   ]);
 
@@ -655,9 +661,11 @@ export const followingsFeed = async (req, res) => {
     {
       path: "postProduct",
       select:
-        "productName productPicture productDescription productNewPrice productRating productScore ",
+        "productName productPicture productDescription productNewPrice productRating productScore productOnSale",
     },
   ]);
+
+  user.followings.push(userId);
 
   let postsArray = [];
   user.followings.forEach((following) => {

@@ -26,6 +26,9 @@ const AddToCart = () => {
   const cartClassname = useSelector(
     (state) => state.triggeri.value.cartClassname
   );
+  const mobileActive = useSelector(
+    (state) => state.triggeri.value.mobileActive
+  );
 
   // OTHER
   const formattedDate = date.toLocaleDateString("en-US", {
@@ -163,11 +166,19 @@ const AddToCart = () => {
                 src={item.productPicture[0]}
                 className="w-[35%] h-full object-cover rounded-sm"
               ></img>
-              <div className="ml-2 h-full w-[50%]">
-                <h1 className="text-base lg:text-xl 2xl:text-2xl ">
-                  {item.productName}
-                </h1>
-                <h2 className="">{item.productNewPrice}$</h2>
+              <div className="ml-2 h-full w-[50%] ">
+                <div className="h-[40%] lg:h-[60%]">
+                  <h1 className="text-base lg:text-base 2xl:text-xl ">
+                    {item.productName.length > 25 && !mobileActive
+                      ? item.productName.slice(0, 25) + ".."
+                      : item.productName.length > 9 && mobileActive
+                      ? item.productName.slice(0, 9) + ".."
+                      : item.productName}
+                  </h1>
+                </div>
+                <div className=" h-[20%] lg:h-[40%] lg:pt-1">
+                  <h2 className="">{item.productNewPrice}$</h2>
+                </div>
               </div>
               <div className="h-full absolute right-2 ">
                 <div className=" h-full fl2 ">

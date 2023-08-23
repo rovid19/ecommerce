@@ -63,7 +63,7 @@ const HomepageTrending = () => {
                   <div className="h-full lg:h-[90%] flex items-center  gap-4 min-w-min relative">
                     {collection.collectionProducts.map((product) => {
                       return (
-                        <article className="h-[90%] w-[250px] ">
+                        <article className="h-full w-[250px] ">
                           <StoreProductCard storeProducts={product} />
                         </article>
                       );
