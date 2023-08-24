@@ -96,7 +96,7 @@ const AddProductInputs = ({
       .post("/api/store/add-product", {
         productPicture,
         productTitle,
-        productDescription,
+        productDescription: productDescription ? productDescription : "-",
         productPrice,
         productStore: user.store._id,
         collection: collections,
