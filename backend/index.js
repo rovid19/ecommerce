@@ -41,7 +41,7 @@ app.use("/uploads", express.static(__dirname + "/uploads"));
 
 const httpServer = createServer(app);
 httpServer.listen(port);
-const io = new Server(/*4005*/ port, {
+const io = new Server(httpServer /*4005 port*/, {
   cors: {
     credentials: true,
     origin: ["http://localhost:3000"],
