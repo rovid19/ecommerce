@@ -29,7 +29,7 @@ app.use(
   })
 );
 app.use(express.json());
-app.listen(port, "0.0.0.0");
+//app.listen(port, "0.0.0.0");
 //app.listen(PORT);
 
 app.use("/api/auth", authRoute);
@@ -44,7 +44,7 @@ httpServer.listen(port);
 const io = new Server(httpServer /*4005 port*/, {
   cors: {
     credentials: true,
-    origin: ["http://localhost:3000"],
+    origin: ["http://localhost:3000", "https://rocks-market.up.railway.app"],
   },
 });
 
