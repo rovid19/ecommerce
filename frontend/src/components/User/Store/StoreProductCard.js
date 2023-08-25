@@ -59,6 +59,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
           navigate(
             `/store/${storeData.storeName}/product/${storeProducts._id}`
           );
+
           dispatch(setProductIndex(index));
         }
       }}

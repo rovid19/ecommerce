@@ -224,7 +224,7 @@ const Navbar = () => {
                   {user && Object.keys(user).length > 0 ? (
                     <li
                       onClick={() => {
-                        dispatch(setActive("Home"));
+                        dispatch(setActive("homepage"));
                         handleLogout();
                       }}
                       className="text-center h-[45px] text-xl rounded-md p-1  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1"

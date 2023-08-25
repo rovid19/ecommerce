@@ -83,7 +83,7 @@ const Homepage = () => {
         ) : (
           <>
             <div className="h-full w-full grid grid-rows-2">
-              <section className=" h-full w-full relative group">
+              <section className=" h-full w-full relative ">
                 <h1 className="absolute bottom-0 rounded-r-md text-white left-0 z-20 text-2xl bg-neutral-800 p-4 group-hover:invisible transition-all">
                   Trending store this week{" "}
                 </h1>

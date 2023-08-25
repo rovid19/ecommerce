@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet, useNavigate, useParams } from "react-router-dom";
 import Loader from "../../assets/svg-loaders/three-dots.svg";
 import {
   setSearch,
@@ -10,6 +10,7 @@ import {
 } from "../../app/features/User/search";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import StoreProductCard from "../User/Store/StoreProductCard";
 
 const Search = () => {
   // STATES
@@ -35,6 +36,7 @@ const Search = () => {
   // OTHER
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const da = useParams();
 
   // USEEFFECT
   useEffect(() => {
@@ -61,17 +63,23 @@ const Search = () => {
   // FUNCTIONS
   function handleSearch(e) {
     e.preventDefault();
-    axios
-      .post("/api/customer/search", { searchValue, option })
-      .then(({ data }) => {
-        setOutletOn(true);
-        navigate(`/search/${option}/${searchValue}`);
-        dispatch(setSearchResults(data));
-        dispatch(setSearch(searchValue));
-        dispatch(setSearchOption(option));
-        setStores(null);
-        setSortBy(null);
-      });
+    if (searchValue) {
+      axios
+        .post("/api/customer/search", { searchValue, option })
+        .then(({ data }) => {
+          setOutletOn(true);
+          navigate(`/search/${option}/${searchValue}`);
+          dispatch(setSearchResults(data));
+          dispatch(setSearch(searchValue));
+          dispatch(setSearchOption(option));
+          setStores(null);
+          setSortBy(null);
+        });
+    } else {
+      alert(
+        "you must type something into a search bar in order to search for it"
+      );
+    }
   }
 
   // Filter options
@@ -189,8 +197,8 @@ const Search = () => {
                 className="h-full w-full flex items-center bg-neutral-500 p-2 text-neutral-900"
                 onChange={(e) => setOption(e.target.value)}
               >
-                <option className="text-black">stores</option>
                 <option>products</option>
+                <option className="text-black">stores</option>
               </select>
             </label>
             <button className="absolute right-2 top-0 h-full flex items-center ">
@@ -286,30 +294,18 @@ const Search = () => {
             <img src={Loader}></img>
           </div>
         ) : (
-          <div className="w-full h-[100%] grid grid-cols-2 lg:grid-cols-3 dgri overflow-scroll scrollbar-hide p-4 gap-4  ">
+          <div className="w-full h-[100%] grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 dgri overflow-scroll scrollbar-hide p-4 gap-4  ">
             {stores &&
               stores.map((result, i) => {
                 return (
                   <article
-                    className={
-                      i > 2
-                        ? "h-full w-full mt-4 rounded-md shadow-2xl cursor-pointer bg-neutral-900 "
-                        : "h-full w-full  rounded-md shadow-2xl cursor-pointer bg-neutral-900 "
+                    onClick={() =>
+                      navigate(
+                        `/store/${result.store.storeName}/product/${result._id}`
+                      )
                     }
-                    onClick={() => {
-                      navigate(`/store/${result.storeName}/${result._id}`);
-                    }}
-                    key={i}
                   >
-                    {" "}
-                    <div className="h-[30%] w-full p-4 text-neutral-400">
-                      <span>Store name:</span>
-                      <h1 className="text-2xl"> {result.storeName}</h1>
-                    </div>
-                    <img
-                      src={result.storeProfile}
-                      className="h-[70%] w-full object-cover rounded-b-md rounded-md"
-                    ></img>
+                    <StoreProductCard index={i} storeProducts={result} />;
                   </article>
                 );
               })}

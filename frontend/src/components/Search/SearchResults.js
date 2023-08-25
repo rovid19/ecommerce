@@ -6,10 +6,11 @@ import StoreProductCard from "../User/Store/StoreProductCard";
 const SearchResults = () => {
   // REDUX
   const search = useSelector((state) => state.search.value);
+  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   // OTHER
   const navigate = useNavigate();
-
+  console.log(storeSubPage);
   return (
     <>
       <section
@@ -46,7 +47,17 @@ const SearchResults = () => {
                 </article>
               );
             } else {
-              return <StoreProductCard index={i} storeProducts={result} />;
+              return (
+                <article
+                  onClick={() =>
+                    navigate(
+                      `/store/${result.store.storeName}/product/${result._id}`
+                    )
+                  }
+                >
+                  <StoreProductCard index={i} storeProducts={result} />;
+                </article>
+              );
             }
           })}{" "}
       </section>

@@ -257,6 +257,8 @@ export const searchResults = async (req, res) => {
   } else {
     const regex = new RegExp(`${searchValue}`, "gi");
     const specificProduct = await Product.find({ productName: regex })
+
+      .populate("store", "storeName ")
       .lean()
       .exec();
     const jsonsend = [...specificProduct];

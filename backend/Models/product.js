@@ -22,7 +22,7 @@ const productSchema = new mongoose.Schema({
   productScore: { type: Number, default: 0 },
   quantity: { type: Number, default: 0 },
 
-  store: [{ type: mongoose.Schema.Types.ObjectId, ref: "store" }],
+  store: { type: mongoose.Schema.Types.ObjectId, ref: "store" },
 });
 
 const Product = mongoose.model("product", productSchema);

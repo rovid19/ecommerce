@@ -151,7 +151,7 @@ const StoreProductModal = () => {
       {/* CLOSE PRODUCT MODAL BUTTON*/}
       <button
         onClick={() => {
-          if (storeSubPage === "Search") {
+          if (storeSubPage === "search") {
             navigate(`/search/${search.searchOption}/${search.search}`);
           } else if (storeSubPage === "homepage") {
             dispatch(addSelectedProduct(null));

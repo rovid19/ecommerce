@@ -405,6 +405,11 @@ export const getLast5 = async (req, res) => {
 };
 
 export const getAllStores = async (req, res) => {
+  const allStores = await Product.find();
+
+  res.json(allStores);
+};
+export const getAllStores2 = async (req, res) => {
   const allStores = await Store.find().populate(
     "storeProducts",
     "productName productPicture productDescription productNewPrice productRating productScore "

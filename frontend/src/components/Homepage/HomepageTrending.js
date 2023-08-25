@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchTrendingStore } from "../../app/features/User/trendingStore";
 import { useNavigate } from "react-router-dom";
@@ -21,12 +21,7 @@ const HomepageTrending = () => {
   }, []);
 
   return (
-    <article
-      className="h-full w-full relative cursor-pointer fl3 lg:flex"
-      onClick={() =>
-        navigate(`/store/${trendingStore.storeName}/${trendingStore._id}`)
-      }
-    >
+    <article className="h-full w-full relative cursor-pointer fl3 lg:flex">
       <div className="h-full w-full overflow-hidden absolute top-0 left-0">
         <img
           src={trendingStore && trendingStore.storeCover}
@@ -34,7 +29,12 @@ const HomepageTrending = () => {
         />
       </div>
       <div className="absolute top-0 left-0 h-full w-full bg-black z-10 bg-opacity-40 transition-all"></div>
-      <div className="h-[40%] lg:h-full w-full lg:w-[50%] xl:w-[40%] 2xl:w-[30%] z-20 rounded-md flex  transition-all p-2 items-center">
+      <div
+        className="h-[40%] lg:h-full w-full lg:w-[50%] xl:w-[40%] 2xl:w-[30%] z-20 rounded-md flex  transition-all p-2 items-center"
+        onClick={() =>
+          navigate(`/store/${trendingStore.storeName}/${trendingStore._id}`)
+        }
+      >
         <img
           src={trendingStore && trendingStore.storeProfile}
           className="h-[150px] w-[100px] lg:h-[200px] lg:w-[200px]  object-cover z-20 rounded-md"
@@ -51,7 +51,7 @@ const HomepageTrending = () => {
         className={
           mobileActive
             ? "hidden"
-            : "h-[60%] lg:h-full lg:w-[50%] xl:w-[60%] 2xl:w-[70%] z-40  lg:absolute lg:right-0 flex items-center justify-center bg-neutral-900 bg-opacity-50 rounded-l-md p-4 overflow-x-auto "
+            : "h-[60%] lg:h-full lg:w-[50%] xl:w-[60%] 2xl:w-[70%] z-40  lg:absolute lg:right-0 flex items-center justify-center bg-neutral-900 bg-opacity-50 rounded-l-lg p-4 overflow-x-auto "
         }
       >
         {!mobileActive &&
@@ -63,7 +63,14 @@ const HomepageTrending = () => {
                   <div className="h-full lg:h-[90%] flex items-center  gap-4 min-w-min relative">
                     {collection.collectionProducts.map((product) => {
                       return (
-                        <article className="h-full w-[250px] ">
+                        <article
+                          className="h-full w-[250px] "
+                          onClick={() => {
+                            navigate(
+                              `/store/${product.store.storeName}/product/${product._id}`
+                            );
+                          }}
+                        >
                           <StoreProductCard storeProducts={product} />
                         </article>
                       );

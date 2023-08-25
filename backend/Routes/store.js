@@ -16,7 +16,7 @@ import {
   getTotalSales,
   getLast5,
   getTrendingStore,
-  getAllStores,
+  getAllStores2,
   getAllProducts,
   getMostSoldProduct,
   uploadVideo,
@@ -83,7 +83,7 @@ router.post("/get-last-5-sales", getLast5);
 
 router.get("/get-trending-store", getTrendingStore);
 
-router.get("/get-homepage", getAllStores);
+router.get("/get-homepage", getAllStores2);
 
 router.get("/get-products", getAllProducts);
 

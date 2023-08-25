@@ -11,6 +11,7 @@ import cookieParser from "cookie-parser";
 import customerRoute from "./Routes/customer.js";
 import { Server } from "socket.io";
 import Chat from "./Models/chat.js";
+import { createServer } from "http";
 
 const app = express();
 //const PORT = 5000;
@@ -38,13 +39,13 @@ app.use("/api/customer", customerRoute);
 
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
-const io = new Server(4005, {
+const httpServer = createServer(app);
+httpServer.listen(port);
+const io = new Server(/*4005*/ port, {
   cors: {
     credentials: true,
     origin: ["http://localhost:3000"],
   },
-  pingTimeout: 120000,
-  pingInterval: 50000,
 });
 
 io.on("connection", (socket) => {

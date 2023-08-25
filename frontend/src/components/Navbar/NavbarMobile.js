@@ -334,7 +334,7 @@ const NavbarMobile = () => {
                 {user ? (
                   <li
                     onClick={() => {
-                      dispatch(setActive("Home"));
+                      dispatch(setActive("homepage"));
                       handleLogout();
                     }}
                     className="self-end text-center h-[45px] text-xl w-full p-1 gap-2  text-gray-400 hover:text-white transition-all cursor-pointer bg-neutral-800 flex group mt-1 rounded-r-md"
