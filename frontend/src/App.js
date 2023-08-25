@@ -52,7 +52,7 @@ const App = () => {
   //konektaj socket ak ne postoji
   useEffect(() => {
     if (userData && Object.keys(socket).length === 0) {
-      const sockett = io.connect("http://localhost:4005");
+      const sockett = io.connect("https://ecommerce-production.up.railway.app");
       dispatch(setSocket(sockett));
 
       return () => {
