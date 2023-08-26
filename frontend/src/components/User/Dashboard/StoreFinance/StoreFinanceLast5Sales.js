@@ -13,14 +13,16 @@ const StoreFinanceLast5Sales = () => {
 
   // USEEFFECT
   useEffect(() => {
-    setIsFetching(true);
-    axios
-      .post("/api/store/get-last-5-sales", { storeId: user.store._id })
-      .then(({ data }) => {
-        setLast5(data.reverse());
-        setIsFetching(false);
-      });
-  }, []);
+    if (user && Object.keys(user).length > 0) {
+      setIsFetching(true);
+      axios
+        .post("/api/store/get-last-5-sales", { storeId: user.store._id })
+        .then(({ data }) => {
+          setLast5(data.reverse());
+          setIsFetching(false);
+        });
+    }
+  }, [user]);
 
   return (
     <div className="w-full h-full bg-neutral-800">
@@ -38,7 +40,6 @@ const StoreFinanceLast5Sales = () => {
       <div className="w-full h-[calc(98%-50px)] lg:h-[90%] overflow-y-scroll scrollbar-hide ">
         {last5 &&
           last5.map((item, index) => {
-            console.log(item.productBought);
             return (
               <article
                 className={

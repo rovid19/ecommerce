@@ -503,7 +503,7 @@ export const seenMessage = async (req, res) => {
 
 export const postUpload = async (req, res) => {
   const { text, videoForm, youtubeForm, product, userId, date } = req.body;
-  console.log(product);
+
   if (videoForm) {
     const post = await Post.create({
       postText: text,
@@ -555,8 +555,6 @@ export const getAllPosts = async (req, res) => {
   let sortFromMostLikes = allPosts.sort(
     (a, b) => b.postLikes.length - a.postLikes.length
   );
-
-  console.log(sortFromMostLikes);
 
   res.json(sortFromMostLikes);
 };

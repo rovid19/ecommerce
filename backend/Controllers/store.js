@@ -660,7 +660,5 @@ export const weeklySales = async (req, res) => {
     ],
   };
 
-  console.log(chartData.datasets[0].data);
-
   res.json(chartData);
 };

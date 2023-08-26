@@ -1,16 +1,8 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Link,
-  useNavigate,
-  NavLink,
-  useLocation,
-  useMatch,
-} from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { setEditMode } from "../../../app/features/Store/storeEditMode";
-import storeSubPage, {
-  getStoreSubPage,
-} from "../../../app/features/storeSubPage";
+import { getStoreSubPage } from "../../../app/features/storeSubPage";
 import Logo from "../../../assets/logo.png";
 
 const StoreDashboardNav = () => {

@@ -32,17 +32,19 @@ const StoreFinanceSales = () => {
 
   // USEEFFECTS
   useEffect(() => {
-    setIsFetching(true);
-    axios
-      .post("/api/store/get-daily-sales", {
-        formattedDate,
-        storeId: user && user.store._id,
-      })
-      .then(({ data }) => {
-        setDailySales(data);
-        setIsFetching(false);
-      });
-  }, [value]);
+    if (user && Object.keys(user).length > 0) {
+      setIsFetching(true);
+      axios
+        .post("/api/store/get-daily-sales", {
+          formattedDate,
+          storeId: user && user.store._id,
+        })
+        .then(({ data }) => {
+          setDailySales(data);
+          setIsFetching(false);
+        });
+    }
+  }, [value, user]);
 
   useEffect(() => {
     setCalendar(false);

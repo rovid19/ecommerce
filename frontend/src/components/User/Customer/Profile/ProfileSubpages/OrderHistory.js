@@ -35,7 +35,6 @@ const OrderHistory = () => {
     });
   }, [getOrderHistoryTrigger]);
 
-  console.log(orderHistory);
   return (
     <div className="h-full w-full bg-neutral-800 fl2 relative">
       <div className="h-[10%] w-full flex justify-center items-center">

@@ -192,7 +192,6 @@ const EditProductInputs = ({
                   type="number"
                   className=" h-full w-full text-2xl text-neutral-900 text-center rounded-md"
                   onChange={(e) => {
-                    console.log(e.target.value);
                     if (e.target.value > 100) {
                       alert("you can only use numbers from 0 to 100");
                     } else {

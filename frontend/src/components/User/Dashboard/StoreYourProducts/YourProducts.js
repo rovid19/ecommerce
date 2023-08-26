@@ -20,6 +20,7 @@ const StoreAddProducts = () => {
   const [collectionNewOrder, setCollectionNewOrder] = useState([]);
   const [scrollBack, setScrollBack] = useState(null);
   const [timeoutScroll, setTimeoutScroll] = useState(100);
+  const [styles, setStyles] = useState({});
 
   // REDUX
   const editProductModal = useSelector((state) => state.editProductModal.value);
@@ -39,16 +40,18 @@ const StoreAddProducts = () => {
   const dragOverItem = useRef(null);
   const sectionRef = useRef();
   //postavljanje slike
-  const styles = {
-    backgroundImage: `url(${user.store.storeCover})`,
-  };
 
   // USEEFFECTS
+  useEffect(() => {
+    if (user && Object.keys(user).length > 1) {
+      setStyles({
+        backgroundImage: `url(${user.store.storeCover})`,
+      });
+      setCollectionProd(user.store.storeCollections);
+    }
+  }, [user]);
 
   //postavljanje kolekcija na state unutar componenta
-  useEffect(() => {
-    setCollectionProd(user.store.storeCollections);
-  }, [user]);
 
   useEffect(() => {
     if (collectionId) {

@@ -20,12 +20,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 dotenv.config();
 mongoose.connect(process.env.MONGOOSE_CONNECT);
-
+// Websocketi
+const httpServer = createServer(app);
+httpServer.listen(port);
 app.use(cookieParser());
 app.use(
   cors({
     credentials: true,
-    origin: ["http://localhost:3000", "https://rocks-market.up.railway.app"],
+    origin: ["http://localhost:3001", "https://rocks-market.up.railway.app"],
   })
 );
 app.use(express.json());
@@ -39,12 +41,10 @@ app.use("/api/customer", customerRoute);
 
 app.use("/uploads", express.static(__dirname + "/uploads"));
 
-const httpServer = createServer(app);
-httpServer.listen(port);
 const io = new Server(httpServer /*4005 port*/, {
   cors: {
     credentials: true,
-    origin: ["http://localhost:3000", "https://rocks-market.up.railway.app"],
+    origin: ["http://localhost:3001", "https://rocks-market.up.railway.app"],
   },
 });
 
@@ -52,7 +52,6 @@ io.on("connection", (socket) => {
   console.log(`A user connected with socket id ${socket.id}`);
   const handleChange = () => {
     socket.emit("newChat");
-    console.log("nova poruka");
   };
   const chatChange = Chat.watch();
 

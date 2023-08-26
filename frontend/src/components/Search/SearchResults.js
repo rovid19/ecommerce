@@ -10,7 +10,7 @@ const SearchResults = () => {
 
   // OTHER
   const navigate = useNavigate();
-  console.log(storeSubPage);
+
   return (
     <>
       <section

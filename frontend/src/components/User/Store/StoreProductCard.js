@@ -42,7 +42,7 @@ const StoreProductCard = ({ storeProducts, index, storeData }) => {
       dispatch(setCartVisible(true));
     }
   }
-  console.log(storeProducts);
+
   return (
     <div
       className={

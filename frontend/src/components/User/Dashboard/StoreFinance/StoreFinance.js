@@ -23,13 +23,15 @@ const StoreFinance = () => {
 
   // USEEFFECTS
   useEffect(() => {
-    axios
-      .post("/api/store/get-last-week-sales", {
-        userId: user._id,
-        formattedDate,
-      })
-      .then(({ data }) => setSalesData(data));
-  }, []);
+    if (user && Object.keys(user).length > 1) {
+      axios
+        .post("/api/store/get-last-week-sales", {
+          userId: user._id,
+          formattedDate,
+        })
+        .then(({ data }) => setSalesData(data));
+    }
+  }, [user]);
 
   return (
     <div

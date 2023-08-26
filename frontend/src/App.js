@@ -29,7 +29,7 @@ import { setRunUseEffect } from "./app/features/triggeri";
 import Chat from "./components/User/Inbox/Chat";
 import { setSocket } from "./app/features/socket";
 
-//axios.defaults.baseURL = "http://localhost:5000";
+//axios.defaults.baseURL = "http://localhost:3000";
 axios.defaults.baseURL = "https://ecommerce-production.up.railway.app";
 axios.defaults.withCredentials = true;
 
@@ -72,14 +72,11 @@ const App = () => {
   }, []);
   useEffect(() => {
     if (runUseEffect) {
-      console.log("da pokrenulo se je");
       let totalCount = 0;
       userData.allChat.forEach((item) => {
         const zbroj = item.newChatCount - item.oldChatCount;
 
         totalCount += zbroj;
-
-        console.log(zbroj);
       });
 
       dispatch(setInboxMessages(totalCount));
@@ -91,7 +88,6 @@ const App = () => {
   useEffect(() => {
     if (socket.connected === true) {
       socket.on("newChat", async () => {
-        console.log("dada");
         await dispatch(fetchUserData()).unwrap();
         dispatch(setRunUseEffect(true));
       });
