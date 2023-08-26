@@ -49,7 +49,7 @@ const Layout = () => {
   }, []);
 
   return (
-    <main className="hajt flex relative">
+    <main className="h-screen w-screen flex relative">
       {cartItems.length > 0 && cartVisible === false ? (
         <article className="h-[50px] lg:h-[50px] w-[40px] lg:w-[40px]  flex items-center absolute z-40 right-0 bottom-0 lg:right-1   ">
           <button
