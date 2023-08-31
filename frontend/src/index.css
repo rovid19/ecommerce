@@ -580,3 +580,44 @@ input[type="radio"] {
     opacity: 0;
   }
 }
+
+/* ALERT BAR ANIMACIJA */
+.openAlertBar {
+  animation: alertBarOpen 0.3s ease-in-out forwards;
+}
+
+.closeAlertBar {
+  animation: alertBarClose 0.3s ease-in-out forwards;
+}
+
+@keyframes alertBarOpen {
+  from {
+    height: 50px;
+    width: 100px;
+    cursor: pointer;
+  }
+  to {
+    height: 100%;
+    width: 300px;
+    cursor: auto;
+  }
+}
+
+@keyframes alertBarClose {
+  from {
+    height: 100%;
+    width: 300px;
+    cursor: auto;
+  }
+  to {
+    height: 50px;
+    width: 100px;
+    cursor: pointer;
+  }
+}
+
+.proporcije {
+  height: 50px;
+  width: 100px;
+  overflow: hidden;
+}

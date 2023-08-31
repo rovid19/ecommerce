@@ -100,7 +100,13 @@ const Homepage = () => {
                       />
                     ))}
                 </div>
-                <h1 className="absolute right-0 bottom-0 bg-neutral-800 text-white p-2 text-xl rounded-l-md  ">
+                <h1
+                  className={
+                    user && Object.keys(user).length > 0
+                      ? "absolute left-0 bottom-0 bg-neutral-800 text-white p-2 text-xl rounded-l-md  "
+                      : "absolute right-0 bottom-0 bg-neutral-800 text-white p-2 text-xl rounded-l-md  "
+                  }
+                >
                   Other popular stores
                 </h1>
               </section>

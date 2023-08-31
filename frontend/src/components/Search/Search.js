@@ -15,7 +15,7 @@ import StoreProductCard from "../User/Store/StoreProductCard";
 const Search = () => {
   // STATES
   const [searchValue, setSearchValue] = useState(null);
-  const [option, setOption] = useState("stores");
+  const [option, setOption] = useState("products");
   const [filterVisible, setFilterVisible] = useState(false);
   const [sortBy, setSortBy] = useState(null);
   const [stores, setStores] = useState(null);
@@ -109,38 +109,44 @@ const Search = () => {
       }
     } else {
       newArray.sort((a, b) => {
-        let aProduct = a.storeName.toLowerCase();
-        let bProduct = b.storeName.toLowerCase();
+        let aProduct = a.productName.toLowerCase();
+        let bProduct = b.productName.toLowerCase();
         if (aProduct < bProduct) return -1;
         if (aProduct > bProduct) return 1;
         return 0;
       });
+      console.log(newArray);
       setStores(newArray);
     }
   }
   async function sortByPriceHighest() {
-    let newArray = [...search.searchResults];
+    let newArray = stores === null ? [...search.searchResults] : [...stores];
     newArray.sort((a, b) => {
       return b.productNewPrice - a.productNewPrice;
     });
 
     dispatch(setSearchResults(newArray));
+    setStores(newArray);
   }
   async function sortByPriceLowest() {
-    let newArray = [...search.searchResults];
+    let newArray = stores === null ? [...search.searchResults] : [...stores];
     newArray.sort((a, b) => {
       return a.productNewPrice - b.productNewPrice;
     });
 
     dispatch(setSearchResults(newArray));
+    setStores(newArray);
   }
   async function sortBySold() {
-    let newArray = [...search.searchResults];
+    let newArray = stores === null ? [...search.searchResults] : [...stores];
+
     newArray.sort((a, b) => {
       return b.productSold - a.productSold;
     });
+    console.log(newArray);
 
     dispatch(setSearchResults(newArray));
+    setStores(newArray);
   }
 
   return (

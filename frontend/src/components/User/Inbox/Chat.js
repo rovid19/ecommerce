@@ -71,8 +71,8 @@ const Chat = ({
             <article
               className={
                 i === 0
-                  ? "self-end max-w-[50%]  text-xl lg:max-w-[30%] min-w-[20%] break-words  bg-neutral-900 text-white p-4 rounded-l-md flex-col group relative inline-flex"
-                  : "self-end max-w-[50%]  lg:max-w-[30%] break-words  bg-neutral-900 text-white p-4 rounded-l-md flex-col group mt-4 relative inline-flex"
+                  ? "self-end max-w-[50%]   text-xl lg:max-w-[30%] min-w-[20%] break-words  bg-neutral-900 text-white p-4 rounded-l-md flex-col group relative inline-flex"
+                  : "self-end max-w-[50%]   lg:max-w-[30%] break-words  bg-neutral-900 text-white p-4 rounded-l-md flex-col group mt-4 relative inline-flex"
               }
             >
               <div className="h-full w-[30px] lg:w-[50px] flex justify-center absolute right-0 top-0">

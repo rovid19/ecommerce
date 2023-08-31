@@ -16,7 +16,7 @@ const HomepageStoreCard = ({ store, index }) => {
         className="h-full w-full object-cover group-hover:scale-125 transition-all "
       ></img>
       <div className="absolute top-0 left-0 bg-black bg-opacity-30 h-full w-full flex items-center justify-center group">
-        <h1 className="text-neutral-300 text-3xl group-hover:text-white ">
+        <h1 className="text-neutral-300 text-xl lg:text-3xl group-hover:text-white ">
           {store[index].storeName}
         </h1>
       </div>

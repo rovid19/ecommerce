@@ -6,7 +6,6 @@ import StoreProductCard from "../User/Store/StoreProductCard";
 const SearchResults = () => {
   // REDUX
   const search = useSelector((state) => state.search.value);
-  const storeSubPage = useSelector((state) => state.storeSubPage.value);
 
   // OTHER
   const navigate = useNavigate();

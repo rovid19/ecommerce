@@ -149,7 +149,10 @@ export const deleteProduct = async (req, res) => {
 export const getCurrentProduct = async (req, res) => {
   const { selectedProduct } = req.body;
 
-  const newProduct = await Product.findById(selectedProduct);
+  const newProduct = await Product.findById(selectedProduct).populate(
+    "store",
+    "storeName _id"
+  );
 
   res.json(newProduct);
 };

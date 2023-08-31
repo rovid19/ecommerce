@@ -5,9 +5,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { setCartVisible } from "../app/features/User/cartVisible";
 import { setMobileActive, setShowNavbar } from "../app/features/triggeri";
 import NavbarMobile from "./Navbar/NavbarMobile";
-import AddToCart from "./User/Customer/AddToCart";
+import NotificationBar from "./User/NotificationBar";
 
 const Layout = () => {
+  // STATES
+  const [className, setClassName] = useState(
+    "absolute bottom-0 right-0 proporcije bg-orange-500 zeze rounded-l-md cursor-pointer  transition-all "
+  );
+  const [alertBar, setAlertBar] = useState(false);
+
   // REDUX
   const showNavbar = useSelector((state) => state.triggeri.value.showNavbar);
   const mobileActive = useSelector(
@@ -15,11 +21,31 @@ const Layout = () => {
   );
   const cartItems = useSelector((state) => state.cartItems.value);
   const cartVisible = useSelector((state) => state.cartVisible.value);
+  const user = useSelector((state) => state.userData.value.user);
 
   // OTHER
   const dispatch = useDispatch();
 
   // USEEFFECTS
+
+  //dodavanje css-a ovisno o tome ako je notification bar otvoren ili zatvoren
+  useEffect(() => {
+    if (alertBar) {
+      // promjena boje notificationbara iz narancaste u crnu prilikom otvaranja notbara
+      setClassName((prev) => {
+        const newPrev = prev.replace("bg-orange-500", "bg-neutral-700");
+        return newPrev;
+      });
+    } else {
+      // promjena boje notificationbara iz crnu u narancastu prilikom zatvaranja notbara
+      setClassName((prev) => {
+        const newPrev = prev.replace("bg-neutral-700", "bg-orange-500");
+        return newPrev;
+      });
+    }
+  }, [alertBar]);
+
+  //
   useEffect(() => {
     const resizeFunc = () => {
       if (window.innerWidth <= 1024) {
@@ -38,7 +64,7 @@ const Layout = () => {
     };
   }, []);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (window.innerWidth <= 1024) {
       dispatch(setShowNavbar(false));
       dispatch(setMobileActive(true));
@@ -46,8 +72,8 @@ const Layout = () => {
       dispatch(setShowNavbar(true));
       dispatch(setMobileActive(false));
     }
-  }, []);
-
+  }, []);*/
+  console.log(alertBar);
   return (
     <main className="h-screen w-screen flex relative">
       {cartItems.length > 0 && cartVisible === false ? (
@@ -89,7 +115,21 @@ const Layout = () => {
         {mobileActive ? <NavbarMobile /> : <Navbar />}
       </div>
 
-      <div className={mobileActive ? "w-full h-full   " : "w-[88%] h-full   "}>
+      <div
+        className={
+          mobileActive
+            ? "w-full h-full relative  "
+            : "w-[88%] h-full  relative "
+        }
+      >
+        {user && Object.keys(user).length > 0 && (
+          <NotificationBar
+            alertBar={alertBar}
+            className={className}
+            setClassName={setClassName}
+            setAlertBar={setAlertBar}
+          />
+        )}
         <Outlet />
       </div>
     </main>

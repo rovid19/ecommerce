@@ -27,6 +27,7 @@ const userSchema = new mongoose.Schema({
   allChat: [],
   followings: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
   followers: [{ type: mongoose.Schema.Types.ObjectId, ref: "user" }],
+  notifications: [],
 });
 
 const userModel = mongoose.model("user", userSchema);

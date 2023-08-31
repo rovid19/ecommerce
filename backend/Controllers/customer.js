@@ -146,6 +146,8 @@ export const buyProduct = async (req, res) => {
   const { boughtItems, quantity, storeId, username, formattedDate, total } =
     req.body;
 
+  console.log(boughtItems);
+
   const newSale = await Sale.create({
     productBought: boughtItems,
     productQuantity: quantity,
@@ -213,9 +215,9 @@ export const postNote = async (req, res) => {
 export const cancelOrder = async (req, res) => {
   const { productId, idd } = req.body;
 
-  const fsale = await Sale.findById(idd);
+  const fsale = await Sale.findByIdAndRemove(idd);
 
-  const { productBought } = fsale;
+  /*const { productBought } = fsale;
 
   const newArray = productBought.filter((product) => product === productId);
 
@@ -227,9 +229,9 @@ export const cancelOrder = async (req, res) => {
 
   if (productBought.length === 0) {
     await Sale.findByIdAndDelete(idd);
-  }
+  }*/
 
-  res.json(fsale);
+  res.json("ok");
 };
 
 export const getStore = async (req, res) => {

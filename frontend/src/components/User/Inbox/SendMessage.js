@@ -14,9 +14,24 @@ const SendMessage = ({
   const [oldInput, setOldInput] = useState("");
   const [selectedUser, setSelectedUser] = useState(null);
   const [message, setMessage] = useState(null);
+  const [date, setDate] = useState(new Date());
 
   // REDUX
   const user = useSelector((state) => state.userData.value.user);
+
+  // OTHER
+  //date
+  const formattedDate = date.toLocaleDateString("en-US", {
+    month: "2-digit",
+    day: "2-digit",
+    year: "numeric",
+  });
+  //time
+  const formattedTime = date.toLocaleTimeString("en-US", {
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  });
 
   // USEEFFECTS
   // loadanje svih usera na stranici
@@ -54,6 +69,8 @@ const SendMessage = ({
       senderId: user._id,
       receiverId: selectedUser.userId,
       message,
+      date: formattedDate,
+      time: formattedTime,
     });
     setSendMessage(false);
     setFetchMessagesTrigger(!fetchMessagesTrigger);

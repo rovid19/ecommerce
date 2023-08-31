@@ -31,6 +31,7 @@ const StoreProductModal = () => {
   const [productPrice, setProductPrice] = useState(null);
   const [isFetching, setIsFetching] = useState(false);
   const [productPicture, setProductPicture] = useState([]);
+  const [storeData, setStoreData] = useState({});
 
   // REDUX
   const user = useSelector((state) => state.userData.value.user);
@@ -66,6 +67,7 @@ const StoreProductModal = () => {
         setProductTitle(data.productName);
         setProductDescription(data.productDescription);
         setProductPrice(data.productNewPrice);
+        setStoreData(data.store);
         dispatch(setProductPictures(data.productPicture));
       })
       .then(() => {
@@ -232,6 +234,23 @@ const StoreProductModal = () => {
         </div>
         {/* PRODUCT TITLE*/}
         <div className="w-[70%]">
+          <h3 className="text-neutral-500 mb-1 text-base ">
+            Seller:{" "}
+            <span
+              className="cursor-pointer hover:text-white transition-all"
+              onClick={() => {
+                if (storeSubPage === "search") {
+                  navigate(
+                    `/store/${storeData.storeName}/${storeData.store._id}`
+                  );
+                } else {
+                  navigate(-1);
+                }
+              }}
+            >
+              {storeData.storeName}
+            </span>
+          </h3>
           <h1 className="text-4xl lg:text-6xl">{productTitle}</h1>
         </div>
         {/* PRODUCT DESCRIPTION */}

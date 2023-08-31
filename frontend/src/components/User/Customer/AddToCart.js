@@ -3,7 +3,10 @@ import axios from "axios";
 import { setCartVisible } from "../../../app/features/User/cartVisible";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { removeCartItem } from "../../../app/features/User/cartItems";
+import {
+  removeCartItem,
+  setCartItems,
+} from "../../../app/features/User/cartItems";
 import { fetchUserData } from "../../../app/features/User/userSlice";
 import { setCartClassname } from "../../../app/features/triggeri";
 
@@ -90,11 +93,12 @@ const AddToCart = () => {
           quantity,
           formattedDate,
           storeId,
-          username,
+          username: user.username,
           total,
         })
         .then(() => {
           dispatch(fetchUserData());
+          alert("order bought");
         });
     } else {
       alert("you must make an account in order to buy this product");
