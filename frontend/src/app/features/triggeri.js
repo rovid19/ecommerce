@@ -13,6 +13,7 @@ const initialState = {
     productPicture: [],
     cartClassname:
       " bg-neutral-900  text-neutral-300 shadow-xl p-3 z-50 h-full w-full absolute right-0 top-0 zeze",
+    triggerGetChat: false,
   },
 };
 
@@ -50,6 +51,9 @@ export const triggeriSlice = createSlice({
     setCartClassname: (state, action) => {
       state.value.cartClassname = action.payload;
     },
+    setTriggerGetChat: (state, action) => {
+      state.value.triggerGetChat = action.payload;
+    },
   },
 });
 
@@ -64,6 +68,7 @@ export const {
   setCloseNavbar,
   setProductPictures,
   setCartClassname,
+  setTriggerGetChat,
 } = triggeriSlice.actions;
 
 export default triggeriSlice.reducer;

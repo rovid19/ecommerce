@@ -13,6 +13,9 @@ const Layout = () => {
     "absolute bottom-0 right-0 proporcije bg-orange-500 zeze rounded-l-md cursor-pointer  transition-all "
   );
   const [alertBar, setAlertBar] = useState(false);
+  const [chatMessageArray, setChatMessageArray] = useState([]);
+  const [allChat, setAllChat] = useState(null);
+  const [index, setIndex] = useState(null);
 
   // REDUX
   const showNavbar = useSelector((state) => state.triggeri.value.showNavbar);
@@ -73,7 +76,7 @@ const Layout = () => {
       dispatch(setMobileActive(false));
     }
   }, []);*/
-  console.log(alertBar);
+  console.log(chatMessageArray);
   return (
     <main className="h-screen w-screen flex relative">
       {cartItems.length > 0 && cartVisible === false ? (
@@ -128,7 +131,66 @@ const Layout = () => {
             className={className}
             setClassName={setClassName}
             setAlertBar={setAlertBar}
+            setChatMessageArray={setChatMessageArray}
+            chatMessageArray={chatMessageArray}
+            allChat={allChat}
+            setAllChat={setAllChat}
+            index={index}
+            setIndex={setIndex}
           />
+        )}
+        {chatMessageArray.length > 0 && (
+          <div
+            className={
+              alertBar
+                ? "absolute h-[5%] min-w-auto max-w-full gap-2 bottom-0 right-[300px]  z-50 flex transition-all pr-2"
+                : "absolute h-[5%] min-w-auto max-w-full gap-2 bottom-0 right-[100px]  z-50 flex transition-all pr-2 "
+            }
+          >
+            {chatMessageArray.map((chat, i) => {
+              const participant = chat.participants.filter(
+                (participant) => participant._id !== user._id
+              );
+
+              return (
+                <div className="h-full w-[50px] rounded-full self-end  cursor-pointer relative group">
+                  <img
+                    src={participant[0].profilePicture}
+                    className="h-full w-full object-cover rounded-full"
+                  ></img>
+                  <button
+                    className="absolute top-0 right-0 text-white hidden group-hover:block hover:text-orange-500"
+                    onClick={() => {
+                      const index = chatMessageArray.findIndex(
+                        (chatUser) => chatUser._id === chat._id
+                      );
+
+                      let newArray = [...chatMessageArray];
+
+                      const splicedItem = newArray.splice(index, 1);
+                      console.log(splicedItem);
+                      console.log(newArray);
+
+                      setChatMessageArray(newArray);
+                    }}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      class="w-6 h-6 "
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M12 2.25c-5.385 0-9.75 4.365-9.75 9.75s4.365 9.75 9.75 9.75 9.75-4.365 9.75-9.75S17.385 2.25 12 2.25zm-1.72 6.97a.75.75 0 10-1.06 1.06L10.94 12l-1.72 1.72a.75.75 0 101.06 1.06L12 13.06l1.72 1.72a.75.75 0 101.06-1.06L13.06 12l1.72-1.72a.75.75 0 10-1.06-1.06L12 10.94l-1.72-1.72z"
+                        clip-rule="evenodd"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              );
+            })}
+          </div>
         )}
         <Outlet />
       </div>

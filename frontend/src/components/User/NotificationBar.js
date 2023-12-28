@@ -1,20 +1,30 @@
 import React, { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { setTriggerGetChat } from "../../app/features/triggeri";
 
 const NotificationBar = ({
   alertBar,
   setAlertBar,
   className,
   setClassName,
+  chatMessageArray,
+  setChatMessageArray,
+  allChat,
+  setAllChat,
+  index,
+  setIndex,
 }) => {
   // STATES
-  const [allChat, setAllChat] = useState(null);
+
   const [sviRazgovori, setSviRazgovori] = useState(null);
   const [date, setDate] = useState(new Date());
 
   // REDUX
   const user = useSelector((state) => state.userData.value.user);
+  const triggerGetChat = useSelector(
+    (state) => state.triggeri.value.triggerGetChat
+  );
 
   // OTHER
   //date
@@ -29,6 +39,7 @@ const NotificationBar = ({
     minute: "2-digit",
     second: "2-digit",
   });
+  const dispatch = useDispatch();
 
   // USEEFFECTS
   // ucitaj sve chatove korisnika
@@ -39,11 +50,10 @@ const NotificationBar = ({
       setSviRazgovori(Array(data.length).fill(0));
       // setRunUseEffect(true);
     });
-  }, []);
+  }, [triggerGetChat]);
 
   // functions
   const calculateTimeFromLastMessage = (date, time) => {
-    console.log(time);
     // ako je poruka poslana danas
     if (date === formattedDate) {
       const trenutnoSati = Number(formattedTime.slice(0, 2));
@@ -106,7 +116,6 @@ const NotificationBar = ({
     }
   };
 
-  console.log(allChat);
   return (
     <div
       className={className}
@@ -115,6 +124,7 @@ const NotificationBar = ({
         } else {
           setClassName((prev) => prev + "openAlertBar");
           setAlertBar(true);
+          dispatch(setTriggerGetChat(!triggerGetChat));
         }
       }}
     >
@@ -189,7 +199,7 @@ const NotificationBar = ({
           </div>
           <div className="h-[55%] w-full bg-red-400 flex flex-col">
             <h1 className="p-2"> Chats: </h1>
-            <div className="bg-red-600 flex-grow">
+            <div className="bg-red-600 flex-grow overflow-scroll scrollbar-hide">
               {allChat &&
                 allChat.map((chat, i) => {
                   const filt = chat.participants.filter(
@@ -205,7 +215,13 @@ const NotificationBar = ({
                         //navigate(`/inbox/${chat._id}`);
                         //setChatVisible(true);
                         //setChat(chat);
-                        //setIndex(i);
+                        console.log(chatMessageArray);
+                        let newArray = [...chatMessageArray];
+
+                        console.log(newArray);
+                        newArray.push(chat);
+                        setChatMessageArray([...newArray]);
+                        setIndex(i);
 
                         const drugiUser = chat.participants.filter(
                           (loggedUser) => loggedUser._id !== user._id

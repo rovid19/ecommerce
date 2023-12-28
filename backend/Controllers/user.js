@@ -30,6 +30,8 @@ export const getUser = async (req, res) => {
 
       res.json(userData);
     });
+  } else {
+    res.json("pl");
   }
 };
 

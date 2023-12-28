@@ -1,0 +1,51 @@
+Date : 2023-10-29 23:52:17
+Directory : c:\Users\Ljubo\Documents\GitHub\ecommerce\backend
+Total : 21 files,  7768 codes, 32 comments, 437 blanks, all 8237 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |          2 |      6,201 |          0 |          2 |      6,203 |
+| JavaScript |         18 |      1,564 |         32 |        435 |      2,031 |
+| Properties |          1 |          3 |          0 |          0 |          3 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                      | files      | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                         |         21 |      7,768 |         32 |        437 |      8,237 |
+| . (Files)                                                                 |          4 |      6,257 |          5 |         11 |      6,273 |
+| Controllers                                                               |          4 |      1,211 |         25 |        307 |      1,543 |
+| Models                                                                    |          9 |        138 |          0 |         39 |        177 |
+| Routes                                                                    |          4 |        162 |          2 |         80 |        244 |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                  | language   | code       | comment    | blank      | total      |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\.env                    | Properties |          3 |          0 |          0 |          3 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Controllers\auth.js     | JavaScript |         65 |          0 |         10 |         75 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Controllers\customer.js | JavaScript |        532 |         19 |        132 |        683 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Controllers\store.js    | JavaScript |        524 |          6 |        138 |        668 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Controllers\user.js     | JavaScript |         90 |          0 |         27 |        117 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Models\addToCart.js     | JavaScript |          6 |          0 |          4 |         10 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Models\chat.js          | JavaScript |          7 |          0 |          4 |         11 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Models\collection.js    | JavaScript |          9 |          0 |          4 |         13 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Models\post.js          | JavaScript |         20 |          0 |          5 |         25 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Models\product.js       | JavaScript |         25 |          0 |          6 |         31 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Models\review.js        | JavaScript |         10 |          0 |          4 |         14 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Models\sale.js          | JavaScript |         14 |          0 |          4 |         18 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Models\store.js         | JavaScript |         15 |          0 |          4 |         19 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Models\user.js          | JavaScript |         32 |          0 |          4 |         36 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Routes\auth.js          | JavaScript |         10 |          0 |          7 |         17 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Routes\customer.js      | JavaScript |         67 |          0 |         34 |        101 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Routes\store.js         | JavaScript |         70 |          2 |         31 |        103 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\Routes\user.js          | JavaScript |         15 |          0 |          8 |         23 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\index.js                | JavaScript |         53 |          5 |          9 |         67 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\package-lock.json       | JSON       |      6,173 |          0 |          1 |      6,174 |
+| c:\Users\Ljubo\Documents\GitHub\ecommerce\backend\package.json            | JSON       |         28 |          0 |          1 |         29 |
+| Total                                                                     |            |      7,768 |         32 |        437 |      8,237 |
++---------------------------------------------------------------------------+------------+------------+------------+------------+------------+

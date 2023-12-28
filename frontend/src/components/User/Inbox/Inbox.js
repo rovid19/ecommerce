@@ -116,7 +116,6 @@ const Inbox = () => {
 
   // izracun kolko je vremena proslo od zadnje poruke
   const calculateTimeFromLastMessage = (date, time) => {
-    console.log(time);
     // ako je poruka poslana danas
     if (date === formattedDate) {
       const trenutnoSati = Number(formattedTime.slice(0, 2));

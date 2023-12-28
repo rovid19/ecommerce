@@ -115,7 +115,7 @@ const Search = () => {
         if (aProduct > bProduct) return 1;
         return 0;
       });
-      console.log(newArray);
+
       setStores(newArray);
     }
   }
@@ -143,7 +143,6 @@ const Search = () => {
     newArray.sort((a, b) => {
       return b.productSold - a.productSold;
     });
-    console.log(newArray);
 
     dispatch(setSearchResults(newArray));
     setStores(newArray);

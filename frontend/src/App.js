@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-import { Route, Routes } from "react-router-dom";
-import LoginPage from "./components/Login/LoginPage";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import LoginPage, { handleLogin } from "./components/Login/LoginPage";
 import RegisterPagePartTwo from "./components/Register/RegisterPagePartTwo.js";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,12 +25,13 @@ import Search from "./components/Search/Search.js";
 import Inbox from "./components/User/Inbox/Inbox.js";
 import { io } from "socket.io-client";
 import { setInboxMessages } from "./app/features/User/inboxMessages";
-import { setRunUseEffect } from "./app/features/triggeri";
+import { setActive, setRunUseEffect } from "./app/features/triggeri";
 import Chat from "./components/User/Inbox/Chat";
 import { setSocket } from "./app/features/socket";
+import { getStoreSubPage } from "./app/features/storeSubPage.js";
 
-axios.defaults.baseURL = "http://localhost:3000";
-//axios.defaults.baseURL = "https://ecommerce-production.up.railway.app";
+//axios.defaults.baseURL = "http://localhost:3000";
+axios.defaults.baseURL = "https://ecommerce-production.up.railway.app";
 axios.defaults.withCredentials = true;
 
 const App = () => {
@@ -47,6 +48,7 @@ const App = () => {
 
   // OTHER
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   // USEEFFECTS
   //konektaj socket ak ne postoji
@@ -62,13 +64,28 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    async function da() {
+    async function fetchData() {
       await dispatch(fetchUserData()).unwrap();
+      if (Object.keys(userData).length === 0) {
+        console.log("yes");
+        await axios.post("/api/auth/login-user", {
+          email: "DemoAccount@gmail.com",
+          password: "123123",
+        });
 
-      dispatch(fetchStoreProducts());
-      dispatch(setRunUseEffect(true));
+        await dispatch(fetchUserData()).unwrap();
+        dispatch(fetchStoreProducts());
+        dispatch(getStoreSubPage("homepage"));
+        dispatch(setRunUseEffect(true));
+        dispatch(setActive(null));
+        navigate("/");
+      } else {
+        dispatch(fetchStoreProducts());
+        dispatch(setRunUseEffect(true));
+      }
     }
-    da();
+
+    fetchData();
   }, []);
   useEffect(() => {
     if (runUseEffect) {
